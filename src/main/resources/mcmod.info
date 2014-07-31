@@ -1,0 +1,17 @@
+[
+{
+  "modid": "dyetopia",
+  "name": "Dyetopia",
+  "description": "Liquid dyes",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "http://www.github.com/ipsis/Dyetopia/",
+  "updateUrl": "",
+  "authorList": ["Ipsis"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": [
+    ]
+}
+]
