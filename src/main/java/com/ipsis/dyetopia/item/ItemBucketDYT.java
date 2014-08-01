@@ -4,18 +4,20 @@ import com.ipsis.dyetopia.creative.CreativeTab;
 import com.ipsis.dyetopia.reference.Reference;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.item.Item;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 
-public class ItemDYT extends Item {
+public class ItemBucketDYT extends ItemBucket {
 
-    public ItemDYT()
-    {
-        super();
-        this.maxStackSize = 1;
-        this.setCreativeTab(CreativeTab.DYT_TAB);
-        this.setNoRepair();
+    public ItemBucketDYT(Block block, String name) {
+
+        super(block);
+        setCreativeTab(CreativeTab.DYT_TAB);
+        setUnlocalizedName(name);
+        setContainerItem(Items.bucket);
     }
 
     @Override
@@ -41,4 +43,6 @@ public class ItemDYT extends Item {
     {
         return unlocalizedName.substring(unlocalizedName.indexOf(".") + 1);
     }
+
+
 }

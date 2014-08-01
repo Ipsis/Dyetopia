@@ -1,6 +1,10 @@
 package com.ipsis.dyetopia.proxy;
 
+import net.minecraftforge.client.event.TextureStitchEvent;
+
 public interface IProxy {
 
-    public void initTileEntities();
+    public abstract void registerEventHandlers();
+    public abstract void initTileEntities();
+    public abstract void textureHook(TextureStitchEvent.Post event);
 }

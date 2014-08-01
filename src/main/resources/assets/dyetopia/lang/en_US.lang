@@ -1,0 +1,13 @@
+key.categories.dyetopia=Dyetopia
+
+tile.dyetopia:fluid.dyered.name=Red Liquid Dye
+tile.dyetopia:fluid.dyeyellow.name=Yellow Liquid Dye
+tile.dyetopia:fluid.dyeblue.name=Blue Liquid Dye
+tile.dyetopia:fluid.dyewhite.name=White Liquid Dye
+tile.dyetopia:fluid.dyepure.name=Pure Liquid Dye
+
+item.dyetopia:bucketDyeRed.name=Red Liquid Dye Bucket
+item.dyetopia:bucketDyeYellow.name=Yellow Liquid Dye Bucket
+item.dyetopia:bucketDyeBlue.name=Blue Liquid Dye Bucket
+item.dyetopia:bucketDyeWhite.name=White Liquid Dye Bucket
+item.dyetopia:bucketDyePure.name=Pure Liquid Dye Bucket
