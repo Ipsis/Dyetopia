@@ -10,8 +10,21 @@ buildscript {
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
     }
+
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+    }
+}
+
+repositories {
+
+    maven { // The repo from which to get waila
+        name "Mobius Repo"
+        url "http://mobiusstrip.eu/maven"
+    }
+    maven { // the repo from which to get NEI and stuff
+        name 'CB Repo'
+        url "http://chickenbones.net/maven/"
     }
 }
 
@@ -39,6 +52,7 @@ minecraft {
     replace "@VERSION@",project.version
 }
 
+
 dependencies {
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
@@ -52,6 +66,9 @@ dependencies {
     // for more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
+
+    // I dont have to specify NEI.. because gradle magic. aka: transitive dependency resolution
+    compile "mcp.mobius.waila:Waila:1.5.3_1.7.10"
 
 }
 
@@ -74,3 +91,17 @@ processResources
                 exclude 'mcmod.info'
             }
         }
+
+// some crazy stuff to make sure the chicken stuff is in the mods folder...
+// because it wont work otherwise...  because FML doesnt laod coremods from the classpath
+task copyChicken(type: Copy, dependsOn: "extractUserDev") {
+    from { configurations.compile }
+    include "**/*Chicken*.jar", "**/*NotEnoughItems*.jar"
+    exclude "**/CodeChickenLib*" // because CCC downloads it anyways.. -_-
+    into file(minecraft.runDir + "/mods")
+
+    mustRunAfter "deobfBinJar"
+    mustRunAfter "repackMinecraft"
+}
+tasks.setupDevWorkspace.dependsOn copyChicken
+tasks.setupDecompWorkspace.dependsOn copyChicken
