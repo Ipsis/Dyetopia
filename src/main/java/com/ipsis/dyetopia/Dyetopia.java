@@ -3,6 +3,7 @@ package com.ipsis.dyetopia;
 import com.ipsis.dyetopia.block.DYTBlocks;
 import com.ipsis.dyetopia.fluid.DYTFluids;
 import com.ipsis.dyetopia.item.DYTItems;
+import com.ipsis.dyetopia.manager.MultiBlockPatternManager;
 import com.ipsis.dyetopia.network.PacketHandler;
 import com.ipsis.dyetopia.proxy.IProxy;
 import com.ipsis.dyetopia.reference.Reference;
@@ -11,6 +12,7 @@ import com.ipsis.dyetopia.util.LogHelper;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -36,6 +38,8 @@ public class Dyetopia {
         DYTFluids.preInit();
         DYTBlocks.preInit();
         DYTItems.preInit(); /* We have buckets, so the fluid block needs to be available first! */
+
+        FMLInterModComms.sendMessage("Waila", "register", "com.ipsis.dyetopia.plugins.waila.DYTWailaProvider.callbackRegister");
     }
 
     @Mod.EventHandler
@@ -48,6 +52,8 @@ public class Dyetopia {
         proxy.registerEventHandlers();
 
         proxy.initTileEntities();
+
+        MultiBlockPatternManager.registerPatterns();
     }
 
     @Mod.EventHandler

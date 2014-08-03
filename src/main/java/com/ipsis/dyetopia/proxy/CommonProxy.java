@@ -3,6 +3,9 @@ package com.ipsis.dyetopia.proxy;
 import com.ipsis.dyetopia.block.DYTBlocks;
 import com.ipsis.dyetopia.handler.BucketHandler;
 import com.ipsis.dyetopia.item.DYTItems;
+import com.ipsis.dyetopia.tileentity.TileEntityMultiBlockBase;
+import com.ipsis.dyetopia.tileentity.TileEntitySqueezer;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -10,6 +13,8 @@ public abstract class CommonProxy implements IProxy {
 
     public void initTileEntities() {
 
+        GameRegistry.registerTileEntity(TileEntityMultiBlockBase.class, "tile.multiBlockBase");
+        GameRegistry.registerTileEntity(TileEntitySqueezer.class, "tile.squeezer");
     }
 
     public void registerEventHandlers() {

@@ -20,6 +20,16 @@ public class DYTBlocks {
         GameRegistry.registerBlock(blockFluidDyeBlue, "blockDyeBlue");
         GameRegistry.registerBlock(blockFluidDyeWhite, "blockDyeWhite");
         GameRegistry.registerBlock(blockFluidDyePure, "blockDyePure");
+
+        blockCasing = new BlockCasing();
+        blockController = new BlockController();
+        blockSqueezer = new BlockSqueezer();
+        blockValve = new BlockValve();
+
+        GameRegistry.registerBlock(blockCasing, "blockCasing");
+        GameRegistry.registerBlock(blockController, "blockController");
+        GameRegistry.registerBlock(blockSqueezer, "blockSqueezer");
+        GameRegistry.registerBlock(blockValve, "blockValve");
     }
 
     public static void initialize() {
@@ -35,4 +45,9 @@ public class DYTBlocks {
     public static BlockFluidDYT blockFluidDyeBlue;
     public static BlockFluidDYT blockFluidDyeWhite;
     public static BlockFluidDYT blockFluidDyePure;
+
+    public static BlockDYT blockCasing;
+    public static BlockDYT blockController;
+    public static BlockDYT blockSqueezer;
+    public static BlockDYT blockValve;
 }
