@@ -9,7 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileEntityMultiBlockMaster extends TileEntityMultiBlockBase {
+public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBase {
 
     private int tickCount;
     private static final int CHECK_VALID_TICKS = 40;

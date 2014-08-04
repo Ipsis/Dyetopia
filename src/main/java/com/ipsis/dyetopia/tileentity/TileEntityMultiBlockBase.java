@@ -98,4 +98,14 @@ public class TileEntityMultiBlockBase extends TileEntityDYT {
         readFromNBT(pkt.func_148857_g());
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
+
+    @Override
+    public String toString() {
+
+        if (this.hasMaster)
+            return "Master @ (" + this.masterX + ", " + this.masterY + ", " + this.masterZ + ")";
+        else
+            return "No Master";
+
+    }
 }
