@@ -2,6 +2,7 @@ package com.ipsis.dyetopia.block;
 
 import com.ipsis.dyetopia.tileentity.TileEntityMultiBlockBase;
 import com.ipsis.dyetopia.tileentity.TileEntityValve;
+import com.ipsis.dyetopia.util.TankType;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.ITileEntityProvider;
@@ -19,25 +20,26 @@ public class BlockValve extends BlockDYTMultiBlock implements ITileEntityProvide
     }
 
     @SideOnly(Side.CLIENT)
-    IIcon[] formedColorIcons;
-    IIcon formedIcon;
-
-    @SideOnly(Side.CLIENT)
-    private String[] colors = { "red", "yellow", "blue", "white" };
+    IIcon[] formedIcons;
 
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister)
     {
+        formedIcons = new IIcon[6];
+
+        /* unformed icon */
         blockIcon = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
 
-        int i = 0;
-        formedColorIcons = new IIcon[colors.length];
-        for (String s : colors) {
-            formedColorIcons[i] = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName() + "_" + s + "_formed")));
-            i++;
-        }
-        formedIcon = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName() + "_formed")));
+        /* formed but uncolored */
+        formedIcons[0] = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName() + "_formed")));
+
+        /* formed and colored */
+        formedIcons[1] = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName() + "_" + TankType.RED.getName() + "_formed")));
+        formedIcons[2] = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName() + "_" + TankType.YELLOW.getName() + "_formed")));
+        formedIcons[3] = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName() + "_" + TankType.BLUE.getName() + "_formed")));
+        formedIcons[4] = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName() + "_" + TankType.WHITE.getName() + "_formed")));
+        formedIcons[5] = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName() + "_" + TankType.PURE.getName() + "_formed")));
     }
 
     @SideOnly(Side.CLIENT)
@@ -45,9 +47,26 @@ public class BlockValve extends BlockDYTMultiBlock implements ITileEntityProvide
     public IIcon getIcon(IBlockAccess iblockaccess, int x, int y, int z, int side) {
 
         TileEntity te = iblockaccess.getTileEntity(x, y, z);
-        if (te != null && te instanceof TileEntityMultiBlockBase) {
-            if (((TileEntityMultiBlockBase)te).hasMaster())
-                return formedIcon;
+        if (te != null && te instanceof TileEntityValve) {
+            if (((TileEntityValve)te).hasMaster()) {
+
+                switch (((TileEntityValve)te).getColor()) {
+                    case NONE:
+                        return formedIcons[0];
+                    case RED:
+                        return formedIcons[1];
+                    case YELLOW:
+                        return formedIcons[2];
+                    case BLUE:
+                        return formedIcons[3];
+                    case WHITE:
+                        return formedIcons[4];
+                    case PURE:
+                        return formedIcons[5];
+                    default:
+                        return formedIcons[0];
+                }
+            }
         }
 
 		/* Assume everything else is the same icon */

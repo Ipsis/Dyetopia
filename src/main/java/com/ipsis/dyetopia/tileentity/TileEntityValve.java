@@ -1,6 +1,10 @@
 package com.ipsis.dyetopia.tileentity;
 
-import com.ipsis.dyetopia.util.LogHelper;
+import com.ipsis.dyetopia.util.TankType;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
@@ -10,15 +14,32 @@ import net.minecraftforge.fluids.IFluidHandler;
 
 public class TileEntityValve extends TileEntityMultiBlockBase implements IFluidHandler{
 
-    /* 0 - none, 1 - red, 2 - yellow, 3 - blue, 4 - white, 5 - pure */
-    private int color;
+    private Color color;
 
     public TileEntityValve() {
 
-        this.color = 0;
+        this.color = Color.NONE;
     }
 
-    public int getColor() { return this.color; }
+    public Color getColor() { return this.color; }
+
+    public void setColor(Color color) { this.color = color; }
+
+    private TankType getTankFromColor() {
+
+        switch (this.color) {
+            case RED:
+                return TankType.RED;
+            case YELLOW:
+                return TankType.YELLOW;
+            case BLUE:
+                return TankType.BLUE;
+            case WHITE:
+                return TankType.WHITE;
+            default:
+                return null;
+        }
+    }
 
     private TileEntityMultiBlockMaster getMasterTE() {
 
@@ -33,16 +54,14 @@ public class TileEntityValve extends TileEntityMultiBlockBase implements IFluidH
 
     /****************
      * IFluidHandler
-     * This just passes through to the master block (if it exists) and it is a
-     * FluidHandler
+     * This just passes through to the master block (if it exists)
      */
-
     @Override
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
 
         TileEntityMultiBlockMaster m = this.getMasterTE();
-        if (m != null && m instanceof IFluidHandler)
-            return ((IFluidHandler)m).fill(from, resource, doFill);
+        if (m != null && m instanceof ITankHandler && getTankFromColor() != null)
+            return ((ITankHandler)m).fill(getTankFromColor(), from, resource, doFill);
 
         return 0;
     }
@@ -51,8 +70,8 @@ public class TileEntityValve extends TileEntityMultiBlockBase implements IFluidH
     public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
 
         TileEntityMultiBlockMaster m = this.getMasterTE();
-        if (m != null && m instanceof IFluidHandler)
-            return ((IFluidHandler)m).drain(from, resource, doDrain);
+        if (m != null && m instanceof ITankHandler && getTankFromColor() != null)
+            return ((ITankHandler)m).drain(getTankFromColor(), from, resource, doDrain);
 
         return null;
     }
@@ -61,8 +80,8 @@ public class TileEntityValve extends TileEntityMultiBlockBase implements IFluidH
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
 
         TileEntityMultiBlockMaster m = this.getMasterTE();
-        if (m != null && m instanceof IFluidHandler)
-            return ((IFluidHandler)m).drain(from, maxDrain, doDrain);
+        if (m != null && m instanceof ITankHandler && getTankFromColor() != null)
+            return ((ITankHandler)m).drain(getTankFromColor(), from, maxDrain, doDrain);
 
         return null;
     }
@@ -71,8 +90,8 @@ public class TileEntityValve extends TileEntityMultiBlockBase implements IFluidH
     public boolean canFill(ForgeDirection from, Fluid fluid) {
 
         TileEntityMultiBlockMaster m = this.getMasterTE();
-        if (m != null && m instanceof IFluidHandler)
-            return ((IFluidHandler)m).canFill(from, fluid);
+        if (m != null && m instanceof ITankHandler && getTankFromColor() != null)
+            return ((ITankHandler)m).canFill(getTankFromColor(), from, fluid);
 
         return false;
     }
@@ -81,8 +100,8 @@ public class TileEntityValve extends TileEntityMultiBlockBase implements IFluidH
     public boolean canDrain(ForgeDirection from, Fluid fluid) {
 
         TileEntityMultiBlockMaster m = this.getMasterTE();
-        if (m != null && m instanceof IFluidHandler)
-            return ((IFluidHandler)m).canDrain(from, fluid);
+        if (m != null && m instanceof ITankHandler && getTankFromColor() != null)
+            return ((ITankHandler)m).canDrain(getTankFromColor(), from, fluid);
 
         return false;
     }
@@ -91,16 +110,61 @@ public class TileEntityValve extends TileEntityMultiBlockBase implements IFluidH
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
 
         TileEntityMultiBlockMaster m = this.getMasterTE();
-        if (m != null && m instanceof IFluidHandler) {
-            FluidTankInfo[] t = ((IFluidHandler) m).getTankInfo(from);
-            LogHelper.info(t.length);
-            for (FluidTankInfo tank : t) {
-                LogHelper.info(tank);
-
-            }
+        if (m != null && m instanceof ITankHandler) {
+            FluidTankInfo[] t = ((ITankHandler) m).getTankInfo(from);
             return t;
         }
 
         return null;
+    }
+
+    /**
+     * NBT and description packet
+     */
+    @Override
+    public void writeToNBT(NBTTagCompound nbttagcompound) {
+        super.writeToNBT(nbttagcompound);
+
+        nbttagcompound.setInteger("Color", this.color.ordinal());
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound nbttagcompound) {
+        super.readFromNBT(nbttagcompound);
+
+        color = Color.getColor(nbttagcompound.getInteger("Color"));
+    }
+
+    @Override
+    public Packet getDescriptionPacket() {
+
+        NBTTagCompound nbttagcompound = new NBTTagCompound();
+        writeToNBT(nbttagcompound);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, nbttagcompound);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+
+        readFromNBT(pkt.func_148857_g());
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+    }
+
+    public static enum Color {
+        NONE,
+        RED,
+        YELLOW,
+        BLUE,
+        WHITE,
+        PURE;
+
+        public static Color VALID_COLORS[] = { NONE, RED, YELLOW, BLUE, WHITE, PURE };
+
+        public static Color getColor(int id) {
+            if (id < 0 || id >= VALID_COLORS.length)
+                return NONE;
+
+            return VALID_COLORS[id];
+        }
     }
 }

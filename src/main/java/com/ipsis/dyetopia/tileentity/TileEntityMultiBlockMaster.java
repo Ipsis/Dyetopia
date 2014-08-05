@@ -8,6 +8,7 @@ import com.ipsis.dyetopia.util.multiblock.MultiBlockPattern;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBase {
 
@@ -21,6 +22,15 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
         this.structureValid = false;
     }
 
+    protected ForgeDirection getPatternOrientation() {
+
+        /**
+         * Pattern is defined as looking at the multiblock.
+         * TE facing is looking out from the multiblock.
+         */
+        return this.getDirectionFacing().getOpposite();
+    }
+
     /**
      * Processing
      */
@@ -30,15 +40,16 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
             for (int row = 0; row < pattern.getRows(); row++) {
                 for (int col = 0; col < pattern.getCols(); col++) {
 
-                    BlockPosition p = new BlockPosition(this.xCoord, this.yCoord, this.zCoord, this.getDirectionFacing());
+                    BlockPosition p = new BlockPosition(
+                            this.xCoord, this.yCoord, this.zCoord,
+                            getPatternOrientation());
                     p.y += (slice - 1);
-                    p.moveBackwards(row);
+                    p.moveForwards(row);
 
-                    /* This needs to be flipped as the pattern is looking AT the forward facing side */
                     if (col == 0)
-                        p.moveRight(1);
-                    else if (col == 2)
                         p.moveLeft(1);
+                    else if (col == 2)
+                        p.moveRight(1);
 
                     ItemStack itemStack = pattern.getItemStackAt(slice, row, col);
                     Block b = this.worldObj.getBlock(p.x, p.y, p.z);
@@ -58,14 +69,16 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
             for (int row = 0 ; row < pattern.getRows(); row++) {
                 for (int col = 0; col < pattern.getCols(); col++) {
 
-                    BlockPosition p = new BlockPosition(this.xCoord, this.yCoord, this.zCoord, this.getDirectionFacing());
+                    BlockPosition p = new BlockPosition(
+                            this.xCoord, this.yCoord, this.zCoord,
+                            getPatternOrientation());
                     p.y += (slice - 1);
-                    p.moveBackwards(row);
+                    p.moveForwards(row);
 
                     if (col == 0)
-                        p.moveRight(1);
-                    else if (col == 2)
                         p.moveLeft(1);
+                    else if (col == 2)
+                        p.moveRight(1);
 
                     Block b = this.worldObj.getBlock(p.x, p.y, p.z);
                     if (b instanceof BlockDYTMultiBlock) {
@@ -96,9 +109,12 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
             if (this.structureValid != isNowValid) {
                 updateStructure(isNowValid);
                 this.structureValid = isNowValid;
+                this.onStructureValidChanged(isNowValid);
             }
         }
     }
+
+    public void onStructureValidChanged(boolean isNowValid) { }
 
     @Override
     public void breakStructure() {
