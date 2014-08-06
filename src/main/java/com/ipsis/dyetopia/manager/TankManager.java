@@ -1,16 +1,16 @@
 package com.ipsis.dyetopia.manager;
 
 import com.ipsis.dyetopia.util.LogHelper;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class TankManager {
 
@@ -77,7 +77,6 @@ public class TankManager {
 
         return tanks.put(name, new TankConfig(capacity)) != null;
     }
-
 
     public void blockTankDrainAll(String name) {
 
@@ -184,5 +183,47 @@ public class TankManager {
         }
 
         return info;
+    }
+
+    /**
+     * NBT
+     */
+    public void readFromNBT(NBTTagCompound nbttagcompound) {
+
+        NBTTagList nbttaglist = nbttagcompound.getTagList("Tanks", Constants.NBT.TAG_COMPOUND);
+        for (int i = 0; i < nbttaglist.tagCount(); i++) {
+            NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
+
+            String name = nbttagcompound1.getString("Name");
+            if (tanks.get(name) != null) {
+                FluidTank f = tanks.get(name).tank;
+                if (f != null)
+                    f.readFromNBT(nbttagcompound1);
+            }
+        }
+    }
+
+    public void writeToNBT(NBTTagCompound nbttagcompound) {
+
+        NBTTagList nbttaglist = new NBTTagList();
+
+        Iterator it = tanks.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pairs = (Map.Entry)it.next();
+
+            NBTTagCompound nbttagcompound1 = new NBTTagCompound();
+            nbttagcompound1.setString("Name", (String)pairs.getKey());
+            ((FluidTank)pairs.getValue()).writeToNBT(nbttagcompound1);
+            nbttaglist.appendTag(nbttagcompound1);
+        }
+
+        nbttagcompound.setTag("Tanks", nbttaglist);
+    }
+
+    /* Server->client GUI sync ONLY */
+    public void setTank(String name, Fluid f, int amount) {
+
+        if (tanks.get(name) != null)
+            tanks.get(name).tank.setFluid(new FluidStack(f, amount));
     }
 }
