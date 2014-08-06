@@ -1,7 +1,7 @@
 package com.ipsis.dyetopia.tileentity;
 
-import cofh.util.BlockHelper;
-import cofh.util.position.BlockPosition;
+import cofh.lib.util.helpers.BlockHelper;
+import cofh.lib.util.position.BlockPosition;
 import com.ipsis.dyetopia.block.BlockDYTMultiBlock;
 import com.ipsis.dyetopia.manager.MultiBlockPatternManager;
 import com.ipsis.dyetopia.util.multiblock.MultiBlockPattern;

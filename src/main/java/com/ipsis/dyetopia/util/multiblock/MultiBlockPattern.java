@@ -1,6 +1,5 @@
 package com.ipsis.dyetopia.util.multiblock;
 
-import cofh.util.position.BlockPosition;
 import com.ipsis.dyetopia.util.LogHelper;
 import net.minecraft.item.ItemStack;
 

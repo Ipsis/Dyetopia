@@ -1,16 +1,14 @@
 package com.ipsis.dyetopia.gui;
 
-import cofh.gui.GuiBase;
-import cofh.gui.element.ElementDualScaled;
-import cofh.gui.element.ElementFluidTank;
-import com.ipsis.dyetopia.fluid.DYTFluids;
+import cofh.lib.gui.GuiBase;
+import cofh.lib.gui.element.ElementDualScaled;
+import cofh.lib.gui.element.ElementFluidTank;
 import com.ipsis.dyetopia.gui.container.ContainerSqueezer;
 import com.ipsis.dyetopia.reference.Reference;
 import com.ipsis.dyetopia.tileentity.TileEntitySqueezer;
 import com.ipsis.dyetopia.util.TankType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidStack;
 
 public class GuiSqueezer extends GuiBase {
 
@@ -44,6 +42,6 @@ public class GuiSqueezer extends GuiBase {
 
     @Override
     protected void updateElementInformation() {
-        
+
     }
 }

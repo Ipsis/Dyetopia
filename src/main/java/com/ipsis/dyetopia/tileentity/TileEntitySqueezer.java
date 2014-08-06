@@ -1,6 +1,6 @@
 package com.ipsis.dyetopia.tileentity;
 
-import cofh.util.position.BlockPosition;
+import cofh.lib.util.position.BlockPosition;
 import com.ipsis.dyetopia.fluid.DYTFluids;
 import com.ipsis.dyetopia.manager.TankManager;
 import com.ipsis.dyetopia.util.TankType;

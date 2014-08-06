@@ -1,6 +1,6 @@
 package com.ipsis.dyetopia.util;
 
-import cofh.util.ItemHelper;
+import cofh.lib.util.helpers.ItemHelper;
 import net.minecraft.item.ItemStack;
 
 public class OreDictHelper {
