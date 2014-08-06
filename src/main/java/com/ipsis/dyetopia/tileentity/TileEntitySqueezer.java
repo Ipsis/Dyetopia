@@ -4,21 +4,25 @@ import cofh.util.position.BlockPosition;
 import com.ipsis.dyetopia.fluid.DYTFluids;
 import com.ipsis.dyetopia.manager.TankManager;
 import com.ipsis.dyetopia.util.TankType;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 
-public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements ITankHandler {
+public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements ITankHandler, ISidedInventory {
 
     private TankManager tankMgr;
     private static final int TANK_CAPACITY = 40000;
-
+    private static final int INPUT_SLOT = 0;
 
     public TileEntitySqueezer() {
         super();
         this.setMaster(this);
+        inventory = new ItemStack[1];
 
         setupTanks();
 
@@ -113,5 +117,56 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
 
         return this.tankMgr.getTankInfo(from);
+    }
+
+    /**
+     * NBT
+     */
+    /**
+     * NBT and description packet
+     */
+    @Override
+    public void writeToNBT(NBTTagCompound nbttagcompound) {
+        super.writeToNBT(nbttagcompound);
+
+        this.tankMgr.writeToNBT(nbttagcompound);
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound nbttagcompound) {
+        super.readFromNBT(nbttagcompound);
+
+        this.tankMgr.readFromNBT(nbttagcompound);
+    }
+
+    /**
+     * ISidedInventory
+
+     */
+
+    private static final int[] accessSlots = new int[]{ INPUT_SLOT };
+    @Override
+    public int[] getAccessibleSlotsFromSide(int side) {
+
+        /* All slots accessible from all sides */
+        return accessSlots;
+    }
+
+    @Override
+    public boolean canInsertItem(int slot, ItemStack itemStack, int side) {
+
+        if (slot != INPUT_SLOT)
+            return false;
+
+        return true;
+        /* TODO what can we insert */
+        //return MKManagers.squeezerMgr.isSqueezable(itemStack);
+    }
+
+    @Override
+    public boolean canExtractItem(int slot, ItemStack itemStack, int side) {
+
+        /* Nothing to extract from this machine */
+        return false;
     }
 }
