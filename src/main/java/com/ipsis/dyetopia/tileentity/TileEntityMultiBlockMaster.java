@@ -262,4 +262,5 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
             stack.stackSize = getInventoryStackLimit();
         markDirty();
     }
+
 }

@@ -2,6 +2,7 @@ package com.ipsis.dyetopia.tileentity;
 
 import cofh.lib.util.position.BlockPosition;
 import com.ipsis.dyetopia.fluid.DYTFluids;
+import com.ipsis.dyetopia.manager.DyeSourceManager;
 import com.ipsis.dyetopia.manager.TankManager;
 import com.ipsis.dyetopia.util.TankType;
 import net.minecraft.inventory.ISidedInventory;
@@ -17,7 +18,7 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
 
     private TankManager tankMgr;
     private static final int TANK_CAPACITY = 40000;
-    private static final int INPUT_SLOT = 0;
+    public static final int INPUT_SLOT = 0;
 
     public TileEntitySqueezer() {
         super();
@@ -25,11 +26,6 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
         inventory = new ItemStack[1];
 
         setupTanks();
-
-        this.tankMgr.fill(TankType.RED.getName(), ForgeDirection.DOWN, new FluidStack(DYTFluids.fluidDyeRed, 40000), true);
-        this.tankMgr.fill(TankType.YELLOW.getName(), ForgeDirection.DOWN, new FluidStack(DYTFluids.fluidDyeYellow, 40000), true);
-        this.tankMgr.fill(TankType.BLUE.getName(), ForgeDirection.DOWN, new FluidStack(DYTFluids.fluidDyeBlue, 40000), true);
-        this.tankMgr.fill(TankType.WHITE.getName(), ForgeDirection.DOWN, new FluidStack(DYTFluids.fluidDyeWhite, 40000), true);
     }
 
     private void setValveColor(BlockPosition p, TileEntityValve.Color color) {
@@ -84,6 +80,11 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
         this.tankMgr.registerTank(TankType.YELLOW.getName(), TANK_CAPACITY);
         this.tankMgr.registerTank(TankType.BLUE.getName(), TANK_CAPACITY);
         this.tankMgr.registerTank(TankType.WHITE.getName(), TANK_CAPACITY);
+
+        this.tankMgr.addToWhitelist(TankType.RED.getName(), DYTFluids.fluidDyeRed);
+        this.tankMgr.addToWhitelist(TankType.YELLOW.getName(), DYTFluids.fluidDyeYellow);
+        this.tankMgr.addToWhitelist(TankType.BLUE.getName(), DYTFluids.fluidDyeBlue);
+        this.tankMgr.addToWhitelist(TankType.WHITE.getName(), DYTFluids.fluidDyeWhite);
     }
 
     /***************
@@ -145,9 +146,7 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
 
     /**
      * ISidedInventory
-
      */
-
     private static final int[] accessSlots = new int[]{ INPUT_SLOT };
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
@@ -172,5 +171,30 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
 
         /* Nothing to extract from this machine */
         return false;
+    }
+
+    @Override
+    public boolean isItemValidForSlot(int slot, ItemStack stack) {
+
+        if (slot == INPUT_SLOT && stack != null && DyeSourceManager.getInstance().isSource(stack))
+            return true;
+
+        return false;
+    }
+
+    /**
+     * Fake processing
+     */
+    @Override
+    public void updateEntity() {
+        super.updateEntity();
+
+        if (worldObj.isRemote)
+            return;
+
+        this.tankMgr.fill(TankType.RED.getName(), ForgeDirection.DOWN, new FluidStack(DYTFluids.fluidDyeRed, 1), true);
+        this.tankMgr.fill(TankType.YELLOW.getName(), ForgeDirection.DOWN, new FluidStack(DYTFluids.fluidDyeYellow, 1), true);
+        this.tankMgr.fill(TankType.BLUE.getName(), ForgeDirection.DOWN, new FluidStack(DYTFluids.fluidDyeBlue, 1), true);
+        this.tankMgr.fill(TankType.WHITE.getName(), ForgeDirection.DOWN, new FluidStack(DYTFluids.fluidDyeWhite, 1), true);
     }
 }

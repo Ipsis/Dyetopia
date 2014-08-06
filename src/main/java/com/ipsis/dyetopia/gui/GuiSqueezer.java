@@ -31,10 +31,10 @@ public class GuiSqueezer extends GuiBase {
         super.initGui();
 
         /* tanks */
-        addElement(new ElementFluidTank(this, 60, 12, this.squeezer.getTankMgr().getTank(TankType.RED.getName())));
-        addElement(new ElementFluidTank(this, 78, 12, this.squeezer.getTankMgr().getTank(TankType.YELLOW.getName())));
-        addElement(new ElementFluidTank(this, 96, 12, this.squeezer.getTankMgr().getTank(TankType.BLUE.getName())));
-        addElement(new ElementFluidTank(this, 114, 12, this.squeezer.getTankMgr().getTank(TankType.WHITE.getName())));
+        addElement(new ElementFluidTank(this, 96, 12, this.squeezer.getTankMgr().getTank(TankType.RED.getName())));
+        addElement(new ElementFluidTank(this, 114, 12, this.squeezer.getTankMgr().getTank(TankType.YELLOW.getName())));
+        addElement(new ElementFluidTank(this, 132, 12, this.squeezer.getTankMgr().getTank(TankType.BLUE.getName())));
+        addElement(new ElementFluidTank(this, 150, 12, this.squeezer.getTankMgr().getTank(TankType.WHITE.getName())));
 
         this.progress = ((ElementDualScaled)addElement(new ElementDualScaled(this, 28, 54).setMode(1).setBackground(false).setSize(24, 16).setTexture(Reference.GUI_PROGRESS_TEXTURE, 64, 64)));
         addElement(progress);
@@ -42,6 +42,8 @@ public class GuiSqueezer extends GuiBase {
 
     @Override
     protected void updateElementInformation() {
+
+        this.progress.setQuantity((this.progress.quantity + 1) % 24);
 
     }
 }
