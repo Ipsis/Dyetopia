@@ -2,7 +2,10 @@ package com.ipsis.dyetopia;
 
 import com.ipsis.dyetopia.block.DYTBlocks;
 import com.ipsis.dyetopia.fluid.DYTFluids;
+import com.ipsis.dyetopia.gui.GuiHandler;
 import com.ipsis.dyetopia.item.DYTItems;
+import com.ipsis.dyetopia.manager.DyeLiquidManager;
+import com.ipsis.dyetopia.manager.DyeSourceManager;
 import com.ipsis.dyetopia.manager.MultiBlockPatternManager;
 import com.ipsis.dyetopia.network.PacketHandler;
 import com.ipsis.dyetopia.proxy.IProxy;
@@ -16,6 +19,7 @@ import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -45,6 +49,8 @@ public class Dyetopia {
     @Mod.EventHandler
     public void initialize(FMLInitializationEvent event) {
 
+        NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
+
         DYTFluids.initialize();
         DYTItems.initialize();
         DYTBlocks.initialize();
@@ -54,6 +60,9 @@ public class Dyetopia {
         proxy.initTileEntities();
 
         MultiBlockPatternManager.registerPatterns();
+
+        DyeLiquidManager.getInstance().initialize();
+        DyeSourceManager.getInstance().initialize();
     }
 
     @Mod.EventHandler

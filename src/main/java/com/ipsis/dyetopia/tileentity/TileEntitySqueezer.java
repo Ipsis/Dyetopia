@@ -90,6 +90,10 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
      * ITankHandler
      */
 
+    public TankManager getTankMgr() {
+        return this.tankMgr;
+    }
+
     public int fill(TankType tank, ForgeDirection from, FluidStack resource, boolean doFill) {
 
         return 0;

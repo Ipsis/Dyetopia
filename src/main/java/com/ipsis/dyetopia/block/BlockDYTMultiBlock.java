@@ -1,6 +1,8 @@
 package com.ipsis.dyetopia.block;
 
+import com.ipsis.dyetopia.Dyetopia;
 import com.ipsis.dyetopia.tileentity.TileEntityMultiBlockBase;
+import com.ipsis.dyetopia.tileentity.TileEntityMultiBlockMaster;
 import com.ipsis.dyetopia.util.LogHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -47,15 +49,20 @@ public abstract class BlockDYTMultiBlock extends BlockDYT implements ITileEntity
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int p_149727_6_, float hitX, float hitY, float hitZ) {
 
-        if (!world.isRemote) {
-            TileEntity te = world.getTileEntity(x, y, z);
-            if (te instanceof TileEntityMultiBlockBase) {
-                if (((TileEntityMultiBlockBase)te).hasMaster())
-                    LogHelper.info("Tile has master block -> Open the gui");
+        if (entityPlayer.isSneaking()) {
+            return false;
+        } else {
+            if (!world.isRemote) {
+                TileEntity te = world.getTileEntity(x, y, z);
+                if (te instanceof TileEntityMultiBlockBase && (((TileEntityMultiBlockBase) te).hasMaster())) {
+                    TileEntityMultiBlockBase mbb = (TileEntityMultiBlockBase)te;
+                    entityPlayer.openGui(Dyetopia.instance, 0, world, mbb.getMasterX(), mbb.getMasterY(), mbb.getMasterZ());
+                    return true;
+                }
             }
-        }
 
-        return false;
+            return false;
+        }
     }
 
     @Override

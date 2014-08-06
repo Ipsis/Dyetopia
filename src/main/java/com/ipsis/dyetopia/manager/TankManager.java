@@ -113,6 +113,17 @@ public class TankManager {
     }
 
     /**
+     * Dont modify the tank!
+     */
+    public FluidTank getTank(String name) {
+
+        if (tanks.get(name) == null)
+            return null;
+
+        return tanks.get(name).tank;
+    }
+
+    /**
      * Wrapped IFluidHandler calls
      */
     public int fill(String name, ForgeDirection from, FluidStack resource, boolean doFill) {
@@ -213,7 +224,7 @@ public class TankManager {
 
             NBTTagCompound nbttagcompound1 = new NBTTagCompound();
             nbttagcompound1.setString("Name", (String)pairs.getKey());
-            ((FluidTank)pairs.getValue()).writeToNBT(nbttagcompound1);
+            ((TankConfig)pairs.getValue()).tank.writeToNBT(nbttagcompound1);
             nbttaglist.appendTag(nbttagcompound1);
         }
 

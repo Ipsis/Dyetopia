@@ -43,6 +43,10 @@ public class TileEntityMultiBlockBase extends TileEntityDYT {
         this.hasMaster = master;
     }
 
+    public int getMasterX() { return this.masterX; }
+    public int getMasterY() { return this.masterY; }
+    public int getMasterZ() { return this.masterZ; }
+
     /**
      * Processing
      */
