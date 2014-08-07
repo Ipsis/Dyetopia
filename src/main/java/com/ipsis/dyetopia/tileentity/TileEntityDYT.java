@@ -1,6 +1,8 @@
 package com.ipsis.dyetopia.tileentity;
 
 
+import com.ipsis.dyetopia.network.PacketHandler;
+import com.ipsis.dyetopia.network.message.MessageTileEntityDYT;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
@@ -42,15 +44,13 @@ public class TileEntityDYT extends TileEntity {
     @Override
     public Packet getDescriptionPacket() {
 
-        NBTTagCompound nbttagcompound = new NBTTagCompound();
-        writeToNBT(nbttagcompound);
-        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, nbttagcompound);
+        return PacketHandler.INSTANCE.getPacketFrom(new MessageTileEntityDYT(this));
     }
 
-    @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+    public void handleDescriptionPacket(MessageTileEntityDYT msg) {
 
-        readFromNBT(pkt.func_148857_g());
+        this.facing = ForgeDirection.getOrientation(msg.facing);
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
+
 }

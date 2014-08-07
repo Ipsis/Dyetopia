@@ -1,7 +1,10 @@
 package com.ipsis.dyetopia.gui.container;
 
 import cofh.lib.gui.slot.SlotAcceptValid;
+import com.ipsis.dyetopia.gui.IGuiMessageHandler;
+import com.ipsis.dyetopia.network.message.MessageGuiWidget;
 import com.ipsis.dyetopia.tileentity.TileEntitySqueezer;
+import com.ipsis.dyetopia.util.LogHelper;
 import com.ipsis.dyetopia.util.TankType;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -52,20 +55,28 @@ public class ContainerSqueezer extends Container {
     public void addCraftingToCrafters(ICrafting icrafting) {
         super.addCraftingToCrafters(icrafting);
 
-        this.squeezer.getTankMgr().initGuiTracking(TankType.RED.getName());
+        this.squeezer.getTankMgr().initGuiTracking(icrafting, this, TankType.RED.getName());
+        this.squeezer.getTankMgr().initGuiTracking(icrafting, this, TankType.YELLOW.getName());
+        this.squeezer.getTankMgr().initGuiTracking(icrafting, this, TankType.BLUE.getName());
+        this.squeezer.getTankMgr().initGuiTracking(icrafting, this, TankType.WHITE.getName());
     }
 
-
-    @SideOnly(Side.CLIENT)
     @Override
+    @SideOnly(Side.CLIENT)
     public void updateProgressBar(int id, int data) {
         super.updateProgressBar(id, data);
 
-        this.squeezer.getTankMgr().updateGuiTracking(this, this.crafters, TankType.RED.getName());
+        this.squeezer.getTankMgr().processGuiTracking(id, data);
     }
 
     @Override
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
+
+        this.squeezer.getTankMgr().updateGuiTracking(this.crafters, this, TankType.RED.getName());
+        this.squeezer.getTankMgr().updateGuiTracking(this.crafters, this, TankType.YELLOW.getName());
+        this.squeezer.getTankMgr().updateGuiTracking(this.crafters, this, TankType.BLUE.getName());
+        this.squeezer.getTankMgr().updateGuiTracking(this.crafters, this, TankType.WHITE.getName());
     }
+
 }

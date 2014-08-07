@@ -1,6 +1,12 @@
 package com.ipsis.dyetopia.manager;
 
+import com.ipsis.dyetopia.gui.container.ProgressBar;
+import com.ipsis.dyetopia.network.PacketHandler;
+import com.ipsis.dyetopia.network.message.MessageGuiFixedProgressBar;
 import com.ipsis.dyetopia.util.LogHelper;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
@@ -20,13 +26,15 @@ public class TankManager {
         private boolean[] allowDrain;
         private boolean[] allowFill;
         private List<Integer> fluidWhitelist;
+        private int id;
 
-        public TankConfig(int capacity) {
+        public TankConfig(int id, int capacity) {
 
             tank = new FluidTank(capacity);
             allowDrain = new boolean[] { true, true, true, true, true, true };
             allowFill = new boolean[] { true, true, true, true, true, true };
             fluidWhitelist = new ArrayList<Integer>();
+            this.id = id;
         }
 
         public void setAllowDrain(ForgeDirection dir, boolean allow) {
@@ -60,10 +68,19 @@ public class TankManager {
     }
 
     private HashMap<String, TankConfig> tanks;
+    private HashMap<String, FluidStack> guiTanks;
+    private ArrayList<TankConfig> ids;
+    private int count;
+
+    private static int EMPTY_FLUID_ID = -1;
+    private static int EMPTY_FLUID_AMOUNT = 0;
 
     public TankManager() {
 
         tanks = new HashMap<String, TankConfig>();
+        ids = new ArrayList<TankConfig>();
+        guiTanks = new HashMap<String, FluidStack>();
+        count = 0;
     }
 
 
@@ -75,7 +92,28 @@ public class TankManager {
         if (tanks.get(name) != null)
             return false;
 
-        return tanks.put(name, new TankConfig(capacity)) != null;
+
+        TankConfig cfg = new TankConfig(this.count, capacity);
+        tanks.put(name, cfg);
+        ids.add(this.count, cfg);
+        this.count++;
+        guiTanks.put(name, null);
+        return true;
+    }
+
+    private TankConfig getTankFromId(int id) {
+
+        if (id < tanks.size())
+            return ids.get(id);
+        return null;
+    }
+
+    public void addToWhitelist(String name, Fluid f) {
+
+        if (tanks.get(name) == null)
+            return;
+
+        tanks.get(name).addToWhiteList(f);
     }
 
     public void blockTankDrainAll(String name) {
@@ -231,10 +269,116 @@ public class TankManager {
         nbttagcompound.setTag("Tanks", nbttaglist);
     }
 
-    /* Server->client GUI sync ONLY */
-    public void setTank(String name, Fluid f, int amount) {
+    /**
+     * GUI updating
+     * Based off Railcraft handling of the TankManager
+     */
+    public void initGuiTracking(ICrafting icrafting, Container container, String name) {
 
-        if (tanks.get(name) != null)
-            tanks.get(name).tank.setFluid(new FluidStack(f, amount));
+        if (tanks.get(name) == null)
+            return;
+
+        TankConfig tankCfg = tanks.get(name);
+        if (tankCfg.tank.getFluid() == null)
+            guiTanks.put(name, null);
+        else
+            guiTanks.put(name, tankCfg.tank.getFluid().copy());
+
+        if (tankCfg.tank.getFluid() == null) {
+            sendTankFluidId(icrafting, container, tankCfg.id, EMPTY_FLUID_ID);
+            sendTankFluidAmount((EntityPlayerMP)icrafting, container, tankCfg.id, EMPTY_FLUID_AMOUNT);
+        } else {
+            sendTankFluidId(icrafting, container, tankCfg.id, tankCfg.tank.getFluid().fluidID);
+            sendTankFluidAmount((EntityPlayerMP)icrafting, container, tankCfg.id, tankCfg.tank.getFluidAmount());
+        }
+    }
+
+    private void sendTankFluidId(ICrafting icrafting, Container container, int tankId, int fluidId) {
+
+        int progId = ProgressBar.createIDFluidId(tankId);
+        icrafting.sendProgressBarUpdate(container, progId, fluidId);
+    }
+
+    private void sendTankFluidAmount(EntityPlayerMP player, Container container, int tankId, int amount) {
+
+        int progId = ProgressBar.createIDFluidAmount(tankId);
+        PacketHandler.INSTANCE.sendTo(
+                new MessageGuiFixedProgressBar(container.windowId, progId, amount), player);
+    }
+
+    public void updateGuiTracking(List crafters, Container container, String name) {
+
+        if (tanks.get(name) == null || container == null || crafters == null || crafters.isEmpty())
+            return;
+
+        TankConfig tankCfg = tanks.get(name);
+        FluidStack oldFluid = guiTanks.get(name);
+
+        for (Object crafter : crafters) {
+            ICrafting icrafting = (ICrafting)crafter;
+            EntityPlayerMP player = (EntityPlayerMP)crafter;
+
+            if (oldFluid == null && tankCfg.tank.getFluid() == null) {
+                //LogHelper.info(name + " empty->empty");
+                /* was empty and still is */
+                return;
+            }
+
+            if (oldFluid == null && tankCfg.tank.getFluid() != null) {
+                /* was empty, now isn't */
+                //LogHelper.info(name + " empty->" + tankCfg.tank.getFluid());
+                sendTankFluidId(icrafting, container, tankCfg.id, tankCfg.tank.getFluid().fluidID);
+                sendTankFluidAmount(player, container, tankCfg.id, tankCfg.tank.getFluidAmount());
+
+            } else if (oldFluid != null && tankCfg.tank.getFluid() == null) {
+                /* wasn't empty now is */
+                //LogHelper.info(name + " " + oldFluid + "->empty");
+                sendTankFluidId(icrafting, container, tankCfg.id, EMPTY_FLUID_ID);
+                sendTankFluidAmount(player, container, tankCfg.id, EMPTY_FLUID_AMOUNT);
+            } else {
+
+                if (oldFluid.fluidID != tankCfg.tank.getFluid().fluidID) {
+                    /* fluid id changed */
+                    //LogHelper.info(name + " " + oldFluid.fluidID + "->" + tankCfg.tank.getFluid().fluidID);
+                    sendTankFluidId(icrafting, container, tankCfg.id, tankCfg.tank.getFluid().fluidID);
+                }
+
+                if (oldFluid.amount != tankCfg.tank.getFluidAmount()) {
+                    /* fluid amount changed */
+                    //LogHelper.info(name + " " + oldFluid.amount + "->" + tankCfg.tank.getFluid().amount);
+                    sendTankFluidAmount(player, container, tankCfg.id, tankCfg.tank.getFluidAmount());
+                }
+            }
+        }
+
+        /* Update the values */
+        guiTanks.put(name, tankCfg.tank.getFluid() == null ? null : tankCfg.tank.getFluid().copy());
+    }
+
+    public void processGuiTracking(int id, int data) {
+
+        if (ProgressBar.getIDType(id) == ProgressBar.ID_TYPE.ID_FLUID_ID) {
+
+            int tankId = ProgressBar.getIDValue(id);
+            TankConfig cfg = getTankFromId(tankId);
+            if (cfg != null) {
+                if (cfg.tank.getFluid() == null)
+                    cfg.tank.setFluid(new FluidStack(data, EMPTY_FLUID_AMOUNT));
+                else
+                    cfg.tank.getFluid().fluidID = data;
+            }
+
+        } else if (ProgressBar.getIDType(id) == ProgressBar.ID_TYPE.ID_FLUID_AMOUNT) {
+
+            int tankId = ProgressBar.getIDValue(id);
+            TankConfig cfg = getTankFromId(tankId);
+            if (cfg != null) {
+                if (cfg.tank.getFluid() == null)
+                    cfg.tank.setFluid(new FluidStack(EMPTY_FLUID_ID, data));
+                else
+                    cfg.tank.getFluid().amount = data;
+            }
+        }
+
     }
 }

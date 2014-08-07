@@ -1,10 +1,14 @@
 package com.ipsis.dyetopia.tileentity;
 
+import com.ipsis.dyetopia.network.PacketHandler;
+import com.ipsis.dyetopia.network.message.MessageTileEntityDYT;
+import com.ipsis.dyetopia.network.message.MessageTileEntityMultiBlock;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 
 public class TileEntityMultiBlockBase extends TileEntityDYT {
@@ -91,15 +95,16 @@ public class TileEntityMultiBlockBase extends TileEntityDYT {
     @Override
     public Packet getDescriptionPacket() {
 
-        NBTTagCompound nbttagcompound = new NBTTagCompound();
-        writeToNBT(nbttagcompound);
-        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, nbttagcompound);
+        return PacketHandler.INSTANCE.getPacketFrom(new MessageTileEntityMultiBlock(this));
     }
 
-    @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+    public void handleDescriptionPacket(MessageTileEntityMultiBlock msg) {
 
-        readFromNBT(pkt.func_148857_g());
+        this.masterX = msg.masterX;
+        this.masterY = msg.masterY;
+        this.masterZ = msg.masterZ;
+        this.hasMaster = msg.hasMaster;
+        this.setDirectionFacing(ForgeDirection.getOrientation(msg.facing));
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
