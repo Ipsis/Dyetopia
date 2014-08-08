@@ -6,6 +6,12 @@ tile.dyetopia:fluid.dyeblue.name=Blue Liquid Dye
 tile.dyetopia:fluid.dyewhite.name=White Liquid Dye
 tile.dyetopia:fluid.dyepure.name=Pure Liquid Dye
 
+fluid.dyered=Red Liquid Dye
+fluid.dyeyellow=Yellow Liquid Dye
+fluid.dyeblue=Blue Liquid Dye
+fluid.dyewhite=White Liquid Dye
+fluid.dyepure=Pure Liquid Dye
+
 tile.dyetopia:casing.name=Casing
 tile.dyetopia:controller.name=Controller
 tile.dyetopia:squeezer.name=Squeezer
