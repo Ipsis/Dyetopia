@@ -16,10 +16,18 @@ public class ProgressBar {
     public static final int ID_ENERGY_START = 300;
     public static final int ID_ENERGY_END = 399;
 
+    /* Fluids are per tank */
     private static final int TAG_FLUID_ID = 0x8000;
     private static final int TAG_FLUID_AMOUNT = 0x4000;
+
     private static final int TAG_ENERGY = 0x2000;
+
     private static final int ID_MASK = 0xFFFF;
+
+    /* Energy ids */
+    public static final int ID_ENERGY_STORED = 0x0;
+    public static final int ID_ENERGY_CONSUMED = 0x1;
+    public static final int ID_ENERGY_RECIPE = 0x2;
 
     public static int createIDFluidId(int tank) { return (TAG_FLUID_ID | tank) & ID_MASK; }
     public static int createIDFluidAmount(int tank) { return (TAG_FLUID_AMOUNT | tank) & ID_MASK; }

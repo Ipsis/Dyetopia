@@ -61,6 +61,8 @@ public class ContainerSqueezer extends Container {
         this.squeezer.getTankMgr().initGuiTracking(icrafting, this, TankType.WHITE.getName());
 
         this.squeezer.getEnergyMgr().initGuiTracking(icrafting, this);
+
+        this.squeezer.getFactoryMgr().initGuiTracking(icrafting, this);
     }
 
     @Override
@@ -71,6 +73,7 @@ public class ContainerSqueezer extends Container {
         /* The id will determine if anything happens in each manager */
         this.squeezer.getTankMgr().processGuiTracking(id, data);
         this.squeezer.getEnergyMgr().processGuiTracking(id, data);
+        this.squeezer.getFactoryMgr().processGuiTracking(id, data);
     }
 
     @Override
@@ -83,6 +86,8 @@ public class ContainerSqueezer extends Container {
         this.squeezer.getTankMgr().updateGuiTracking(this.crafters, this, TankType.WHITE.getName());
 
         this.squeezer.getEnergyMgr().updateGuiTracking(this.crafters, this);
+
+        this.squeezer.getFactoryMgr().updateGuiTracking(this.crafters, this);
     }
 
 }

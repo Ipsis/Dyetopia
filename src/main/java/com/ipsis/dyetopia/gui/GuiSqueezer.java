@@ -47,7 +47,6 @@ public class GuiSqueezer extends GuiBase {
     @Override
     protected void updateElementInformation() {
 
-        this.progress.setQuantity((this.progress.quantity + 1) % 24);
-
+        this.progress.setQuantity(this.squeezer.getFactoryMgr().getScaledProgress(24));
     }
 }

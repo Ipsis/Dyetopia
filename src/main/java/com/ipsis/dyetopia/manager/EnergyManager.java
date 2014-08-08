@@ -74,7 +74,7 @@ public class EnergyManager {
 
         lastEnergy = energyStorage.getEnergyStored();
 
-        int progId = ProgressBar.createIDEnergy(0);
+        int progId = ProgressBar.createIDEnergy(ProgressBar.ID_ENERGY_STORED);
         icrafting.sendProgressBarUpdate(container, progId, energyStorage.getEnergyStored());
     }
 
@@ -83,7 +83,7 @@ public class EnergyManager {
         if (lastEnergy == energyStorage.getEnergyStored())
             return;
 
-        int progId = ProgressBar.createIDEnergy(0);
+        int progId = ProgressBar.createIDEnergy(ProgressBar.ID_ENERGY_STORED);
         for (Object crafter : crafters) {
 
             ICrafting icrafting = (ICrafting) crafter;
@@ -98,7 +98,8 @@ public class EnergyManager {
     public void processGuiTracking(int id, int data) {
 
         if (ProgressBar.getIDType(id) == ProgressBar.ID_TYPE.ID_ENERGY)
-            energyStorage.setEnergyStored(data);
+            if (ProgressBar.getIDValue(id) == ProgressBar.ID_ENERGY_STORED)
+                energyStorage.setEnergyStored(data);
     }
 
 
