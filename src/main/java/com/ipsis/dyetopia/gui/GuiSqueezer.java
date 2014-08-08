@@ -2,6 +2,7 @@ package com.ipsis.dyetopia.gui;
 
 import cofh.lib.gui.GuiBase;
 import cofh.lib.gui.element.ElementDualScaled;
+import cofh.lib.gui.element.ElementEnergyStored;
 import cofh.lib.gui.element.ElementFluidTank;
 import com.ipsis.dyetopia.gui.container.ContainerSqueezer;
 import com.ipsis.dyetopia.reference.Reference;
@@ -35,6 +36,9 @@ public class GuiSqueezer extends GuiBase {
         addElement(new ElementFluidTank(this, 114, 12, this.squeezer.getTankMgr().getTank(TankType.YELLOW.getName())));
         addElement(new ElementFluidTank(this, 132, 12, this.squeezer.getTankMgr().getTank(TankType.BLUE.getName())));
         addElement(new ElementFluidTank(this, 150, 12, this.squeezer.getTankMgr().getTank(TankType.WHITE.getName())));
+
+        /* energy */
+        addElement(new ElementEnergyStored(this, 7, 22, this.squeezer.getEnergyMgr().getEnergyStorage()));
 
         this.progress = ((ElementDualScaled)addElement(new ElementDualScaled(this, 28, 54).setMode(1).setBackground(false).setSize(24, 16).setTexture(Reference.GUI_PROGRESS_TEXTURE, 64, 64)));
         addElement(progress);

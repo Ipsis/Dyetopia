@@ -1,9 +1,14 @@
 package com.ipsis.dyetopia.tileentity;
 
+import cofh.api.energy.IEnergyHandler;
+import cofh.api.energy.IEnergyStorage;
 import cofh.lib.util.position.BlockPosition;
 import com.ipsis.dyetopia.fluid.DYTFluids;
+import com.ipsis.dyetopia.manager.DyeLiquidManager;
 import com.ipsis.dyetopia.manager.DyeSourceManager;
+import com.ipsis.dyetopia.manager.EnergyManager;
 import com.ipsis.dyetopia.manager.TankManager;
+import com.ipsis.dyetopia.util.LogHelper;
 import com.ipsis.dyetopia.util.TankType;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -14,16 +19,19 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 
-public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements ITankHandler, ISidedInventory {
+public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements ITankHandler, ISidedInventory, IEnergyHandler {
 
     private TankManager tankMgr;
+    private EnergyManager energyMgr;
     private static final int TANK_CAPACITY = 40000;
+    private static final int ENERGY_CAPACITY = 50000;
     public static final int INPUT_SLOT = 0;
 
     public TileEntitySqueezer() {
         super();
         this.setMaster(this);
         inventory = new ItemStack[1];
+        energyMgr = new EnergyManager(ENERGY_CAPACITY);
 
         setupTanks();
     }
@@ -135,6 +143,7 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
         super.writeToNBT(nbttagcompound);
 
         this.tankMgr.writeToNBT(nbttagcompound);
+        this.energyMgr.writeToNBT(nbttagcompound);
     }
 
     @Override
@@ -142,6 +151,7 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
         super.readFromNBT(nbttagcompound);
 
         this.tankMgr.readFromNBT(nbttagcompound);
+        this.energyMgr.readFromNBT(nbttagcompound);
     }
 
     /**
@@ -158,12 +168,8 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
     @Override
     public boolean canInsertItem(int slot, ItemStack itemStack, int side) {
 
-        if (slot != INPUT_SLOT)
-            return false;
-
-        return true;
-        /* TODO what can we insert */
-        //return MKManagers.squeezerMgr.isSqueezable(itemStack);
+        /* Ignore side */
+        return isItemValidForSlot(slot, itemStack);
     }
 
     @Override
@@ -183,6 +189,37 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
     }
 
     /**
+     * IEnergyHandler
+     */
+    public EnergyManager getEnergyMgr() { return this.energyMgr; }
+
+    @Override
+    public int receiveEnergy(ForgeDirection forgeDirection, int i, boolean b) {
+        return energyMgr.receiveEnergy(forgeDirection, i, b);
+    }
+
+    @Override
+    public int extractEnergy(ForgeDirection forgeDirection, int i, boolean b) {
+        return energyMgr.extractEnergy(forgeDirection, i, b);
+    }
+
+    @Override
+    public int getEnergyStored(ForgeDirection forgeDirection) {
+        return energyMgr.getEnergyStored(forgeDirection);
+    }
+
+    @Override
+    public int getMaxEnergyStored(ForgeDirection forgeDirection) {
+        return energyMgr.getMaxEnergyStored(forgeDirection);
+    }
+
+    @Override
+    public boolean canConnectEnergy(ForgeDirection forgeDirection) {
+        return canConnectEnergy(forgeDirection);
+    }
+
+
+    /**
      * Fake processing
      */
     @Override
@@ -196,5 +233,9 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
         this.tankMgr.fill(TankType.YELLOW.getName(), ForgeDirection.DOWN, new FluidStack(DYTFluids.fluidDyeYellow, 1), true);
         this.tankMgr.fill(TankType.BLUE.getName(), ForgeDirection.DOWN, new FluidStack(DYTFluids.fluidDyeBlue, 1), true);
         this.tankMgr.fill(TankType.WHITE.getName(), ForgeDirection.DOWN, new FluidStack(DYTFluids.fluidDyeWhite, 1), true);
+
+        this.energyMgr.receiveEnergy(ForgeDirection.DOWN, 10, false);
     }
+
+
 }
