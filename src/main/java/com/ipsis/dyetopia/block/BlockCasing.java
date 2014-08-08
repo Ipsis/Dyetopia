@@ -1,5 +1,6 @@
 package com.ipsis.dyetopia.block;
 
+import com.ipsis.dyetopia.tileentity.TileEntityCasing;
 import com.ipsis.dyetopia.tileentity.TileEntityMultiBlockBase;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.tileentity.TileEntity;
@@ -14,6 +15,6 @@ public class BlockCasing extends BlockDYTMultiBlock implements ITileEntityProvid
 
     @Override
     public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-        return new TileEntityMultiBlockBase();
+        return new TileEntityCasing();
     }
 }

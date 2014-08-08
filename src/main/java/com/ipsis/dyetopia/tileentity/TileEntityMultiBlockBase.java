@@ -11,8 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
 
-public class TileEntityMultiBlockBase extends TileEntityDYT {
-
+public abstract class TileEntityMultiBlockBase extends TileEntityDYT {
 
     protected int masterX;
     protected int masterY;

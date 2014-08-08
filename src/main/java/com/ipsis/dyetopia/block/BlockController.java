@@ -1,5 +1,6 @@
 package com.ipsis.dyetopia.block;
 
+import com.ipsis.dyetopia.tileentity.TileEntityController;
 import com.ipsis.dyetopia.tileentity.TileEntityMultiBlockBase;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.tileentity.TileEntity;
@@ -14,6 +15,6 @@ public class BlockController extends BlockDYTMultiBlock implements ITileEntityPr
 
     @Override
     public TileEntity createNewTileEntity(World world, int p_149915_2_) {
-        return new TileEntityMultiBlockBase();
+        return new TileEntityController();
     }
 }
