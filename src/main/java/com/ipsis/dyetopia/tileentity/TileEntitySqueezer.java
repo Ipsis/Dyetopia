@@ -2,12 +2,10 @@ package com.ipsis.dyetopia.tileentity;
 
 import cofh.api.energy.IEnergyHandler;
 import cofh.api.energy.IEnergyStorage;
+import cofh.lib.util.helpers.EnergyHelper;
 import cofh.lib.util.position.BlockPosition;
 import com.ipsis.dyetopia.fluid.DYTFluids;
-import com.ipsis.dyetopia.manager.DyeLiquidManager;
-import com.ipsis.dyetopia.manager.DyeSourceManager;
-import com.ipsis.dyetopia.manager.EnergyManager;
-import com.ipsis.dyetopia.manager.TankManager;
+import com.ipsis.dyetopia.manager.*;
 import com.ipsis.dyetopia.util.LogHelper;
 import com.ipsis.dyetopia.util.TankType;
 import net.minecraft.inventory.ISidedInventory;
@@ -19,12 +17,15 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 
-public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements ITankHandler, ISidedInventory, IEnergyHandler {
+public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements ITankHandler, ISidedInventory, IEnergyHandler, IFactory {
 
     private TankManager tankMgr;
     private EnergyManager energyMgr;
+    private FactoryManager factoryMgr;
+
     private static final int TANK_CAPACITY = 40000;
     private static final int ENERGY_CAPACITY = 50000;
+    private static final int ENERGY_PER_TICK = 10;
     public static final int INPUT_SLOT = 0;
 
     public TileEntitySqueezer() {
@@ -32,6 +33,7 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
         this.setMaster(this);
         inventory = new ItemStack[1];
         energyMgr = new EnergyManager(ENERGY_CAPACITY);
+        factoryMgr = new FactoryManager(this);
 
         setupTanks();
     }
@@ -144,6 +146,9 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
 
         this.tankMgr.writeToNBT(nbttagcompound);
         this.energyMgr.writeToNBT(nbttagcompound);
+        this.factoryMgr.writeToNBT(nbttagcompound);
+
+        nbttagcompound.setInteger("consumedEnergy", this.consumedEnergy);
     }
 
     @Override
@@ -152,6 +157,9 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
 
         this.tankMgr.readFromNBT(nbttagcompound);
         this.energyMgr.readFromNBT(nbttagcompound);
+        this.factoryMgr.readFromNBT(nbttagcompound);
+
+        this.consumedEnergy = nbttagcompound.getInteger("consumedEnergy");
     }
 
     /**
@@ -182,7 +190,7 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
 
-        if (slot == INPUT_SLOT && stack != null && DyeSourceManager.getInstance().isSource(stack))
+        if (slot == INPUT_SLOT && stack != null && SqueezerManager.getRecipe(stack) != null)
             return true;
 
         return false;
@@ -218,10 +226,6 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
         return canConnectEnergy(forgeDirection);
     }
 
-
-    /**
-     * Fake processing
-     */
     @Override
     public void updateEntity() {
         super.updateEntity();
@@ -229,13 +233,85 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
         if (worldObj.isRemote)
             return;
 
+        this.factoryMgr.run();
+
+        /*
         this.tankMgr.fill(TankType.RED.getName(), ForgeDirection.DOWN, new FluidStack(DYTFluids.fluidDyeRed, 1), true);
         this.tankMgr.fill(TankType.YELLOW.getName(), ForgeDirection.DOWN, new FluidStack(DYTFluids.fluidDyeYellow, 1), true);
         this.tankMgr.fill(TankType.BLUE.getName(), ForgeDirection.DOWN, new FluidStack(DYTFluids.fluidDyeBlue, 1), true);
-        this.tankMgr.fill(TankType.WHITE.getName(), ForgeDirection.DOWN, new FluidStack(DYTFluids.fluidDyeWhite, 1), true);
+        this.tankMgr.fill(TankType.WHITE.getName(), ForgeDirection.DOWN, new FluidStack(DYTFluids.fluidDyeWhite, 1), true); */
 
         this.energyMgr.receiveEnergy(ForgeDirection.DOWN, 10, false);
     }
 
+    /**
+     * IFactory
+     */
+    public FactoryManager getFactoryMgr() { return this.factoryMgr; }
 
+    private int consumedEnergy;
+
+    @Override
+    public boolean isOutputValid(IFactoryRecipe recipe) {
+
+        if (recipe == null)
+            return false;
+
+        SqueezerManager.SqueezerRecipe sr = (SqueezerManager.SqueezerRecipe)recipe;
+
+        if (this.tankMgr.fill(TankType.RED.getName(), ForgeDirection.NORTH, sr.getRedFluidStack(), true) == sr.getRedAmount() &&
+            this.tankMgr.fill(TankType.YELLOW.getName(), ForgeDirection.NORTH, sr.getYellowFluidStack(), true) == sr.getYellowAmount() &&
+            this.tankMgr.fill(TankType.BLUE.getName(), ForgeDirection.NORTH, sr.getBlueFluidStack(), true) == sr.getBlueAmount() &&
+            this.tankMgr.fill(TankType.WHITE.getName(), ForgeDirection.NORTH, sr.getWhiteFluidStack(), true) == sr.getWhiteAmount()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean isEnergyAvailable(int amount) {
+        return amount ==  this.energyMgr.extractEnergy(ForgeDirection.DOWN, amount, true);
+    }
+
+    @Override
+    public void consumeInputs(IFactoryRecipe recipe) {
+        decrStackSize(INPUT_SLOT, 1);
+    }
+
+    @Override
+    public void createOutputs(IFactoryRecipe recipe) {
+
+        if (recipe == null)
+            return;
+
+        SqueezerManager.SqueezerRecipe sr = (SqueezerManager.SqueezerRecipe)recipe;
+
+        this.tankMgr.fill(TankType.RED.getName(), ForgeDirection.NORTH, sr.getRedFluidStack(), false);
+        this.tankMgr.fill(TankType.YELLOW.getName(), ForgeDirection.NORTH, sr.getYellowFluidStack(), false);
+        this.tankMgr.fill(TankType.BLUE.getName(), ForgeDirection.NORTH, sr.getBlueFluidStack(), false);
+        this.tankMgr.fill(TankType.WHITE.getName(), ForgeDirection.NORTH, sr.getWhiteFluidStack(), false);
+
+        LogHelper.info("createOutput: " + sr.toString());
+    }
+
+    @Override
+    public void consumeEnergy(int amount) {
+        this.energyMgr.extractEnergy(ForgeDirection.DOWN, amount, false);
+    }
+
+    @Override
+    public int getEnergyTick() {
+        return ENERGY_PER_TICK;
+    }
+
+    @Override
+    public IFactoryRecipe getRecipe() {
+        return SqueezerManager.getRecipe(getStackInSlot(INPUT_SLOT));
+    }
+
+    @Override
+    public void updateRunning(boolean running) {
+
+    }
 }
