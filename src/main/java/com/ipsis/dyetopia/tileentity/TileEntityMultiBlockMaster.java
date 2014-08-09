@@ -36,6 +36,8 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
         return this.getDirectionFacing().getOpposite();
     }
 
+    public boolean isStructureValid() { return this.structureValid; }
+
     /**
      * Processing
      */

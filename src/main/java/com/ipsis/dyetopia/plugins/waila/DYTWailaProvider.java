@@ -1,6 +1,8 @@
 package com.ipsis.dyetopia.plugins.waila;
 
 
+import cofh.api.energy.EnergyStorage;
+import cofh.lib.util.helpers.StringHelper;
 import com.ipsis.dyetopia.tileentity.*;
 import com.ipsis.dyetopia.util.LogHelper;
 import com.ipsis.dyetopia.util.TankType;
@@ -11,6 +13,7 @@ import mcp.mobius.waila.api.IWailaRegistrar;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 
 import java.util.List;
@@ -31,7 +34,11 @@ public class DYTWailaProvider implements IWailaDataProvider{
 
 
         if (accessor.getTileEntity() instanceof TileEntitySqueezer) {
-            currenttip = handleTileEntitySqueezer((TileEntitySqueezer)accessor.getTileEntity(), currenttip);
+
+            TileEntitySqueezer te = (TileEntitySqueezer)accessor.getTileEntity();
+            if (te.isStructureValid())
+                currenttip = handleTileEntitySqueezer((TileEntitySqueezer)accessor.getTileEntity(), currenttip);
+
         } else if (accessor.getTileEntity() instanceof TileEntityMultiBlockBase) {
 
             TileEntityMultiBlockBase base = (TileEntityMultiBlockBase)accessor.getTileEntity();
@@ -63,25 +70,41 @@ public class DYTWailaProvider implements IWailaDataProvider{
      */
     private List<String> handleTileEntitySqueezer(TileEntitySqueezer te, List<String> currenttip) {
 
-        currenttip.add(String.format("Energy : %d / %d",
-                te.getEnergyStored(ForgeDirection.DOWN),
-                te.getMaxEnergyStored(ForgeDirection.DOWN)));
+        displayEnergy(currenttip, te.getEnergyMgr().getEnergyStorage());
 
-        /* TODO make this walk the generic TankInfo return info */
-        currenttip.add(String.format("Red : %d / %d",
-                te.getTankMgr().getTank(TankType.RED.getName()).getFluidAmount(),
-                te.getTankMgr().getTank(TankType.RED.getName()).getCapacity()));
-        currenttip.add(String.format("Yellow : %d / %d",
-                te.getTankMgr().getTank(TankType.YELLOW.getName()).getFluidAmount(),
-                te.getTankMgr().getTank(TankType.YELLOW.getName()).getCapacity()));
-        currenttip.add(String.format("Blue : %d / %d",
-                te.getTankMgr().getTank(TankType.BLUE.getName()).getFluidAmount(),
-                te.getTankMgr().getTank(TankType.BLUE.getName()).getCapacity()));
-        currenttip.add(String.format("White : %d / %d",
-                te.getTankMgr().getTank(TankType.WHITE.getName()).getFluidAmount(),
-                te.getTankMgr().getTank(TankType.WHITE.getName()).getCapacity()));
+        displayNamedTankInfo(currenttip, "Red", te.getTankMgr().getTank(TankType.RED.getName()));
+        displayNamedTankInfo(currenttip, "Yellow", te.getTankMgr().getTank(TankType.YELLOW.getName()));
+        displayNamedTankInfo(currenttip, "Blue", te.getTankMgr().getTank(TankType.BLUE.getName()));
+        displayNamedTankInfo(currenttip, "White", te.getTankMgr().getTank(TankType.WHITE.getName()));
 
         return currenttip;
+    }
 
+    private void displayEnergy(List<String> currenttip, EnergyStorage storage) {
+
+        currenttip.add(String.format("Energy : %d / %d RF",
+                storage.getEnergyStored(),
+                storage.getMaxEnergyStored()));
+    }
+
+    /**
+     * Display name, not the fluid name
+     */
+    private void displayNamedTankInfo(List<String> currenttip, String name, FluidTank tank) {
+        if (tank != null)
+            currenttip.add(String.format("%s : %d / %d mB", name, tank.getFluidAmount(), tank.getCapacity()));
+    }
+
+    /**
+     * Display the fluid name if the tank is not empty
+     */
+    private void displayTankInfo(List<String> currenttip, FluidTank tank) {
+
+        if (tank != null) {
+            if (tank.getFluid() != null)
+                currenttip.add(String.format("%s : %d / %d mB",
+                        StringHelper.getFluidName(tank.getFluid()),
+                        tank.getFluid().fluidID, tank.getFluidAmount(), tank.getCapacity()));
+        }
     }
 }
