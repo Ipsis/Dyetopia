@@ -7,6 +7,7 @@ import com.ipsis.dyetopia.item.DYTItems;
 import com.ipsis.dyetopia.manager.DyeLiquidManager;
 import com.ipsis.dyetopia.manager.DyeSourceManager;
 import com.ipsis.dyetopia.manager.MultiBlockPatternManager;
+import com.ipsis.dyetopia.manager.SqueezerManager;
 import com.ipsis.dyetopia.network.PacketHandler;
 import com.ipsis.dyetopia.proxy.IProxy;
 import com.ipsis.dyetopia.reference.Reference;
@@ -62,6 +63,8 @@ public class Dyetopia {
         MultiBlockPatternManager.registerPatterns();
 
         DyeLiquidManager.getInstance().initialize();
+        SqueezerManager.initialise();
+
         DyeSourceManager.getInstance().initialize();
     }
 

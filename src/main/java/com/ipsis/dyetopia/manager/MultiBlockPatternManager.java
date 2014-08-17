@@ -16,19 +16,39 @@ public class MultiBlockPatternManager {
 
     private static HashMap<Type,MultiBlockPattern> patternMap = new HashMap<Type,MultiBlockPattern>();
 
+    private static void addSqueezer() {
+
+        MultiBlockPattern pattern = new MultiBlockPattern(3, 3, 3);
+        pattern.addSlice(0, "ssv", "sss", "ssv");
+        pattern.addSlice(1, "sqs", "scs", "sss");
+        pattern.addSlice(2, "ssv", "sss", "ssv");
+        pattern.addCharMap('s', new ItemStack(DYTBlocks.blockCasing));
+        pattern.addCharMap('v', new ItemStack(DYTBlocks.blockValve));
+        pattern.addCharMap('c', new ItemStack(DYTBlocks.blockController));
+        pattern.addCharMap('q', new ItemStack(DYTBlocks.blockSqueezer));
+        if (pattern.validatePattern())
+            patternMap.put(Type.SQUEEZER, pattern);
+
+    }
+
+    private static void addMixer() {
+
+        MultiBlockPattern pattern = new MultiBlockPattern(3, 3, 3);
+        pattern.addSlice(0, "sss", "sss", "vsv");
+        pattern.addSlice(1, "sms", "scs", "sss");
+        pattern.addSlice(2, "sss", "sss", "vsv");
+        pattern.addCharMap('s', new ItemStack(DYTBlocks.blockCasing));
+        pattern.addCharMap('v', new ItemStack(DYTBlocks.blockValve));
+        pattern.addCharMap('c', new ItemStack(DYTBlocks.blockController));
+        pattern.addCharMap('m', new ItemStack(DYTBlocks.blockMixer));
+        if (pattern.validatePattern())
+            patternMap.put(Type.MIXER, pattern);
+    }
+
     public static void registerPatterns() {
 
-        MultiBlockPattern squeezerPattern = new MultiBlockPattern(3, 3, 3);
-        squeezerPattern.addSlice(0, "ssv", "sss", "ssv");
-        squeezerPattern.addSlice(1, "sqs", "scs", "sss");
-        squeezerPattern.addSlice(2, "ssv", "sss", "ssv");
-        squeezerPattern.addCharMap('s', new ItemStack(DYTBlocks.blockCasing));
-        squeezerPattern.addCharMap('v', new ItemStack(DYTBlocks.blockValve));
-        squeezerPattern.addCharMap('c', new ItemStack(DYTBlocks.blockController));
-        squeezerPattern.addCharMap('q', new ItemStack(DYTBlocks.blockSqueezer));
-        if (squeezerPattern.validatePattern())
-            patternMap.put(Type.SQUEEZER, squeezerPattern);
-
+        addSqueezer();
+        addMixer();
     }
 
     public static MultiBlockPattern getPattern(Type patternType) {

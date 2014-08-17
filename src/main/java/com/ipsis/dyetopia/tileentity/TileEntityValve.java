@@ -41,17 +41,6 @@ public class TileEntityValve extends TileEntityMultiBlockBase implements IFluidH
         }
     }
 
-    private TileEntityMultiBlockMaster getMasterTE() {
-
-        if (this.hasMaster) {
-            TileEntity te = this.worldObj.getTileEntity(this.masterX, this.masterY, this.masterZ);
-            if (te instanceof TileEntityMultiBlockMaster)
-                return (TileEntityMultiBlockMaster)te;
-        }
-
-        return null;
-    }
-
     /****************
      * IFluidHandler
      * This just passes through to the master block (if it exists)

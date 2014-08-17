@@ -74,6 +74,8 @@ public abstract class BlockDYTMultiBlock extends BlockDYT implements ITileEntity
                 ((TileEntityMultiBlockBase)te).breakStructure();
             }
         }
+
+        super.breakBlock(world, x, y, z, block, meta);
     }
 
 }

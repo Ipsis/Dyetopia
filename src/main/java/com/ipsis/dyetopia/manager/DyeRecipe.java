@@ -1,21 +1,20 @@
 package com.ipsis.dyetopia.manager;
 
-import cofh.lib.inventory.ComparableItemStack;
 import com.ipsis.dyetopia.fluid.DYTFluids;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 public class DyeRecipe {
 
-    private ItemStack stack;
+    private ItemStack dye;
     private FluidStack red;
     private FluidStack yellow;
     private FluidStack blue;
     private FluidStack white;
 
-    public DyeRecipe(ItemStack stack, int red, int yellow, int blue, int white) {
+    public DyeRecipe(ItemStack dye, int red, int yellow, int blue, int white) {
 
-        this.stack = stack;
+        this.dye = dye;
         this.red = new FluidStack(DYTFluids.fluidDyeRed, red);
         this.yellow = new FluidStack(DYTFluids.fluidDyeYellow, yellow);
         this.blue = new FluidStack(DYTFluids.fluidDyeBlue, blue);
@@ -34,6 +33,6 @@ public class DyeRecipe {
 
     @Override
     public String toString() {
-        return stack.getUnlocalizedName() + "-> red: " + getRedAmount() + " yellow:" + getYellowAmount() + " blue:" + getBlueAmount() + " white:" + getWhiteAmount();
+        return dye.getUnlocalizedName() + "-> red: " + getRedAmount() + " yellow:" + getYellowAmount() + " blue:" + getBlueAmount() + " white:" + getWhiteAmount();
     }
 }

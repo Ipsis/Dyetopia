@@ -4,6 +4,10 @@ import cofh.lib.util.helpers.BlockHelper;
 import cofh.lib.util.position.BlockPosition;
 import com.ipsis.dyetopia.block.BlockDYTMultiBlock;
 import com.ipsis.dyetopia.manager.MultiBlockPatternManager;
+import com.ipsis.dyetopia.network.PacketHandler;
+import com.ipsis.dyetopia.network.message.MessageTileEntityMultiBlock;
+import com.ipsis.dyetopia.network.message.MessageTileEntityMultiBlockMaster;
+import com.ipsis.dyetopia.util.LogHelper;
 import com.ipsis.dyetopia.util.multiblock.MultiBlockPattern;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +15,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -19,12 +24,16 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
 
     private int tickCount;
     private static final int CHECK_VALID_TICKS = 40;
-    private MultiBlockPattern pattern = MultiBlockPatternManager.getPattern(MultiBlockPatternManager.Type.SQUEEZER);
+
     private boolean structureValid;
 
     public TileEntityMultiBlockMaster() {
         super(true);
         this.structureValid = false;
+    }
+
+    public MultiBlockPattern getPattern() {
+        return null;
     }
 
     protected ForgeDirection getPatternOrientation() {
@@ -38,10 +47,17 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
 
     public boolean isStructureValid() { return this.structureValid; }
 
+    /* Server->GUI sync only */
+    public void setStructureValid(boolean b) { this.structureValid = b; }
+
     /**
      * Processing
      */
     private boolean validateStructure() {
+
+        MultiBlockPattern pattern = getPattern();
+        if (pattern == null)
+            return false;
 
         for (int slice = 0; slice < pattern.getSlices(); slice++) {
             for (int row = 0; row < pattern.getRows(); row++) {
@@ -61,8 +77,9 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
                     ItemStack itemStack = pattern.getItemStackAt(slice, row, col);
                     Block b = this.worldObj.getBlock(p.x, p.y, p.z);
 
-                    if (itemStack != null && !BlockHelper.isEqual(b, Block.getBlockFromItem(itemStack.getItem())))
+                    if (itemStack != null && !BlockHelper.isEqual(b, Block.getBlockFromItem(itemStack.getItem()))) {
                         return false;
+                    }
                 }
             }
         }
@@ -71,6 +88,10 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
     }
 
     private void updateStructure(boolean doForm) {
+
+        MultiBlockPattern pattern = getPattern();
+        if (pattern == null)
+            return;
 
         for (int slice = 0; slice < pattern.getSlices(); slice++) {
             for (int row = 0 ; row < pattern.getRows(); row++) {
@@ -151,6 +172,8 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
                 setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(nbttagcompound1));
             }
         }
+
+
     }
 
     @Override
@@ -265,4 +288,22 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
         markDirty();
     }
 
+
+    @Override
+    public Packet getDescriptionPacket() {
+
+        return PacketHandler.INSTANCE.getPacketFrom(new MessageTileEntityMultiBlockMaster(this));
+    }
+
+    public void handleDescriptionPacket(MessageTileEntityMultiBlockMaster msg) {
+
+        this.masterX = msg.masterX;
+        this.masterY = msg.masterY;
+        this.masterZ = msg.masterZ;
+        this.setStructureValid(msg.isStructureValid);
+        this.setDirectionFacing(ForgeDirection.getOrientation(msg.facing));
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+
+        LogHelper.info("Master: " + msg);
+    }
 }

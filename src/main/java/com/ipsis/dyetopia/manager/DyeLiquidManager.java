@@ -15,17 +15,18 @@ public class DyeLiquidManager {
     private static final DyeLiquidManager instance = new DyeLiquidManager();
 
     /* This allows lookup of the dye recipe for any oredict dye */
-    private HashMap<String, DyeRecipe> map;
+    private HashMap<Integer, DyeRecipe> map;
 
     private DyeLiquidManager() {
-        map = new HashMap<String, DyeRecipe>();
+        map = new HashMap<Integer, DyeRecipe>();
     }
 
     public static final DyeLiquidManager getInstance() { return instance; }
 
-    private void addRecipe(String dyeName, int idx) {
-        map.put(dyeName, new DyeRecipe(new ItemStack(Items.dye, 1, idx),
-                DYE_PROPS[idx][0], DYE_PROPS[idx][1], DYE_PROPS[idx][2], DYE_PROPS[idx][3]));
+    private void addRecipe(String name, int oreId, ItemStack stack, int idx) {
+        map.put(oreId, new DyeRecipe(stack, DYE_PROPS[idx][0], DYE_PROPS[idx][1], DYE_PROPS[idx][2], DYE_PROPS[idx][3]));
+        LogHelper.info(String.format("DyeLiquidManager: dye%s:%d->%d/%d/%d/%d",
+                        name, oreId, DYE_PROPS[idx][0], DYE_PROPS[idx][1], DYE_PROPS[idx][2], DYE_PROPS[idx][3]));
     }
 
     public void initialize() {
@@ -43,18 +44,19 @@ public class DyeLiquidManager {
         };
 
         for (int i = 0; i < dyes.length; i++)
-            addRecipe("dye" + dyes[i], i);
+            addRecipe(dyes[i], OreDictionary.getOreID("dye" + dyes[i]), new ItemStack(Items.dye, 1, i), i);
     }
 
     public DyeRecipe getRecipe(ItemStack s) {
 
+        if (!OreDictHelper.isDye(s))
+            return null;
+
         /* This needs to find the correct oredict dye name to lookup */
         int[] ids = OreDictionary.getOreIDs(s);
-        if (ids.length != 0) {
-            for (int i: ids) {
-                if (OreDictHelper.isDye(s))
-                    return map.get(OreDictionary.getOreName(i));
-            }
+        for (int id : ids) {
+            if (map.containsKey(id))
+                return map.get(id);
         }
 
         return null;

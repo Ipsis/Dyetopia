@@ -8,6 +8,7 @@ import com.ipsis.dyetopia.fluid.DYTFluids;
 import com.ipsis.dyetopia.manager.*;
 import com.ipsis.dyetopia.util.LogHelper;
 import com.ipsis.dyetopia.util.TankType;
+import com.ipsis.dyetopia.util.multiblock.MultiBlockPattern;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -23,6 +24,8 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
     private EnergyManager energyMgr;
     private FactoryManager factoryMgr;
 
+    private MultiBlockPattern pattern = MultiBlockPatternManager.getPattern(MultiBlockPatternManager.Type.SQUEEZER);
+
     private static final int TANK_CAPACITY = 40000;
     private static final int ENERGY_CAPACITY = 50000;
     private static final int ENERGY_PER_TICK = 10;
@@ -36,6 +39,11 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
         factoryMgr = new FactoryManager(this);
 
         setupTanks();
+    }
+
+    @Override
+    public MultiBlockPattern getPattern() {
+        return pattern;
     }
 
     private void setValveColor(BlockPosition p, TileEntityValve.Color color) {
@@ -112,10 +120,16 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
 
     public FluidStack drain(TankType tank, ForgeDirection from, FluidStack resource, boolean doDrain) {
 
+        if (!this.isStructureValid())
+            return null;
+
         return this.tankMgr.drain(tank.getName(), from, resource, doDrain);
     }
 
     public FluidStack drain(TankType tank, ForgeDirection from, int maxDrain, boolean doDrain) {
+
+        if (!this.isStructureValid())
+            return null;
 
         return this.tankMgr.drain(tank.getName(), from, maxDrain, doDrain);
     }
@@ -126,10 +140,16 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
 
     public boolean canDrain(TankType tank, ForgeDirection from, Fluid fluid) {
 
+        if (!this.isStructureValid())
+            return false;
+
         return this.tankMgr.canDrain(tank.getName(), from, fluid);
     }
 
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+
+        if (!this.isStructureValid())
+            return null;
 
         return this.tankMgr.getTankInfo(from);
     }
@@ -166,8 +186,12 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
      * ISidedInventory
      */
     private static final int[] accessSlots = new int[]{ INPUT_SLOT };
+    private static final int[] fakeAccessSlots = new int[0];
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
+
+        if (!this.isStructureValid())
+            return fakeAccessSlots;
 
         /* All slots accessible from all sides */
         return accessSlots;
@@ -175,6 +199,9 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
 
     @Override
     public boolean canInsertItem(int slot, ItemStack itemStack, int side) {
+
+        if (!this.isStructureValid())
+            return false;
 
         /* Ignore side */
         return isItemValidForSlot(slot, itemStack);
@@ -190,6 +217,9 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
 
+        if (!this.isStructureValid())
+            return false;
+
         if (slot == INPUT_SLOT && stack != null && SqueezerManager.getRecipe(stack) != null)
             return true;
 
@@ -203,27 +233,47 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
 
     @Override
     public int receiveEnergy(ForgeDirection forgeDirection, int i, boolean b) {
+
+        if (!this.isStructureValid())
+            return 0;
+
         return energyMgr.receiveEnergy(forgeDirection, i, b);
     }
 
     @Override
     public int extractEnergy(ForgeDirection forgeDirection, int i, boolean b) {
+
+       if (!this.isStructureValid())
+           return 0;
+
         return energyMgr.extractEnergy(forgeDirection, i, b);
     }
 
     @Override
     public int getEnergyStored(ForgeDirection forgeDirection) {
+
+       if (!this.isStructureValid())
+           return 0;
+
         return energyMgr.getEnergyStored(forgeDirection);
     }
 
     @Override
     public int getMaxEnergyStored(ForgeDirection forgeDirection) {
+
+       if (!this.isStructureValid())
+           return 0;
+
         return energyMgr.getMaxEnergyStored(forgeDirection);
     }
 
     @Override
     public boolean canConnectEnergy(ForgeDirection forgeDirection) {
-        return canConnectEnergy(forgeDirection);
+
+       if (!this.isStructureValid())
+           return false;
+
+        return energyMgr.canConnectEnergy(forgeDirection);
     }
 
     @Override
@@ -233,15 +283,10 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
         if (worldObj.isRemote)
             return;
 
+        if (!this.isStructureValid())
+            return;
+
         this.factoryMgr.run();
-
-        /*
-        this.tankMgr.fill(TankType.RED.getName(), ForgeDirection.DOWN, new FluidStack(DYTFluids.fluidDyeRed, 1), true);
-        this.tankMgr.fill(TankType.YELLOW.getName(), ForgeDirection.DOWN, new FluidStack(DYTFluids.fluidDyeYellow, 1), true);
-        this.tankMgr.fill(TankType.BLUE.getName(), ForgeDirection.DOWN, new FluidStack(DYTFluids.fluidDyeBlue, 1), true);
-        this.tankMgr.fill(TankType.WHITE.getName(), ForgeDirection.DOWN, new FluidStack(DYTFluids.fluidDyeWhite, 1), true); */
-
-        this.energyMgr.receiveEnergy(ForgeDirection.DOWN, 10, false);
     }
 
     /**

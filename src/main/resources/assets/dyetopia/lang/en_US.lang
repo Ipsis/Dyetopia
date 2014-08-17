@@ -22,3 +22,6 @@ item.dyetopia:bucketDyeYellow.name=Yellow Liquid Dye Bucket
 item.dyetopia:bucketDyeBlue.name=Blue Liquid Dye Bucket
 item.dyetopia:bucketDyeWhite.name=White Liquid Dye Bucket
 item.dyetopia:bucketDyePure.name=Pure Liquid Dye Bucket
+
+tile.dyetopia:squeezer.neiuse.0=First page of some really useful text
+tile.dyetopia:squeezer.neiuse.1=Second page of some really useful text

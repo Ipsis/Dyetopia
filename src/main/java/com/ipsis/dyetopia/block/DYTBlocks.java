@@ -1,8 +1,11 @@
 package com.ipsis.dyetopia.block;
 
 import com.ipsis.dyetopia.fluid.DYTFluids;
+import com.ipsis.dyetopia.plugins.nei.UsageManager;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.material.Material;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 
 public class DYTBlocks {
 
@@ -24,16 +27,21 @@ public class DYTBlocks {
         blockCasing = new BlockCasing();
         blockController = new BlockController();
         blockSqueezer = new BlockSqueezer();
+        blockMixer = new BlockMixer();
         blockValve = new BlockValve();
 
         GameRegistry.registerBlock(blockCasing, "blockCasing");
         GameRegistry.registerBlock(blockController, "blockController");
         GameRegistry.registerBlock(blockSqueezer, "blockSqueezer");
+        GameRegistry.registerBlock(blockMixer, "blockMixer");
         GameRegistry.registerBlock(blockValve, "blockValve");
+
+        UsageManager.addUsage(blockSqueezer, new String[]{blockSqueezer.getUnlocalizedName() + "neiuse.0", blockSqueezer.getUnlocalizedName() + "neiuse.1" });
     }
 
     public static void initialize() {
 
+        GameRegistry.addShapelessRecipe(new ItemStack(blockSqueezer), new ItemStack(Items.dye), new ItemStack(Items.flint));
     }
 
     public static void postInit() {
@@ -49,5 +57,6 @@ public class DYTBlocks {
     public static BlockDYT blockCasing;
     public static BlockDYT blockController;
     public static BlockDYT blockSqueezer;
+    public static BlockDYT blockMixer;
     public static BlockDYT blockValve;
 }

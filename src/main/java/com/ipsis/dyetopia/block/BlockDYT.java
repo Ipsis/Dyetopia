@@ -25,6 +25,7 @@ public class BlockDYT extends Block {
     {
         super(material);
         this.setCreativeTab(CreativeTab.DYT_TAB);
+        this.setHardness(3.5F);
     }
 
     @Override

@@ -36,8 +36,7 @@ public class DYTWailaProvider implements IWailaDataProvider{
         if (accessor.getTileEntity() instanceof TileEntitySqueezer) {
 
             TileEntitySqueezer te = (TileEntitySqueezer)accessor.getTileEntity();
-            if (te.isStructureValid())
-                currenttip = handleTileEntitySqueezer((TileEntitySqueezer)accessor.getTileEntity(), currenttip);
+            currenttip = handleTileEntitySqueezer((TileEntitySqueezer)accessor.getTileEntity(), currenttip);
 
         } else if (accessor.getTileEntity() instanceof TileEntityMultiBlockBase) {
 
@@ -45,7 +44,7 @@ public class DYTWailaProvider implements IWailaDataProvider{
             if (base.hasMaster() && accessor.getWorld() != null) {
                 TileEntity te = accessor.getWorld().getTileEntity(base.getMasterX(), base.getMasterY(), base.getMasterZ());
                 if (te instanceof TileEntitySqueezer)
-                    currenttip = handleTileEntitySqueezer((TileEntitySqueezer)te, currenttip);
+                    currenttip = handleTileEntitySqueezer((TileEntitySqueezer) te, currenttip);
             }
         }
 
@@ -69,6 +68,9 @@ public class DYTWailaProvider implements IWailaDataProvider{
      * Tile Info Providers
      */
     private List<String> handleTileEntitySqueezer(TileEntitySqueezer te, List<String> currenttip) {
+
+        if (!te.isStructureValid())
+            return currenttip;
 
         displayEnergy(currenttip, te.getEnergyMgr().getEnergyStorage());
 
