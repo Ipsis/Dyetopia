@@ -19,9 +19,9 @@ public class MultiBlockPatternManager {
     private static void addSqueezer() {
 
         MultiBlockPattern pattern = new MultiBlockPattern(3, 3, 3);
-        pattern.addSlice(0, "ssv", "sss", "ssv");
+        pattern.addSlice(0, "sss", "sss", "vsv");
         pattern.addSlice(1, "sqs", "scs", "sss");
-        pattern.addSlice(2, "ssv", "sss", "ssv");
+        pattern.addSlice(2, "sss", "sss", "vsv");
         pattern.addCharMap('s', new ItemStack(DYTBlocks.blockCasing));
         pattern.addCharMap('v', new ItemStack(DYTBlocks.blockValve));
         pattern.addCharMap('c', new ItemStack(DYTBlocks.blockController));
@@ -35,7 +35,7 @@ public class MultiBlockPatternManager {
 
         MultiBlockPattern pattern = new MultiBlockPattern(3, 3, 3);
         pattern.addSlice(0, "sss", "sss", "vsv");
-        pattern.addSlice(1, "sms", "scs", "sss");
+        pattern.addSlice(1, "sms", "scs", "svs");
         pattern.addSlice(2, "sss", "sss", "vsv");
         pattern.addCharMap('s', new ItemStack(DYTBlocks.blockCasing));
         pattern.addCharMap('v', new ItemStack(DYTBlocks.blockValve));

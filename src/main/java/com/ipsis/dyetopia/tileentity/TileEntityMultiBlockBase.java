@@ -1,7 +1,9 @@
 package com.ipsis.dyetopia.tileentity;
 
+import cofh.api.energy.IEnergyHandler;
 import com.ipsis.dyetopia.network.PacketHandler;
 import com.ipsis.dyetopia.network.message.MessageTileEntityMultiBlock;
+import com.ipsis.dyetopia.util.LogHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -12,7 +14,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
 
-public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements ISidedInventory {
+public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements ISidedInventory, IEnergyHandler {
 
     protected int masterX;
     protected int masterY;
@@ -65,7 +67,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
         return this.masterZ;
     }
 
-    protected TileEntityMultiBlockMaster getMasterTE() {
+    public TileEntityMultiBlockMaster getMasterTE() {
 
         if (this.hasMaster) {
             TileEntity te = this.worldObj.getTileEntity(this.masterX, this.masterY, this.masterZ);
@@ -75,6 +77,16 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
 
         return null;
     }
+
+    public boolean isStructureValid() {
+
+        TileEntityMultiBlockMaster m = getMasterTE();
+        if (m != null)
+            return m.isStructureValid();
+
+        return false;
+    }
+
 
     /**
      * Processing
@@ -86,11 +98,10 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
     }
 
     public void breakStructure() {
-        if (!this.isMaster() && this.hasMaster) {
-            TileEntity te = worldObj.getTileEntity(this.masterX, this.masterY, this.masterZ);
-            if (te instanceof TileEntityMultiBlockMaster)
-                ((TileEntityMultiBlockMaster) te).breakStructure();
-        }
+
+        TileEntityMultiBlockMaster m = getMasterTE();
+        if (m != null)
+            m.breakStructure();
     }
 
     /**
@@ -140,6 +151,62 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
             return "Master @ (" + this.masterX + ", " + this.masterY + ", " + this.masterZ + ")";
         else
             return "No Master";
+    }
+
+    /* IEnergyHandler */
+    private IEnergyHandler getEnergy() {
+
+        TileEntityMultiBlockMaster m = this.getMasterTE();
+        if (m != null && m instanceof IEnergyHandler)
+            return (IEnergyHandler)m;
+
+        return null;
+    }
+
+    public int receiveEnergy(ForgeDirection forgeDirection, int i, boolean b) {
+
+        IEnergyHandler te = getEnergy();
+        if (te != null)
+            return te.receiveEnergy(forgeDirection, i, b);
+
+        return 0;
+    }
+
+    public int extractEnergy(ForgeDirection forgeDirection, int i, boolean b) {
+
+        IEnergyHandler te = getEnergy();
+        if (te != null)
+            return te.extractEnergy(forgeDirection, i, b);
+
+        return 0;
+    }
+
+    public int getEnergyStored(ForgeDirection forgeDirection) {
+
+        IEnergyHandler te = getEnergy();
+        if (te != null)
+            return te.getEnergyStored(forgeDirection);
+
+        return 0;
+    }
+
+    public int getMaxEnergyStored(ForgeDirection forgeDirection) {
+
+        IEnergyHandler te = getEnergy();
+        if (te != null)
+            return te.getMaxEnergyStored(forgeDirection);
+
+        return 0;
+    }
+
+    @Override
+    public boolean canConnectEnergy(ForgeDirection forgeDirection) {
+
+        IEnergyHandler te = getEnergy();
+        if (te != null)
+            return te.canConnectEnergy(forgeDirection);
+
+        return false;
     }
 
     /* ISidedInventory */

@@ -1,8 +1,10 @@
 package com.ipsis.dyetopia.block;
 
 import com.ipsis.dyetopia.Dyetopia;
+import com.ipsis.dyetopia.tileentity.TileEntityMixer;
 import com.ipsis.dyetopia.tileentity.TileEntityMultiBlockBase;
 import com.ipsis.dyetopia.tileentity.TileEntityMultiBlockMaster;
+import com.ipsis.dyetopia.tileentity.TileEntitySqueezer;
 import com.ipsis.dyetopia.util.LogHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -54,11 +56,24 @@ public abstract class BlockDYTMultiBlock extends BlockDYT implements ITileEntity
         } else {
             if (!world.isRemote) {
                 TileEntity te = world.getTileEntity(x, y, z);
-                if (te instanceof TileEntityMultiBlockBase && (((TileEntityMultiBlockBase) te).hasMaster())) {
-                    TileEntityMultiBlockBase mbb = (TileEntityMultiBlockBase)te;
-                    entityPlayer.openGui(Dyetopia.instance, 0, world, mbb.getMasterX(), mbb.getMasterY(), mbb.getMasterZ());
-                    return true;
+                if (te instanceof  TileEntityMultiBlockBase) {
+
+                    TileEntityMultiBlockBase bte = (TileEntityMultiBlockBase)te;
+                    if (bte.isStructureValid()) {
+
+                        TileEntityMultiBlockMaster mte = bte.getMasterTE();
+                        if (mte != null) {
+                            if (mte instanceof TileEntitySqueezer)
+                                entityPlayer.openGui(Dyetopia.instance, 0, world, mte.getMasterX(), mte.getMasterY(), mte.getMasterZ());
+                            else if (mte instanceof TileEntityMixer)
+                                entityPlayer.openGui(Dyetopia.instance, 1, world, mte.getMasterX(), mte.getMasterY(), mte.getMasterZ());
+
+                            return true;
+                        }
+                    }
                 }
+
+                return false;
             }
 
             return false;
@@ -66,16 +81,16 @@ public abstract class BlockDYTMultiBlock extends BlockDYT implements ITileEntity
     }
 
     @Override
-    public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+         public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
 
-        if (!world.isRemote) {
-            TileEntity te = world.getTileEntity(x, y, z);
-            if (te instanceof TileEntityMultiBlockBase) {
-                ((TileEntityMultiBlockBase)te).breakStructure();
-            }
-        }
+             if (!world.isRemote) {
+                 TileEntity te = world.getTileEntity(x, y, z);
+                 if (te instanceof TileEntityMultiBlockBase) {
+                     ((TileEntityMultiBlockBase)te).breakStructure();
+                 }
+             }
 
-        super.breakBlock(world, x, y, z, block, meta);
-    }
+             super.breakBlock(world, x, y, z, block, meta);
+         }
 
 }

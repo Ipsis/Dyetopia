@@ -1,6 +1,8 @@
 package com.ipsis.dyetopia.gui;
 
+import com.ipsis.dyetopia.gui.container.ContainerMixer;
 import com.ipsis.dyetopia.gui.container.ContainerSqueezer;
+import com.ipsis.dyetopia.tileentity.TileEntityMixer;
 import com.ipsis.dyetopia.tileentity.TileEntitySqueezer;
 import com.ipsis.dyetopia.util.LogHelper;
 import cpw.mods.fml.common.network.IGuiHandler;
@@ -17,6 +19,8 @@ public class GuiHandler implements IGuiHandler {
 
         if (te instanceof TileEntitySqueezer) {
             return new ContainerSqueezer((TileEntitySqueezer)te, player);
+        } else if (te instanceof TileEntityMixer) {
+            return new ContainerMixer((TileEntityMixer)te, player);
         }
 
         return null;
@@ -29,7 +33,10 @@ public class GuiHandler implements IGuiHandler {
 
         if (te instanceof TileEntitySqueezer) {
             return new GuiSqueezer((TileEntitySqueezer)te, player);
+        } else if (te instanceof TileEntityMixer) {
+            return new GuiMixer((TileEntityMixer)te, player);
         }
+
         return null;
     }
 }

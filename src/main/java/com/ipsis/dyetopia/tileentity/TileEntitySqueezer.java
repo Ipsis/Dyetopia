@@ -67,19 +67,21 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
         /* Red tank */
         p = o.copy();
         p.moveUp(1);
-        p.moveRight(1);
+        p.moveLeft(1);
+        p.moveForwards(2);
         setValveColor(p, isNowValid ? TileEntityValve.Color.RED : TileEntityValve.Color.NONE);
 
         /* Yellow tank */
         p = o.copy();
-        p.moveDown(1);
+        p.moveUp(1);
         p.moveRight(1);
+        p.moveForwards(2);
         setValveColor(p, isNowValid ? TileEntityValve.Color.YELLOW : TileEntityValve.Color.NONE);
 
         /* Blue tank */
         p = o.copy();
-        p.moveUp(1);
-        p.moveRight(1);
+        p.moveDown(1);
+        p.moveLeft(1);
         p.moveForwards(2);
         setValveColor(p, isNowValid ? TileEntityValve.Color.BLUE : TileEntityValve.Color.NONE);
 
@@ -103,6 +105,14 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
         this.tankMgr.addToWhitelist(TankType.YELLOW.getName(), DYTFluids.fluidDyeYellow);
         this.tankMgr.addToWhitelist(TankType.BLUE.getName(), DYTFluids.fluidDyeBlue);
         this.tankMgr.addToWhitelist(TankType.WHITE.getName(), DYTFluids.fluidDyeWhite);
+
+        /* Dont allow filling  */
+        this.tankMgr.blockTankFillAll(TankType.RED.getName());
+        this.tankMgr.blockTankFillAll(TankType.YELLOW.getName());
+        this.tankMgr.blockTankFillAll(TankType.BLUE.getName());
+        this.tankMgr.blockTankFillAll(TankType.WHITE.getName());
+
+        LogHelper.info("Squeezer: " + this.tankMgr);
     }
 
     /***************
@@ -304,10 +314,10 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
 
         SqueezerManager.SqueezerRecipe sr = (SqueezerManager.SqueezerRecipe)recipe;
 
-        if (this.tankMgr.fill(TankType.RED.getName(), ForgeDirection.NORTH, sr.getRedFluidStack(), true) == sr.getRedAmount() &&
-            this.tankMgr.fill(TankType.YELLOW.getName(), ForgeDirection.NORTH, sr.getYellowFluidStack(), true) == sr.getYellowAmount() &&
-            this.tankMgr.fill(TankType.BLUE.getName(), ForgeDirection.NORTH, sr.getBlueFluidStack(), true) == sr.getBlueAmount() &&
-            this.tankMgr.fill(TankType.WHITE.getName(), ForgeDirection.NORTH, sr.getWhiteFluidStack(), true) == sr.getWhiteAmount()) {
+        if (this.tankMgr.fill(TankType.RED.getName(), sr.getRedFluidStack(), false) == sr.getRedAmount() &&
+            this.tankMgr.fill(TankType.YELLOW.getName(),  sr.getYellowFluidStack(), false) == sr.getYellowAmount() &&
+            this.tankMgr.fill(TankType.BLUE.getName(), sr.getBlueFluidStack(), false) == sr.getBlueAmount() &&
+            this.tankMgr.fill(TankType.WHITE.getName(), sr.getWhiteFluidStack(), false) == sr.getWhiteAmount()) {
             return true;
         }
 
@@ -332,12 +342,10 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
 
         SqueezerManager.SqueezerRecipe sr = (SqueezerManager.SqueezerRecipe)recipe;
 
-        this.tankMgr.fill(TankType.RED.getName(), ForgeDirection.NORTH, sr.getRedFluidStack(), false);
-        this.tankMgr.fill(TankType.YELLOW.getName(), ForgeDirection.NORTH, sr.getYellowFluidStack(), false);
-        this.tankMgr.fill(TankType.BLUE.getName(), ForgeDirection.NORTH, sr.getBlueFluidStack(), false);
-        this.tankMgr.fill(TankType.WHITE.getName(), ForgeDirection.NORTH, sr.getWhiteFluidStack(), false);
-
-        LogHelper.info("createOutput: " + sr.toString());
+        this.tankMgr.fill(TankType.RED.getName(), sr.getRedFluidStack(), true);
+        this.tankMgr.fill(TankType.YELLOW.getName(), sr.getYellowFluidStack(), true);
+        this.tankMgr.fill(TankType.BLUE.getName(), sr.getBlueFluidStack(), true);
+        this.tankMgr.fill(TankType.WHITE.getName(), sr.getWhiteFluidStack(), true);
     }
 
     @Override

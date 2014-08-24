@@ -45,6 +45,7 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
         return this.getDirectionFacing().getOpposite();
     }
 
+    @Override
     public boolean isStructureValid() { return this.structureValid; }
 
     /* Server->GUI sync only */
@@ -303,7 +304,5 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
         this.setStructureValid(msg.isStructureValid);
         this.setDirectionFacing(ForgeDirection.getOrientation(msg.facing));
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-
-        LogHelper.info("Master: " + msg);
     }
 }

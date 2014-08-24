@@ -4,10 +4,7 @@ import com.ipsis.dyetopia.block.DYTBlocks;
 import com.ipsis.dyetopia.fluid.DYTFluids;
 import com.ipsis.dyetopia.gui.GuiHandler;
 import com.ipsis.dyetopia.item.DYTItems;
-import com.ipsis.dyetopia.manager.DyeLiquidManager;
-import com.ipsis.dyetopia.manager.DyeSourceManager;
-import com.ipsis.dyetopia.manager.MultiBlockPatternManager;
-import com.ipsis.dyetopia.manager.SqueezerManager;
+import com.ipsis.dyetopia.manager.*;
 import com.ipsis.dyetopia.network.PacketHandler;
 import com.ipsis.dyetopia.proxy.IProxy;
 import com.ipsis.dyetopia.reference.Reference;
@@ -64,6 +61,7 @@ public class Dyetopia {
 
         DyeLiquidManager.getInstance().initialize();
         SqueezerManager.initialise();
+        MixerManager.initialise();
 
         DyeSourceManager.getInstance().initialize();
     }
