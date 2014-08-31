@@ -17,7 +17,6 @@ public class ContainerMixer extends Container {
     public ContainerMixer(TileEntityMixer mixer, EntityPlayer player) {
         this.mixer = mixer;
 
-
          /* Player inventory */
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 9; x++)

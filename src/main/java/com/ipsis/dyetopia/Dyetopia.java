@@ -10,6 +10,7 @@ import com.ipsis.dyetopia.proxy.IProxy;
 import com.ipsis.dyetopia.reference.Reference;
 import com.ipsis.dyetopia.util.ConfigHelper;
 import com.ipsis.dyetopia.util.LogHelper;
+import com.ipsis.dyetopia.util.OriginHelper;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -62,6 +63,7 @@ public class Dyetopia {
         DyeLiquidManager.getInstance().initialize();
         SqueezerManager.initialise();
         MixerManager.initialise();
+        PainterManager.initialise();
 
         DyeSourceManager.getInstance().initialize();
     }

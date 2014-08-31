@@ -18,11 +18,17 @@ public class DYTItems {
         bucketDyeWhite = new ItemBucketDYT(DYTBlocks.blockFluidDyeWhite, "bucketDyeWhite");
         bucketDyePure = new ItemBucketDYT(DYTBlocks.blockFluidDyePure, "bucketDyePure");
 
+        itemEraser = new ItemEraser();
+        itemDyeBlank = new ItemDyeBlank();
+
         GameRegistry.registerItem(bucketDyeRed, "item.bucketDyeRed");
         GameRegistry.registerItem(bucketDyeYellow, "item.bucketDyeYellow");
         GameRegistry.registerItem(bucketDyeBlue, "item.bucketDyeBlue");
         GameRegistry.registerItem(bucketDyeWhite, "item.bucketDyeWhite");
         GameRegistry.registerItem(bucketDyePure, "item.bucketDyePure");
+
+        GameRegistry.registerItem(itemEraser, "item.eraser");
+        GameRegistry.registerItem(itemDyeBlank, "item.dyeBlank");
     }
 
     public static void initialize() {
@@ -43,4 +49,7 @@ public class DYTItems {
     public static ItemBucketDYT bucketDyeBlue;
     public static ItemBucketDYT bucketDyeWhite;
     public static ItemBucketDYT bucketDyePure;
+
+    public static ItemDYT itemEraser;
+    public static ItemDYT itemDyeBlank;
 }

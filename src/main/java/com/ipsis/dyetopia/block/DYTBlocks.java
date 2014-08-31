@@ -30,11 +30,19 @@ public class DYTBlocks {
         blockMixer = new BlockMixer();
         blockValve = new BlockValve();
 
+        blockPainter = new BlockPainter();
+        blockStamper = new BlockStamper();
+        blockFiller = new BlockFiller();
+
         GameRegistry.registerBlock(blockCasing, "blockCasing");
         GameRegistry.registerBlock(blockController, "blockController");
         GameRegistry.registerBlock(blockSqueezer, "blockSqueezer");
         GameRegistry.registerBlock(blockMixer, "blockMixer");
         GameRegistry.registerBlock(blockValve, "blockValve");
+
+        GameRegistry.registerBlock(blockPainter, "blockPainter");
+        GameRegistry.registerBlock(blockStamper, "blockStamper");
+        GameRegistry.registerBlock(blockFiller, "blockFiller");
 
         UsageManager.addUsage(blockSqueezer, new String[]{blockSqueezer.getUnlocalizedName() + "neiuse.0", blockSqueezer.getUnlocalizedName() + "neiuse.1" });
     }
@@ -59,4 +67,8 @@ public class DYTBlocks {
     public static BlockDYT blockSqueezer;
     public static BlockDYT blockMixer;
     public static BlockDYT blockValve;
+
+    public static BlockDYT blockPainter;
+    public static BlockDYT blockFiller;
+    public static BlockDYT blockStamper;
 }

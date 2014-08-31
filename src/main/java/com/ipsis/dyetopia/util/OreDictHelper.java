@@ -8,6 +8,9 @@ public class OreDictHelper {
 
     public static boolean isDye(ItemStack stack) {
 
+        if (stack == null)
+            return false;
+
         int[] ids = OreDictionary.getOreIDs(stack);
         if (ids.length != 0) {
             for (int id : ids) {

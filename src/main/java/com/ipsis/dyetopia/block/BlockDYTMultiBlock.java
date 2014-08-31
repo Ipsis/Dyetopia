@@ -51,33 +51,32 @@ public abstract class BlockDYTMultiBlock extends BlockDYT implements ITileEntity
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int p_149727_6_, float hitX, float hitY, float hitZ) {
 
-        if (entityPlayer.isSneaking()) {
+        if (entityPlayer.isSneaking())
             return false;
-        } else {
-            if (!world.isRemote) {
-                TileEntity te = world.getTileEntity(x, y, z);
-                if (te instanceof  TileEntityMultiBlockBase) {
 
-                    TileEntityMultiBlockBase bte = (TileEntityMultiBlockBase)te;
-                    if (bte.isStructureValid()) {
+        if (!world.isRemote) {
+            TileEntity te = world.getTileEntity(x, y, z);
+            if (te instanceof  TileEntityMultiBlockBase) {
 
-                        TileEntityMultiBlockMaster mte = bte.getMasterTE();
-                        if (mte != null) {
-                            if (mte instanceof TileEntitySqueezer)
-                                entityPlayer.openGui(Dyetopia.instance, 0, world, mte.getMasterX(), mte.getMasterY(), mte.getMasterZ());
-                            else if (mte instanceof TileEntityMixer)
-                                entityPlayer.openGui(Dyetopia.instance, 1, world, mte.getMasterX(), mte.getMasterY(), mte.getMasterZ());
+                TileEntityMultiBlockBase bte = (TileEntityMultiBlockBase)te;
+                if (bte.isStructureValid()) {
 
-                            return true;
-                        }
+                    TileEntityMultiBlockMaster mte = bte.getMasterTE();
+                    if (mte != null) {
+                        if (mte instanceof TileEntitySqueezer)
+                            entityPlayer.openGui(Dyetopia.instance, 0, world, mte.getMasterX(), mte.getMasterY(), mte.getMasterZ());
+                        else if (mte instanceof TileEntityMixer)
+                            entityPlayer.openGui(Dyetopia.instance, 1, world, mte.getMasterX(), mte.getMasterY(), mte.getMasterZ());
+
+                        return true;
                     }
                 }
-
-                return false;
             }
 
             return false;
         }
+
+        return false;
     }
 
     @Override
