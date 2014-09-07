@@ -1,6 +1,8 @@
 package com.ipsis.dyetopia.util;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 
 public class DyeHelper {
 
@@ -40,6 +42,16 @@ public class DyeHelper {
                 return VALID_DYES[in.getItemDamage()];
 
             return WHITE;
+        }
+
+        public ItemStack getStack() {
+
+            return new ItemStack(Items.dye, 1, this.dmg);
+        }
+
+        public IIcon getIcon() {
+
+            return Items.dye.getIconFromDamage(this.dmg);
         }
     }
 

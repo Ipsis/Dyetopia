@@ -1,7 +1,13 @@
 package com.ipsis.dyetopia.gui.container;
 
 import cofh.lib.gui.slot.SlotAcceptValid;
+import com.ipsis.dyetopia.gui.GuiStamper;
+import com.ipsis.dyetopia.gui.IGuiMessageHandler;
+import com.ipsis.dyetopia.manager.StamperManager;
+import com.ipsis.dyetopia.network.message.MessageGuiWidget;
+import com.ipsis.dyetopia.reference.GuiIds;
 import com.ipsis.dyetopia.tileentity.TileEntityStamper;
+import com.ipsis.dyetopia.util.LogHelper;
 import com.ipsis.dyetopia.util.TankType;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -11,7 +17,7 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerStamper extends Container {
+public class ContainerStamper extends Container implements IGuiMessageHandler {
 
     private TileEntityStamper stamper;
 
@@ -76,5 +82,20 @@ public class ContainerStamper extends Container {
         this.stamper.getTankMgr().updateGuiTracking(this.crafters, this, TankType.PURE.getName());
         this.stamper.getEnergyMgr().updateGuiTracking(this.crafters, this);
         this.stamper.getFactoryMgr().updateGuiTracking(this.crafters, this);
+    }
+
+    /**
+     * IGuiMessageHandler
+     */
+    @Override
+    public void handleGuiWidget(MessageGuiWidget message) {
+
+        if (message.guiId != GuiIds.GUI_STAMPER || message.ctrlType != GuiIds.GUI_CTRL_BUTTON)
+            return;
+
+        if (message.ctrlId == GuiStamper.BUTTON_DN_ID)
+            this.stamper.setPrevCurrSelected();
+        else if (message.ctrlId == GuiStamper.BUTTON_UP_ID)
+            this.stamper.setNextCurrSelected();
     }
 }

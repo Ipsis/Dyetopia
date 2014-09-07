@@ -14,14 +14,21 @@ fluid.dyepure=Pure Liquid Dye
 
 tile.dyetopia:casing.name=Casing
 tile.dyetopia:controller.name=Controller
-tile.dyetopia:squeezer.name=Squeezer
 tile.dyetopia:valve.name=Valve
+tile.dyetopia:squeezer.name=Squeezer
+tile.dyetopia:mixer.name=Mixer
+tile.dyetopia:painter.name=Painter
+tile.dyetopia:stamper.name=Stamper
+tile.dyetopia:filler.name=Filler
 
 item.dyetopia:bucketDyeRed.name=Red Liquid Dye Bucket
 item.dyetopia:bucketDyeYellow.name=Yellow Liquid Dye Bucket
 item.dyetopia:bucketDyeBlue.name=Blue Liquid Dye Bucket
 item.dyetopia:bucketDyeWhite.name=White Liquid Dye Bucket
 item.dyetopia:bucketDyePure.name=Pure Liquid Dye Bucket
+
+item.dyetopia:eraser.name=Eraser
+item.dyetopia:dyeBlank.name=Dye Blank
 
 tile.dyetopia:squeezer.neiuse.0=First page of some really useful text
 tile.dyetopia:squeezer.neiuse.1=Second page of some really useful text

@@ -64,6 +64,7 @@ public class Dyetopia {
         SqueezerManager.initialise();
         MixerManager.initialise();
         PainterManager.initialise();
+        StamperManager.initialise();
 
         DyeSourceManager.getInstance().initialize();
     }

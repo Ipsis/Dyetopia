@@ -1,12 +1,14 @@
 package com.ipsis.dyetopia.network.message;
 
 import com.ipsis.dyetopia.gui.IGuiMessageHandler;
+import com.ipsis.dyetopia.util.LogHelper;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.entity.player.EntityPlayer;
 
 public class MessageGuiWidget implements IMessage, IMessageHandler<MessageGuiWidget, IMessage> {
 
@@ -50,8 +52,7 @@ public class MessageGuiWidget implements IMessage, IMessageHandler<MessageGuiWid
     @Override
     public IMessage onMessage(MessageGuiWidget message, MessageContext ctx) {
 
-        /* TODO MessageGuiWidget needs to pass more to handleGuiWidget */
-        EntityClientPlayerMP player = FMLClientHandler.instance().getClient().thePlayer;
+        EntityPlayer player = ctx.getServerHandler().playerEntity;
         if (player != null && player.openContainer != null && player.openContainer instanceof IGuiMessageHandler)
             ((IGuiMessageHandler) player.openContainer).handleGuiWidget(message);
 
@@ -60,6 +61,8 @@ public class MessageGuiWidget implements IMessage, IMessageHandler<MessageGuiWid
 
     @Override
     public String toString() {
-        return String.format("MessageGuiWidget - guiId:%d", guiId);
+
+        return String.format("MessageGuiWidget - guiId:%d type:%d id:%d d1:%d d2:%d",
+                this.guiId, this.ctrlType, this.ctrlId, this.data1, this.data2);
     }
 }

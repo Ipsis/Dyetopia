@@ -1,10 +1,16 @@
 package com.ipsis.dyetopia.tileentity;
 
+import com.ipsis.dyetopia.gui.GuiStamper;
+import com.ipsis.dyetopia.gui.IGuiMessageHandler;
 import com.ipsis.dyetopia.item.DYTItems;
-import com.ipsis.dyetopia.manager.FactoryManager;
-import com.ipsis.dyetopia.manager.IFactory;
-import com.ipsis.dyetopia.manager.IFactoryRecipe;
-import com.ipsis.dyetopia.manager.SqueezerManager;
+import com.ipsis.dyetopia.manager.*;
+import com.ipsis.dyetopia.network.PacketHandler;
+import com.ipsis.dyetopia.network.message.MessageGuiWidget;
+import com.ipsis.dyetopia.reference.GuiIds;
+import com.ipsis.dyetopia.util.DyeHelper;
+import com.ipsis.dyetopia.util.LogHelper;
+import com.ipsis.dyetopia.util.TankType;
+import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -24,6 +30,7 @@ public class TileEntityStamper extends TileEntityMachinePureDye implements ISide
         super(TANK_CAPACITY);
         inventory = new ItemStack[2];
         factoryMgr = new FactoryManager(this);
+        this.currSelected = StamperManager.getFirst();
     }
 
     /**
@@ -83,15 +90,6 @@ public class TileEntityStamper extends TileEntityMachinePureDye implements ISide
         return false;
     }
 
-    @Override
-    public boolean isOutputValid(IFactoryRecipe recipe) {
-
-        if (recipe == null)
-            return false;
-
-        /* Check the output slot */
-        return true;
-    }
 
     @Override
     public void updateEntity() {
@@ -111,22 +109,56 @@ public class TileEntityStamper extends TileEntityMachinePureDye implements ISide
     private int consumedEnergy;
 
     @Override
+    public boolean isOutputValid(IFactoryRecipe recipe) {
+
+        if (recipe == null || !(recipe instanceof StamperManager.StamperRecipe))
+            return false;
+
+        StamperManager.StamperRecipe sr = (StamperManager.StamperRecipe)recipe;
+
+        ItemStack curr = getStackInSlot(OUTPUT_SLOT);
+        if (curr == null)
+            return true;
+
+        if (curr.isItemEqual(sr.getOutput()) && curr.stackSize + 1 <= curr.getMaxStackSize())
+            return true;
+
+        return false;
+    }
+
+    @Override
     public boolean isEnergyAvailable(int amount) {
         return amount ==  this.energyMgr.extractEnergy(ForgeDirection.DOWN, amount, true);
     }
 
     @Override
     public void consumeInputs(IFactoryRecipe recipe) {
+
+        if (recipe == null || !(recipe instanceof StamperManager.StamperRecipe))
+            return;
+
+        StamperManager.StamperRecipe sr = (StamperManager.StamperRecipe)recipe;
         decrStackSize(INPUT_SLOT, 1);
+
+        this.getTankMgr().drain(TankType.PURE.getName(), sr.getPureAmount(), true);
     }
 
     @Override
     public void createOutputs(IFactoryRecipe recipe) {
 
-        if (recipe == null)
+        if (recipe == null || !(recipe instanceof StamperManager.StamperRecipe))
             return;
 
-        /* reduce the pure amount */
+        StamperManager.StamperRecipe sr = (StamperManager.StamperRecipe)recipe;
+        ItemStack out = getStackInSlot(OUTPUT_SLOT);
+        if (out == null) {
+            out = sr.getOutput();
+            setInventorySlotContents(OUTPUT_SLOT, out);
+        } else {
+            out.stackSize++;
+            if (out.stackSize > out.getMaxStackSize())
+                out.stackSize = out.getMaxStackSize();
+        }
     }
 
     @Override
@@ -141,11 +173,61 @@ public class TileEntityStamper extends TileEntityMachinePureDye implements ISide
 
     @Override
     public IFactoryRecipe getRecipe() {
-        return null;
+
+        ItemStack in = getStackInSlot(INPUT_SLOT);
+        if (in == null || in.getItem() != DYTItems.itemDyeBlank || in.stackSize <= 0)
+            return null;
+
+        return StamperManager.getRecipe(currSelected);
     }
 
     @Override
     public void updateRunning(boolean running) {
 
     }
+
+    /**
+     * Gui
+     */
+    private DyeHelper.DyeType currSelected;
+    public void incSelected() {
+
+        if (worldObj.isRemote) {
+
+            this.currSelected = StamperManager.getNext(this.currSelected);
+
+            PacketHandler.INSTANCE.sendToServer(
+                    new MessageGuiWidget(GuiIds.GUI_STAMPER, GuiIds.GUI_CTRL_BUTTON,
+                            GuiStamper.BUTTON_UP_ID, 0, 0));
+        }
+    }
+
+    public void decSelected() {
+
+        if (worldObj.isRemote) {
+
+            this.currSelected = StamperManager.getPrev(this.currSelected);
+
+            PacketHandler.INSTANCE.sendToServer(
+                    new MessageGuiWidget(GuiIds.GUI_STAMPER, GuiIds.GUI_CTRL_BUTTON,
+                            GuiStamper.BUTTON_DN_ID, 0, 0));
+        }
+    }
+
+    public DyeHelper.DyeType getCurrSelected() {
+
+        return this.currSelected;
+    }
+
+    public void setNextCurrSelected() {
+
+        this.currSelected = StamperManager.getNext(this.currSelected);
+    }
+
+    public void setPrevCurrSelected() {
+
+        this.currSelected = StamperManager.getPrev(this.currSelected);
+    }
+
+
 }
