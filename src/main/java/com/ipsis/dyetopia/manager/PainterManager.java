@@ -17,6 +17,7 @@ import java.util.*;
 
 /**
  * Recipe parsing taken from Pahimar's EE3 RecipeHelper.java
+ *
  */
 
 public class PainterManager {
@@ -28,14 +29,21 @@ public class PainterManager {
         List<IRecipe> allrecipes = CraftingManager.getInstance().getRecipeList();
         for (IRecipe irecipe : allrecipes) {
 
-            if (irecipe instanceof ShapelessRecipes)
-                handleShapelessRecipe((ShapelessRecipes)irecipe);
-            else if (irecipe instanceof ShapedRecipes)
-                handleShapedRecipe((ShapedRecipes)irecipe);
-            else if (irecipe instanceof ShapedOreRecipe)
-                handleShapedOreRecipe((ShapedOreRecipe)irecipe);
-            else if (irecipe instanceof ShapelessOreRecipe)
-                handleShapelessOreRecipe((ShapelessOreRecipe)irecipe);
+            if (irecipe.getRecipeOutput() == null)
+                continue;
+
+            /* We want a dye + something */
+            if (irecipe.getRecipeSize() <= 1)
+                continue;
+
+            /* No recipes that make dyes or food */
+            if (OreDictHelper.isDye(irecipe.getRecipeOutput()) || irecipe.getRecipeOutput().getItem() instanceof ItemFood)
+                continue;
+
+            if (irecipe instanceof ShapelessRecipes || irecipe instanceof ShapedRecipes)
+                handleVanilla(irecipe);
+            /* else if (irecipe instanceof ShapedOreRecipe || irecipe instanceof ShapelessOreRecipe)
+                handleOreDict(irecipe); */
         }
 
         debugDumpMap();
@@ -50,11 +58,12 @@ public class PainterManager {
             Map.Entry pairs = (Map.Entry)iter.next();
             ComparableItemStackSafe output = (ComparableItemStackSafe)pairs.getKey();
             PainterRecipe[] rList = (PainterRecipe[])pairs.getValue();
-            LogHelper.info("[PainterManager] recipeMap: " + output.item.getUnlocalizedName());
+            LogHelper.info("[PainterManager]: " + output.item.getUnlocalizedName());
             if (rList != null) {
                 int x = 0;
                 for (PainterRecipe r : rList) {
-                    LogHelper.info(x + ":" + r);
+                    if (r != null)
+                        LogHelper.info("[PainterManager]: " + x + "->" + r);
                     x++;
                 }
             }
@@ -63,143 +72,147 @@ public class PainterManager {
 
     private static void handleShapelessRecipe(ShapelessRecipes recipe) {
 
-         /* No recipes that make dyes or food */
-        if (OreDictHelper.isDye(recipe.getRecipeOutput()) || recipe.getRecipeOutput().getItem() instanceof ItemFood)
+        PainterValidator v = new PainterValidator(recipe);
+        if (!v.isValid())
             return;
 
-        PaintValidator validator = new PaintValidator();
+        ItemStack input = v.getRecipeItem();
+        input.stackSize = 1;
 
-        for (Object object : recipe.recipeItems)
-        {
-            if (object instanceof ItemStack)
-            {
-                ItemStack itemStack = ((ItemStack) object).copy();
-
-                if (itemStack.stackSize > 1)
-                    itemStack.stackSize = 1;
-
-                validator.addItemStack(itemStack);
-            }
-        }
-
-        if (validator.isValid())
-            tryAdd(recipe.getRecipeOutput(), validator);
+        ItemStack output = recipe.getRecipeOutput().copy();
+        addRecipe(input, DyeHelper.DyeType.getDye(v.getRecipeDye()), output, v.getPureAmount());
+        OriginHelper.addRecipe(output.copy(), input);
     }
 
     private static void handleShapedRecipe(ShapedRecipes recipe) {
 
-         /* No recipes that make dyes or food */
-        if (OreDictHelper.isDye(recipe.getRecipeOutput()) || recipe.getRecipeOutput().getItem() instanceof ItemFood)
+        PainterValidator v = new PainterValidator(recipe);
+        if (!v.isValid())
             return;
 
-        PaintValidator validator = new PaintValidator();
+        ItemStack input = v.getRecipeItem();
+        input.stackSize = 1;
 
-        for (int i = 0; i < recipe.recipeItems.length; i++)
-        {
-            if (recipe.recipeItems[i] instanceof ItemStack)
-            {
-                ItemStack itemStack = recipe.recipeItems[i].copy();
+        ItemStack output = recipe.getRecipeOutput().copy();
+        addRecipe(input, DyeHelper.DyeType.getDye(v.getRecipeDye()), output, v.getPureAmount());
+        OriginHelper.addRecipe(output.copy(), input);
+    }
 
-                if (itemStack.stackSize > 1)
-                    itemStack.stackSize = 1;
+    private static void handleVanilla(IRecipe recipe) {
 
-                validator.addItemStack(itemStack);
+        PainterValidator v;
+
+        /*if (recipe instanceof ShapedRecipes) {
+            v = new PainterValidator((ShapedRecipes) recipe);
+        } else */if (recipe instanceof ShapelessRecipes) {
+            v = new PainterValidator((ShapelessRecipes) recipe);
+
+            PainterHelper helper = new PainterHelper((ShapelessRecipes)recipe);
+            helper.process();
+            LogHelper.info("handleVanilla: " + helper);
+
+        } else {
+            return;
+        }
+        /*
+
+        if (!v.isValid())
+            return;
+
+        ItemStack input = v.getRecipeItem();
+        input.stackSize = 1;
+
+        ItemStack output = recipe.getRecipeOutput().copy();
+        addRecipe(input, DyeHelper.DyeType.getDye(v.getRecipeDye()), output, v.getPureAmount());
+        OriginHelper.addRecipe(output.copy(), input); */
+    }
+
+    private static void handleOreDict(IRecipe recipe) {
+
+        PainterValidator v;
+
+        if (recipe instanceof ShapelessOreRecipe)
+            v = new PainterValidator((ShapelessOreRecipe)recipe);
+        else if (recipe instanceof ShapedOreRecipe)
+            v = new PainterValidator((ShapedOreRecipe)recipe);
+        else
+            return;
+
+        if (!v.isValid())
+            return;
+
+        ItemStack output = recipe.getRecipeOutput().copy();
+
+        if (v.isSingleItem()) {
+            ItemStack input = v.getRecipeItem();
+            input.stackSize = 1;
+            addRecipe(input, DyeHelper.DyeType.getDye(v.getRecipeDye()), output, v.getPureAmount());
+            OriginHelper.addRecipe(output.copy(), input);
+        } else if (v.isSingleOreItemList()) {
+
+            List<ItemStack> inputs = v.getRecipeOreItemList();
+            for (ItemStack input : inputs) {
+                input.stackSize = 1;
+                addRecipe(input, DyeHelper.DyeType.getDye(v.getRecipeDye()), output, v.getPureAmount());
+                OriginHelper.addRecipe(output.copy(), input);
             }
         }
+    }
 
-        if (validator.isValid())
-            tryAdd(recipe.getRecipeOutput(), validator);
+    private static void handleShapelessOreRecipe(ShapelessOreRecipe recipe) {
+
+        PainterValidator v = new PainterValidator(recipe);
+        if (!v.isValid())
+            return;
+
+        ItemStack output = recipe.getRecipeOutput().copy();
+
+        if (v.isSingleItem()) {
+            ItemStack input = v.getRecipeItem();
+            input.stackSize = 1;
+            addRecipe(input, DyeHelper.DyeType.getDye(v.getRecipeDye()), output, v.getPureAmount());
+            OriginHelper.addRecipe(output.copy(), input);
+        } else if (v.isSingleOreItemList()) {
+
+            List<ItemStack> inputs = v.getRecipeOreItemList();
+            for (ItemStack input : inputs) {
+                input.stackSize = 1;
+                addRecipe(input, DyeHelper.DyeType.getDye(v.getRecipeDye()), output, v.getPureAmount());
+                OriginHelper.addRecipe(output.copy(), input);
+            }
+        }
     }
 
 
     private static void handleShapedOreRecipe(ShapedOreRecipe recipe) {
 
-         /* No recipes that make dyes or food */
-        if (OreDictHelper.isDye(recipe.getRecipeOutput()) || recipe.getRecipeOutput().getItem() instanceof ItemFood)
+        PainterValidator v = new PainterValidator(recipe);
+        if (!v.isValid())
             return;
 
-        PaintValidator validator = new PaintValidator();
+        ItemStack output = recipe.getRecipeOutput().copy();
 
-        for (int i = 0; i < recipe.getInput().length; i++) {
+        if (v.isSingleItem()) {
+            ItemStack input = v.getRecipeItem();
+            input.stackSize = 1;
+            addRecipe(input, DyeHelper.DyeType.getDye(v.getRecipeDye()), output, v.getPureAmount());
+            OriginHelper.addRecipe(output.copy(), input);
+        } else if (v.isSingleOreItemList()) {
 
-            /* If the element is a list, then it is an OreStack */
-            if (recipe.getInput()[i] instanceof ArrayList) {
-
-                ArrayList l = (ArrayList)recipe.getInput()[i];
-
-                /* Unique items first! */
-                if (l.size() == 1) {
-                    ItemStack itemStack = ((ItemStack)l.get(0)).copy();
-                    if (itemStack.stackSize > 1)
-                        itemStack.stackSize = 1;
-
-                    validator.addItemStack(itemStack);
-                }
-            } else if (recipe.getInput()[i] instanceof ItemStack) {
-
-                ItemStack itemStack = ((ItemStack) recipe.getInput()[i]).copy();
-
-                if (itemStack.stackSize > 1)
-                    itemStack.stackSize = 1;
-
-                validator.addItemStack(itemStack);
+            List<ItemStack> inputs = v.getRecipeOreItemList();
+            for (ItemStack input : inputs) {
+                input.stackSize = 1;
+                addRecipe(input, DyeHelper.DyeType.getDye(v.getRecipeDye()), output, v.getPureAmount());
+                OriginHelper.addRecipe(output.copy(), input);
             }
         }
 
-
-        if (validator.isValid())
-            tryAdd(recipe.getRecipeOutput(), validator);
-    }
-
-    private static void handleShapelessOreRecipe(ShapelessOreRecipe recipe) {
-
-         /* No recipes that make dyes or food */
-        if (OreDictHelper.isDye(recipe.getRecipeOutput()) || recipe.getRecipeOutput().getItem() instanceof ItemFood)
-            return;
-
-        PaintValidator validator = new PaintValidator();
-
-        for (Object object : recipe.getInput()) {
-
-            /* If the element is a list, then it is an OreStack */
-            if (object instanceof ArrayList) {
-
-                ArrayList l = (ArrayList)object;
-
-                /* Unique items first! */
-                if (l.size() == 1) {
-                    ItemStack itemStack = ((ItemStack)l.get(0)).copy();
-                    if (itemStack.stackSize > 1)
-                        itemStack.stackSize = 1;
-
-                    validator.addItemStack(itemStack);
-                }
-            } else if (object instanceof ItemStack) {
-
-                ItemStack itemStack = ((ItemStack) object).copy();
-
-                if (itemStack.stackSize > 1)
-                    itemStack.stackSize = 1;
-
-                validator.addItemStack(itemStack);
-            }
-        }
-
-        if (validator.isValid())
-            tryAdd(recipe.getRecipeOutput(), validator);
     }
 
 
-    private static void tryAdd(ItemStack out, PaintValidator validator) {
 
-        if (validator.getInputDye() != null && validator.getInputItem() != null && validator.getItemCount() > 0) {
 
-            /* Add a paint and an origin recipe */
-            addRecipe(validator.getInputItem(), DyeHelper.DyeType.getDye(validator.getInputDye()), out.copy(), validator.getItemCount());
-            OriginHelper.addRecipe(out.copy(), validator.getInputItem());
-        }
 
-    }
 
     public static void addRecipe(ItemStack in, DyeHelper.DyeType dye, ItemStack out, int pureAmount) {
 

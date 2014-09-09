@@ -44,6 +44,14 @@ public class DyeHelper {
             return WHITE;
         }
 
+        public static DyeType getDyeType(int id) {
+
+            if (id < 0 || id >= VALID_DYES.length)
+                return WHITE;
+
+            return VALID_DYES[id];
+        }
+
         public ItemStack getStack() {
 
             return new ItemStack(Items.dye, 1, this.dmg);
@@ -53,6 +61,8 @@ public class DyeHelper {
 
             return Items.dye.getIconFromDamage(this.dmg);
         }
+
+
     }
 
 }

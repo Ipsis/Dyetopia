@@ -28,7 +28,7 @@ public class OriginHelper {
             Map.Entry pairs = (Map.Entry)iter.next();
             ComparableItemStackSafe in = (ComparableItemStackSafe)pairs.getKey();
             ItemStack out = (ItemStack)pairs.getValue();
-            LogHelper.info(in.item.getUnlocalizedName() + "->" + out.getUnlocalizedName());
+            LogHelper.info("[OriginHelper]: " + in.item.getUnlocalizedName() + "->" + out.getUnlocalizedName());
 
         }
     }

@@ -94,7 +94,7 @@ public class SqueezerManager {
         DyeRecipe r = DyeLiquidManager.getInstance().getRecipe(out);
         if (r != null) {
             recipes.put(new ComparableItemStackSafe(in), new SqueezerRecipe(in.copy(), r.getRedAmount(), r.getYellowAmount(), r.getBlueAmount(), r.getWhiteAmount(), RECIPE_ENERGY));
-            LogHelper.info("addRecipe " + in.getUnlocalizedName() + "->" + out.getUnlocalizedName());
+            LogHelper.info("[SqueezerManager]: " + in.getUnlocalizedName() + "->" + out.getUnlocalizedName());
         }
     }
 

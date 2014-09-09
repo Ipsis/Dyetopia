@@ -43,6 +43,7 @@ public class TileEntityStamper extends TileEntityMachinePureDye implements ISide
         this.factoryMgr.writeToNBT(nbttagcompound);
 
         nbttagcompound.setInteger("consumedEnergy", this.consumedEnergy);
+        nbttagcompound.setInteger("currSelected", this.currSelected.ordinal());
     }
 
     @Override
@@ -52,6 +53,8 @@ public class TileEntityStamper extends TileEntityMachinePureDye implements ISide
         this.factoryMgr.readFromNBT(nbttagcompound);
 
         this.consumedEnergy = nbttagcompound.getInteger("consumedEnergy");
+        this.currSelected =  DyeHelper.DyeType.getDyeType(nbttagcompound.getInteger("currSelected"));
+
     }
 
     /**

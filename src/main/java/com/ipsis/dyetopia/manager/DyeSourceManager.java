@@ -61,6 +61,8 @@ public class DyeSourceManager {
 //            ItemStack out = ((ItemStack)pairs.getValue()).copy();
 //            addRecipe(cleanItem, out);
 //        }
+
+        /* TODO handle an item->item->dye such as Botania flowers ?? */
     }
 
     private void addRecipe(ItemStack in, ItemStack out) {
