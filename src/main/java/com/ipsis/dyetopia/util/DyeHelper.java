@@ -62,7 +62,16 @@ public class DyeHelper {
             return Items.dye.getIconFromDamage(this.dmg);
         }
 
+        public static ItemStack getStack(String oreName) {
 
+            for (DyeType d : VALID_DYES) {
+                if (d.getOreDict().equals(oreName)) {
+                    return d.getStack();
+                }
+            }
+
+            return null;
+        }
     }
 
 }

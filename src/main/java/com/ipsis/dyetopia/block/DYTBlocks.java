@@ -49,7 +49,6 @@ public class DYTBlocks {
 
     public static void initialize() {
 
-        GameRegistry.addShapelessRecipe(new ItemStack(blockSqueezer), new ItemStack(Items.dye), new ItemStack(Items.flint));
     }
 
     public static void postInit() {
