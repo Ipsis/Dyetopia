@@ -34,8 +34,9 @@ public class PaintValidation {
         this.recipeOreDictDyeCount = 0;
 
         this.singleOreDictItem = false;
-        this.recipeOreDictItemName = "";
         this.recipeOreDictItemCount = 0;
+
+        this.recipeOreDictItemNames = new ArrayList<String>();
     }
 
     public ItemStack getRecipeDye() {
@@ -88,17 +89,14 @@ public class PaintValidation {
         if (!this.valid)
             return new ItemStack[0];
 
-        if (singleOreDictItem && !recipeOreDictItemName.equals("")) {
+        if (singleOreDictItem && !recipeOreDictItemNames.isEmpty()) {
 
-            ArrayList<ItemStack> items = OreDictionary.getOres(recipeOreDictItemName);
+            Set<ItemStack> itemSet = new HashSet<ItemStack>();
+            for (String name : recipeOreDictItemNames)
+                itemSet.addAll(OreDictionary.getOres(name));
 
-            ItemStack[] recipeItems = new ItemStack[items.size()];
-            int c = 0;
-            for (ItemStack i : items) {
-                recipeItems[c++] = i.copy();
-            }
 
-            return recipeItems;
+            return itemSet.toArray(new ItemStack[0]);
         }
 
         return new ItemStack[0];
@@ -255,8 +253,9 @@ public class PaintValidation {
     }
 
     private boolean singleOreDictItem;
-    private String recipeOreDictItemName;
     private int recipeOreDictItemCount;
+    private ArrayList<String> recipeOreDictItemNames;
+
     private boolean checkItem(ArrayList oreList) {
 
         if (oreList == null || oreList.size() < 1)
@@ -267,24 +266,23 @@ public class PaintValidation {
 
         String[] names = OreDictHelper.getOreNames(oreList);
 
-        if (names.length != 1)
+        if (names.length == 0)
             return false;
 
-        String s = names[0];
-        if (!s.equals("")) {
-            if (recipeOreDictItemName.equals("")) {
-                singleOreDictItem = true;
-                recipeOreDictItemName = s;
-                recipeOreDictItemCount = 1;
-            } else {
-                if (recipeOreDictItemName.equals(s)) {
-                    recipeOreDictItemCount++;
-                } else {
-                   /* Recipe has more than one item */
-                    singleOreDictItem = false;
-                    return false;
-                }
+        if (recipeOreDictItemNames.isEmpty()) {
+            for (String name : names)
+                recipeOreDictItemNames.add(name);
+
+            singleOreDictItem = true;
+            recipeOreDictItemCount = 1;
+        } else {
+
+            recipeOreDictItemNames.retainAll(Arrays.asList(names));
+            if (recipeOreDictItemNames.size() == 0) {
+                singleOreDictItem = false;
+                return false;
             }
+
         }
 
         return true;
@@ -419,10 +417,8 @@ public class PaintValidation {
         if(!singleItem && !singleOreDictItem)
             return;
 
-        if (singleItem && singleOreDictItem) {
-            if (!recipeOreDictItemName.equals(OreDictHelper.hasOreName(recipeItem, recipeOreDictItemName)))
-                return;
-        }
+        if (singleItem && singleOreDictItem)
+            return;
 
         this.valid = true;
     }
@@ -478,10 +474,8 @@ public class PaintValidation {
         if(!singleItem && !singleOreDictItem)
             return;
 
-        if (singleItem && singleOreDictItem) {
-            if (!recipeOreDictItemName.equals(OreDictHelper.hasOreName(recipeItem, recipeOreDictItemName)))
-                return;
-        }
+        if (singleItem && singleOreDictItem)
+            return;
 
         this.valid = true;
     }
@@ -500,7 +494,7 @@ public class PaintValidation {
                 .add("recipeItem", recipeItem)
                 .add("recipeItemCount", recipeItemCount)
                 .add("singleOreDictItem", singleOreDictItem)
-                .add("recipeOreDictItemName", recipeOreDictItemName)
+                .add("recipeOreDictItemName", recipeOreDictItemNames)
                 .add("recipeOreDictItemCount", recipeOreDictItemCount)
                 .toString();
     }

@@ -16,8 +16,11 @@ public class OriginHelper {
 
     public static void addRecipe(ItemStack in, ItemStack out) {
 
-        if (in != null && out != null)
+        if (in != null && out != null) {
+            in.stackSize = 1;
+            out.stackSize = 1;
             recipeMap.put(new ComparableItemStackSafe(in), out);
+        }
     }
 
     public static void debugDumpMap() {
@@ -28,7 +31,7 @@ public class OriginHelper {
             Map.Entry pairs = (Map.Entry)iter.next();
             ComparableItemStackSafe in = (ComparableItemStackSafe)pairs.getKey();
             ItemStack out = (ItemStack)pairs.getValue();
-            LogHelper.info("[OriginHelper]: " + in.item.getUnlocalizedName() + "->" + out.getUnlocalizedName());
+            LogHelper.info("[OriginHelper]: " + in.toItemStack() + "->" + out);
 
         }
     }
