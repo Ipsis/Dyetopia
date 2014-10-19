@@ -1,8 +1,14 @@
 package com.ipsis.dyetopia.block;
 
+import com.ipsis.dyetopia.block.trees.BlockDyeLeaves;
+import com.ipsis.dyetopia.block.trees.BlockDyeLog;
+import com.ipsis.dyetopia.block.trees.BlockDyeSapling;
+import com.ipsis.dyetopia.block.trees.DyeTree;
 import com.ipsis.dyetopia.fluid.DYTFluids;
+import com.ipsis.dyetopia.item.ItemBlockDyeLog;
 import com.ipsis.dyetopia.plugins.nei.UsageManager;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -34,6 +40,10 @@ public class DYTBlocks {
         blockStamper = new BlockStamper();
         blockFiller = new BlockFiller();
 
+        blockDyeSapling = new BlockDyeSapling();
+        blockDyeLog = new BlockDyeLog();
+        blockDyeLeaves = new BlockDyeLeaves();
+
         GameRegistry.registerBlock(blockCasing, "blockCasing");
         GameRegistry.registerBlock(blockController, "blockController");
         GameRegistry.registerBlock(blockSqueezer, "blockSqueezer");
@@ -44,7 +54,13 @@ public class DYTBlocks {
         GameRegistry.registerBlock(blockStamper, "blockStamper");
         GameRegistry.registerBlock(blockFiller, "blockFiller");
 
-        UsageManager.addUsage(blockSqueezer, new String[]{blockSqueezer.getUnlocalizedName() + "neiuse.0", blockSqueezer.getUnlocalizedName() + "neiuse.1" });
+        GameRegistry.registerBlock(blockDyeSapling, "blockDyeSapling");
+        GameRegistry.registerBlock(blockDyeLog, ItemBlockDyeLog.class, "blockDyeLog");
+        GameRegistry.registerBlock(blockDyeLeaves, "blockDyeLeaves");
+
+        UsageManager.addUsage(blockSqueezer, new String[]{blockSqueezer.getUnlocalizedName() + "neiuse.0", blockSqueezer.getUnlocalizedName() + "neiuse.1"});
+
+        dyeTree = new DyeTree();
     }
 
     public static void initialize() {
@@ -70,4 +86,11 @@ public class DYTBlocks {
     public static BlockDYT blockPainter;
     public static BlockDYT blockFiller;
     public static BlockDYT blockStamper;
+
+    public static BlockDyeSapling blockDyeSapling;
+    public static BlockDyeLog blockDyeLog;
+    public static BlockLeaves blockDyeLeaves;
+
+    public static DyeTree dyeTree;
+
 }
