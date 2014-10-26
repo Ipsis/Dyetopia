@@ -21,6 +21,15 @@ tile.dyetopia:painter.name=Painter
 tile.dyetopia:stamper.name=Stamper
 tile.dyetopia:filler.name=Filler
 
+tile.dyetopia:saplingDyeTree.Red.name=Red Dye Sapling
+tile.dyetopia:saplingDyeTree.Yellow.name=Yellow Dye Sapling
+tile.dyetopia:saplingDyeTree.Blue.name=Blue Dye Sapling
+tile.dyetopia:saplingDyeTree.Pure.name=Pure Dye Sapling
+tile.dyetopia:saplingDyeLeaves.Red.name=Red Dye Leaves
+tile.dyetopia:saplingDyeLeaves.Yellow.name=Yellow Dye Leaves
+tile.dyetopia:saplingDyeLeaves.Blue.name=Blue Dye Leaves
+tile.dyetopia:saplingDyeLeaves.Pure.name=Pure Dye Leaves
+
 tile.dyetopia:saplingDye.name=Dye Sapling
 tile.dyetopia:rootDye.name=Dye Tree Base
 tile.dyetopia:barkDye.name=Dye Tree Log

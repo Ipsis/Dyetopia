@@ -4,6 +4,7 @@ import ipsis.dyetopia.creative.CreativeTab;
 import ipsis.dyetopia.reference.Reference;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ipsis.dyetopia.reference.Textures;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
@@ -32,8 +33,8 @@ public class BlockFluidDYT extends BlockFluidClassic {
     public void registerBlockIcons(IIconRegister iconRegister) {
 
         this.icons = new IIcon[]{
-                iconRegister.registerIcon(Reference.MOD_ID + ":fluid/Fluid_" + name + "_Still"),
-                iconRegister.registerIcon(Reference.MOD_ID + ":fluid/Fluid_" + name + "_Flow")
+                iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "fluid/Fluid_" + name + "_Still"),
+                iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "fluid/Fluid_" + name + "_Flow")
         };
     }
 

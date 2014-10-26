@@ -1,14 +1,16 @@
 package ipsis.dyetopia.block;
 
-import ipsis.dyetopia.block.trees.BlockDyeLeaves;
-import ipsis.dyetopia.block.trees.BlockDyeLog;
-import ipsis.dyetopia.block.trees.BlockDyeSapling;
+import ipsis.dyetopia.block.plantlife.BlockLeavesDye;
+import ipsis.dyetopia.block.plantlife.BlockLogDye;
+import ipsis.dyetopia.block.plantlife.BlockSaplingDye;
 import ipsis.dyetopia.block.trees.DyeTree;
 import ipsis.dyetopia.fluid.DYTFluids;
-import ipsis.dyetopia.item.ItemBlockDyeLog;
+import ipsis.dyetopia.item.plantlife.ItemBlockLeavesDye;
+import ipsis.dyetopia.item.plantlife.ItemBlockLogDye;
+import ipsis.dyetopia.item.plantlife.ItemBlockSaplingDye;
 import ipsis.dyetopia.plugins.nei.UsageManager;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.block.BlockLeaves;
+import ipsis.dyetopia.reference.Names;
 import net.minecraft.block.material.Material;
 
 public class DYTBlocks {
@@ -38,9 +40,9 @@ public class DYTBlocks {
         blockStamper = new BlockStamper();
         blockFiller = new BlockFiller();
 
-        blockDyeSapling = new BlockDyeSapling();
-        blockDyeLog = new BlockDyeLog();
-        blockDyeLeaves = new BlockDyeLeaves();
+        blockSaplingDye = new BlockSaplingDye();
+        blockLeavesDye = new BlockLeavesDye();
+        blockLogDye = new BlockLogDye();
 
         GameRegistry.registerBlock(blockCasing, "blockCasing");
         GameRegistry.registerBlock(blockController, "blockController");
@@ -52,9 +54,9 @@ public class DYTBlocks {
         GameRegistry.registerBlock(blockStamper, "blockStamper");
         GameRegistry.registerBlock(blockFiller, "blockFiller");
 
-        GameRegistry.registerBlock(blockDyeSapling, "blockDyeSapling");
-        GameRegistry.registerBlock(blockDyeLog, ItemBlockDyeLog.class, "blockDyeLog");
-        GameRegistry.registerBlock(blockDyeLeaves, "blockDyeLeaves");
+        GameRegistry.registerBlock(blockSaplingDye, ItemBlockSaplingDye.class, Names.BLOCK_SAPLING_DYE);
+        GameRegistry.registerBlock(blockLeavesDye, ItemBlockLeavesDye.class, Names.BLOCK_LEAVES_DYE);
+        GameRegistry.registerBlock(blockLogDye, ItemBlockLogDye.class, Names.BLOCK_LOG_DYE);
 
         UsageManager.addUsage(blockSqueezer, new String[]{blockSqueezer.getUnlocalizedName() + "neiuse.0", blockSqueezer.getUnlocalizedName() + "neiuse.1"});
 
@@ -85,9 +87,9 @@ public class DYTBlocks {
     public static BlockDYT blockFiller;
     public static BlockDYT blockStamper;
 
-    public static BlockDyeSapling blockDyeSapling;
-    public static BlockDyeLog blockDyeLog;
-    public static BlockLeaves blockDyeLeaves;
+    public static BlockSaplingDye blockSaplingDye;
+    public static BlockLeavesDye blockLeavesDye;
+    public static BlockLogDye blockLogDye;
 
     public static DyeTree dyeTree;
 

@@ -23,7 +23,7 @@ public class DyeTree extends WorldGenAbstractTree {
      * This means that required space is height + 2
      * A tree of height h takes up blocks y -> y + height - 1
      */
-    public boolean generate2(World world, Random rand, int x, int y, int z) {
+    public boolean generate2(World world, Random rand, int x, int y, int z, int meta) {
 
         int height = rand.nextInt(3) + 5;
 
@@ -41,7 +41,7 @@ public class DyeTree extends WorldGenAbstractTree {
 
         /* Is there soil below the tree */
         Block soilBlock = world.getBlock(x, y - 1, z);
-        if (!soilBlock.canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable)DYTBlocks.blockDyeSapling))
+        if (!soilBlock.canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable)DYTBlocks.blockSaplingDye))
             return false;
 
         soilBlock.onPlantGrow(world, x, y - 1, z, x, y, z);
@@ -64,7 +64,7 @@ public class DyeTree extends WorldGenAbstractTree {
 
                     if ((Math.abs(j3) != i3 || Math.abs(l2) != i3 || i3 <= 0) && world.getBlock(currX, currY, currZ).canBeReplacedByLeaves(world, currX, currY, currZ))
                     {
-                        this.setBlockAndNotifyAdequately(world, currX, currY, currZ, Blocks.leaves, 1);
+                        this.setBlockAndNotifyAdequately(world, currX, currY, currZ, DYTBlocks.blockLeavesDye, meta);
                     }
                 }
             }
@@ -86,7 +86,7 @@ public class DyeTree extends WorldGenAbstractTree {
 
             if (rBlock.isAir(world, x, y + yOff, z) || rBlock.isLeaves(world, x, y + yOff, z))
             {
-                this.setBlockAndNotifyAdequately(world, x, y + yOff, z, DYTBlocks.blockDyeLog, 1);
+                this.setBlockAndNotifyAdequately(world, x, y + yOff, z, DYTBlocks.blockLogDye, meta);
             }
         }
 
@@ -192,7 +192,7 @@ public class DyeTree extends WorldGenAbstractTree {
 
                         if (block2.isAir(p_76484_1_, p_76484_3_, p_76484_4_ + i2, p_76484_5_) || block2.isLeaves(p_76484_1_, p_76484_3_, p_76484_4_ + i2, p_76484_5_))
                         {
-                            this.setBlockAndNotifyAdequately(p_76484_1_, p_76484_3_, p_76484_4_ + i2, p_76484_5_, DYTBlocks.blockDyeLog, 1);
+                            //this.setBlockAndNotifyAdequately(p_76484_1_, p_76484_3_, p_76484_4_ + i2, p_76484_5_, DYTBlocks.blockDyeLog, 1);
                         }
                     }
 

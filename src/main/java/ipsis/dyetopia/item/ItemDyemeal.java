@@ -1,7 +1,7 @@
 package ipsis.dyetopia.item;
 
 
-import ipsis.dyetopia.block.trees.BlockDyeSapling;
+import ipsis.dyetopia.block.plantlife.BlockSaplingDye;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -24,9 +24,9 @@ public class ItemDyemeal extends ItemDYT{
         }
 
         Block block = world.getBlock(x, y, z);
-        if (block instanceof BlockDyeSapling) {
+        if (block instanceof BlockSaplingDye) {
 
-            BlockDyeSapling igrowable = (BlockDyeSapling)block;
+            BlockSaplingDye igrowable = (BlockSaplingDye)block;
             /* Although we are not using IGrowable, keep to the same interface */
             if (igrowable.canGrow(world, x, y, z, world.isRemote)) {
 
