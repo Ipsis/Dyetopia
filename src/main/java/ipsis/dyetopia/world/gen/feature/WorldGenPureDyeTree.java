@@ -174,7 +174,7 @@ public class WorldGenPureDyeTree extends WorldGenAbstractTree {
     private void putRoot(World world, int x, int y, int z) {
 
         Block rBlock = world.getBlock(x, y, z);
-        if (rBlock.isAir(world, x, y, z) || rBlock == Blocks.grass || rBlock == Blocks.dirt || rBlock == Blocks.farmland)
+        if (rBlock != Blocks.bedrock && (rBlock.isAir(world, x, y, z) || rBlock == Blocks.grass || rBlock == Blocks.dirt || rBlock == Blocks.farmland))
             this.setBlockAndNotifyAdequately(world, x, y, z, DYTBlocks.blockRootPureDye, 3);
     }
 }

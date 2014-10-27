@@ -15,7 +15,7 @@ public class Names {
 
         public static final String BLOCK_HEART_DYE = "heartDyeTree";
         public static final String[] BLOCK_HEART_DYE_TYPES = {
-                "Red", "Yellow", "Blue", "Pure"
+                "Red", "Yellow", "Blue"
         };
     }
 
