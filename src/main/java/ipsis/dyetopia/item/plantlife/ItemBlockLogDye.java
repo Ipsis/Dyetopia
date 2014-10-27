@@ -9,6 +9,6 @@ public class ItemBlockLogDye extends ItemMultiTexture {
 
     public ItemBlockLogDye(Block block) {
 
-        super(DYTBlocks.blockLogDye, DYTBlocks.blockLogDye, Names.BLOCK_SAPLING_DYE_TYPES);
+        super(DYTBlocks.blockLogDye, DYTBlocks.blockLogDye, Names.Blocks.BLOCK_SAPLING_DYE_TYPES);
     }
 }

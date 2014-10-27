@@ -2,6 +2,7 @@ package ipsis.dyetopia.item;
 
 import ipsis.dyetopia.block.DYTBlocks;
 import cpw.mods.fml.common.registry.GameRegistry;
+import ipsis.dyetopia.reference.Names;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -20,6 +21,7 @@ public class DYTItems {
         itemEraser = new ItemEraser();
         itemDyeBlank = new ItemDyeBlank();
         itemDyemeal = new ItemDyemeal();
+        itemDyeDrop = new ItemDyeDrop();
 
         GameRegistry.registerItem(bucketDyeRed, "item.bucketDyeRed");
         GameRegistry.registerItem(bucketDyeYellow, "item.bucketDyeYellow");
@@ -30,6 +32,7 @@ public class DYTItems {
         GameRegistry.registerItem(itemEraser, "item.eraser");
         GameRegistry.registerItem(itemDyeBlank, "item.dyeBlank");
         GameRegistry.registerItem(itemDyemeal, "item.dyemeal");
+        GameRegistry.registerItem(itemDyeDrop, "item." + Names.Items.ITEM_DYE_DROP);
     }
 
     public static void initialize() {
@@ -55,4 +58,5 @@ public class DYTItems {
     public static ItemDYT itemDyeBlank;
 
     public static ItemDYT itemDyemeal;
+    public static ItemDYT itemDyeDrop;
 }

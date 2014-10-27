@@ -21,7 +21,7 @@ public class BlockLogDye extends BlockLogDYT {
     public BlockLogDye() {
 
         super();
-        this.setBlockName(Names.BLOCK_LOG_DYE);
+        this.setBlockName(Names.Blocks.BLOCK_LOG_DYE);
     }
 
     private int getTypeFromMeta(int meta) {
@@ -36,16 +36,16 @@ public class BlockLogDye extends BlockLogDYT {
     @Override
     public void registerBlockIcons(IIconRegister ir) {
 
-        icons = new IIcon[2][Names.BLOCK_SAPLING_DYE_TYPES.length];
-        for (int i = 0; i < Names.BLOCK_SAPLING_DYE_TYPES.length; i++) {
+        icons = new IIcon[2][Names.Blocks.BLOCK_SAPLING_DYE_TYPES.length];
+        for (int i = 0; i < Names.Blocks.BLOCK_SAPLING_DYE_TYPES.length; i++) {
             icons[0][i] = ir.registerIcon(
                     Textures.RESOURCE_PREFIX + "plantlife/" +
-                    Names.BLOCK_LOG_DYE + "." +
-                    Names.BLOCK_SAPLING_DYE_TYPES[i] + "_bark");
+                    Names.Blocks.BLOCK_LOG_DYE + "." +
+                    Names.Blocks.BLOCK_SAPLING_DYE_TYPES[i] + "_bark");
             icons[1][i] = ir.registerIcon(
                     Textures.RESOURCE_PREFIX + "plantlife/" +
-                            Names.BLOCK_LOG_DYE + "." +
-                            Names.BLOCK_SAPLING_DYE_TYPES[i] + "_heart");
+                            Names.Blocks.BLOCK_LOG_DYE + "." +
+                            Names.Blocks.BLOCK_SAPLING_DYE_TYPES[i] + "_heart");
         }
     }
 
@@ -53,7 +53,7 @@ public class BlockLogDye extends BlockLogDYT {
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item item, CreativeTabs tab, List list) {
 
-        for (int i = 0 ; i < Names.BLOCK_SAPLING_DYE_TYPES.length; i++)
+        for (int i = 0 ; i < Names.Blocks.BLOCK_SAPLING_DYE_TYPES.length; i++)
             list.add(new ItemStack(item, 1, i));
     }
 

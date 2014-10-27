@@ -4,14 +4,17 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ipsis.dyetopia.block.DYTBlocks;
 import ipsis.dyetopia.reference.Names;
-import ipsis.dyetopia.reference.Reference;
 import ipsis.dyetopia.reference.Textures;
+import ipsis.dyetopia.world.gen.feature.WorldGenDyeTree;
+import ipsis.dyetopia.world.gen.feature.WorldGenPureDyeTree;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
 import java.util.List;
 import java.util.Random;
@@ -21,7 +24,7 @@ public class BlockSaplingDye extends BlockSaplingDYT {
     public BlockSaplingDye() {
 
         super();
-        this.setBlockName(Names.BLOCK_SAPLING_DYE);
+        this.setBlockName(Names.Blocks.BLOCK_SAPLING_DYE);
     }
 
     @SideOnly(Side.CLIENT)
@@ -31,12 +34,12 @@ public class BlockSaplingDye extends BlockSaplingDYT {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister ir) {
 
-        icons = new IIcon[Names.BLOCK_SAPLING_DYE_TYPES.length];
-        for (int i = 0; i < Names.BLOCK_SAPLING_DYE_TYPES.length; i++) {
+        icons = new IIcon[Names.Blocks.BLOCK_SAPLING_DYE_TYPES.length];
+        for (int i = 0; i < Names.Blocks.BLOCK_SAPLING_DYE_TYPES.length; i++) {
             icons[i] = ir.registerIcon(
                     Textures.RESOURCE_PREFIX + "plantlife/" +
-                    Names.BLOCK_SAPLING_DYE + "." +
-                    Names.BLOCK_SAPLING_DYE_TYPES[i]);
+                    Names.Blocks.BLOCK_SAPLING_DYE + "." +
+                    Names.Blocks.BLOCK_SAPLING_DYE_TYPES[i]);
         }
 
     }
@@ -44,7 +47,7 @@ public class BlockSaplingDye extends BlockSaplingDYT {
     @Override
     public IIcon getIcon(int side, int meta) {
 
-        if (meta < 0 || meta >= Names.BLOCK_SAPLING_DYE_TYPES.length)
+        if (meta < 0 || meta >= Names.Blocks.BLOCK_SAPLING_DYE_TYPES.length)
             return null;
 
         return icons[meta];
@@ -54,7 +57,7 @@ public class BlockSaplingDye extends BlockSaplingDYT {
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item item, CreativeTabs tab, List list) {
 
-        for (int i = 0 ; i < Names.BLOCK_SAPLING_DYE_TYPES.length; i++)
+        for (int i = 0 ; i < Names.Blocks.BLOCK_SAPLING_DYE_TYPES.length; i++)
             list.add(new ItemStack(item, 1, i));
     }
 
@@ -76,6 +79,12 @@ public class BlockSaplingDye extends BlockSaplingDYT {
     {
     }
 
+    /* Disable all normal growth */
+
+    @Override
+    public void updateTick(World p_149674_1_, int p_149674_2_, int p_149674_3_, int p_149674_4_, Random p_149674_5_) {
+    }
+
     /* Fake IGrowable interface, these cannot be grown by bonemeal only dyemeal */
     public boolean canGrow(World world, int x, int y, int z, boolean isRemote)
     {
@@ -90,14 +99,28 @@ public class BlockSaplingDye extends BlockSaplingDYT {
     public void doGrow(World world, Random rand, int x, int y, int z)
     {
         int meta = world.getBlockMetadata(x, y, z);
-
-        world.setBlockToAir(x, y, z);
+        meta = MathHelper.clamp_int(meta, 0, Names.Blocks.BLOCK_SAPLING_DYE_TYPES.length - 1);
 
         boolean grew = false;
+        WorldGenAbstractTree gen = null;
 
-        grew = DYTBlocks.dyeTree.generate2(world, rand, x, y, z, meta);
+        switch (meta) {
+            case 0: // Red
+            case 1: // Yellow
+            case 2: // Blue
+                gen = new WorldGenDyeTree(DYTBlocks.blockLogDye, DYTBlocks.blockLeavesDye, meta, meta);
+                break;
+            case 3: // Pure
+                gen = new WorldGenPureDyeTree();
+                break;
+        }
 
-        if (!grew)
-            world.setBlock(x, y, z, this);
+        if (gen != null) {
+            world.setBlockToAir(x, y, z);
+            if (!gen.generate(world, rand, x, y, z)) {
+                /* Replace with the correct metadata! */
+                world.setBlock(x, y, z, this, meta, 2);
+            }
+        }
     }
 }

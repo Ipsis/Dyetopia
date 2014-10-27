@@ -9,6 +9,6 @@ public class ItemBlockSaplingDye extends ItemMultiTexture {
 
     public ItemBlockSaplingDye(Block block) {
 
-        super(DYTBlocks.blockSaplingDye, DYTBlocks.blockSaplingDye, Names.BLOCK_SAPLING_DYE_TYPES);
+        super(DYTBlocks.blockSaplingDye, DYTBlocks.blockSaplingDye, Names.Blocks.BLOCK_SAPLING_DYE_TYPES);
     }
 }

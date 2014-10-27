@@ -9,6 +9,6 @@ public class ItemBlockLeavesDye extends ItemMultiTexture {
 
     public ItemBlockLeavesDye(Block block) {
 
-        super(DYTBlocks.blockLeavesDye, DYTBlocks.blockLeavesDye, Names.BLOCK_SAPLING_DYE_TYPES);
+        super(DYTBlocks.blockLeavesDye, DYTBlocks.blockLeavesDye, Names.Blocks.BLOCK_SAPLING_DYE_TYPES);
     }
 }

@@ -9,7 +9,9 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BlockLeavesDye extends BlockLeavesDYT {
@@ -17,7 +19,7 @@ public class BlockLeavesDye extends BlockLeavesDYT {
     public BlockLeavesDye() {
 
         super();
-        this.setBlockName(Names.BLOCK_LEAVES_DYE);
+        this.setBlockName(Names.Blocks.BLOCK_LEAVES_DYE);
     }
 
     @SideOnly(Side.CLIENT)
@@ -27,16 +29,16 @@ public class BlockLeavesDye extends BlockLeavesDYT {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister ir) {
 
-        icons = new IIcon[2][Names.BLOCK_SAPLING_DYE_TYPES.length];
-        for (int i = 0; i < Names.BLOCK_SAPLING_DYE_TYPES.length; i++) {
+        icons = new IIcon[2][Names.Blocks.BLOCK_SAPLING_DYE_TYPES.length];
+        for (int i = 0; i < Names.Blocks.BLOCK_SAPLING_DYE_TYPES.length; i++) {
             icons[0][i] = ir.registerIcon(
                     Textures.RESOURCE_PREFIX + "plantlife/" +
-                            Names.BLOCK_LEAVES_DYE + "." +
-                            Names.BLOCK_SAPLING_DYE_TYPES[i] + "_plain");
+                            Names.Blocks.BLOCK_LEAVES_DYE + "." +
+                            Names.Blocks.BLOCK_SAPLING_DYE_TYPES[i] + "_plain");
             icons[1][i] = ir.registerIcon(
                     Textures.RESOURCE_PREFIX + "plantlife/" +
-                            Names.BLOCK_LEAVES_DYE + "." +
-                            Names.BLOCK_SAPLING_DYE_TYPES[i] + "_fancy");
+                            Names.Blocks.BLOCK_LEAVES_DYE + "." +
+                            Names.Blocks.BLOCK_SAPLING_DYE_TYPES[i] + "_fancy");
         }
 
     }
@@ -44,7 +46,7 @@ public class BlockLeavesDye extends BlockLeavesDYT {
     @Override
     public IIcon getIcon(int side, int meta) {
 
-        if (meta < 0 || meta >= Names.BLOCK_SAPLING_DYE_TYPES.length)
+        if (meta < 0 || meta >= Names.Blocks.BLOCK_SAPLING_DYE_TYPES.length)
             return null;
 
         if (this.field_150121_P)
@@ -64,7 +66,14 @@ public class BlockLeavesDye extends BlockLeavesDYT {
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item item, CreativeTabs tab, List list) {
 
-        for (int i = 0 ; i < Names.BLOCK_SAPLING_DYE_TYPES.length; i++)
+        for (int i = 0 ; i < Names.Blocks.BLOCK_SAPLING_DYE_TYPES.length; i++)
             list.add(new ItemStack(item, 1, i));
+    }
+
+    /* No drops */
+    @Override
+    public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+
+        return new ArrayList<ItemStack>();
     }
 }

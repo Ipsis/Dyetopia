@@ -1,10 +1,8 @@
 package ipsis.dyetopia.block;
 
-import ipsis.dyetopia.block.plantlife.BlockLeavesDye;
-import ipsis.dyetopia.block.plantlife.BlockLogDye;
-import ipsis.dyetopia.block.plantlife.BlockSaplingDye;
-import ipsis.dyetopia.block.trees.DyeTree;
+import ipsis.dyetopia.block.plantlife.*;
 import ipsis.dyetopia.fluid.DYTFluids;
+import ipsis.dyetopia.item.plantlife.ItemBlockHeartDye;
 import ipsis.dyetopia.item.plantlife.ItemBlockLeavesDye;
 import ipsis.dyetopia.item.plantlife.ItemBlockLogDye;
 import ipsis.dyetopia.item.plantlife.ItemBlockSaplingDye;
@@ -43,6 +41,8 @@ public class DYTBlocks {
         blockSaplingDye = new BlockSaplingDye();
         blockLeavesDye = new BlockLeavesDye();
         blockLogDye = new BlockLogDye();
+        blockHeartDye = new BlockHeartDye();
+        blockRootPureDye = new BlockRootDye();
 
         GameRegistry.registerBlock(blockCasing, "blockCasing");
         GameRegistry.registerBlock(blockController, "blockController");
@@ -54,13 +54,13 @@ public class DYTBlocks {
         GameRegistry.registerBlock(blockStamper, "blockStamper");
         GameRegistry.registerBlock(blockFiller, "blockFiller");
 
-        GameRegistry.registerBlock(blockSaplingDye, ItemBlockSaplingDye.class, Names.BLOCK_SAPLING_DYE);
-        GameRegistry.registerBlock(blockLeavesDye, ItemBlockLeavesDye.class, Names.BLOCK_LEAVES_DYE);
-        GameRegistry.registerBlock(blockLogDye, ItemBlockLogDye.class, Names.BLOCK_LOG_DYE);
+        GameRegistry.registerBlock(blockSaplingDye, ItemBlockSaplingDye.class, Names.Blocks.BLOCK_SAPLING_DYE);
+        GameRegistry.registerBlock(blockLeavesDye, ItemBlockLeavesDye.class, Names.Blocks.BLOCK_LEAVES_DYE);
+        GameRegistry.registerBlock(blockLogDye, ItemBlockLogDye.class, Names.Blocks.BLOCK_LOG_DYE);
+        GameRegistry.registerBlock(blockHeartDye, ItemBlockHeartDye.class, Names.Blocks.BLOCK_HEART_DYE);
+        GameRegistry.registerBlock(blockRootPureDye, Names.Blocks.BLOCK_ROOT_DYE);
 
         UsageManager.addUsage(blockSqueezer, new String[]{blockSqueezer.getUnlocalizedName() + "neiuse.0", blockSqueezer.getUnlocalizedName() + "neiuse.1"});
-
-        dyeTree = new DyeTree();
     }
 
     public static void initialize() {
@@ -90,7 +90,7 @@ public class DYTBlocks {
     public static BlockSaplingDye blockSaplingDye;
     public static BlockLeavesDye blockLeavesDye;
     public static BlockLogDye blockLogDye;
-
-    public static DyeTree dyeTree;
+    public static BlockHeartDye blockHeartDye;
+    public static BlockRootDye blockRootPureDye;
 
 }
