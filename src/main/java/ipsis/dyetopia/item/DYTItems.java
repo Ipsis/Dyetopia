@@ -22,6 +22,7 @@ public class DYTItems {
         itemDyeBlank = new ItemDyeBlank();
         itemDyemeal = new ItemDyemeal();
         itemDyeDrop = new ItemDyeDrop();
+        itemDyeBeans = new ItemDyeBeans();
 
         GameRegistry.registerItem(bucketDyeRed, "item.bucketDyeRed");
         GameRegistry.registerItem(bucketDyeYellow, "item.bucketDyeYellow");
@@ -33,6 +34,7 @@ public class DYTItems {
         GameRegistry.registerItem(itemDyeBlank, "item.dyeBlank");
         GameRegistry.registerItem(itemDyemeal, "item.dyemeal");
         GameRegistry.registerItem(itemDyeDrop, "item." + Names.Items.ITEM_DYE_DROP);
+        GameRegistry.registerItem(itemDyeBeans, "item." + Names.Items.ITEM_DYE_BEANS);
     }
 
     public static void initialize() {
@@ -59,4 +61,5 @@ public class DYTItems {
 
     public static ItemDYT itemDyemeal;
     public static ItemDYT itemDyeDrop;
+    public static ItemDYT itemDyeBeans;
 }

@@ -20,6 +20,7 @@ public class ItemDyeDrop extends ItemDYT {
         super();
         setUnlocalizedName(Names.Items.ITEM_DYE_DROP);
         setHasSubtypes(true);
+        setMaxStackSize(16);
     }
 
     @Override

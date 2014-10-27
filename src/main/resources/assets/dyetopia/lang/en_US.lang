@@ -38,6 +38,9 @@ tile.dyetopia:heartDyeTree.Red.name=Red Dye Heart
 tile.dyetopia:heartDyeTree.Yellow.name=Yellow Dye Heart
 tile.dyetopia:heartDyeTree.Blue.name=Blue Dye Heart
 tile.dyetopia:rootDyeTree.name=Dye Tree Root
+tile.dyetopia:podDyeRed.name=Red Dye Pod
+tile.dyetopia:podDyeYellow.name=Yellow Dye Pod
+tile.dyetopia:podDyeBlue.name=Blue Dye Pod
 
 
 # Buckets
@@ -55,6 +58,11 @@ item.dyetopia:dyeDrop.Red.name=Red Dye Drop
 item.dyetopia:dyeDrop.Yellow.name=Yellow Dye Drop
 item.dyetopia:dyeDrop.Blue.name=Blue Dye Drop
 item.dyetopia:dyeDrop.Pure.name=Pure Dye Drop
+
+item.dyetopia:dyeBeans.Red.name=Red Dye Beans
+item.dyetopia:dyeBeans.Yellow.name=Yellow Dye Beans
+item.dyetopia:dyeBeans.Blue.name=Blue Dye Beans
+
 
 tile.dyetopia:squeezer.neiuse.0=First page of some really useful text
 tile.dyetopia:squeezer.neiuse.1=Second page of some really useful text

@@ -43,6 +43,9 @@ public class DYTBlocks {
         blockLogDye = new BlockLogDye();
         blockHeartDye = new BlockHeartDye();
         blockRootPureDye = new BlockRootDye();
+        blockPodRedDye = new BlockPodDye(0, Names.Blocks.BLOCK_POD_DYE_RED);
+        blockPodYellowDye = new BlockPodDye(1, Names.Blocks.BLOCK_POD_DYE_YELLOW);
+        blockPodBlueDye = new BlockPodDye(2, Names.Blocks.BLOCK_POD_DYE_BLUE);
 
         GameRegistry.registerBlock(blockCasing, "blockCasing");
         GameRegistry.registerBlock(blockController, "blockController");
@@ -59,6 +62,10 @@ public class DYTBlocks {
         GameRegistry.registerBlock(blockLogDye, ItemBlockLogDye.class, Names.Blocks.BLOCK_LOG_DYE);
         GameRegistry.registerBlock(blockHeartDye, ItemBlockHeartDye.class, Names.Blocks.BLOCK_HEART_DYE);
         GameRegistry.registerBlock(blockRootPureDye, Names.Blocks.BLOCK_ROOT_DYE);
+
+        GameRegistry.registerBlock(blockPodRedDye, Names.Blocks.BLOCK_POD_DYE_RED);
+        GameRegistry.registerBlock(blockPodYellowDye, Names.Blocks.BLOCK_POD_DYE_YELLOW);
+        GameRegistry.registerBlock(blockPodBlueDye, Names.Blocks.BLOCK_POD_DYE_BLUE);
 
         UsageManager.addUsage(blockSqueezer, new String[]{blockSqueezer.getUnlocalizedName() + "neiuse.0", blockSqueezer.getUnlocalizedName() + "neiuse.1"});
     }
@@ -92,5 +99,9 @@ public class DYTBlocks {
     public static BlockLogDye blockLogDye;
     public static BlockHeartDye blockHeartDye;
     public static BlockRootDye blockRootPureDye;
+
+    public static BlockPodDye blockPodRedDye;
+    public static BlockPodDye blockPodYellowDye;
+    public static BlockPodDye blockPodBlueDye;
 
 }
