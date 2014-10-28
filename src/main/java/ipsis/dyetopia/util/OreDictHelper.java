@@ -1,6 +1,9 @@
 package ipsis.dyetopia.util;
 
 import com.google.common.primitives.Ints;
+import ipsis.dyetopia.block.DYTBlocks;
+import ipsis.dyetopia.item.DYTItems;
+import ipsis.dyetopia.reference.Names;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -144,5 +147,19 @@ public class OreDictHelper {
         }
 
         return false;
+    }
+
+    public static void registerOres() {
+
+        for (int i = 0; i < Names.Items.ITEM_DYE_CHUNK_TYPES.length; i++) {
+            OreDictionary.registerOre("dye" + Names.Items.ITEM_DYE_CHUNK_TYPES[i], new ItemStack(DYTItems.itemDyeChunk, 1, i));
+            OreDictionary.registerOre("dye", new ItemStack(DYTItems.itemDyeChunk, 1, i));
+        }
+
+        for (int i = 0; i < 4; i++) {
+            OreDictionary.registerOre("treeSapling", new ItemStack(DYTBlocks.blockSaplingDye, 1, i));
+            OreDictionary.registerOre("treeLeaves", new ItemStack(DYTBlocks.blockLeavesDye, 1, i));
+            OreDictionary.registerOre("logWood", new ItemStack(DYTBlocks.blockLogDye, 1, i));
+        }
     }
 }

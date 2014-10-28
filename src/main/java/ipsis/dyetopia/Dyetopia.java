@@ -16,6 +16,7 @@ import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import ipsis.dyetopia.util.OreDictHelper;
 import ipsis.dyetopia.world.gen.feature.DYTWorldGen;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION)
@@ -37,6 +38,8 @@ public class Dyetopia {
         DYTBlocks.preInit();
         DYTItems.preInit(); /* We have buckets, so the fluid block needs to be available first! */
         DYTWorldGen.preInit();
+
+        OreDictHelper.registerOres();
 
         FMLInterModComms.sendMessage("Waila", "register", "ipsis.dyetopia.plugins.waila.DYTWailaProvider.callbackRegister");
     }

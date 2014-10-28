@@ -35,5 +35,13 @@ public class Names {
         public static final String[] ITEM_DYE_BEANS_TYPES = {
                 "Red", "Yellow", "Blue"
         };
+
+        public static final String ITEM_DYE_CHUNK = "dyeChunk";
+        public static final String[] ITEM_DYE_CHUNK_TYPES = {
+                "Black", "Red", "Green", "Brown",
+                "Blue", "Purple", "Cyan", "LightGray",
+                "Gray", "Pink", "Lime", "Yellow",
+                "LightBlue", "Magenta", "Orange", "White"
+        };
     }
 }
