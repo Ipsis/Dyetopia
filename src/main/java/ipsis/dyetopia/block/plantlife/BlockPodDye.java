@@ -1,5 +1,6 @@
 package ipsis.dyetopia.block.plantlife;
 
+import codechicken.lib.math.MathHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ipsis.dyetopia.block.DYTBlocks;
@@ -32,7 +33,6 @@ public class BlockPodDye extends BlockCocoa {
     public BlockPodDye(int dyeMeta, String name) {
 
         super();
-        this.setCreativeTab(CreativeTab.DYT_TAB);
         this.dyeMeta = dyeMeta;
         this.setBlockName(name);
     }
@@ -60,6 +60,7 @@ public class BlockPodDye extends BlockCocoa {
         }
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public IIcon getCocoaIcon(int p_149988_1_)
     {
@@ -71,12 +72,14 @@ public class BlockPodDye extends BlockCocoa {
         return this.icons[p_149988_1_];
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta)
     {
         return this.icons[2];
     }
 
+    @Override
     public boolean canBlockStay(World world, int x, int y, int z)
     {
         int l = getDirection(world.getBlockMetadata(x, y, z));
@@ -95,20 +98,43 @@ public class BlockPodDye extends BlockCocoa {
         if (stage < 2) {
             dropped.add(new ItemStack(DYTItems.itemDyeBeans, 1, this.dyeMeta));
         } else {
-            /* Fully grown */
-            dropped.add(new ItemStack(DYTItems.itemDyeDrop, 1, this.dyeMeta));
-            dropped.add(new ItemStack(DYTItems.itemDyeDrop, 1, this.dyeMeta));
-            dropped.add(new ItemStack(DYTItems.itemDyeDrop, 1, this.dyeMeta));
+            /**
+             *  Fully grown
+             *
+             *  1+ drop
+             *  40% change of pure drop
+             *  1 dye bean
+             *  20% chance of second dye bean
+             */
+            int numDrops = world.rand.nextInt(3) + 1;
+            for (int i = 0; i < numDrops; i++)
+                dropped.add(new ItemStack(DYTItems.itemDyeDrop, 1, this.dyeMeta));
 
-            /* TODO what else to drop */
+            if (world.rand.nextFloat() * 100 <= 40.0F)
+                dropped.add(new ItemStack(DYTItems.itemDyeDrop, 1, 3));
+
+            dropped.add(new ItemStack(DYTItems.itemDyeBeans, 1, this.dyeMeta));
+            if (world.rand.nextFloat() * 100 <= 20.0F)
+                dropped.add(new ItemStack(DYTItems.itemDyeBeans, 1, this.dyeMeta));
         }
 
         return dropped;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public Item getItem(World world, int x, int y, int z)
     {
         return DYTItems.itemDyeBeans;
     }
+
+    /**
+     * Get the block's damage value (for use with pick block).
+     */
+    @Override
+    public int getDamageValue(World p_149643_1_, int p_149643_2_, int p_149643_3_, int p_149643_4_)
+    {
+        return dyeMeta;
+    }
+
 }
