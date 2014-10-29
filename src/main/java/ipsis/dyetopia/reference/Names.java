@@ -43,5 +43,7 @@ public class Names {
                 "Gray", "Pink", "Lime", "Yellow",
                 "LightBlue", "Magenta", "Orange", "White"
         };
+
+        public static final String ITEM_DYE_GUN = "dyeGun";
     }
 }

@@ -53,6 +53,7 @@ item.dyetopia:bucketDyePure.name=Pure Liquid Dye Bucket
 item.dyetopia:eraser.name=Eraser
 item.dyetopia:dyeBlank.name=Dye Blank
 item.dyetopia:dyemeal.name=Dyemeal
+item.dyetopia:dyeGun.name=Dye Gun
 
 item.dyetopia:dyeDrop.Red.name=Red Dye Drop
 item.dyetopia:dyeDrop.Yellow.name=Yellow Dye Drop
@@ -63,6 +64,22 @@ item.dyetopia:dyeBeans.Red.name=Red Dye Beans
 item.dyetopia:dyeBeans.Yellow.name=Yellow Dye Beans
 item.dyetopia:dyeBeans.Blue.name=Blue Dye Beans
 
+item.dyetopia:dyeChunk.Black.name=Black Chunk of Dye
+item.dyetopia:dyeChunk.Red.name=Red Chunk of Dye
+item.dyetopia:dyeChunk.Green.name=Green Chunk of Dye
+item.dyetopia:dyeChunk.Brown.name=Brown Chunk of Dye
+item.dyetopia:dyeChunk.Blue.name=Blue Chunk of Dye
+item.dyetopia:dyeChunk.Purple.name=Purple Chunk of Dye
+item.dyetopia:dyeChunk.Cyan.name=Cyan Chunk of Dye
+item.dyetopia:dyeChunk.LightGray.name=LightGray Chunk of Dye
+item.dyetopia:dyeChunk.Gray.name=Gray Chunk of Dye
+item.dyetopia:dyeChunk.Pink.name=Pink Chunk of Dye
+item.dyetopia:dyeChunk.Lime.name=Lime Chunk of Dye
+item.dyetopia:dyeChunk.Yellow.name=Yellow Chunk of Dye
+item.dyetopia:dyeChunk.LightBlue.name=LightBlue Chunk of Dye
+item.dyetopia:dyeChunk.Magenta.name=Magenta Chunk of Dye
+item.dyetopia:dyeChunk.Orange.name=Orange Chunk of Dye
+item.dyetopia:dyeChunk.White.name=White Chunk of Dye
 
 tile.dyetopia:squeezer.neiuse.0=First page of some really useful text
 tile.dyetopia:squeezer.neiuse.1=Second page of some really useful text

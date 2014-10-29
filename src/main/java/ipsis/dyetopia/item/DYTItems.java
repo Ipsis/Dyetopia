@@ -20,6 +20,8 @@ public class DYTItems {
 
         itemEraser = new ItemEraser();
         itemDyeBlank = new ItemDyeBlank();
+        itemDyeGun = new ItemDyeGun();
+
         itemDyemeal = new ItemDyemeal();
         itemDyeDrop = new ItemDyeDrop();
         itemDyeBeans = new ItemDyeBeans();
@@ -33,6 +35,8 @@ public class DYTItems {
 
         GameRegistry.registerItem(itemEraser, "item.eraser");
         GameRegistry.registerItem(itemDyeBlank, "item.dyeBlank");
+        GameRegistry.registerItem(itemDyeGun, "item." + Names.Items.ITEM_DYE_GUN);
+
         GameRegistry.registerItem(itemDyemeal, "item.dyemeal");
         GameRegistry.registerItem(itemDyeDrop, "item." + Names.Items.ITEM_DYE_DROP);
         GameRegistry.registerItem(itemDyeBeans, "item." + Names.Items.ITEM_DYE_BEANS);
@@ -60,6 +64,7 @@ public class DYTItems {
 
     public static ItemDYT itemEraser;
     public static ItemDYT itemDyeBlank;
+    public static ItemDYT itemDyeGun;
 
     public static ItemDYT itemDyemeal;
     public static ItemDYT itemDyeDrop;

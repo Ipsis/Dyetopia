@@ -45,6 +45,16 @@ public class DyeHelper {
             return WHITE;
         }
 
+        public DyeType getNext() {
+
+            int ord = this.ordinal();
+            ord++;
+            if (ord >= VALID_DYES.length)
+                ord = 0;
+
+            return VALID_DYES[ord];
+        }
+
         public static DyeType getDyeType(int id) {
 
             if (id < 0 || id >= VALID_DYES.length)
