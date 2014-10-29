@@ -4,6 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ipsis.dyetopia.reference.Names;
 import ipsis.dyetopia.reference.Textures;
+import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -17,6 +18,13 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Metadata
+ * 0x8 - decay
+ * 0x4 - ???
+ * 0x3 - type
+ *
+ */
 public class BlockLeavesDye extends BlockLeavesDYT {
 
     public BlockLeavesDye() {
@@ -34,15 +42,16 @@ public class BlockLeavesDye extends BlockLeavesDYT {
     private static final int RENDER_PURE = 14188952;
 
     @SideOnly(Side.CLIENT)
-    public int getRenderColor(int p_149741_1_)
+    public int getRenderColor(int meta)
     {
-        if (p_149741_1_ == 0)
+        int type = meta & 0x3;
+        if (type == 0)
             return RENDER_RED;
-        else if (p_149741_1_ == 1)
+        else if (type == 1)
             return RENDER_YELLOW;
-        else if (p_149741_1_ == 2)
+        else if (type == 2)
             return RENDER_BLUE;
-        else if (p_149741_1_ == 3)
+        else if (type == 3)
             return RENDER_PURE;
 
         return ColorizerFoliage.getFoliageColorBasic();
@@ -106,6 +115,7 @@ public class BlockLeavesDye extends BlockLeavesDYT {
     @Override
     public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
 
+        /* No drops for you */
         return new ArrayList<ItemStack>();
     }
 }
