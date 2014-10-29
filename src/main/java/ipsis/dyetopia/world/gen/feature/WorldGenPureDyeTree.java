@@ -1,8 +1,10 @@
 package ipsis.dyetopia.world.gen.feature;
 
 import ipsis.dyetopia.block.DYTBlocks;
+import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraftforge.common.IPlantable;
@@ -16,7 +18,7 @@ import java.util.Random;
 
 public class WorldGenPureDyeTree extends WorldGenAbstractTree {
 
-    private static final int minTreeHeight = 9;
+    private static final int minTreeHeight = 12;
 
     public WorldGenPureDyeTree() { super(false); }
 
@@ -48,15 +50,38 @@ public class WorldGenPureDyeTree extends WorldGenAbstractTree {
             else
                 radius = 2;
 
-            for (int xOff = x - radius; xOff <= x + radius; xOff++) {
-                for (int zOff = z - radius; zOff <= z + radius; zOff++) {
-                    if (!this.isReplaceable(world, y + yOff, xOff, zOff))
+            for (int xPos = x - radius; xPos <= x + radius; xPos++) {
+                for (int zPos = z - radius; zPos <= z + radius; zPos++) {
+                    if (!this.isReplaceable(world, xPos, y + yOff, zPos))
                         return false;
                 }
             }
         }
 
         soilBlock.onPlantGrow(world, x, y - 1, z, x, y, z);
+
+        /**
+         * Place the leaves
+         */
+        for (int currY = y + 4; currY < y + numLogs; currY++) {
+
+            if (currY >= y + 4 && currY < y + numLogs - 2) {
+                putLayer(world, x, currY, z, 4);
+            } else if (currY == y + numLogs - 2) {
+                putLayer(world, x, currY, z, 3);
+            } else if (currY == y + numLogs - 1) {
+                putLayer(world, x, currY, z, 2);
+            } else if (currY == y + numLogs) {
+
+                putLeaf(world, x - 1, currY, z);
+                putLeaf(world, x + 1, currY, z);
+                putLeaf(world, x, currY, z - 1);
+                putLeaf(world, x, currY, z + 1);
+                putLeaf(world, x, currY, z);
+            }
+        }
+
+        putLeaf(world, x, y + numLogs, z);
 
         /**
          * Place the logs
@@ -125,49 +150,25 @@ public class WorldGenPureDyeTree extends WorldGenAbstractTree {
         putRoot(world, x, y - 1, z + 2);
         putRoot(world, x, y - 2, z + 2);
 
-
-        /**
-         * Place the leaves
-         */
-        int i1 = numLogs - rand.nextInt(2) - 3;
-        int j1 = numLogs - i1;
-        int k1 = 1 + rand.nextInt(j1 + 1);
-
-        int i3 = 0;
-        for (int currY = y + numLogs; currY >= y + i1; --currY)
-        {
-            for (int currX = x - i3; currX <= x + i3; ++currX)
-            {
-                int j3 = currX - x;
-
-                for (int currZ = z - i3; currZ <= z + i3; ++currZ)
-                {
-                    int l2 = currZ - z;
-
-                    if ((Math.abs(j3) != i3 || Math.abs(l2) != i3 || i3 <= 0) && world.getBlock(currX, currY, currZ).canBeReplacedByLeaves(world, currX, currY, currZ))
-                    {
-                        this.setBlockAndNotifyAdequately(world, currX, currY, currZ, DYTBlocks.blockLeavesDye, 3);
-                    }
-                }
-            }
-
-            if (i3 >= 1 && currY == y + i1 + 1)
-            {
-                --i3;
-            }
-            else if (i3 < k1)
-            {
-                ++i3;
-            }
-        }
-
         return true;
+    }
+
+    private void putLayer(World world, int x, int y, int z, int radius) {
+
+        for (int r = radius * -1; r <= radius; r++) {
+
+            int currX = x + r;
+            int diff = (MathHelper.abs_int(r) * -1) + radius;
+
+            for (int currZ = z - diff; currZ <= z + diff; currZ++)
+                putLeaf(world, currX, y, currZ);
+        }
     }
 
     private void putLog(World world, int x, int y, int z) {
 
         Block rBlock = world.getBlock(x, y, z);
-        if (rBlock.isAir(world, x, y, z) || rBlock.isLeaves(world, x, y, z))
+        if (rBlock.isAir(world, x, y, z) || rBlock.isLeaves(world, x, y, z) || func_150523_a(rBlock))
             this.setBlockAndNotifyAdequately(world, x, y, z, DYTBlocks.blockLogDye, 3);
     }
 
@@ -175,6 +176,16 @@ public class WorldGenPureDyeTree extends WorldGenAbstractTree {
 
         Block rBlock = world.getBlock(x, y, z);
         if (rBlock != Blocks.bedrock && (rBlock.isAir(world, x, y, z) || rBlock == Blocks.grass || rBlock == Blocks.dirt || rBlock == Blocks.farmland))
-            this.setBlockAndNotifyAdequately(world, x, y, z, DYTBlocks.blockRootPureDye, 3);
+            this.setBlockAndNotifyAdequately(world, x, y, z, DYTBlocks.blockRootPureDye, 0);
+    }
+
+    private void putLeaf(World world, int x, int y, int z) {
+
+        Block rBlock = world.getBlock(x, y, z);
+        if (rBlock.isAir(world, x, y, z) || rBlock.isLeaves(world, x, y, z))
+        {
+            //this.setBlockAndNotifyAdequately(world, x, y, z, DYTBlocks.blockLeavesDye, world.rand.nextInt(4));
+            this.setBlockAndNotifyAdequately(world, x, y, z, DYTBlocks.blockLeavesDye, 3);
+        }
     }
 }

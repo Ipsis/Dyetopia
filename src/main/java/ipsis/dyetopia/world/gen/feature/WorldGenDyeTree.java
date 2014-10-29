@@ -80,43 +80,6 @@ public class WorldGenDyeTree extends WorldGenAbstractTree {
 
         soilBlock.onPlantGrow(world, x, y - 1, z, x, y, z);
 
-        /**
-         * Place the logs
-         */
-        for (int yOff = 0; yOff < numLogs; yOff++) {
-
-            if (yOff == 0) {
-
-                Block rBlock = world.getBlock(x, y, z);
-                if (rBlock.isAir(world, x, y, z) || rBlock.isLeaves(world, x, y + yOff, z))
-                    this.setBlockAndNotifyAdequately(world, x, y, z, DYTBlocks.blockHeartDye, this.metaWood);
-
-                for (int c = 0; c < 4; c++) {
-
-                    int logX = x;
-                    int logZ = z;
-
-                    if (c == 0)
-                        logX = x - 1;
-                    else if (c == 1)
-                        logX = x + 1;
-                    else if (c == 2)
-                        logZ = z - 1;
-                    else
-                        logZ = z + 1;
-
-                    rBlock = world.getBlock(logX, y, logZ);
-                    if (rBlock.isAir(world, x, y, z) || rBlock.isLeaves(world, x, y, z))
-                        this.setBlockAndNotifyAdequately(world, logX, y , logZ, DYTBlocks.blockLogDye, this.metaWood);
-
-                }
-            } else {
-
-                Block rBlock = world.getBlock(x, y + yOff, z);
-                if (rBlock.isAir(world, x, y + yOff, z) || rBlock.isLeaves(world, x, y + yOff, z))
-                    this.setBlockAndNotifyAdequately(world, x, y + yOff, z, this.wood, this.metaWood);
-            }
-        }
 
         /**
          * Place the leaves
@@ -152,6 +115,46 @@ public class WorldGenDyeTree extends WorldGenAbstractTree {
                 ++i3;
             }
         }
+
+        /**
+         * Place the logs
+         */
+        for (int yOff = 0; yOff < numLogs; yOff++) {
+
+            if (yOff == 0) {
+
+                Block rBlock = world.getBlock(x, y, z);
+                if (rBlock.isAir(world, x, y, z) || rBlock.isLeaves(world, x, y + yOff, z))
+                    this.setBlockAndNotifyAdequately(world, x, y, z, DYTBlocks.blockHeartDye, this.metaWood);
+
+                for (int c = 0; c < 4; c++) {
+
+                    int logX = x;
+                    int logZ = z;
+
+                    if (c == 0)
+                        logX = x - 1;
+                    else if (c == 1)
+                        logX = x + 1;
+                    else if (c == 2)
+                        logZ = z - 1;
+                    else
+                        logZ = z + 1;
+
+                    rBlock = world.getBlock(logX, y, logZ);
+                    if (rBlock.isAir(world, logX, y, logZ) || rBlock.isLeaves(world, logX, y, logZ))
+                        this.setBlockAndNotifyAdequately(world, logX, y , logZ, DYTBlocks.blockLogDye, this.metaWood);
+
+                }
+            } else {
+
+                Block rBlock = world.getBlock(x, y + yOff, z);
+                if (rBlock.isAir(world, x, y + yOff, z) || rBlock.isLeaves(world, x, y + yOff, z))
+                    this.setBlockAndNotifyAdequately(world, x, y + yOff, z, this.wood, this.metaWood);
+            }
+        }
+
+
 
         return true;
     }

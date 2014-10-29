@@ -21,11 +21,6 @@ public class BlockRootDye extends BlockLogDYT {
         this.setBlockName(Names.Blocks.BLOCK_ROOT_DYE);
     }
 
-    private int getTypeFromMeta(int meta) {
-
-        return (meta & 0x3) & 0xF;
-    }
-
     @SideOnly(Side.CLIENT)
     private static IIcon[] icons;
 
