@@ -5,7 +5,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class MixerManager {
 
-    private static final int RECIPE_ENERGY = 60;
+    private static final int RECIPE_ENERGY = 120;
     private static MixerRecipe recipe;
 
     public static void initialise() {
