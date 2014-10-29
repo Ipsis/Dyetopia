@@ -9,7 +9,7 @@
   "updateUrl": "",
   "authorList": ["Ipsis"],
   "credits": "",
-  "logoFile": "",
+  "logoFile": "assets/dyetopia/logo.png",
   "screenshots": [],
   "dependencies": [
     ]
