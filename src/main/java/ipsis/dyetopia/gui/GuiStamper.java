@@ -9,6 +9,7 @@ import ipsis.dyetopia.gui.container.ContainerStamper;
 import ipsis.dyetopia.gui.element.ElementEnergyStoredDYT;
 import ipsis.dyetopia.gui.element.ElementFluidTankDYT;
 import ipsis.dyetopia.gui.element.ElementIcon;
+import ipsis.dyetopia.gui.element.ElementProgressBar;
 import ipsis.dyetopia.reference.Reference;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntityStamper;
@@ -23,7 +24,7 @@ public class GuiStamper extends GuiBase {
     private static final ResourceLocation TEXTURE = new ResourceLocation(TEXTURE_STR);
 
     private TileEntityStamper stamper;
-    private ElementDualScaled progress;
+    private ElementProgressBar progress;
     private ElementIcon selected;
 
     public static final int BUTTON_DN_ID = 0;
@@ -57,7 +58,7 @@ public class GuiStamper extends GuiBase {
         addElement(new ElementButton(this, 60, 62, BTN_DN_STR, 176, 0, 176, 16, 176, 32, 16, 16, TEXTURE_STR));
         addElement(new ElementButton(this, 96, 62, BTN_UP_STR, 192, 0, 192, 16, 192, 32, 16, 16, TEXTURE_STR));
 
-        this.progress = ((ElementDualScaled)addElement(new ElementDualScaled(this, 76, 34).setMode(1).setBackground(false).setSize(24, 16).setTexture(Textures.RESOURCE_PREFIX + Textures.Gui.PROGRESS, 64, 64)));
+        this.progress = ((ElementProgressBar)addElement(new ElementProgressBar(this, 76, 34, ElementProgressBar.ProgressType.LEFT_TO_RIGHT)));
         addElement(progress);
 
         this.selected = ((ElementIcon)addElement(new ElementIcon(this, 78, 62).setIcon(DyeHelper.DyeType.BLACK.getIcon())));

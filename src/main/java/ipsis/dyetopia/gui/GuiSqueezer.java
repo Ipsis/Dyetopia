@@ -7,6 +7,7 @@ import cofh.lib.gui.element.ElementFluidTank;
 import ipsis.dyetopia.gui.container.ContainerSqueezer;
 import ipsis.dyetopia.gui.element.ElementEnergyStoredDYT;
 import ipsis.dyetopia.gui.element.ElementFluidTankDYT;
+import ipsis.dyetopia.gui.element.ElementProgressBar;
 import ipsis.dyetopia.reference.Reference;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntitySqueezer;
@@ -19,7 +20,7 @@ public class GuiSqueezer extends GuiBase {
     private static final ResourceLocation TEXTURE = new ResourceLocation(Textures.Gui.GUI_SQUEEZER);
 
     private TileEntitySqueezer squeezer;
-    private ElementDualScaled progress;
+    private ElementProgressBar progress;
 
     public GuiSqueezer(TileEntitySqueezer squeezer, EntityPlayer player) {
 
@@ -43,7 +44,8 @@ public class GuiSqueezer extends GuiBase {
         /* energy */
         addElement(new ElementEnergyStoredDYT(this, 7, 22, this.squeezer.getEnergyMgr().getEnergyStorage()));
 
-        this.progress = ((ElementDualScaled)addElement(new ElementDualScaled(this, 61, 34).setMode(1).setBackground(false).setSize(24, 16).setTexture(Textures.RESOURCE_PREFIX + Textures.Gui.PROGRESS, 64, 64)));
+
+        this.progress = ((ElementProgressBar)addElement(new ElementProgressBar(this, 61, 34, ElementProgressBar.ProgressType.LEFT_TO_RIGHT)));
         addElement(progress);
     }
 

@@ -7,6 +7,7 @@ import cofh.lib.gui.element.ElementFluidTank;
 import ipsis.dyetopia.gui.container.ContainerFiller;
 import ipsis.dyetopia.gui.element.ElementEnergyStoredDYT;
 import ipsis.dyetopia.gui.element.ElementFluidTankDYT;
+import ipsis.dyetopia.gui.element.ElementProgressBar;
 import ipsis.dyetopia.reference.Reference;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntityFiller;
@@ -19,7 +20,7 @@ public class GuiFiller extends GuiBase {
     private static final ResourceLocation TEXTURE = new ResourceLocation(Textures.Gui.GUI_FILLER);
 
     private TileEntityFiller filler;
-    private ElementDualScaled progress;
+    private ElementProgressBar progress;
 
     public GuiFiller(TileEntityFiller filler, EntityPlayer player) {
 
@@ -40,7 +41,7 @@ public class GuiFiller extends GuiBase {
         /* energy */
         addElement(new ElementEnergyStoredDYT(this, 7, 22, this.filler.getEnergyMgr().getEnergyStorage()));
 
-        this.progress = ((ElementDualScaled)addElement(new ElementDualScaled(this, 28, 54).setMode(1).setBackground(false).setSize(24, 16).setTexture(Textures.RESOURCE_PREFIX + Textures.Gui.PROGRESS, 64, 64)));
-        //addElement(progress);
+        this.progress = ((ElementProgressBar)addElement(new ElementProgressBar(this, 28, 54, ElementProgressBar.ProgressType.LEFT_TO_RIGHT)));
+        addElement(progress);
     }
 }
