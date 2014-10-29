@@ -5,7 +5,10 @@ import cofh.lib.gui.element.ElementDualScaled;
 import cofh.lib.gui.element.ElementEnergyStored;
 import cofh.lib.gui.element.ElementFluidTank;
 import ipsis.dyetopia.gui.container.ContainerMixer;
+import ipsis.dyetopia.gui.element.ElementEnergyStoredDYT;
+import ipsis.dyetopia.gui.element.ElementFluidTankDYT;
 import ipsis.dyetopia.reference.Reference;
+import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntityMixer;
 import ipsis.dyetopia.util.TankType;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +17,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiMixer extends GuiBase {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.GUI_TEXTURE_BASE + "mixer.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(Textures.Gui.GUI_MIXER);
 
     private TileEntityMixer mixer;
     private ElementDualScaled progress;
@@ -33,17 +36,17 @@ public class GuiMixer extends GuiBase {
         super.initGui();
 
         /* tanks */
-        addElement(new ElementFluidTank(this, 60, 12, this.mixer.getTankMgr().getTank(TankType.RED.getName())));
-        addElement(new ElementFluidTank(this, 78, 12, this.mixer.getTankMgr().getTank(TankType.YELLOW.getName())));
-        addElement(new ElementFluidTank(this, 96, 12, this.mixer.getTankMgr().getTank(TankType.BLUE.getName())));
-        addElement(new ElementFluidTank(this, 114, 12, this.mixer.getTankMgr().getTank(TankType.WHITE.getName())));
+        addElement(new ElementFluidTankDYT(this, 42, 12, this.mixer.getTankMgr().getTank(TankType.RED.getName())));
+        addElement(new ElementFluidTankDYT(this, 60, 12, this.mixer.getTankMgr().getTank(TankType.YELLOW.getName())));
+        addElement(new ElementFluidTankDYT(this, 78, 12, this.mixer.getTankMgr().getTank(TankType.BLUE.getName())));
+        addElement(new ElementFluidTankDYT(this, 96, 12, this.mixer.getTankMgr().getTank(TankType.WHITE.getName())));
 
-        addElement(new ElementFluidTank(this, 150, 12, this.mixer.getTankMgr().getTank(TankType.PURE.getName())));
+        addElement(new ElementFluidTankDYT(this, 150, 12, this.mixer.getTankMgr().getTank(TankType.PURE.getName())));
 
         /* energy */
-        addElement(new ElementEnergyStored(this, 7, 22, this.mixer.getEnergyMgr().getEnergyStorage()));
+        addElement(new ElementEnergyStoredDYT(this, 7, 22, this.mixer.getEnergyMgr().getEnergyStorage()));
 
-        this.progress = ((ElementDualScaled)addElement(new ElementDualScaled(this, 28, 54).setMode(1).setBackground(false).setSize(24, 16).setTexture(Reference.GUI_PROGRESS_TEXTURE, 64, 64)));
+        this.progress = ((ElementDualScaled)addElement(new ElementDualScaled(this, 120, 33).setMode(1).setBackground(false).setSize(24, 16).setTexture(Textures.RESOURCE_PREFIX + Textures.Gui.PROGRESS, 64, 64)));
         addElement(progress);
     }
 

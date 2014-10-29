@@ -6,8 +6,11 @@ import cofh.lib.gui.element.ElementDualScaled;
 import cofh.lib.gui.element.ElementEnergyStored;
 import cofh.lib.gui.element.ElementFluidTank;
 import ipsis.dyetopia.gui.container.ContainerStamper;
+import ipsis.dyetopia.gui.element.ElementEnergyStoredDYT;
+import ipsis.dyetopia.gui.element.ElementFluidTankDYT;
 import ipsis.dyetopia.gui.element.ElementIcon;
 import ipsis.dyetopia.reference.Reference;
+import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntityStamper;
 import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.TankType;
@@ -16,7 +19,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiStamper extends GuiBase {
 
-    private static final String TEXTURE_STR = new String(Reference.GUI_TEXTURE_BASE + "stamper.png");
+    private static final String TEXTURE_STR = new String(Textures.Gui.GUI_STAMPER);
     private static final ResourceLocation TEXTURE = new ResourceLocation(TEXTURE_STR);
 
     private TileEntityStamper stamper;
@@ -45,16 +48,16 @@ public class GuiStamper extends GuiBase {
         super.initGui();
 
         /* tanks */
-        addElement(new ElementFluidTank(this, 150, 12, this.stamper.getTankMgr().getTank(TankType.PURE.getName())));
+        addElement(new ElementFluidTankDYT(this, 150, 12, this.stamper.getTankMgr().getTank(TankType.PURE.getName())));
 
         /* energy */
-        addElement(new ElementEnergyStored(this, 7, 22, this.stamper.getEnergyMgr().getEnergyStorage()));
+        addElement(new ElementEnergyStoredDYT(this, 7, 22, this.stamper.getEnergyMgr().getEnergyStorage()));
 
         /* buttons */
         addElement(new ElementButton(this, 60, 62, BTN_DN_STR, 176, 0, 176, 16, 176, 32, 16, 16, TEXTURE_STR));
         addElement(new ElementButton(this, 96, 62, BTN_UP_STR, 192, 0, 192, 16, 192, 32, 16, 16, TEXTURE_STR));
 
-        this.progress = ((ElementDualScaled)addElement(new ElementDualScaled(this, 71, 35).setMode(1).setBackground(false).setSize(24, 16).setTexture(Reference.GUI_PROGRESS_TEXTURE, 64, 64)));
+        this.progress = ((ElementDualScaled)addElement(new ElementDualScaled(this, 76, 34).setMode(1).setBackground(false).setSize(24, 16).setTexture(Textures.RESOURCE_PREFIX + Textures.Gui.PROGRESS, 64, 64)));
         addElement(progress);
 
         this.selected = ((ElementIcon)addElement(new ElementIcon(this, 78, 62).setIcon(DyeHelper.DyeType.BLACK.getIcon())));
