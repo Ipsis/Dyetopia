@@ -1,5 +1,6 @@
 package ipsis.dyetopia.util;
 
+import ipsis.dyetopia.item.DYTItems;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -54,12 +55,12 @@ public class DyeHelper {
 
         public ItemStack getStack() {
 
-            return new ItemStack(Items.dye, 1, this.dmg);
+            return new ItemStack(DYTItems.itemDyeChunk, 1, this.dmg);
         }
 
         public IIcon getIcon() {
 
-            return Items.dye.getIconFromDamage(this.dmg);
+            return DYTItems.itemDyeChunk.getIconFromDamage(this.dmg);
         }
 
         public static ItemStack getStack(String oreName) {
