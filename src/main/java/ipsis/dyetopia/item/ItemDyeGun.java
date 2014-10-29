@@ -4,6 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ipsis.dyetopia.manager.DyeLiquidManager;
 import ipsis.dyetopia.manager.PainterManager;
+import ipsis.dyetopia.reference.Messages;
 import ipsis.dyetopia.reference.Names;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.util.BlockSwapper;
@@ -11,9 +12,12 @@ import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.LogHelper;
 import ipsis.dyetopia.util.OriginHelper;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockColored;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -21,6 +25,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -157,7 +162,7 @@ public class ItemDyeGun extends ItemDYT {
         if (!world.isRemote && entityPlayer.isSneaking()) {
 
             setNextColor(itemStack);
-            entityPlayer.addChatComponentMessage(new ChatComponentText(getColor(itemStack).getOreDict()));
+            entityPlayer.addChatComponentMessage(new ChatComponentText(getColorTranslation(getColor(itemStack))));
         }
 
         return itemStack;
@@ -196,9 +201,36 @@ public class ItemDyeGun extends ItemDYT {
             }
         }
 
-
-
         return false;
+    }
+
+    /* Straight from vanilla ItemDye */
+    public boolean itemInteractionForEntity(ItemStack itemStack, EntityPlayer entityPlayer, EntityLivingBase entityLiving)
+    {
+        if (entityLiving instanceof EntitySheep && itemStack.getItem() == DYTItems.itemDyeGun)
+        {
+            EntitySheep entitysheep = (EntitySheep)entityLiving;
+            DyeHelper.DyeType t = getColor(itemStack);
+
+            int color = BlockColored.func_150032_b(t.getDmg());
+            if (!entitysheep.getSheared() && entitysheep.getFleeceColor() != color)
+            {
+                entitysheep.setFleeceColor(color);
+                if (!entityPlayer.capabilities.isCreativeMode)
+                    setFluidAmount(itemStack, getFluidAmount(itemStack) - DyeLiquidManager.DYE_BASE_AMOUNT);
+            }
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private String getColorTranslation(DyeHelper.DyeType type) {
+
+        return StatCollector.translateToLocal("tooltip.dyetopia:dyeGun." + type.getOreDict());
     }
 
     /**
@@ -211,9 +243,8 @@ public class ItemDyeGun extends ItemDYT {
         if (itemStack.stackTagCompound == null)
             setDefaultTags(itemStack);
 
-        // TODO needs a color name
-        info.add(getColor(itemStack).getOreDict());
-        info.add(itemStack.stackTagCompound.getInteger(FLUID_TAG) + "/" + CAPACITY);
+        info.add(getColorTranslation(getColor(itemStack)));
+        info.add(itemStack.stackTagCompound.getInteger(FLUID_TAG) + "/" + CAPACITY + "mB");
     }
 
 }

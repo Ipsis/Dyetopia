@@ -1,5 +1,6 @@
 key.categories.dyetopia=Dyetopia
 
+# Fluids
 tile.dyetopia:fluid.dyered.name=Red Liquid Dye
 tile.dyetopia:fluid.dyeyellow.name=Yellow Liquid Dye
 tile.dyetopia:fluid.dyeblue.name=Blue Liquid Dye
@@ -12,6 +13,7 @@ fluid.dyeblue=Blue Liquid Dye
 fluid.dyewhite=White Liquid Dye
 fluid.dyepure=Pure Liquid Dye
 
+# Machines
 tile.dyetopia:casing.name=Casing
 tile.dyetopia:controller.name=Controller
 tile.dyetopia:valve.name=Valve
@@ -42,7 +44,6 @@ tile.dyetopia:podDyeRed.name=Red Dye Pod
 tile.dyetopia:podDyeYellow.name=Yellow Dye Pod
 tile.dyetopia:podDyeBlue.name=Blue Dye Pod
 
-
 # Buckets
 item.dyetopia:bucketDyeRed.name=Red Liquid Dye Bucket
 item.dyetopia:bucketDyeYellow.name=Yellow Liquid Dye Bucket
@@ -50,6 +51,7 @@ item.dyetopia:bucketDyeBlue.name=Blue Liquid Dye Bucket
 item.dyetopia:bucketDyeWhite.name=White Liquid Dye Bucket
 item.dyetopia:bucketDyePure.name=Pure Liquid Dye Bucket
 
+# Items
 item.dyetopia:eraser.name=Eraser
 item.dyetopia:dyeBlank.name=Dye Blank
 item.dyetopia:dyemeal.name=Dyemeal
@@ -80,6 +82,23 @@ item.dyetopia:dyeChunk.LightBlue.name=LightBlue Chunk of Dye
 item.dyetopia:dyeChunk.Magenta.name=Magenta Chunk of Dye
 item.dyetopia:dyeChunk.Orange.name=Orange Chunk of Dye
 item.dyetopia:dyeChunk.White.name=White Chunk of Dye
+
+tooltip.dyetopia:dyeGun.dyeBlack=Black Dye
+tooltip.dyetopia:dyeGun.dyeRed=Red Dye
+tooltip.dyetopia:dyeGun.dyeGreen=Green Dye
+tooltip.dyetopia:dyeGun.dyeBrown=Brown Dye
+tooltip.dyetopia:dyeGun.deyeBlue=Blue Dye
+tooltip.dyetopia:dyeGun.dyePurple=Purple Dye
+tooltip.dyetopia:dyeGun.dyeCyan=Cyan Dye
+tooltip.dyetopia:dyeGun.dyeLightGray=Light Gray Dye
+tooltip.dyetopia:dyeGun.dyeGray=Gray Dye
+tooltip.dyetopia:dyeGun.dyePink=Pink Dye
+tooltip.dyetopia:dyeGun.dyeLime=Lime Dye
+tooltip.dyetopia:dyeGun.dyeYellow=Yellow Dye
+tooltip.dyetopia:dyeGun.dyeLightBlue=Light Blue Dye
+tooltip.dyetopia:dyeGun.dyeMagenta=Magenta Dye
+tooltip.dyetopia:dyeGun.dyeOrange=Orange Dye
+tooltip.dyetopia:dyeGun.dyeWhite=White Dye
 
 tile.dyetopia:squeezer.neiuse.0=First page of some really useful text
 tile.dyetopia:squeezer.neiuse.1=Second page of some really useful text
