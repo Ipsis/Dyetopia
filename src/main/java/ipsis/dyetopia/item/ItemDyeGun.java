@@ -1,5 +1,6 @@
 package ipsis.dyetopia.item;
 
+import cofh.lib.util.helpers.ColorHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ipsis.dyetopia.manager.DyeLiquidManager;
@@ -43,29 +44,47 @@ public class ItemDyeGun extends ItemDYT {
     }
 
     @SideOnly(Side.CLIENT)
-    private IIcon emptyIcon;
-    private IIcon fullIcon;
+    private IIcon pass0Icon;
+    private IIcon pass1Icon;
 
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister)
     {
-        emptyIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + Names.Items.ITEM_DYE_GUN + ".Empty");
-        fullIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + Names.Items.ITEM_DYE_GUN + ".Full");
-    }
-
-    @Override
-    public IIcon getIconIndex(ItemStack stack) {
-        return getIcon(stack, 0);
+        pass0Icon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + Names.Items.ITEM_DYE_GUN + ".Pass0");
+        pass1Icon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + Names.Items.ITEM_DYE_GUN + ".Pass1");
     }
 
     @Override
     public IIcon getIcon(ItemStack stack, int pass) {
 
-        if (getFluidAmount(stack) == 0)
-            return emptyIcon;
+        if (pass == 0) {
+            return pass0Icon; /* fixed */
+        } else {
+            return pass1Icon; /* transparency */
+        }
+    }
 
-        return fullIcon;
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean requiresMultipleRenderPasses()
+    {
+        return true;
+    }
+
+    @Override
+    public int getRenderPasses(int metadata) {
+        return 2;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public int getColorFromItemStack(ItemStack itemStack, int renderPass)
+    {
+        if (renderPass == 0)
+            return 0xFFFFFF;
+        else
+            return getColor(itemStack).getColorCode();
     }
 
     /**
@@ -244,7 +263,7 @@ public class ItemDyeGun extends ItemDYT {
             setDefaultTags(itemStack);
 
         info.add(getColorTranslation(getColor(itemStack)));
-        info.add(itemStack.stackTagCompound.getInteger(FLUID_TAG) + "/" + CAPACITY + "mB");
+        info.add(itemStack.stackTagCompound.getInteger(FLUID_TAG) + "/" + CAPACITY + " mB");
     }
 
 }
