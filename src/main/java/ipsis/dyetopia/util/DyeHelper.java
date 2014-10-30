@@ -1,5 +1,6 @@
 package ipsis.dyetopia.util;
 
+import cofh.lib.util.helpers.ColorHelper;
 import ipsis.dyetopia.item.DYTItems;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -9,22 +10,22 @@ public class DyeHelper {
 
     public static enum DyeType {
 
-        BLACK(0, "dyeBlack"),
-        RED(1, "dyeRed"),
-        GREEN(2, "dyeGreen"),
-        BROWN(3, "dyeBrown"),
-        BLUE(4, "deyeBlue"),
-        PURPLE(5, "dyePurple"),
-        CYAN(6, "dyeCyan"),
-        LIGHTGRAY(7, "dyeLightGray"),
-        GRAY(8, "dyeGray"),
-        PINK(9, "dyePink"),
-        LIME(10, "dyeLime"),
-        YELLOW(11, "dyeYellow"),
-        LIGHTBLUE(12, "dyeLightBlue"),
-        MAGENTA(13, "dyeMagenta"),
-        ORANGE(14, "dyeOrange"),
-        WHITE(15, "dyeWhite");
+        BLACK(0, "dyeBlack", ColorHelper.DYE_BLACK),
+        RED(1, "dyeRed", ColorHelper.DYE_RED),
+        GREEN(2, "dyeGreen", ColorHelper.DYE_GREEN),
+        BROWN(3, "dyeBrown", ColorHelper.DYE_BROWN),
+        BLUE(4, "deyeBlue", ColorHelper.DYE_BLUE),
+        PURPLE(5, "dyePurple", ColorHelper.DYE_PURPLE),
+        CYAN(6, "dyeCyan", ColorHelper.DYE_CYAN),
+        LIGHTGRAY(7, "dyeLightGray", ColorHelper.DYE_LIGHT_GRAY),
+        GRAY(8, "dyeGray", ColorHelper.DYE_GRAY),
+        PINK(9, "dyePink", ColorHelper.DYE_PINK),
+        LIME(10, "dyeLime", ColorHelper.DYE_LIME),
+        YELLOW(11, "dyeYellow", ColorHelper.DYE_YELLOW),
+        LIGHTBLUE(12, "dyeLightBlue", ColorHelper.DYE_LIGHT_BLUE),
+        MAGENTA(13, "dyeMagenta", ColorHelper.DYE_MAGENTA),
+        ORANGE(14, "dyeOrange", ColorHelper.DYE_ORANGE),
+        WHITE(15, "dyeWhite", ColorHelper.DYE_WHITE);
 
         public static DyeType[] VALID_DYES = {
             BLACK, RED, GREEN, BROWN, BLUE, PURPLE, CYAN, LIGHTGRAY, GRAY,
@@ -32,10 +33,12 @@ public class DyeHelper {
 
         private int dmg;
         private String oreDict;
-        private DyeType(int dmg, String oreDict) { this.dmg = dmg; this.oreDict = oreDict; }
+        private int colorCode;
+        private DyeType(int dmg, String oreDict, int code) { this.dmg = dmg; this.oreDict = oreDict; this.colorCode = code;}
 
         public int getDmg() { return this.dmg; }
         public String getOreDict() { return this.oreDict; }
+        public int getColorCode() { return this.colorCode; }
 
         public static DyeType getDye(ItemStack in) {
 
