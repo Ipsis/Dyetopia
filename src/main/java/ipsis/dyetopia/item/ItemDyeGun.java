@@ -1,16 +1,14 @@
 package ipsis.dyetopia.item;
 
-import cofh.lib.util.helpers.ColorHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ipsis.dyetopia.init.ModItems;
 import ipsis.dyetopia.manager.DyeLiquidManager;
 import ipsis.dyetopia.manager.PainterManager;
-import ipsis.dyetopia.reference.Messages;
 import ipsis.dyetopia.reference.Names;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.util.BlockSwapper;
 import ipsis.dyetopia.util.DyeHelper;
-import ipsis.dyetopia.util.LogHelper;
 import ipsis.dyetopia.util.OriginHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockColored;
@@ -94,7 +92,7 @@ public class ItemDyeGun extends ItemDYT {
     @Override
     public void getSubItems(Item item, CreativeTabs creativeTab, List list) {
 
-        ItemStack itemStack = new ItemStack(DYTItems.itemDyeGun);
+        ItemStack itemStack = new ItemStack(ModItems.itemDyeGun);
 
         setDefaultTags(itemStack);
         setFluidAmount(itemStack, CAPACITY);
@@ -193,7 +191,7 @@ public class ItemDyeGun extends ItemDYT {
         if (world.isRemote || player.isSneaking())
             return false;
 
-        if (itemStack.getItem() != DYTItems.itemDyeGun)
+        if (itemStack.getItem() != ModItems.itemDyeGun)
             return false;
 
         if (!player.canPlayerEdit(x, y, z, side, itemStack))
@@ -226,7 +224,7 @@ public class ItemDyeGun extends ItemDYT {
     /* Straight from vanilla ItemDye */
     public boolean itemInteractionForEntity(ItemStack itemStack, EntityPlayer entityPlayer, EntityLivingBase entityLiving)
     {
-        if (entityLiving instanceof EntitySheep && itemStack.getItem() == DYTItems.itemDyeGun)
+        if (entityLiving instanceof EntitySheep && itemStack.getItem() == ModItems.itemDyeGun)
         {
             EntitySheep entitysheep = (EntitySheep)entityLiving;
             DyeHelper.DyeType t = getColor(itemStack);

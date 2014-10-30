@@ -1,8 +1,7 @@
 package ipsis.dyetopia.util;
 
 import cofh.lib.util.helpers.ColorHelper;
-import ipsis.dyetopia.item.DYTItems;
-import net.minecraft.init.Items;
+import ipsis.dyetopia.init.ModItems;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
@@ -68,12 +67,12 @@ public class DyeHelper {
 
         public ItemStack getStack() {
 
-            return new ItemStack(DYTItems.itemDyeChunk, 1, this.dmg);
+            return new ItemStack(ModItems.itemDyeChunk, 1, this.dmg);
         }
 
         public IIcon getIcon() {
 
-            return DYTItems.itemDyeChunk.getIconFromDamage(this.dmg);
+            return ModItems.itemDyeChunk.getIconFromDamage(this.dmg);
         }
 
         public static ItemStack getStack(String oreName) {

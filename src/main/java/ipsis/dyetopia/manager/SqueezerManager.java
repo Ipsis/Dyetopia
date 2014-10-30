@@ -1,8 +1,8 @@
 package ipsis.dyetopia.manager;
 
 import cofh.lib.inventory.ComparableItemStackSafe;
-import ipsis.dyetopia.fluid.DYTFluids;
-import ipsis.dyetopia.item.DYTItems;
+import ipsis.dyetopia.init.ModFluids;
+import ipsis.dyetopia.init.ModItems;
 import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -89,13 +89,13 @@ public class SqueezerManager {
          * Add the dye drops as they are special
          */
         ItemStack in;
-        in = new ItemStack(DYTItems.itemDyeDrop, 1, 0);
+        in = new ItemStack(ModItems.itemDyeDrop, 1, 0);
         recipes.put(new ComparableItemStackSafe(in), new SqueezerRecipe(in.copy(), DyeLiquidManager.DYE_BASE_AMOUNT * 2, 0, 0, 0, RECIPE_ENERGY));
-        in = new ItemStack(DYTItems.itemDyeDrop, 1, 1);
+        in = new ItemStack(ModItems.itemDyeDrop, 1, 1);
         recipes.put(new ComparableItemStackSafe(in), new SqueezerRecipe(in.copy(), 0, DyeLiquidManager.DYE_BASE_AMOUNT * 2, 0, 0, RECIPE_ENERGY));
-        in = new ItemStack(DYTItems.itemDyeDrop, 1, 2);
+        in = new ItemStack(ModItems.itemDyeDrop, 1, 2);
         recipes.put(new ComparableItemStackSafe(in), new SqueezerRecipe(in.copy(), 0, 0, DyeLiquidManager.DYE_BASE_AMOUNT * 2, 0, RECIPE_ENERGY));
-        in = new ItemStack(DYTItems.itemDyeDrop, 1, 3);
+        in = new ItemStack(ModItems.itemDyeDrop, 1, 3);
         recipes.put(new ComparableItemStackSafe(in), new SqueezerRecipe(in.copy(), DyeLiquidManager.DYE_BASE_AMOUNT, DyeLiquidManager.DYE_BASE_AMOUNT, DyeLiquidManager.DYE_BASE_AMOUNT, DyeLiquidManager.DYE_BASE_AMOUNT, RECIPE_ENERGY));
     }
 
@@ -131,10 +131,10 @@ public class SqueezerManager {
         public SqueezerRecipe(ItemStack input, int red, int yellow, int blue, int white, int energy) {
 
             this.input = input;
-            this.red = new FluidStack(DYTFluids.fluidDyeRed, red);
-            this.yellow = new FluidStack(DYTFluids.fluidDyeYellow, yellow);
-            this.blue = new FluidStack(DYTFluids.fluidDyeBlue, blue);
-            this.white = new FluidStack(DYTFluids.fluidDyeWhite, white);
+            this.red = new FluidStack(ModFluids.fluidDyeRed, red);
+            this.yellow = new FluidStack(ModFluids.fluidDyeYellow, yellow);
+            this.blue = new FluidStack(ModFluids.fluidDyeBlue, blue);
+            this.white = new FluidStack(ModFluids.fluidDyeWhite, white);
             this.energy = energy;
         }
 

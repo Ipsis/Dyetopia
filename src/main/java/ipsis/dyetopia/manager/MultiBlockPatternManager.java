@@ -1,6 +1,6 @@
 package ipsis.dyetopia.manager;
 
-import ipsis.dyetopia.block.DYTBlocks;
+import ipsis.dyetopia.init.ModBlocks;
 import ipsis.dyetopia.util.multiblock.MultiBlockPattern;
 import net.minecraft.item.ItemStack;
 
@@ -21,10 +21,10 @@ public class MultiBlockPatternManager {
         pattern.addSlice(0, "sss", "sss", "vsv");
         pattern.addSlice(1, "sqs", "scs", "sss");
         pattern.addSlice(2, "sss", "sss", "vsv");
-        pattern.addCharMap('s', new ItemStack(DYTBlocks.blockCasing));
-        pattern.addCharMap('v', new ItemStack(DYTBlocks.blockValve));
-        pattern.addCharMap('c', new ItemStack(DYTBlocks.blockController));
-        pattern.addCharMap('q', new ItemStack(DYTBlocks.blockSqueezer));
+        pattern.addCharMap('s', new ItemStack(ModBlocks.blockCasing));
+        pattern.addCharMap('v', new ItemStack(ModBlocks.blockValve));
+        pattern.addCharMap('c', new ItemStack(ModBlocks.blockController));
+        pattern.addCharMap('q', new ItemStack(ModBlocks.blockSqueezer));
         if (pattern.validatePattern())
             patternMap.put(Type.SQUEEZER, pattern);
 
@@ -36,10 +36,10 @@ public class MultiBlockPatternManager {
         pattern.addSlice(0, "sss", "sss", "vsv");
         pattern.addSlice(1, "sms", "scs", "svs");
         pattern.addSlice(2, "sss", "sss", "vsv");
-        pattern.addCharMap('s', new ItemStack(DYTBlocks.blockCasing));
-        pattern.addCharMap('v', new ItemStack(DYTBlocks.blockValve));
-        pattern.addCharMap('c', new ItemStack(DYTBlocks.blockController));
-        pattern.addCharMap('m', new ItemStack(DYTBlocks.blockMixer));
+        pattern.addCharMap('s', new ItemStack(ModBlocks.blockCasing));
+        pattern.addCharMap('v', new ItemStack(ModBlocks.blockValve));
+        pattern.addCharMap('c', new ItemStack(ModBlocks.blockController));
+        pattern.addCharMap('m', new ItemStack(ModBlocks.blockMixer));
         if (pattern.validatePattern())
             patternMap.put(Type.MIXER, pattern);
     }

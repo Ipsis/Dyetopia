@@ -1,7 +1,7 @@
-package ipsis.dyetopia.block;
+package ipsis.dyetopia.init;
 
+import ipsis.dyetopia.block.*;
 import ipsis.dyetopia.block.plantlife.*;
-import ipsis.dyetopia.fluid.DYTFluids;
 import ipsis.dyetopia.item.plantlife.ItemBlockHeartDye;
 import ipsis.dyetopia.item.plantlife.ItemBlockLeavesDye;
 import ipsis.dyetopia.item.plantlife.ItemBlockLogDye;
@@ -11,15 +11,15 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import ipsis.dyetopia.reference.Names;
 import net.minecraft.block.material.Material;
 
-public class DYTBlocks {
+public class ModBlocks {
 
     public static void preInit() {
 
-        blockFluidDyeRed = new BlockFluidDYT(DYTFluids.fluidDyeRed, Material.water, "dyered");
-        blockFluidDyeYellow = new BlockFluidDYT(DYTFluids.fluidDyeYellow, Material.water, "dyeyellow");
-        blockFluidDyeBlue = new BlockFluidDYT(DYTFluids.fluidDyeBlue, Material.water, "dyeblue");
-        blockFluidDyeWhite = new BlockFluidDYT(DYTFluids.fluidDyeWhite, Material.water, "dyewhite");
-        blockFluidDyePure = new BlockFluidDYT(DYTFluids.fluidDyePure, Material.water, "dyepure");
+        blockFluidDyeRed = new BlockFluidDYT(ModFluids.fluidDyeRed, Material.water, "dyered");
+        blockFluidDyeYellow = new BlockFluidDYT(ModFluids.fluidDyeYellow, Material.water, "dyeyellow");
+        blockFluidDyeBlue = new BlockFluidDYT(ModFluids.fluidDyeBlue, Material.water, "dyeblue");
+        blockFluidDyeWhite = new BlockFluidDYT(ModFluids.fluidDyeWhite, Material.water, "dyewhite");
+        blockFluidDyePure = new BlockFluidDYT(ModFluids.fluidDyePure, Material.water, "dyepure");
 
 
         GameRegistry.registerBlock(blockFluidDyeRed, "blockDyeRed");

@@ -5,7 +5,7 @@ import codechicken.nei.api.IOverlayHandler;
 import codechicken.nei.api.IRecipeOverlayRenderer;
 import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.IUsageHandler;
-import ipsis.dyetopia.block.DYTBlocks;
+import ipsis.dyetopia.init.ModBlocks;
 import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
@@ -84,7 +84,7 @@ public class RecipeHandlerSqueezer implements IUsageHandler {
     @Override
     public PositionedStack getResultStack(int i) {
 
-        return new PositionedStack(new ItemStack(DYTBlocks.blockSqueezer), 166 / 2 - 9, 0, false);
+        return new PositionedStack(new ItemStack(ModBlocks.blockSqueezer), 166 / 2 - 9, 0, false);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package ipsis.dyetopia.world.gen.feature;
 
-import ipsis.dyetopia.block.DYTBlocks;
+import ipsis.dyetopia.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
@@ -56,7 +56,7 @@ public class WorldGenDyeTree extends WorldGenAbstractTree {
             return false;
 
         Block soilBlock = world.getBlock(x, y - 1, z);
-        if (!soilBlock.canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable) DYTBlocks.blockSaplingDye))
+        if (!soilBlock.canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable) ModBlocks.blockSaplingDye))
             return false;
 
         /**
@@ -125,7 +125,7 @@ public class WorldGenDyeTree extends WorldGenAbstractTree {
 
                 Block rBlock = world.getBlock(x, y, z);
                 if (rBlock.isAir(world, x, y, z) || rBlock.isLeaves(world, x, y + yOff, z))
-                    this.setBlockAndNotifyAdequately(world, x, y, z, DYTBlocks.blockHeartDye, this.metaWood);
+                    this.setBlockAndNotifyAdequately(world, x, y, z, ModBlocks.blockHeartDye, this.metaWood);
 
                 for (int c = 0; c < 4; c++) {
 
@@ -143,7 +143,7 @@ public class WorldGenDyeTree extends WorldGenAbstractTree {
 
                     rBlock = world.getBlock(logX, y, logZ);
                     if (rBlock.isAir(world, logX, y, logZ) || rBlock.isLeaves(world, logX, y, logZ))
-                        this.setBlockAndNotifyAdequately(world, logX, y , logZ, DYTBlocks.blockLogDye, this.metaWood);
+                        this.setBlockAndNotifyAdequately(world, logX, y , logZ, ModBlocks.blockLogDye, this.metaWood);
 
                 }
             } else {

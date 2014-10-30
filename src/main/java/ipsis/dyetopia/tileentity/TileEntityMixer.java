@@ -2,7 +2,7 @@ package ipsis.dyetopia.tileentity;
 
 import cofh.api.energy.IEnergyHandler;
 import cofh.lib.util.position.BlockPosition;
-import ipsis.dyetopia.fluid.DYTFluids;
+import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.manager.*;
 import ipsis.dyetopia.util.LogHelper;
 import ipsis.dyetopia.util.TankType;
@@ -61,14 +61,14 @@ public class TileEntityMixer extends TileEntityMultiBlockMaster implements  ITan
         /* Red tank */
         p = o.copy();
         p.moveUp(1);
-        p.moveLeft(1);
+        p.moveRight(1);
         p.moveForwards(2);
         setValveColor(p, isNowValid ? TileEntityValve.Color.RED : TileEntityValve.Color.NONE);
 
         /* Yellow tank */
         p = o.copy();
         p.moveUp(1);
-        p.moveRight(1);
+        p.moveLeft(1);
         p.moveForwards(2);
         setValveColor(p, isNowValid ? TileEntityValve.Color.YELLOW : TileEntityValve.Color.NONE);
 
@@ -101,11 +101,11 @@ public class TileEntityMixer extends TileEntityMultiBlockMaster implements  ITan
         this.tankMgr.registerTank(TankType.WHITE.getName(), TANK_CAPACITY);
         this.tankMgr.registerTank(TankType.PURE.getName(), TANK_CAPACITY);
 
-        this.tankMgr.addToWhitelist(TankType.RED.getName(), DYTFluids.fluidDyeRed);
-        this.tankMgr.addToWhitelist(TankType.YELLOW.getName(), DYTFluids.fluidDyeYellow);
-        this.tankMgr.addToWhitelist(TankType.BLUE.getName(), DYTFluids.fluidDyeBlue);
-        this.tankMgr.addToWhitelist(TankType.WHITE.getName(), DYTFluids.fluidDyeWhite);
-        this.tankMgr.addToWhitelist(TankType.PURE.getName(), DYTFluids.fluidDyePure);
+        this.tankMgr.addToWhitelist(TankType.RED.getName(), ModFluids.fluidDyeRed);
+        this.tankMgr.addToWhitelist(TankType.YELLOW.getName(), ModFluids.fluidDyeYellow);
+        this.tankMgr.addToWhitelist(TankType.BLUE.getName(), ModFluids.fluidDyeBlue);
+        this.tankMgr.addToWhitelist(TankType.WHITE.getName(), ModFluids.fluidDyeWhite);
+        this.tankMgr.addToWhitelist(TankType.PURE.getName(), ModFluids.fluidDyePure);
 
         this.tankMgr.blockTankFillAll(TankType.PURE.getName());
         this.tankMgr.blockTankDrainAll(TankType.RED.getName());

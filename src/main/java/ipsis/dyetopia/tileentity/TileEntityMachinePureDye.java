@@ -1,6 +1,6 @@
 package ipsis.dyetopia.tileentity;
 
-import ipsis.dyetopia.fluid.DYTFluids;
+import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.manager.TankManager;
 import ipsis.dyetopia.util.LogHelper;
 import ipsis.dyetopia.util.TankType;
@@ -25,7 +25,7 @@ public class TileEntityMachinePureDye extends TileEntityMachine implements IFlui
 
         this.tankMgr = new TankManager();
         this.tankMgr.registerTank(TankType.PURE.getName(), capacity);
-        this.tankMgr.addToWhitelist(TankType.PURE.getName(), DYTFluids.fluidDyePure);
+        this.tankMgr.addToWhitelist(TankType.PURE.getName(), ModFluids.fluidDyePure);
         this.tankMgr.blockTankDrainAll(TankType.PURE.getName());
 
         LogHelper.info(this.tankMgr);

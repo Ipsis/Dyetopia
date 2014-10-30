@@ -1,12 +1,9 @@
 package ipsis.dyetopia.block.plantlife;
 
-import codechicken.lib.math.MathHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ipsis.dyetopia.block.DYTBlocks;
-import ipsis.dyetopia.creative.CreativeTab;
-import ipsis.dyetopia.item.DYTItems;
-import ipsis.dyetopia.reference.Names;
+import ipsis.dyetopia.init.ModBlocks;
+import ipsis.dyetopia.init.ModItems;
 import ipsis.dyetopia.reference.Reference;
 import ipsis.dyetopia.reference.Textures;
 import net.minecraft.block.Block;
@@ -86,7 +83,7 @@ public class BlockPodDye extends BlockCocoa {
         x += Direction.offsetX[l];
         z += Direction.offsetZ[l];
         Block block = world.getBlock(x, y, z);
-        return block == DYTBlocks.blockRootPureDye;
+        return block == ModBlocks.blockRootPureDye;
     }
 
     @Override
@@ -96,7 +93,7 @@ public class BlockPodDye extends BlockCocoa {
         int stage = func_149987_c(metadata);
 
         if (stage < 2) {
-            dropped.add(new ItemStack(DYTItems.itemDyeBeans, 1, this.dyeMeta));
+            dropped.add(new ItemStack(ModItems.itemDyeBeans, 1, this.dyeMeta));
         } else {
             /**
              *  Fully grown
@@ -108,14 +105,14 @@ public class BlockPodDye extends BlockCocoa {
              */
             int numDrops = world.rand.nextInt(3) + 1;
             for (int i = 0; i < numDrops; i++)
-                dropped.add(new ItemStack(DYTItems.itemDyeDrop, 1, this.dyeMeta));
+                dropped.add(new ItemStack(ModItems.itemDyeDrop, 1, this.dyeMeta));
 
             if (world.rand.nextFloat() * 100 <= 40.0F)
-                dropped.add(new ItemStack(DYTItems.itemDyeDrop, 1, 3));
+                dropped.add(new ItemStack(ModItems.itemDyeDrop, 1, 3));
 
-            dropped.add(new ItemStack(DYTItems.itemDyeBeans, 1, this.dyeMeta));
+            dropped.add(new ItemStack(ModItems.itemDyeBeans, 1, this.dyeMeta));
             if (world.rand.nextFloat() * 100 <= 20.0F)
-                dropped.add(new ItemStack(DYTItems.itemDyeBeans, 1, this.dyeMeta));
+                dropped.add(new ItemStack(ModItems.itemDyeBeans, 1, this.dyeMeta));
         }
 
         return dropped;
@@ -125,7 +122,7 @@ public class BlockPodDye extends BlockCocoa {
     @SideOnly(Side.CLIENT)
     public Item getItem(World world, int x, int y, int z)
     {
-        return DYTItems.itemDyeBeans;
+        return ModItems.itemDyeBeans;
     }
 
     /**

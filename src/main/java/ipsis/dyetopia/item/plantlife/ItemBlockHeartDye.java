@@ -1,6 +1,6 @@
 package ipsis.dyetopia.item.plantlife;
 
-import ipsis.dyetopia.block.DYTBlocks;
+import ipsis.dyetopia.init.ModBlocks;
 import ipsis.dyetopia.reference.Names;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemMultiTexture;
@@ -12,6 +12,6 @@ public class ItemBlockHeartDye extends ItemMultiTexture {
 
     public ItemBlockHeartDye(Block block) {
 
-        super(DYTBlocks.blockHeartDye, DYTBlocks.blockHeartDye, Names.Blocks.BLOCK_HEART_DYE_TYPES);
+        super(ModBlocks.blockHeartDye, ModBlocks.blockHeartDye, Names.Blocks.BLOCK_HEART_DYE_TYPES);
     }
 }

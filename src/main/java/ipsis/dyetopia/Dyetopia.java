@@ -1,9 +1,7 @@
 package ipsis.dyetopia;
 
-import ipsis.dyetopia.block.DYTBlocks;
-import ipsis.dyetopia.fluid.DYTFluids;
+import ipsis.dyetopia.init.*;
 import ipsis.dyetopia.gui.GuiHandler;
-import ipsis.dyetopia.item.DYTItems;
 import ipsis.dyetopia.manager.*;
 import ipsis.dyetopia.network.PacketHandler;
 import ipsis.dyetopia.proxy.IProxy;
@@ -34,12 +32,12 @@ public class Dyetopia {
         PacketHandler.init();
         ConfigHelper.init(event.getSuggestedConfigurationFile());
 
-        DYTFluids.preInit();
-        DYTBlocks.preInit();
-        DYTItems.preInit(); /* We have buckets, so the fluid block needs to be available first! */
+        ModFluids.preInit();
+        ModBlocks.preInit();
+        ModItems.preInit(); /* We have buckets, so the fluid block needs to be available first! */
         DYTWorldGen.preInit();
 
-        OreDictHelper.registerOres();
+        ModOreDict.preInit();
 
         FMLInterModComms.sendMessage("Waila", "register", "ipsis.dyetopia.plugins.waila.DYTWailaProvider.callbackRegister");
     }
@@ -49,9 +47,9 @@ public class Dyetopia {
 
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
 
-        DYTFluids.initialize();
-        DYTItems.initialize();
-        DYTBlocks.initialize();
+        ModFluids.initialize();
+        ModItems.initialize();
+        ModBlocks.initialize();
         DYTWorldGen.initialize();
 
         proxy.registerEventHandlers();
@@ -67,14 +65,16 @@ public class Dyetopia {
         StamperManager.initialise();
 
         DyeSourceManager.getInstance().initialize();
+
+        Recipes.init();
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
 
-        DYTFluids.postInit();
-        DYTItems.postInit();
-        DYTBlocks.postInit();
+        ModFluids.postInit();
+        ModItems.postInit();
+        ModBlocks.postInit();
         DYTWorldGen.postInit();
     }
 }

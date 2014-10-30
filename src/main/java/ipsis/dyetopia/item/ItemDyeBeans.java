@@ -2,7 +2,7 @@ package ipsis.dyetopia.item;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ipsis.dyetopia.block.DYTBlocks;
+import ipsis.dyetopia.init.ModBlocks;
 import ipsis.dyetopia.reference.Names;
 import ipsis.dyetopia.reference.Textures;
 import net.minecraft.block.Block;
@@ -77,7 +77,7 @@ public class ItemDyeBeans extends ItemDYT {
             return false;
 
         Block b = world.getBlock(x, y, z);
-        if (b != DYTBlocks.blockRootPureDye)
+        if (b != ModBlocks.blockRootPureDye)
             return false;
 
         if (side == 0 || side == 1)
@@ -97,14 +97,14 @@ public class ItemDyeBeans extends ItemDYT {
 
         int bMeta = stack.getItemDamage();
         if (bMeta == 0) {
-            int meta = DYTBlocks.blockPodRedDye.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, 0);
-            world.setBlock(x, y, z, DYTBlocks.blockPodRedDye, meta, 2);
+            int meta = ModBlocks.blockPodRedDye.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, 0);
+            world.setBlock(x, y, z, ModBlocks.blockPodRedDye, meta, 2);
         } else if (bMeta == 1) {
-            int meta = DYTBlocks.blockPodYellowDye.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, 0);
-            world.setBlock(x, y, z, DYTBlocks.blockPodYellowDye, meta, 2);
+            int meta = ModBlocks.blockPodYellowDye.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, 0);
+            world.setBlock(x, y, z, ModBlocks.blockPodYellowDye, meta, 2);
         } else if (bMeta == 2) {
-            int meta = DYTBlocks.blockPodBlueDye.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, 0);
-            world.setBlock(x, y, z, DYTBlocks.blockPodBlueDye, meta, 2);
+            int meta = ModBlocks.blockPodBlueDye.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, 0);
+            world.setBlock(x, y, z, ModBlocks.blockPodBlueDye, meta, 2);
         } else {
             return false;
         }

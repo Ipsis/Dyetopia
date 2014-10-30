@@ -1,9 +1,9 @@
-package ipsis.dyetopia.fluid;
+package ipsis.dyetopia.init;
 
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
-public class DYTFluids {
+public class ModFluids {
 
     public static void preInit() {
 

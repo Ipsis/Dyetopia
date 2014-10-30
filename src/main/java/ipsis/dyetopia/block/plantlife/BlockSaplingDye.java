@@ -2,7 +2,7 @@ package ipsis.dyetopia.block.plantlife;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ipsis.dyetopia.block.DYTBlocks;
+import ipsis.dyetopia.init.ModBlocks;
 import ipsis.dyetopia.reference.Names;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.world.gen.feature.WorldGenDyeTree;
@@ -108,7 +108,7 @@ public class BlockSaplingDye extends BlockSaplingDYT {
             case 0: // Red
             case 1: // Yellow
             case 2: // Blue
-                gen = new WorldGenDyeTree(DYTBlocks.blockLogDye, DYTBlocks.blockLeavesDye, meta, meta);
+                gen = new WorldGenDyeTree(ModBlocks.blockLogDye, ModBlocks.blockLeavesDye, meta, meta);
                 break;
             case 3: // Pure
                 gen = new WorldGenPureDyeTree();

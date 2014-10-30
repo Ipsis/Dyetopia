@@ -1,22 +1,22 @@
-package ipsis.dyetopia.item;
+package ipsis.dyetopia.init;
 
-import ipsis.dyetopia.block.DYTBlocks;
 import cpw.mods.fml.common.registry.GameRegistry;
+import ipsis.dyetopia.item.*;
 import ipsis.dyetopia.reference.Names;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 
-public class DYTItems {
+public class ModItems {
 
     public static void preInit() {
 
-        bucketDyeRed = new ItemBucketDYT(DYTBlocks.blockFluidDyeRed, "bucketDyeRed");
-        bucketDyeYellow = new ItemBucketDYT(DYTBlocks.blockFluidDyeYellow, "bucketDyeYellow");
-        bucketDyeBlue = new ItemBucketDYT(DYTBlocks.blockFluidDyeBlue, "bucketDyeBlue");
-        bucketDyeWhite = new ItemBucketDYT(DYTBlocks.blockFluidDyeWhite, "bucketDyeWhite");
-        bucketDyePure = new ItemBucketDYT(DYTBlocks.blockFluidDyePure, "bucketDyePure");
+        bucketDyeRed = new ItemBucketDYT(ModBlocks.blockFluidDyeRed, "bucketDyeRed");
+        bucketDyeYellow = new ItemBucketDYT(ModBlocks.blockFluidDyeYellow, "bucketDyeYellow");
+        bucketDyeBlue = new ItemBucketDYT(ModBlocks.blockFluidDyeBlue, "bucketDyeBlue");
+        bucketDyeWhite = new ItemBucketDYT(ModBlocks.blockFluidDyeWhite, "bucketDyeWhite");
+        bucketDyePure = new ItemBucketDYT(ModBlocks.blockFluidDyePure, "bucketDyePure");
 
         itemEraser = new ItemEraser();
         itemDyeBlank = new ItemDyeBlank();

@@ -1,6 +1,6 @@
 package ipsis.dyetopia.manager;
 
-import ipsis.dyetopia.fluid.DYTFluids;
+import ipsis.dyetopia.init.ModFluids;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -15,10 +15,10 @@ public class DyeRecipe {
     public DyeRecipe(ItemStack dye, int red, int yellow, int blue, int white) {
 
         this.dye = dye;
-        this.red = new FluidStack(DYTFluids.fluidDyeRed, red);
-        this.yellow = new FluidStack(DYTFluids.fluidDyeYellow, yellow);
-        this.blue = new FluidStack(DYTFluids.fluidDyeBlue, blue);
-        this.white = new FluidStack(DYTFluids.fluidDyeWhite, white);
+        this.red = new FluidStack(ModFluids.fluidDyeRed, red);
+        this.yellow = new FluidStack(ModFluids.fluidDyeYellow, yellow);
+        this.blue = new FluidStack(ModFluids.fluidDyeBlue, blue);
+        this.white = new FluidStack(ModFluids.fluidDyeWhite, white);
     }
 
     public int getRedAmount() { return this.red.amount; }

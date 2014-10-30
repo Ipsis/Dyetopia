@@ -1,6 +1,6 @@
 package ipsis.dyetopia.item.plantlife;
 
-import ipsis.dyetopia.block.DYTBlocks;
+import ipsis.dyetopia.init.ModBlocks;
 import ipsis.dyetopia.reference.Names;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemMultiTexture;
@@ -9,6 +9,6 @@ public class ItemBlockLogDye extends ItemMultiTexture {
 
     public ItemBlockLogDye(Block block) {
 
-        super(DYTBlocks.blockLogDye, DYTBlocks.blockLogDye, Names.Blocks.BLOCK_SAPLING_DYE_TYPES);
+        super(ModBlocks.blockLogDye, ModBlocks.blockLogDye, Names.Blocks.BLOCK_SAPLING_DYE_TYPES);
     }
 }

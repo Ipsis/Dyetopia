@@ -1,6 +1,6 @@
 package ipsis.dyetopia.manager;
 
-import ipsis.dyetopia.fluid.DYTFluids;
+import ipsis.dyetopia.init.ModFluids;
 import net.minecraftforge.fluids.FluidStack;
 
 public class MixerManager {
@@ -28,11 +28,11 @@ public class MixerManager {
         private MixerRecipe() { }
 
         public MixerRecipe(int red, int yellow, int blue, int white, int pure, int energy) {
-            this.red = new FluidStack(DYTFluids.fluidDyeRed, red);
-            this.yellow = new FluidStack(DYTFluids.fluidDyeYellow, yellow);
-            this.blue = new FluidStack(DYTFluids.fluidDyeBlue, blue);
-            this.white = new FluidStack(DYTFluids.fluidDyeWhite, white);
-            this.pure = new FluidStack(DYTFluids.fluidDyePure, pure);
+            this.red = new FluidStack(ModFluids.fluidDyeRed, red);
+            this.yellow = new FluidStack(ModFluids.fluidDyeYellow, yellow);
+            this.blue = new FluidStack(ModFluids.fluidDyeBlue, blue);
+            this.white = new FluidStack(ModFluids.fluidDyeWhite, white);
+            this.pure = new FluidStack(ModFluids.fluidDyePure, pure);
             this.energy = energy;
         }
 

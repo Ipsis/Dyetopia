@@ -1,7 +1,7 @@
 package ipsis.dyetopia.tileentity;
 
 import ipsis.dyetopia.gui.GuiStamper;
-import ipsis.dyetopia.item.DYTItems;
+import ipsis.dyetopia.init.ModItems;
 import ipsis.dyetopia.manager.*;
 import ipsis.dyetopia.network.PacketHandler;
 import ipsis.dyetopia.network.message.MessageGuiWidget;
@@ -84,7 +84,7 @@ public class TileEntityStamper extends TileEntityMachinePureDye implements ISide
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
 
-        if (slot == INPUT_SLOT && stack != null && stack.getItem() == DYTItems.itemDyeBlank)
+        if (slot == INPUT_SLOT && stack != null && stack.getItem() == ModItems.itemDyeBlank)
             return true;
 
         return false;
@@ -175,7 +175,7 @@ public class TileEntityStamper extends TileEntityMachinePureDye implements ISide
     public IFactoryRecipe getRecipe() {
 
         ItemStack in = getStackInSlot(INPUT_SLOT);
-        if (in == null || in.getItem() != DYTItems.itemDyeBlank || in.stackSize <= 0)
+        if (in == null || in.getItem() != ModItems.itemDyeBlank || in.stackSize <= 0)
             return null;
 
         return StamperManager.getRecipe(currSelected);

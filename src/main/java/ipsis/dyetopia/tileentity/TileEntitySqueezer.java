@@ -2,7 +2,7 @@ package ipsis.dyetopia.tileentity;
 
 import cofh.api.energy.IEnergyHandler;
 import cofh.lib.util.position.BlockPosition;
-import ipsis.dyetopia.fluid.DYTFluids;
+import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.manager.*;
 import ipsis.dyetopia.util.LogHelper;
 import ipsis.dyetopia.util.TankType;
@@ -99,10 +99,10 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
         this.tankMgr.registerTank(TankType.BLUE.getName(), TANK_CAPACITY);
         this.tankMgr.registerTank(TankType.WHITE.getName(), TANK_CAPACITY);
 
-        this.tankMgr.addToWhitelist(TankType.RED.getName(), DYTFluids.fluidDyeRed);
-        this.tankMgr.addToWhitelist(TankType.YELLOW.getName(), DYTFluids.fluidDyeYellow);
-        this.tankMgr.addToWhitelist(TankType.BLUE.getName(), DYTFluids.fluidDyeBlue);
-        this.tankMgr.addToWhitelist(TankType.WHITE.getName(), DYTFluids.fluidDyeWhite);
+        this.tankMgr.addToWhitelist(TankType.RED.getName(), ModFluids.fluidDyeRed);
+        this.tankMgr.addToWhitelist(TankType.YELLOW.getName(), ModFluids.fluidDyeYellow);
+        this.tankMgr.addToWhitelist(TankType.BLUE.getName(), ModFluids.fluidDyeBlue);
+        this.tankMgr.addToWhitelist(TankType.WHITE.getName(), ModFluids.fluidDyeWhite);
 
         /* Dont allow filling  */
         this.tankMgr.blockTankFillAll(TankType.RED.getName());

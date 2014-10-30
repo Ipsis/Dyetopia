@@ -1,7 +1,6 @@
 package ipsis.dyetopia.world.gen.feature;
 
-import ipsis.dyetopia.block.DYTBlocks;
-import ipsis.dyetopia.util.LogHelper;
+import ipsis.dyetopia.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
@@ -36,7 +35,7 @@ public class WorldGenPureDyeTree extends WorldGenAbstractTree {
             return false;
 
         Block soilBlock = world.getBlock(x, y - 1, z);
-        if (!soilBlock.canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable) DYTBlocks.blockSaplingDye))
+        if (!soilBlock.canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable) ModBlocks.blockSaplingDye))
             return false;
 
         /**
@@ -169,14 +168,14 @@ public class WorldGenPureDyeTree extends WorldGenAbstractTree {
 
         Block rBlock = world.getBlock(x, y, z);
         if (rBlock.isAir(world, x, y, z) || rBlock.isLeaves(world, x, y, z) || func_150523_a(rBlock))
-            this.setBlockAndNotifyAdequately(world, x, y, z, DYTBlocks.blockLogDye, 3);
+            this.setBlockAndNotifyAdequately(world, x, y, z, ModBlocks.blockLogDye, 3);
     }
 
     private void putRoot(World world, int x, int y, int z) {
 
         Block rBlock = world.getBlock(x, y, z);
         if (rBlock != Blocks.bedrock && (rBlock.isAir(world, x, y, z) || rBlock == Blocks.grass || rBlock == Blocks.dirt || rBlock == Blocks.farmland))
-            this.setBlockAndNotifyAdequately(world, x, y, z, DYTBlocks.blockRootPureDye, 0);
+            this.setBlockAndNotifyAdequately(world, x, y, z, ModBlocks.blockRootPureDye, 0);
     }
 
     private void putLeaf(World world, int x, int y, int z) {
@@ -185,7 +184,7 @@ public class WorldGenPureDyeTree extends WorldGenAbstractTree {
         if (rBlock.isAir(world, x, y, z) || rBlock.isLeaves(world, x, y, z))
         {
             //this.setBlockAndNotifyAdequately(world, x, y, z, DYTBlocks.blockLeavesDye, world.rand.nextInt(4));
-            this.setBlockAndNotifyAdequately(world, x, y, z, DYTBlocks.blockLeavesDye, 3);
+            this.setBlockAndNotifyAdequately(world, x, y, z, ModBlocks.blockLeavesDye, 3);
         }
     }
 }
