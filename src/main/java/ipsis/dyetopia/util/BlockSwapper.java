@@ -19,6 +19,11 @@ public class BlockSwapper {
         if (b == null || b == Blocks.air || b instanceof ITileEntityProvider)
             return false;
 
+        /* Don't replace the block with itself */
+        if (b == Block.getBlockFromItem(stack.getItem()) &&
+                world.getBlockMetadata(x, y, z) == stack.getItemDamage())
+            return false;
+
         /* Remove the old block */
         world.setBlockToAir(x, y, z);
 
