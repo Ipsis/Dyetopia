@@ -1,8 +1,13 @@
 package ipsis.dyetopia.gui.container;
 
+import cofh.lib.gui.slot.SlotAcceptValid;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ipsis.dyetopia.tileentity.TileEntityFiller;
+import ipsis.dyetopia.util.TankType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
@@ -13,6 +18,8 @@ public class ContainerFiller extends Container {
     public ContainerFiller(TileEntityFiller filler, EntityPlayer player) {
 
         this.filler = filler;
+
+        this.addSlotToContainer(new SlotAcceptValid(this.filler, this.filler.INPUT_SLOT, 78, 35));
 
         /* Player inventory */
         for (int y = 0; y < 3; y++) {
@@ -35,5 +42,42 @@ public class ContainerFiller extends Container {
     public ItemStack transferStackInSlot(EntityPlayer player, int slot) {
 
         return null;
+    }
+
+    /**
+     * Updating
+     */
+
+    @Override
+    public void addCraftingToCrafters(ICrafting icrafting) {
+        super.addCraftingToCrafters(icrafting);
+
+        this.filler.getTankMgr().initGuiTracking(icrafting, this, TankType.PURE.getName());
+
+        this.filler.getEnergyMgr().initGuiTracking(icrafting, this);
+
+        this.filler.getFactoryMgr().initGuiTracking(icrafting, this);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void updateProgressBar(int id, int data) {
+        super.updateProgressBar(id, data);
+
+        /* The id will determine if anything happens in each manager */
+        this.filler.getTankMgr().processGuiTracking(id, data);
+        this.filler.getEnergyMgr().processGuiTracking(id, data);
+        this.filler.getFactoryMgr().processGuiTracking(id, data);
+    }
+
+    @Override
+    public void detectAndSendChanges() {
+        super.detectAndSendChanges();
+
+        this.filler.getTankMgr().updateGuiTracking(this.crafters, this, TankType.PURE.getName());
+
+        this.filler.getEnergyMgr().updateGuiTracking(this.crafters, this);
+
+        this.filler.getFactoryMgr().updateGuiTracking(this.crafters, this);
     }
 }

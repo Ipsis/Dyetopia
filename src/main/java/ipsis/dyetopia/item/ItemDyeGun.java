@@ -145,6 +145,29 @@ public class ItemDyeGun extends ItemDYT {
         itemStack.stackTagCompound.setInteger(FLUID_TAG, amount);
     }
 
+    public static void fillGun(ItemStack itemStack, int amount) {
+
+        if (itemStack.stackTagCompound == null)
+            setDefaultTags(itemStack);
+
+        int newAmount = getFluidAmount(itemStack) + amount;
+        if (newAmount > CAPACITY)
+            newAmount = CAPACITY;
+
+        setFluidAmount(itemStack, newAmount);
+    }
+
+    public static boolean isFull(ItemStack itemStack) {
+
+        if (itemStack.stackTagCompound == null)
+            setDefaultTags(itemStack);
+
+        if (getFluidAmount(itemStack) == CAPACITY)
+            return true;
+
+        return false;
+    }
+
     public DyeHelper.DyeType getColor(ItemStack itemStack) {
 
         if (itemStack.stackTagCompound == null)
