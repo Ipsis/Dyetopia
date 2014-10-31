@@ -1,6 +1,7 @@
 package ipsis.dyetopia.init;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import ipsis.dyetopia.reference.Settings;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -26,10 +27,13 @@ public class Recipes {
     private static void initBlockRecipes() {
 
         /* Plants */
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockSaplingDye, 1, 0), "dyeRed", "treeSapling"));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockSaplingDye, 1, 1), "dyeYellow", "treeSapling"));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockSaplingDye, 1, 2), "dyeBlue", "treeSapling"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.blockSaplingDye, 1, 3), " r ", "ysb", " w ", 'r', "dyeRed", 'y', "dyeYellow", 'b', "dyeBlue", 'w', "dyeWhite", 's', "treeSapling"));
+
+        if (Settings.Trees.enabled) {
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockSaplingDye, 1, 0), "dyeRed", "treeSapling"));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockSaplingDye, 1, 1), "dyeYellow", "treeSapling"));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.blockSaplingDye, 1, 2), "dyeBlue", "treeSapling"));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.blockSaplingDye, 1, 3), " r ", "ysb", " w ", 'r', "dyeRed", 'y', "dyeYellow", 'b', "dyeBlue", 'w', "dyeWhite", 's', "treeSapling"));
+        }
 
         /* Machines parts */
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.blockCasing), "lll", "i i", "lll", 'l', Blocks.stone_slab, 'i', "ingotIron"));

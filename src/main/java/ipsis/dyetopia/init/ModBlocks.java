@@ -9,6 +9,7 @@ import ipsis.dyetopia.item.plantlife.ItemBlockSaplingDye;
 import ipsis.dyetopia.plugins.nei.UsageManager;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ipsis.dyetopia.reference.Names;
+import ipsis.dyetopia.reference.Settings;
 import net.minecraft.block.material.Material;
 
 public class ModBlocks {
@@ -38,30 +39,35 @@ public class ModBlocks {
         blockStamper = new BlockStamper();
         blockFiller = new BlockFiller();
 
-        blockSaplingDye = new BlockSaplingDye();
-        blockLeavesDye = new BlockLeavesDye();
-        blockLogDye = new BlockLogDye();
-        blockHeartDye = new BlockHeartDye();
-        blockRootPureDye = new BlockRootDye();
+        if (Settings.Trees.enabled) {
+
+            blockSaplingDye = new BlockSaplingDye();
+            blockLeavesDye = new BlockLeavesDye();
+            blockLogDye = new BlockLogDye();
+            blockHeartDye = new BlockHeartDye();
+            blockRootPureDye = new BlockRootDye();
+
+            GameRegistry.registerBlock(blockSaplingDye, ItemBlockSaplingDye.class, Names.Blocks.BLOCK_SAPLING_DYE);
+            GameRegistry.registerBlock(blockLeavesDye, ItemBlockLeavesDye.class, Names.Blocks.BLOCK_LEAVES_DYE);
+            GameRegistry.registerBlock(blockLogDye, ItemBlockLogDye.class, Names.Blocks.BLOCK_LOG_DYE);
+            GameRegistry.registerBlock(blockHeartDye, ItemBlockHeartDye.class, Names.Blocks.BLOCK_HEART_DYE);
+            GameRegistry.registerBlock(blockRootPureDye, Names.Blocks.BLOCK_ROOT_DYE);
+        }
+
         blockPodRedDye = new BlockPodDye(0, Names.Blocks.BLOCK_POD_DYE_RED);
         blockPodYellowDye = new BlockPodDye(1, Names.Blocks.BLOCK_POD_DYE_YELLOW);
         blockPodBlueDye = new BlockPodDye(2, Names.Blocks.BLOCK_POD_DYE_BLUE);
 
-        GameRegistry.registerBlock(blockCasing, "blockCasing");
-        GameRegistry.registerBlock(blockController, "blockController");
-        GameRegistry.registerBlock(blockSqueezer, "blockSqueezer");
-        GameRegistry.registerBlock(blockMixer, "blockMixer");
-        GameRegistry.registerBlock(blockValve, "blockValve");
+        GameRegistry.registerBlock(blockCasing, Names.Blocks.BLOCK_MACHINE_CASING);
+        GameRegistry.registerBlock(blockController, Names.Blocks.BLOCK_MACHINE_CONTROLLER);
+        GameRegistry.registerBlock(blockSqueezer, Names.Blocks.BLOCK_MACHINE_SQUEEZER);
+        GameRegistry.registerBlock(blockMixer, Names.Blocks.BLOCK_MACHINE_MIXER);
+        GameRegistry.registerBlock(blockValve, Names.Blocks.BLOCK_MACHINE_VALVE);
 
-        GameRegistry.registerBlock(blockPainter, "blockPainter");
-        GameRegistry.registerBlock(blockStamper, "blockStamper");
-        GameRegistry.registerBlock(blockFiller, "blockFiller");
+        GameRegistry.registerBlock(blockPainter, Names.Blocks.BLOCK_MACHINE_PAINTER);
+        GameRegistry.registerBlock(blockStamper, Names.Blocks.BLOCK_MACHINE_STAMPER);
+        GameRegistry.registerBlock(blockFiller, Names.Blocks.BLOCK_MACHINE_FILLER);
 
-        GameRegistry.registerBlock(blockSaplingDye, ItemBlockSaplingDye.class, Names.Blocks.BLOCK_SAPLING_DYE);
-        GameRegistry.registerBlock(blockLeavesDye, ItemBlockLeavesDye.class, Names.Blocks.BLOCK_LEAVES_DYE);
-        GameRegistry.registerBlock(blockLogDye, ItemBlockLogDye.class, Names.Blocks.BLOCK_LOG_DYE);
-        GameRegistry.registerBlock(blockHeartDye, ItemBlockHeartDye.class, Names.Blocks.BLOCK_HEART_DYE);
-        GameRegistry.registerBlock(blockRootPureDye, Names.Blocks.BLOCK_ROOT_DYE);
 
         GameRegistry.registerBlock(blockPodRedDye, Names.Blocks.BLOCK_POD_DYE_RED);
         GameRegistry.registerBlock(blockPodYellowDye, Names.Blocks.BLOCK_POD_DYE_YELLOW);

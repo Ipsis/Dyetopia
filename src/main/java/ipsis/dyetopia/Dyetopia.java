@@ -1,12 +1,13 @@
 package ipsis.dyetopia;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import ipsis.dyetopia.init.*;
 import ipsis.dyetopia.gui.GuiHandler;
 import ipsis.dyetopia.manager.*;
 import ipsis.dyetopia.network.PacketHandler;
 import ipsis.dyetopia.proxy.IProxy;
 import ipsis.dyetopia.reference.Reference;
-import ipsis.dyetopia.util.ConfigHelper;
+import ipsis.dyetopia.handler.ConfigHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -14,10 +15,9 @@ import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import ipsis.dyetopia.util.OreDictHelper;
 import ipsis.dyetopia.world.gen.feature.DYTWorldGen;
 
-@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION)
+@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION, guiFactory = Reference.GUI_FACTORY_CLASS)
 public class Dyetopia {
 
     @Mod.Instance(Reference.MOD_ID)
@@ -30,7 +30,8 @@ public class Dyetopia {
     public void preInit(FMLPreInitializationEvent event) {
 
         PacketHandler.init();
-        ConfigHelper.init(event.getSuggestedConfigurationFile());
+        ConfigHandler.init(event.getSuggestedConfigurationFile());
+        FMLCommonHandler.instance().bus().register(new ConfigHandler());
 
         ModFluids.preInit();
         ModBlocks.preInit();

@@ -4,6 +4,7 @@ import cofh.api.energy.IEnergyHandler;
 import cofh.lib.util.position.BlockPosition;
 import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.manager.*;
+import ipsis.dyetopia.reference.Settings;
 import ipsis.dyetopia.util.LogHelper;
 import ipsis.dyetopia.util.TankType;
 import ipsis.dyetopia.util.multiblock.MultiBlockPattern;
@@ -24,16 +25,13 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
 
     private MultiBlockPattern pattern = MultiBlockPatternManager.getPattern(MultiBlockPatternManager.Type.SQUEEZER);
 
-    private static final int TANK_CAPACITY = 40000;
-    private static final int ENERGY_CAPACITY = 50000;
-    private static final int ENERGY_PER_TICK = 10;
     public static final int INPUT_SLOT = 0;
 
     public TileEntitySqueezer() {
         super();
         this.setMaster(this);
         inventory = new ItemStack[1];
-        energyMgr = new EnergyManager(ENERGY_CAPACITY);
+        energyMgr = new EnergyManager(Settings.Machines.energyCapacity);
         factoryMgr = new FactoryManager(this);
 
         setupTanks();
@@ -94,10 +92,10 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
     private void setupTanks() {
 
         this.tankMgr = new TankManager();
-        this.tankMgr.registerTank(TankType.RED.getName(), TANK_CAPACITY);
-        this.tankMgr.registerTank(TankType.YELLOW.getName(), TANK_CAPACITY);
-        this.tankMgr.registerTank(TankType.BLUE.getName(), TANK_CAPACITY);
-        this.tankMgr.registerTank(TankType.WHITE.getName(), TANK_CAPACITY);
+        this.tankMgr.registerTank(TankType.RED.getName(), Settings.Machines.tankCapacity);
+        this.tankMgr.registerTank(TankType.YELLOW.getName(), Settings.Machines.tankCapacity);
+        this.tankMgr.registerTank(TankType.BLUE.getName(), Settings.Machines.tankCapacity);
+        this.tankMgr.registerTank(TankType.WHITE.getName(), Settings.Machines.tankCapacity);
 
         this.tankMgr.addToWhitelist(TankType.RED.getName(), ModFluids.fluidDyeRed);
         this.tankMgr.addToWhitelist(TankType.YELLOW.getName(), ModFluids.fluidDyeYellow);
@@ -353,7 +351,7 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
 
     @Override
     public int getEnergyTick() {
-        return ENERGY_PER_TICK;
+        return Settings.Machines.squeezerRfTick;
     }
 
     @Override

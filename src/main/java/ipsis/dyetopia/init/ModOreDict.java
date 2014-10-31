@@ -1,6 +1,7 @@
 package ipsis.dyetopia.init;
 
 import ipsis.dyetopia.reference.Names;
+import ipsis.dyetopia.reference.Settings;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -13,10 +14,12 @@ public class ModOreDict {
             OreDictionary.registerOre("dye", new ItemStack(ModItems.itemDyeChunk, 1, i));
         }
 
-        for (int i = 0; i < 4; i++) {
-            OreDictionary.registerOre("treeSapling", new ItemStack(ModBlocks.blockSaplingDye, 1, i));
-            OreDictionary.registerOre("treeLeaves", new ItemStack(ModBlocks.blockLeavesDye, 1, i));
-            OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.blockLogDye, 1, i));
+        if (Settings.Trees.enabled) {
+            for (int i = 0; i < 4; i++) {
+                OreDictionary.registerOre("treeSapling", new ItemStack(ModBlocks.blockSaplingDye, 1, i));
+                OreDictionary.registerOre("treeLeaves", new ItemStack(ModBlocks.blockLeavesDye, 1, i));
+                OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.blockLogDye, 1, i));
+            }
         }
     }
 
