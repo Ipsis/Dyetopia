@@ -1,6 +1,8 @@
 package ipsis.dyetopia.block;
 
+import ipsis.dyetopia.reference.Names;
 import ipsis.dyetopia.reference.Reference;
+import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntityMultiBlockMaster;
 import ipsis.dyetopia.tileentity.TileEntitySqueezer;
 import cpw.mods.fml.relauncher.Side;
@@ -17,7 +19,7 @@ public class BlockSqueezer extends BlockDYTMultiBlock implements ITileEntityProv
 
     public BlockSqueezer() {
         super();
-        this.setBlockName("squeezer");
+        this.setBlockName(Names.Blocks.BLOCK_MACHINE_SQUEEZER);
     }
 
     @Override
@@ -27,15 +29,22 @@ public class BlockSqueezer extends BlockDYTMultiBlock implements ITileEntityProv
 
     @SideOnly(Side.CLIENT)
     IIcon formedIcon;
-    IIcon blankIcon;
+    @SideOnly(Side.CLIENT)
+    IIcon formedActiveIcon;
+    @SideOnly(Side.CLIENT)
+    IIcon casingFormedIcon;
+    @SideOnly(Side.CLIENT)
+    IIcon casingUnformedIcon;
 
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister)
     {
-        blockIcon = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
-        formedIcon = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName() + "_formed")));
-        blankIcon = iconRegister.registerIcon(Reference.MOD_ID + ":multi_blank");
+        blockIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_SQUEEZER + ".Unformed");
+        formedIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_SQUEEZER + ".Formed");
+        formedActiveIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_SQUEEZER + ".Formed.Active");
+        casingFormedIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_CASING + ".Formed");
+        casingUnformedIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_CASING + ".Unformed");
     }
 
     @SideOnly(Side.CLIENT)
@@ -47,9 +56,9 @@ public class BlockSqueezer extends BlockDYTMultiBlock implements ITileEntityProv
          * Is is oriented as facing south
          */
         if (side == ForgeDirection.SOUTH.ordinal())
-            return this.formedIcon;
+            return blockIcon;
 
-        return this.blankIcon;
+        return casingUnformedIcon;
     }
 
     @SideOnly(Side.CLIENT)
@@ -62,14 +71,14 @@ public class BlockSqueezer extends BlockDYTMultiBlock implements ITileEntityProv
             TileEntityMultiBlockMaster mte = (TileEntityMultiBlockMaster) te;
             if (side == mte.getDirectionFacing().ordinal()) {
                 if (mte.isStructureValid())
-                    return formedIcon;
+                    return formedIcon; // TODO check active
                 else
                     return blockIcon;
             } else {
-                return blankIcon;
+                return casingUnformedIcon;
             }
         }
 
-        return blockIcon;
+        return casingUnformedIcon;
     }
 }

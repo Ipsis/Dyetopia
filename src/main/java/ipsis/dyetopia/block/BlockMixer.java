@@ -1,6 +1,8 @@
 package ipsis.dyetopia.block;
 
+import ipsis.dyetopia.reference.Names;
 import ipsis.dyetopia.reference.Reference;
+import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntityMixer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -16,7 +18,7 @@ public class BlockMixer extends BlockDYTMultiBlock implements ITileEntityProvide
 
     public BlockMixer() {
         super();
-        this.setBlockName("mixer");
+        this.setBlockName(Names.Blocks.BLOCK_MACHINE_MIXER);
     }
 
     @Override
@@ -26,15 +28,22 @@ public class BlockMixer extends BlockDYTMultiBlock implements ITileEntityProvide
 
     @SideOnly(Side.CLIENT)
     IIcon formedIcon;
-    IIcon blankIcon;
+    @SideOnly(Side.CLIENT)
+    IIcon formedActiveIcon;
+    @SideOnly(Side.CLIENT)
+    IIcon casingFormedIcon;
+    @SideOnly(Side.CLIENT)
+    IIcon casingUnformedIcon;
 
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister)
     {
-        blockIcon = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
-        formedIcon = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName() + "_formed")));
-        blankIcon = iconRegister.registerIcon(Reference.MOD_ID + ":multi_blank");
+        blockIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_MIXER + ".Unformed");
+        formedIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_MIXER + ".Formed");
+        formedActiveIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_MIXER + ".Formed.Active");
+        casingFormedIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_CASING + ".Formed");
+        casingUnformedIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_CASING + ".Unformed");
     }
 
     @SideOnly(Side.CLIENT)
@@ -46,9 +55,9 @@ public class BlockMixer extends BlockDYTMultiBlock implements ITileEntityProvide
          * Is is oriented as facing south
          */
         if (side == ForgeDirection.SOUTH.ordinal())
-            return this.formedIcon;
+            return blockIcon;
 
-        return this.blankIcon;
+        return casingUnformedIcon;
     }
 
     @SideOnly(Side.CLIENT)
@@ -61,14 +70,14 @@ public class BlockMixer extends BlockDYTMultiBlock implements ITileEntityProvide
             TileEntityMixer mte = (TileEntityMixer) te;
             if (side == mte.getDirectionFacing().ordinal()) {
                 if (mte.isStructureValid())
-                    return formedIcon;
+                    return formedIcon; // TODO check active
                 else
                     return blockIcon;
             } else {
-                return blankIcon;
+                return casingUnformedIcon;
             }
         }
 
-        return blockIcon;
+        return casingUnformedIcon;
     }
 }

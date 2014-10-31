@@ -14,14 +14,15 @@ fluid.dyewhite=White Liquid Dye
 fluid.dyepure=Pure Liquid Dye
 
 # Machines
-tile.dyetopia:casing.name=Casing
-tile.dyetopia:controller.name=Controller
-tile.dyetopia:valve.name=Valve
-tile.dyetopia:squeezer.name=Squeezer
-tile.dyetopia:mixer.name=Mixer
-tile.dyetopia:painter.name=Painter
-tile.dyetopia:stamper.name=Stamper
-tile.dyetopia:filler.name=Filler
+tile.dyetopia:machineCasing.name=Casing
+tile.dyetopia:machineValve.name=Valve
+tile.dyetopia:machineController.name=Controller
+
+tile.dyetopia:machineSqueezer.name=Squeezer
+tile.dyetopia:machineMixer.name=Mixer
+tile.dyetopia:machinePainter.name=Painter
+tile.dyetopia:machineStamper.name=Stamper
+tile.dyetopia:machineFiller.name=Filler
 
 # Tree stuff
 tile.dyetopia:saplingDyeTree.Red.name=Red Dye Sapling

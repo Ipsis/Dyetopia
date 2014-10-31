@@ -2,7 +2,9 @@ package ipsis.dyetopia.block;
 
 import ipsis.dyetopia.Dyetopia;
 import ipsis.dyetopia.reference.GuiIds;
+import ipsis.dyetopia.reference.Names;
 import ipsis.dyetopia.reference.Reference;
+import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.*;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -24,15 +26,6 @@ public abstract class BlockDYTMachine extends BlockDYT implements ITileEntityPro
     @SideOnly(Side.CLIENT)
     IIcon frontIconActive;
     IIcon frontIconInactive;
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister iconRegister) {
-
-        frontIconActive = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName() + "_active")));
-        frontIconInactive = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName() + "_inactive")));
-        blockIcon = iconRegister.registerIcon(String.format("%s", Reference.MOD_NAME + ":machine_side"));
-    }
 
     @SideOnly(Side.CLIENT)
     @Override

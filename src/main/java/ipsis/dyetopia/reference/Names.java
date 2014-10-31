@@ -21,6 +21,17 @@ public class Names {
         public static final String BLOCK_POD_DYE_RED = "podDyeRed";
         public static final String BLOCK_POD_DYE_YELLOW = "podDyeYellow";
         public static final String BLOCK_POD_DYE_BLUE = "podDyeBlue";
+
+        /* Machines */
+        public static final String BLOCK_MACHINE_CASING = "machineCasing";
+        public static final String BLOCK_MACHINE_VALVE = "machineValve";
+        public static final String BLOCK_MACHINE_CONTROLLER = "machineController";
+
+        public static final String BLOCK_MACHINE_SQUEEZER = "machineSqueezer";
+        public static final String BLOCK_MACHINE_MIXER = "machineMixer";
+        public static final String BLOCK_MACHINE_STAMPER = "machineStamper";
+        public static final String BLOCK_MACHINE_FILLER = "machineFiller";
+        public static final String BLOCK_MACHINE_PAINTER = "machinePainter";
     }
 
     /* Items */

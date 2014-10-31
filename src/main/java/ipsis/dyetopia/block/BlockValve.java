@@ -1,5 +1,7 @@
 package ipsis.dyetopia.block;
 
+import ipsis.dyetopia.reference.Names;
+import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntityValve;
 import ipsis.dyetopia.util.TankType;
 import cpw.mods.fml.relauncher.Side;
@@ -15,7 +17,7 @@ public class BlockValve extends BlockDYTMultiBlock implements ITileEntityProvide
 
     public BlockValve() {
         super();
-        this.setBlockName("valve");
+        this.setBlockName(Names.Blocks.BLOCK_MACHINE_VALVE);
     }
 
     @SideOnly(Side.CLIENT)
@@ -28,17 +30,17 @@ public class BlockValve extends BlockDYTMultiBlock implements ITileEntityProvide
         formedIcons = new IIcon[6];
 
         /* unformed icon */
-        blockIcon = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
+        blockIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_VALVE + ".Unformed");
 
         /* formed but uncolored */
-        formedIcons[0] = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName() + "_formed")));
+        formedIcons[0] = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_VALVE + ".Formed");
 
         /* formed and colored */
-        formedIcons[1] = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName() + "_" + TankType.RED.getName() + "_formed")));
-        formedIcons[2] = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName() + "_" + TankType.YELLOW.getName() + "_formed")));
-        formedIcons[3] = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName() + "_" + TankType.BLUE.getName() + "_formed")));
-        formedIcons[4] = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName() + "_" + TankType.WHITE.getName() + "_formed")));
-        formedIcons[5] = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName() + "_" + TankType.PURE.getName() + "_formed")));
+        formedIcons[1] = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_VALVE + ".Red.Formed");
+        formedIcons[2] = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_VALVE + ".Yellow.Formed");
+        formedIcons[3] = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_VALVE + ".Blue.Formed");
+        formedIcons[4] = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_VALVE + ".White.Formed");
+        formedIcons[5] = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_VALVE + ".Pure.Formed");
     }
 
     @SideOnly(Side.CLIENT)
