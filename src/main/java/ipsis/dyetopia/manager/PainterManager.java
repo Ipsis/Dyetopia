@@ -13,6 +13,7 @@ import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class PainterManager {
@@ -52,8 +53,6 @@ public class PainterManager {
                 if (!v.getValid())
                     continue;
 
-                LogHelper.info("Valid: " + v);
-
                 ItemStack inputDye = v.getRecipeDye();
                 ItemStack inputItem = v.getRecipeItem();
 
@@ -81,8 +80,6 @@ public class PainterManager {
                 v.processRecipe();
                 if (!v.getValid())
                     continue;
-
-                LogHelper.info("Valid: " + v);
 
                 ItemStack inputDye = v.getRecipeDye();
                 ItemStack inputItem = v.getRecipeItem();
@@ -116,8 +113,101 @@ public class PainterManager {
             }
         }
 
-        debugDumpMap();
+        //debugDumpMap();
+        //debugDumpRecipes();
         OriginHelper.debugDumpMap();
+    }
+
+    public static void debugDumpRecipes() {
+
+        List<IRecipe> allrecipes = CraftingManager.getInstance().getRecipeList();
+        for (IRecipe irecipe : allrecipes) {
+
+            if (irecipe.getRecipeOutput() == null)
+                continue;
+
+            /* We want a dye + something */
+            if (irecipe.getRecipeSize() <= 1)
+                continue;
+
+            /* No recipes that make dyes or food */
+            if (OreDictHelper.isDye(irecipe.getRecipeOutput()) || irecipe.getRecipeOutput().getItem() instanceof ItemFood)
+                continue;
+
+            if (irecipe instanceof ShapelessRecipes) {
+
+                ShapelessRecipes r = (ShapelessRecipes) irecipe;
+
+                boolean usesDye = false;
+                StringBuilder b = new StringBuilder();
+                for (Object o : r.recipeItems) {
+                    if (o instanceof ItemStack) {
+                        ItemStack i = (ItemStack)o;
+                        if (OreDictHelper.isDye(i))
+                            usesDye = true;
+
+                        b.append(i.getUnlocalizedName() + ":" + i.getItemDamage() + " ");
+                    }
+                }
+            } else if (irecipe instanceof ShapedRecipes) {
+
+                ShapedRecipes r = (ShapedRecipes) irecipe;
+                boolean usesDye = false;
+                StringBuilder b = new StringBuilder();
+                for (Object o : r.recipeItems) {
+                    if (o instanceof ItemStack) {
+                        ItemStack i = (ItemStack)o;
+                        if (OreDictHelper.isDye(i))
+                            usesDye = true;
+                        b.append(i.getUnlocalizedName() + ":" + i.getItemDamage() + " ");
+                    }
+                }
+
+            } else if (irecipe instanceof ShapelessOreRecipe) {
+
+                ShapelessOreRecipe r = (ShapelessOreRecipe) irecipe;
+                boolean usesDye = false;
+                StringBuilder b = new StringBuilder();
+
+                for (Object object : r.getInput()) {
+                    if (object instanceof ItemStack) {
+
+                        ItemStack i = (ItemStack)object;
+                        if (OreDictHelper.isDye(i))
+                            usesDye = true;
+                        b.append(i.getUnlocalizedName() + ":" + i.getItemDamage() + " ");
+
+                    } else if (object instanceof ArrayList) {
+
+                        usesDye = true;
+                        b.append((ArrayList)object);
+                    }
+                }
+
+            } else if (irecipe instanceof ShapedOreRecipe) {
+
+                ShapedOreRecipe r = (ShapedOreRecipe) irecipe;
+                boolean usesDye = false;
+                StringBuilder b = new StringBuilder();
+
+                for (Object object : r.getInput()) {
+                    if (object instanceof ItemStack) {
+
+                        ItemStack i = (ItemStack)object;
+                        if (OreDictHelper.isDye(i))
+                            usesDye = true;
+                        b.append(i.getUnlocalizedName() + ":" + i.getItemDamage() + " ");
+
+                    } else if (object instanceof ArrayList) {
+                        usesDye = true;
+                        b.append((ArrayList)object);
+                    }
+                }
+            }
+
+
+        }
+
     }
 
     public static void debugDumpMap() {

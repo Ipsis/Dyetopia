@@ -1,0 +1,4 @@
+The mod relies on the following for direct library support or classes.
+
+1. CoFHLib
+2. CodeChicken NEI classes

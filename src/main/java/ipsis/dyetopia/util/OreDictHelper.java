@@ -23,12 +23,21 @@ public class OreDictHelper {
             for (int id : ids) {
                 /* dye is the generic dye ore name */
                 String oreName = OreDictionary.getOreName(id);
-                if (oreName.equals("dye") && oreName.startsWith("dye"))
+                if (isADye(oreName))
                     return true;
             }
         }
 
         return false;
+    }
+
+    public static String getUniqueOreName(ArrayList oreList) {
+
+        String[] t = getOreNames(oreList);
+        if (t.length == 1)
+            return t[0];
+
+        return "";
     }
 
     public static String[] getOreNames(ArrayList oreList) {
@@ -79,7 +88,7 @@ public class OreDictHelper {
             return false;
 
         for (String s : oreNames) {
-            if (s.equals("dye"))
+            if (isGenericDye(s))
                 return true;
         }
 
@@ -93,7 +102,7 @@ public class OreDictHelper {
 
 
         for (String s : oreNames) {
-            if (!s.equals("dye") && s.startsWith("dye"))
+            if (isSpecificDye(s))
                 return true;
         }
 
@@ -107,11 +116,35 @@ public class OreDictHelper {
 
         int count = 0;
         for (String s : oreNames) {
-            if (!s.equals("dye") && s.startsWith("dye"))
+            if (isSpecificDye(s))
                 count++;
         }
 
         return count;
+    }
+
+    /* dye */
+    public static boolean isGenericDye(String n) {
+
+        if (n.equals("dye"))
+            return true;
+
+        return false;
+    }
+
+    /* dyeXXX */
+    public static boolean isSpecificDye(String n) {
+
+        if (!n.equals("dye") && n.startsWith("dye"))
+            return true;
+
+        return false;
+    }
+
+    /* dye OR dyeXXX */
+    public static boolean isADye(String n) {
+
+        return n.startsWith("dye");
     }
 
     public static String getDye(String[] oreNames) {
@@ -124,7 +157,7 @@ public class OreDictHelper {
 
         String name = "";
         for (String s : oreNames) {
-            if (!s.equals("dye") && s.startsWith("dye")){
+            if (isSpecificDye(s)) {
                 name = s;
                 break;
             }
