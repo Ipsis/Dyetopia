@@ -67,7 +67,7 @@ public class DyeSourceManager {
 
     private void addRecipe(ItemStack in, ItemStack out) {
 
-        if (OreDictHelper.isDye(out)) {
+        if (OreDictHelper.isDye(out, false)) {
             map.put(new ComparableItemStack(in), out);
         }
     }

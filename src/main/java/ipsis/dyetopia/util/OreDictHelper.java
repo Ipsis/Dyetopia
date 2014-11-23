@@ -11,19 +11,65 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Generic dye  : the oredict entry that maps to any dye
+ * Specific dye : the oredict entry that maps to a specific dye eg. dyeWhite
+ */
+
 public class OreDictHelper {
 
-    public static boolean isDye(ItemStack stack) {
+    /* The generic dye is called dye, other dyes are named dyeXXX */
+    private static final String GENERIC_DYE_ORE_NAME = "dye";
+    private static final String SPECIFIC_DYE_ORE_PREFIX = "dye";
 
-        if (stack == null)
-            return false;
+    /**
+     * Does the oreid represent an ore dict entry matching the generic dye
+     */
+    public static boolean isGenericDyeName(int oreid) {
+        return isGenericDyeName(OreDictionary.getOreName(oreid));
+    }
 
-        int[] ids = OreDictionary.getOreIDs(stack);
-        if (ids.length != 0) {
-            for (int id : ids) {
-                /* dye is the generic dye ore name */
-                String oreName = OreDictionary.getOreName(id);
-                if (isADye(oreName))
+    /**
+     * Is the string the generic dye name
+     */
+    public static boolean isGenericDyeName(String s) {
+        if (s != null && s.equals(GENERIC_DYE_ORE_NAME))
+            return true;
+        return false;
+    }
+
+    /**
+     * Does the oreid represent an ore dict entry matching a specific dye
+     */
+    public static boolean isSpecificDyeName(int oreid) {
+        return isSpecificDyeName(OreDictionary.getOreName(oreid));
+    }
+
+    /**
+     * Is the string a specific dye name ie. has the correct prefix
+     */
+    public static boolean isSpecificDyeName(String s) {
+        if (s != null && !isGenericDyeName(s) && s.startsWith(SPECIFIC_DYE_ORE_PREFIX))
+            return true;
+        return false;
+    }
+
+    /**
+     * Is the itemstack a dye
+     * @param s - the itemstack to check
+     * @param isGeneric - true is generic dye, false for a specific dye
+     * @return true if a dye (generic or specific)
+     */
+    public static boolean isDye(ItemStack s, boolean isGeneric) {
+
+        if (s != null) {
+
+            int[] ids = OreDictionary.getOreIDs(s);
+            for (int i : ids) {
+                String name = OreDictionary.getOreName(i);
+                if (isGeneric && isGenericDyeName(name))
+                    return true;
+                else if (!isGeneric && isSpecificDyeName(name))
                     return true;
             }
         }
@@ -31,154 +77,83 @@ public class OreDictHelper {
         return false;
     }
 
-    public static String getUniqueOreName(ArrayList oreList) {
+    /**
+     * Get the specific dye name for this item stack
+     * Only returns the ore namme if ONE specific ore name is
+     * tied to this item stack
+     * @return "" or the ore name
+     */
+    public static String getSpecificDyeName(ItemStack s) {
 
-        String[] t = getOreNames(oreList);
-        if (t.length == 1)
-            return t[0];
-
-        return "";
-    }
-
-    public static String[] getOreNames(ArrayList oreList) {
-
-        if (oreList == null || oreList.size() <= 0)
-            return new String[0];
-
-        Set<Integer> oreMap = new HashSet<Integer>();
-
-        boolean validOre = true;
-        for (Object o : oreList) {
-
-            if (!(o instanceof ItemStack))
-                continue;
-
-            int[] tempids = OreDictionary.getOreIDs((ItemStack)o);
-            if (tempids.length == 0) {
-                validOre = false;
-                break;
-            }
-
-            if (oreMap.isEmpty())
-                oreMap.addAll(Ints.asList(tempids));
-            else
-                oreMap.retainAll(Ints.asList(tempids));
-
-            if (oreMap.isEmpty()) {
-                validOre = false;
-                break;
+        int m = 0;
+        String match = "";
+        if (s != null) {
+            int[] ids = OreDictionary.getOreIDs(s);
+            for (int i : ids) {
+                if (isSpecificDyeName(i)) {
+                    match = OreDictionary.getOreName(i);
+                    m++;
+                }
             }
         }
 
-        if (!validOre)
-            return new String[0];
+        if (m != 1)
+            match = "";
 
-        String[] names = new String[oreMap.size()];
-
-        int x = 0;
-        for (int i : oreMap)
-            names[x++] = OreDictionary.getOreName(i);
-
-        return names;
+        return match;
     }
 
-    public static boolean isGenericDye(String[] oreNames) {
 
-        if (oreNames == null || oreNames.length == 0)
-            return false;
+    /**
+     * Calculate which ore ids are valid for ALL the itemstacks.
+     * So the common ore ids across all the itemstacks.
+     * @param itemStacks the itemstacks to search
+     * @return an array of the common ore ids
+     */
+    public static int[] getOreIdSet(ItemStack[] itemStacks) {
 
-        for (String s : oreNames) {
-            if (isGenericDye(s))
-                return true;
+        if (itemStacks == null || itemStacks.length < 1)
+            return new int[0];
+
+        Set<Integer> set = new HashSet<Integer>();
+
+        boolean valid = true;
+        for (int i = 0 ; i < itemStacks.length && valid; i++) {
+
+            int[] ids = OreDictionary.getOreIDs(itemStacks[i]);
+            if (ids.length == 0) {
+                valid = false;
+            } else {
+                if (set.isEmpty())
+                    set.addAll(Ints.asList(ids));
+                else
+                    set.retainAll(Ints.asList(ids));
+            }
         }
 
-        return false;
+        if (!valid)
+            set.clear();
+
+        Integer[] tmp = set.toArray(new Integer[set.size()]);
+        int[] ret = new int[tmp.length];
+        for (int x = 0; x < tmp.length; x++)
+            ret[x] = tmp[x];
+        return ret;
     }
 
-    public static boolean isSpecificDye(String[] oreNames) {
+    /**
+     * Convert the oreid array from getOreIdSet to a single name
+     * @param ids the value return from getOreIdSet
+     */
+    public static String getCompressedOreName(int ids[]) {
 
-        if (oreNames == null || oreNames.length == 0)
-            return false;
-
-
-        for (String s : oreNames) {
-            if (isSpecificDye(s))
-                return true;
-        }
-
-        return false;
-    }
-
-    public static int getDyeCount(String[] oreNames) {
-
-        if (oreNames == null || oreNames.length == 0)
-            return 0;
-
-        int count = 0;
-        for (String s : oreNames) {
-            if (isSpecificDye(s))
-                count++;
-        }
-
-        return count;
-    }
-
-    /* dye */
-    public static boolean isGenericDye(String n) {
-
-        if (n.equals("dye"))
-            return true;
-
-        return false;
-    }
-
-    /* dyeXXX */
-    public static boolean isSpecificDye(String n) {
-
-        if (!n.equals("dye") && n.startsWith("dye"))
-            return true;
-
-        return false;
-    }
-
-    /* dye OR dyeXXX */
-    public static boolean isADye(String n) {
-
-        return n.startsWith("dye");
-    }
-
-    public static String getDye(String[] oreNames) {
-
-        if (oreNames == null || oreNames.length == 0)
+        if (ids == null || ids.length < 1)
             return "";
 
-        if (getDyeCount(oreNames) > 1)
+        if (ids.length != 1)
             return "";
 
-        String name = "";
-        for (String s : oreNames) {
-            if (isSpecificDye(s)) {
-                name = s;
-                break;
-            }
-        }
+        return OreDictionary.getOreName(ids[0]);
 
-        return name;
-    }
-
-    public static boolean hasOreName(ItemStack itemStack, String name) {
-
-        if (itemStack == null || name == null)
-            return false;
-
-        int[] ids = OreDictionary.getOreIDs(itemStack);
-        if (ids.length != 0) {
-            for (int id : ids) {
-                if (OreDictionary.getOreName(id).equals(name))
-                    return true;
-            }
-        }
-
-        return false;
     }
 }

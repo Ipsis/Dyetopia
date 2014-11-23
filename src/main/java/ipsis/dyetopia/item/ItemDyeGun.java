@@ -4,12 +4,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ipsis.dyetopia.init.ModItems;
 import ipsis.dyetopia.manager.DyeLiquidManager;
-import ipsis.dyetopia.manager.PainterManager;
 import ipsis.dyetopia.reference.Names;
 import ipsis.dyetopia.reference.Textures;
-import ipsis.dyetopia.util.BlockSwapper;
 import ipsis.dyetopia.util.DyeHelper;
-import ipsis.dyetopia.util.OriginHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockColored;
 import net.minecraft.block.ITileEntityProvider;
@@ -173,7 +170,7 @@ public class ItemDyeGun extends ItemDYT {
         if (itemStack.stackTagCompound == null)
             setDefaultTags(itemStack);
 
-        return DyeHelper.DyeType.getDyeType(itemStack.stackTagCompound.getInteger(COLOR_TAG));
+        return DyeHelper.DyeType.getDye(itemStack.stackTagCompound.getInteger(COLOR_TAG));
     }
 
     public void setColor(ItemStack itemStack, DyeHelper.DyeType color) {
@@ -225,20 +222,7 @@ public class ItemDyeGun extends ItemDYT {
 
         Block b = world.getBlock(x, y, z);
         if (b != Blocks.air && !(b instanceof ITileEntityProvider)) {
-            ItemStack origin = OriginHelper.getOrigin(new ItemStack(b));
 
-            if (origin != null) {
-                PainterManager.PainterRecipe r = PainterManager.getRecipe(origin, getColor(itemStack));
-                if (r != null) {
-                    if (BlockSwapper.swap(player, world, x, y, z, r.getOutput())) {
-
-                        if (!player.capabilities.isCreativeMode)
-                            setFluidAmount(itemStack, getFluidAmount(itemStack) - DyeLiquidManager.DYE_BASE_AMOUNT);
-
-                        return true;
-                    }
-                }
-            }
         }
 
         return false;
@@ -270,7 +254,7 @@ public class ItemDyeGun extends ItemDYT {
 
     private String getColorTranslation(DyeHelper.DyeType type) {
 
-        return StatCollector.translateToLocal("tooltip.dyetopia:dyeGun." + type.getOreDict());
+        return StatCollector.translateToLocal("tooltip.dyetopia:dyeGun." + type.getOreDictName());
     }
 
     /**

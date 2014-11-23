@@ -15,7 +15,6 @@ import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import ipsis.dyetopia.util.OriginManager;
 import ipsis.dyetopia.world.gen.feature.DYTWorldGen;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION, guiFactory = Reference.GUI_FACTORY_CLASS)
@@ -63,8 +62,6 @@ public class Dyetopia {
         DyeLiquidManager.getInstance().initialize();
         SqueezerManager.initialise();
         MixerManager.initialise();
-        OriginManager.initialise();
-        PainterManager.initialise();
         StamperManager.initialise();
 
         DyeSourceManager.getInstance().initialize();
