@@ -4,8 +4,10 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ipsis.dyetopia.init.ModItems;
 import ipsis.dyetopia.manager.DyeLiquidManager;
+import ipsis.dyetopia.manager.dyeableblocks.DyeableBlocksManager;
 import ipsis.dyetopia.reference.Names;
 import ipsis.dyetopia.reference.Textures;
+import ipsis.dyetopia.util.BlockSwapper;
 import ipsis.dyetopia.util.DyeHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockColored;
@@ -165,6 +167,19 @@ public class ItemDyeGun extends ItemDYT {
         return false;
     }
 
+    public static void drainGun(ItemStack itemStack, int amount) {
+
+        if (itemStack.stackTagCompound == null)
+            setDefaultTags(itemStack);
+
+        int newAmount = getFluidAmount(itemStack) - amount;
+        if (newAmount < 0)
+            newAmount = 0;
+
+        setFluidAmount(itemStack, newAmount);
+
+    }
+
     public DyeHelper.DyeType getColor(ItemStack itemStack) {
 
         if (itemStack.stackTagCompound == null)
@@ -178,7 +193,7 @@ public class ItemDyeGun extends ItemDYT {
         if (itemStack.stackTagCompound == null)
             setDefaultTags(itemStack);
 
-        itemStack.stackTagCompound.setInteger(COLOR_TAG, color.getDmg());
+        itemStack.stackTagCompound.setInteger(COLOR_TAG, color.ordinal());
     }
 
     public void setNextColor(ItemStack itemStack) {
@@ -223,6 +238,15 @@ public class ItemDyeGun extends ItemDYT {
         Block b = world.getBlock(x, y, z);
         if (b != Blocks.air && !(b instanceof ITileEntityProvider)) {
 
+            int meta = world.getBlockMetadata(x, y, z);
+            ItemStack replaceWith = DyeableBlocksManager.getDyed(new ItemStack(b, 1, meta), ((ItemDyeGun)itemStack.getItem()).getColor(itemStack));
+
+            if (BlockSwapper.swap(player, world, x, y, z, replaceWith)) {
+                if (!player.capabilities.isCreativeMode)
+                    drainGun(itemStack, DyeLiquidManager.DYE_BASE_AMOUNT);
+
+                return true;
+            }
         }
 
         return false;
@@ -241,7 +265,7 @@ public class ItemDyeGun extends ItemDYT {
             {
                 entitysheep.setFleeceColor(color);
                 if (!entityPlayer.capabilities.isCreativeMode)
-                    setFluidAmount(itemStack, getFluidAmount(itemStack) - DyeLiquidManager.DYE_BASE_AMOUNT);
+                    drainGun(itemStack, DyeLiquidManager.DYE_BASE_AMOUNT);
             }
 
             return true;
