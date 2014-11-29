@@ -1,7 +1,5 @@
 package ipsis.dyetopia.item;
 
-import ipsis.dyetopia.util.BlockSwapper;
-import ipsis.dyetopia.util.OriginHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,9 +24,9 @@ public class ItemEraser extends ItemDYT {
         Block b = world.getBlock(x, y, z);
         if (b != null && b != Blocks.air && !(b instanceof ITileEntityProvider)) {
 
-            ItemStack origin = OriginHelper.getOrigin(new ItemStack(b));
+            /* ItemStack origin = OriginHelper.getOrigin(new ItemStack(b));
             if (origin != null)
-                return BlockSwapper.swap(player, world, x, y, z, origin);
+                return BlockSwapper.swap(player, world, x, y, z, origin); */
         }
 
         return false;
