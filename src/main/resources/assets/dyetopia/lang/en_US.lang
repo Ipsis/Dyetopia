@@ -88,7 +88,7 @@ tooltip.dyetopia:dyeGun.dyeBlack=Black Dye
 tooltip.dyetopia:dyeGun.dyeRed=Red Dye
 tooltip.dyetopia:dyeGun.dyeGreen=Green Dye
 tooltip.dyetopia:dyeGun.dyeBrown=Brown Dye
-tooltip.dyetopia:dyeGun.deyeBlue=Blue Dye
+tooltip.dyetopia:dyeGun.dyeBlue=Blue Dye
 tooltip.dyetopia:dyeGun.dyePurple=Purple Dye
 tooltip.dyetopia:dyeGun.dyeCyan=Cyan Dye
 tooltip.dyetopia:dyeGun.dyeLightGray=Light Gray Dye
@@ -100,6 +100,3 @@ tooltip.dyetopia:dyeGun.dyeLightBlue=Light Blue Dye
 tooltip.dyetopia:dyeGun.dyeMagenta=Magenta Dye
 tooltip.dyetopia:dyeGun.dyeOrange=Orange Dye
 tooltip.dyetopia:dyeGun.dyeWhite=White Dye
-
-tile.dyetopia:squeezer.neiuse.0=First page of some really useful text
-tile.dyetopia:squeezer.neiuse.1=Second page of some really useful text
