@@ -1,9 +1,7 @@
 package ipsis.dyetopia.manager;
 
 import ipsis.dyetopia.util.DyeHelper;
-import ipsis.dyetopia.util.LogHelper;
 import ipsis.dyetopia.util.OreDictHelper;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -27,7 +25,7 @@ public class DyeLiquidManager {
     public void initialize() {
 
         for (int i = 0; i < 16; i++) {
-            DyeHelper.DyeType d = DyeHelper.DyeType.getDye(i);
+            DyeHelper.DyeType d = DyeHelper.DyeType.getDyeFromDamage(i);
             map.put(OreDictionary.getOreID(d.getOreDictName()), new DyeRecipe(d.getStack(), d.getRed(), d.getYellow(), d.getBlue(), d.getWhite()));
         }
     }
