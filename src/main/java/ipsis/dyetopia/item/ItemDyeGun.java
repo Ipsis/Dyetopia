@@ -119,7 +119,7 @@ public class ItemDyeGun extends ItemDYT {
             itemStack.stackTagCompound = new NBTTagCompound();
 
         /* White and empty */
-        itemStack.stackTagCompound.setInteger(COLOR_TAG, DyeHelper.DyeType.WHITE.getDmg());
+        itemStack.stackTagCompound.setInteger(COLOR_TAG, DyeHelper.DyeType.WHITE.ordinal());
         itemStack.stackTagCompound.setInteger(FLUID_TAG, 0);
     }
 

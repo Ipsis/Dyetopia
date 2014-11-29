@@ -2,7 +2,9 @@ package ipsis.dyetopia.manager;
 
 
 import ipsis.dyetopia.util.DyeHelper;
+import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.item.ItemStack;
+import sun.rmi.runtime.Log;
 
 import java.util.ArrayList;
 
@@ -12,32 +14,28 @@ public class StamperManager {
 
     public static void initialise() {
 
-        /* TODO dependent on configuration */
-
-        addRecipe(DyeHelper.DyeType.BLACK);
+        addRecipe(DyeHelper.DyeType.WHITE);
+        addRecipe(DyeHelper.DyeType.ORANGE);
+        addRecipe(DyeHelper.DyeType.MAGENTA);
+        addRecipe(DyeHelper.DyeType.LIGHTBLUE);
+        addRecipe(DyeHelper.DyeType.YELLOW);
+        addRecipe(DyeHelper.DyeType.LIME);
+        addRecipe(DyeHelper.DyeType.PINK);
+        addRecipe(DyeHelper.DyeType.GRAY);
+        addRecipe(DyeHelper.DyeType.LIGHTGRAY);
+        addRecipe(DyeHelper.DyeType.CYAN);
+        addRecipe(DyeHelper.DyeType.PURPLE);
         addRecipe(DyeHelper.DyeType.BLUE);
         addRecipe(DyeHelper.DyeType.BROWN);
-        addRecipe(DyeHelper.DyeType.CYAN);
-
-        addRecipe(DyeHelper.DyeType.GRAY);
         addRecipe(DyeHelper.DyeType.GREEN);
-        addRecipe(DyeHelper.DyeType.LIGHTBLUE);
-        addRecipe(DyeHelper.DyeType.LIGHTGRAY);
-
-        addRecipe(DyeHelper.DyeType.LIME);
-        addRecipe(DyeHelper.DyeType.MAGENTA);
-        addRecipe(DyeHelper.DyeType.ORANGE);
-        addRecipe(DyeHelper.DyeType.PINK);
-
-        addRecipe(DyeHelper.DyeType.PURPLE);
         addRecipe(DyeHelper.DyeType.RED);
-        addRecipe(DyeHelper.DyeType.WHITE);
-        addRecipe(DyeHelper.DyeType.YELLOW);
+        addRecipe(DyeHelper.DyeType.BLACK);
     }
 
     private static void addRecipe(DyeHelper.DyeType type) {
 
         StamperRecipe r = new StamperRecipe(type, type.getStack());
+        LogHelper.error("addRecipe : " + type + " == " + r.getOutput());
         recipes.add(r);
     }
 

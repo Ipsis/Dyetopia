@@ -47,12 +47,11 @@ public class Names {
                 "Red", "Yellow", "Blue"
         };
 
+        /* Vanilla dmg -> matching color */
         public static final String ITEM_DYE_CHUNK = "dyeChunk";
         public static final String[] ITEM_DYE_CHUNK_TYPES = {
-                "Black", "Red", "Green", "Brown",
-                "Blue", "Purple", "Cyan", "LightGray",
-                "Gray", "Pink", "Lime", "Yellow",
-                "LightBlue", "Magenta", "Orange", "White"
+                "White", "Orange", "Magenta", "LightBlue", "Yellow", "Lime", "Pink", "Gray",
+                "LightGray", "Cyan", "Purple", "Blue", "Brown", "Green", "Red", "Black"
         };
 
         public static final String ITEM_DYE_GUN = "dyeGun";

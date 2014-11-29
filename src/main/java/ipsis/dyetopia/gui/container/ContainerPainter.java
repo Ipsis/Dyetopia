@@ -1,5 +1,6 @@
 package ipsis.dyetopia.gui.container;
 
+import cofh.lib.gui.slot.SlotAcceptValid;
 import ipsis.dyetopia.tileentity.TileEntityPainter;
 import ipsis.dyetopia.util.TankType;
 import cpw.mods.fml.relauncher.Side;
@@ -17,6 +18,9 @@ public class ContainerPainter extends Container {
     public ContainerPainter(TileEntityPainter painter, EntityPlayer player) {
 
         this.painter = painter;
+
+        this.addSlotToContainer(new SlotAcceptValid(this.painter, this.painter.INPUT_SLOT, 53, 35));
+        this.addSlotToContainer(new SlotAcceptValid(this.painter, this.painter.OUTPUT_SLOT, 114, 35));
 
         /* Player inventory */
         for (int y = 0; y < 3; y++) {
@@ -51,7 +55,7 @@ public class ContainerPainter extends Container {
 
         this.painter.getTankMgr().initGuiTracking(icrafting, this, TankType.PURE.getName());
         this.painter.getEnergyMgr().initGuiTracking(icrafting, this);
-        //this.mixer.getFactoryMgr().initGuiTracking(icrafting, this);
+        this.painter.getFactoryMgr().initGuiTracking(icrafting, this);
     }
 
     @Override
@@ -62,7 +66,7 @@ public class ContainerPainter extends Container {
         /* The id will determine if anything happens in each manager */
         this.painter.getTankMgr().processGuiTracking(id, data);
         this.painter.getEnergyMgr().processGuiTracking(id, data);
-        //this.painter.getFactoryMgr().processGuiTracking(id, data);
+        this.painter.getFactoryMgr().processGuiTracking(id, data);
     }
 
     @Override
@@ -71,6 +75,6 @@ public class ContainerPainter extends Container {
 
         this.painter.getTankMgr().updateGuiTracking(this.crafters, this, TankType.PURE.getName());
         this.painter.getEnergyMgr().updateGuiTracking(this.crafters, this);
-        //this.painter.getFactoryMgr().updateGuiTracking(this.crafters, this);
+        this.painter.getFactoryMgr().updateGuiTracking(this.crafters, this);
     }
 }

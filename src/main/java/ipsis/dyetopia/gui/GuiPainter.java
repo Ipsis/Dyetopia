@@ -1,26 +1,40 @@
 package ipsis.dyetopia.gui;
 
 import cofh.lib.gui.GuiBase;
+import cofh.lib.gui.element.ElementButton;
 import cofh.lib.gui.element.ElementDualScaled;
 import cofh.lib.gui.element.ElementEnergyStored;
 import cofh.lib.gui.element.ElementFluidTank;
 import ipsis.dyetopia.gui.container.ContainerPainter;
 import ipsis.dyetopia.gui.element.ElementEnergyStoredDYT;
 import ipsis.dyetopia.gui.element.ElementFluidTankDYT;
+import ipsis.dyetopia.gui.element.ElementIcon;
 import ipsis.dyetopia.gui.element.ElementProgressBar;
 import ipsis.dyetopia.reference.Reference;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntityPainter;
+import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.TankType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiPainter  extends GuiBase {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(Textures.Gui.GUI_PAINTER);
+    private static final String TEXTURE_STR = new String(Textures.Gui.GUI_PAINTER);
+    private static final ResourceLocation TEXTURE = new ResourceLocation(TEXTURE_STR);
+
 
     private TileEntityPainter painter;
     private ElementProgressBar progress;
+    private ElementIcon selected;
+
+    public static final int BUTTON_DN_ID = 0;
+    public static final int BUTTON_UP_ID = 1;
+
+    private static final String BTN_UP_STR = "Up";
+    private static final String BTN_DN_STR  = "Down";
+    private ElementButton up;
+    private ElementButton down;
 
     public GuiPainter(TileEntityPainter painter, EntityPlayer player) {
 
@@ -41,8 +55,31 @@ public class GuiPainter  extends GuiBase {
         /* energy */
         addElement(new ElementEnergyStoredDYT(this, 7, 22, this.painter.getEnergyMgr().getEnergyStorage()));
 
+        /* buttons */
+        addElement(new ElementButton(this, 60, 62, BTN_DN_STR, 176, 0, 176, 16, 176, 32, 16, 16, TEXTURE_STR));
+        addElement(new ElementButton(this, 96, 62, BTN_UP_STR, 192, 0, 192, 16, 192, 32, 16, 16, TEXTURE_STR));
+
         this.progress = ((ElementProgressBar)addElement(new ElementProgressBar(this, 78, 34, ElementProgressBar.ProgressType.LEFT_TO_RIGHT)));
         addElement(progress);
 
+        this.selected = ((ElementIcon)addElement(new ElementIcon(this, 78, 62).setIcon(DyeHelper.DyeType.BLACK.getIcon())));
+        addElement(selected);
+    }
+
+    @Override
+    protected void updateElementInformation() {
+
+        this.selected.setIcon(this.painter.getCurrSelected().getIcon());
+        this.progress.setQuantity(this.painter.getFactoryMgr().getScaledProgress(24));
+    }
+
+    @Override
+    public void handleElementButtonClick(String s, int i) {
+
+        if (s.equals(BTN_UP_STR)) {
+            painter.incSelected();
+        } else if (s.equals(BTN_DN_STR)) {
+            painter.decSelected();
+        }
     }
 }

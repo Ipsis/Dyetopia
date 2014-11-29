@@ -77,8 +77,8 @@ public class DyeableBlocksManager {
         if (map == null)
             return null;
 
-        if (map[dye.getDmg()] != null)
-            return map[dye.getDmg()].getOutput();
+        if (map[dye.ordinal()] != null)
+            return map[dye.ordinal()].getOutput();
 
         return null;
     }
@@ -86,5 +86,13 @@ public class DyeableBlocksManager {
     public static boolean canDye(ItemStack source, DyeHelper.DyeType dye) {
 
         return getDyed(source, dye) != null;
+    }
+
+    public static boolean canDye(ItemStack source) {
+
+        if (source == null)
+            return false;
+
+        return dyedBlockMap.get(new ComparableItemStackSafe(source)) != null;
     }
 }

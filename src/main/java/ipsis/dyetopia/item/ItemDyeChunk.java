@@ -13,6 +13,9 @@ import net.minecraft.util.MathHelper;
 
 import java.util.List;
 
+/**
+ * Damage values match up with the vanilla dye ones
+ */
 public class ItemDyeChunk extends ItemDYT {
 
     public ItemDyeChunk() {
