@@ -1,6 +1,7 @@
 package ipsis.dyetopia.util;
 
 import cofh.lib.util.helpers.ColorHelper;
+import ipsis.dyetopia.init.ModItems;
 import ipsis.dyetopia.reference.Reference;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -24,22 +25,22 @@ public class DyeHelper {
 
     public static enum DyeType {
 
-        BLACK(      15,  DYE_OREDICT_NAME[15],    ColorHelper.DYE_BLACK,      LCM/3,  LCM/3,  LCM/3,          0),
-        RED(        14,  DYE_OREDICT_NAME[14],    ColorHelper.DYE_RED,          LCM,      0,      0,          0),
-        GREEN(      13,  DYE_OREDICT_NAME[13],    ColorHelper.DYE_GREEN,          0,  LCM/2,  LCM/2,          0),
-        BROWN(      12,  DYE_OREDICT_NAME[12],    ColorHelper.DYE_BROWN,  3*(LCM/4),  LCM/8,  LCM/8,          0),
-        BLUE(       11,  DYE_OREDICT_NAME[11],    ColorHelper.DYE_BLUE,           0,      0,    LCM,          0),
-        PURPLE(     10,  DYE_OREDICT_NAME[10],    ColorHelper.DYE_PURPLE,     LCM/2,      0,  LCM/2,          0),
-        CYAN(        9,  DYE_OREDICT_NAME[9],     ColorHelper.DYE_CYAN,           0,      0,  LCM/4,  3*(LCM/4)),
-        LIGHTGRAY(   8,  DYE_OREDICT_NAME[8],     ColorHelper.DYE_LIGHT_GRAY, LCM/9,  LCM/9,  LCM/9,  2*(LCM/3)),
-        GRAY(        7,  DYE_OREDICT_NAME[7],     ColorHelper.DYE_GRAY,       LCM/6,  LCM/6,  LCM/6,      LCM/2),
-        PINK(        6,  DYE_OREDICT_NAME[6],     ColorHelper.DYE_PINK,       LCM/2,      0,      0,      LCM/2),
-        LIME(        5,  DYE_OREDICT_NAME[5],     ColorHelper.DYE_LIME,           0,  LCM/4,  LCM/4,      LCM/2),
-        YELLOW(      4,  DYE_OREDICT_NAME[4],     ColorHelper.DYE_YELLOW,         0,    LCM,      0,          0),
-        LIGHTBLUE(   3,  DYE_OREDICT_NAME[3],     ColorHelper.DYE_LIGHT_BLUE,     0,      0,  LCM/2,      LCM/2),
-        MAGENTA(     2,  DYE_OREDICT_NAME[2],     ColorHelper.DYE_MAGENTA,    LCM/2,      0,  LCM/4,      LCM/4),
-        ORANGE(      1,  DYE_OREDICT_NAME[1],     ColorHelper.DYE_ORANGE,     LCM/2,  LCM/2,      0,          0),
         WHITE(       0,  DYE_OREDICT_NAME[0],     ColorHelper.DYE_WHITE,          0,      0,      0,        LCM),
+        ORANGE(      1,  DYE_OREDICT_NAME[1],     ColorHelper.DYE_ORANGE,     LCM/2,  LCM/2,      0,          0),
+        MAGENTA(     2,  DYE_OREDICT_NAME[2],     ColorHelper.DYE_MAGENTA,    LCM/2,      0,  LCM/4,      LCM/4),
+        LIGHTBLUE(   3,  DYE_OREDICT_NAME[3],     ColorHelper.DYE_LIGHT_BLUE,     0,      0,  LCM/2,      LCM/2),
+        YELLOW(      4,  DYE_OREDICT_NAME[4],     ColorHelper.DYE_YELLOW,         0,    LCM,      0,          0),
+        LIME(        5,  DYE_OREDICT_NAME[5],     ColorHelper.DYE_LIME,           0,  LCM/4,  LCM/4,      LCM/2),
+        PINK(        6,  DYE_OREDICT_NAME[6],     ColorHelper.DYE_PINK,       LCM/2,      0,      0,      LCM/2),
+        GRAY(        7,  DYE_OREDICT_NAME[7],     ColorHelper.DYE_GRAY,       LCM/6,  LCM/6,  LCM/6,      LCM/2),
+        LIGHTGRAY(   8,  DYE_OREDICT_NAME[8],     ColorHelper.DYE_LIGHT_GRAY, LCM/9,  LCM/9,  LCM/9,  2*(LCM/3)),
+        CYAN(        9,  DYE_OREDICT_NAME[9],     ColorHelper.DYE_CYAN,           0,      0,  LCM/4,  3*(LCM/4)),
+        PURPLE(     10,  DYE_OREDICT_NAME[10],    ColorHelper.DYE_PURPLE,     LCM/2,      0,  LCM/2,          0),
+        BLUE(       11,  DYE_OREDICT_NAME[11],    ColorHelper.DYE_BLUE,           0,      0,    LCM,          0),
+        BROWN(      12,  DYE_OREDICT_NAME[12],    ColorHelper.DYE_BROWN,  3*(LCM/4),  LCM/8,  LCM/8,          0),
+        GREEN(      13,  DYE_OREDICT_NAME[13],    ColorHelper.DYE_GREEN,          0,  LCM/2,  LCM/2,          0),
+        RED(        14,  DYE_OREDICT_NAME[14],    ColorHelper.DYE_RED,          LCM,      0,      0,          0),
+        BLACK(      15,  DYE_OREDICT_NAME[15],    ColorHelper.DYE_BLACK,      LCM/3,  LCM/3,  LCM/3,          0),
 
         INVALID(    99,        "INVALID DYE",   ColorHelper.DYE_WHITE,          0,      0,      0,          0);
 
@@ -81,20 +82,30 @@ public class DyeHelper {
 
             int ord = this.ordinal();
             ord++;
-            if (ord >= VALID_DYES.length)
+            if (ord > 15)
                 ord = 0;
+
+            return VALID_DYES[ord];
+        }
+
+        public DyeType getPrev() {
+
+            int ord = this.ordinal();
+            ord--;
+            if (ord < 0)
+                ord = 15;
 
             return VALID_DYES[ord];
         }
 
         public ItemStack getStack() {
 
-            return new ItemStack(Items.dye, 1, this.dmg);
+            return new ItemStack(ModItems.itemDyeChunk, 1, this.dmg);
         }
 
         public IIcon getIcon() {
 
-            return Items.dye.getIconFromDamage(this.dmg);
+            return ModItems.itemDyeChunk.getIconFromDamage(this.dmg);
         }
 
         public int getRed() { return red; }
