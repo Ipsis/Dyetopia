@@ -67,8 +67,10 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
-    // I dont have to specify NEI.. because gradle magic. aka: transitive dependency resolution
-    compile "mcp.mobius.waila:Waila:1.5.5_1.7.10"
+    compile "codechicken:CodeChickenLib:1.7.10-1.1.1.95:dev"
+    compile "codechicken:CodeChickenCore:1.7.10-1.0.2.11:dev"
+    compile "codechicken:NotEnoughItems:1.7.10-1.0.2.26:dev"
+    compile "mcp.mobius.waila:Waila:1.5.3a_1.7.10"
 }
 
 processResources
