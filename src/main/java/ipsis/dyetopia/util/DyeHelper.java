@@ -18,37 +18,37 @@ public class DyeHelper {
 
 
     private static final String[] DYE_OREDICT_NAME = {
-            "dyeBlack", "dyeRed", "dyeGreen", "dyeBrown", "dyeBlue", "dyePurple", "dyeCyan", "dyeLightGray",
-            "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue", "dyeMagenta", "dyeOrange", "dyeWhite"
+            "dyeWhite", "dyeOrange", "dyeMagenta", "dyeLightBlue", "dyeYellow", "dyeLime", "dyePink", "dyeGray",
+            "dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue", "dyeBrown", "dyeGreen", "dyeRed", "dyeBlack"
     };
 
     public static enum DyeType {
 
-        BLACK(      0,  DYE_OREDICT_NAME[0],    ColorHelper.DYE_BLACK,      LCM/3,  LCM/3,  LCM/3,          0),
-        RED(        1,  DYE_OREDICT_NAME[1],    ColorHelper.DYE_RED,          LCM,      0,      0,          0),
-        GREEN(      2,  DYE_OREDICT_NAME[2],    ColorHelper.DYE_GREEN,          0,  LCM/2,  LCM/2,          0),
-        BROWN(      3,  DYE_OREDICT_NAME[3],    ColorHelper.DYE_BROWN,  3*(LCM/4),  LCM/8,  LCM/8,          0),
-        BLUE(       4,  DYE_OREDICT_NAME[4],    ColorHelper.DYE_BLUE,           0,      0,    LCM,          0),
-        PURPLE(     5,  DYE_OREDICT_NAME[5],    ColorHelper.DYE_PURPLE,     LCM/2,      0,  LCM/2,          0),
-        CYAN(       6,  DYE_OREDICT_NAME[6],    ColorHelper.DYE_CYAN,           0,      0,  LCM/4,  3*(LCM/4)),
-        LIGHTGRAY(  7,  DYE_OREDICT_NAME[7],    ColorHelper.DYE_LIGHT_GRAY, LCM/9,  LCM/9,  LCM/9,  2*(LCM/3)),
-        GRAY(       8,  DYE_OREDICT_NAME[8],    ColorHelper.DYE_GRAY,       LCM/6,  LCM/6,  LCM/6,      LCM/2),
-        PINK(       9,  DYE_OREDICT_NAME[9],    ColorHelper.DYE_PINK,       LCM/2,      0,      0,      LCM/2),
-        LIME(       10, DYE_OREDICT_NAME[10],   ColorHelper.DYE_LIME,           0,  LCM/4,  LCM/4,      LCM/2),
-        YELLOW(     11, DYE_OREDICT_NAME[11],   ColorHelper.DYE_YELLOW,         0,    LCM,      0,          0),
-        LIGHTBLUE(  12, DYE_OREDICT_NAME[12],   ColorHelper.DYE_LIGHT_BLUE,     0,      0,  LCM/2,      LCM/2),
-        MAGENTA(    13, DYE_OREDICT_NAME[13],   ColorHelper.DYE_MAGENTA,    LCM/2,      0,  LCM/4,      LCM/4),
-        ORANGE(     14, DYE_OREDICT_NAME[14],   ColorHelper.DYE_ORANGE,     LCM/2,  LCM/2,      0,          0),
-        WHITE(      15, DYE_OREDICT_NAME[15],   ColorHelper.DYE_WHITE,          0,      0,      0,        LCM),
+        BLACK(      15,  DYE_OREDICT_NAME[15],    ColorHelper.DYE_BLACK,      LCM/3,  LCM/3,  LCM/3,          0),
+        RED(        14,  DYE_OREDICT_NAME[14],    ColorHelper.DYE_RED,          LCM,      0,      0,          0),
+        GREEN(      13,  DYE_OREDICT_NAME[13],    ColorHelper.DYE_GREEN,          0,  LCM/2,  LCM/2,          0),
+        BROWN(      12,  DYE_OREDICT_NAME[12],    ColorHelper.DYE_BROWN,  3*(LCM/4),  LCM/8,  LCM/8,          0),
+        BLUE(       11,  DYE_OREDICT_NAME[11],    ColorHelper.DYE_BLUE,           0,      0,    LCM,          0),
+        PURPLE(     10,  DYE_OREDICT_NAME[10],    ColorHelper.DYE_PURPLE,     LCM/2,      0,  LCM/2,          0),
+        CYAN(        9,  DYE_OREDICT_NAME[9],     ColorHelper.DYE_CYAN,           0,      0,  LCM/4,  3*(LCM/4)),
+        LIGHTGRAY(   8,  DYE_OREDICT_NAME[8],     ColorHelper.DYE_LIGHT_GRAY, LCM/9,  LCM/9,  LCM/9,  2*(LCM/3)),
+        GRAY(        7,  DYE_OREDICT_NAME[7],     ColorHelper.DYE_GRAY,       LCM/6,  LCM/6,  LCM/6,      LCM/2),
+        PINK(        6,  DYE_OREDICT_NAME[6],     ColorHelper.DYE_PINK,       LCM/2,      0,      0,      LCM/2),
+        LIME(        5,  DYE_OREDICT_NAME[5],     ColorHelper.DYE_LIME,           0,  LCM/4,  LCM/4,      LCM/2),
+        YELLOW(      4,  DYE_OREDICT_NAME[4],     ColorHelper.DYE_YELLOW,         0,    LCM,      0,          0),
+        LIGHTBLUE(   3,  DYE_OREDICT_NAME[3],     ColorHelper.DYE_LIGHT_BLUE,     0,      0,  LCM/2,      LCM/2),
+        MAGENTA(     2,  DYE_OREDICT_NAME[2],     ColorHelper.DYE_MAGENTA,    LCM/2,      0,  LCM/4,      LCM/4),
+        ORANGE(      1,  DYE_OREDICT_NAME[1],     ColorHelper.DYE_ORANGE,     LCM/2,  LCM/2,      0,          0),
+        WHITE(       0,  DYE_OREDICT_NAME[0],     ColorHelper.DYE_WHITE,          0,      0,      0,        LCM),
 
         INVALID(    99,        "INVALID DYE",   ColorHelper.DYE_WHITE,          0,      0,      0,          0);
 
         public static DyeType[] VALID_DYES = {
-                BLACK, RED, GREEN, BROWN, BLUE, PURPLE, CYAN, LIGHTGRAY, GRAY,
-                PINK, LIME, YELLOW, LIGHTBLUE, MAGENTA, ORANGE, WHITE
+                WHITE, ORANGE, MAGENTA, LIGHTBLUE, YELLOW, LIME, PINK, GRAY, LIGHTGRAY, CYAN,
+                PURPLE, BLUE, BROWN, GREEN, RED, BLACK
         };
 
-        /* The damage value. The is the vanilla dmg->dye value */
+        /* The damage value. The is the vanilla dmg->dye value as ordered by clay,wool etc */
         private int dmg;
 
         /* The ore dictionary name of the dye */
@@ -110,8 +110,15 @@ public class DyeHelper {
         /* Get the dye type for the input stack */
         public static DyeType getDye(ItemStack in) {
 
-            if (in != null && OreDictHelper.isDye(in, false) &&  in.getItemDamage() >= 0 && in.getItemDamage() < VALID_DYES.length)
-                return VALID_DYES[in.getItemDamage()];
+            if (in != null && OreDictHelper.isDye(in, false))
+                return getDyeFromDamage(in.getItemDamage());
+
+            return INVALID;
+        }
+
+        public static DyeType getDye(int ordinal) {
+            if (ordinal >= 0 && ordinal < VALID_DYES.length)
+                return VALID_DYES[ordinal];
 
             return INVALID;
         }
@@ -127,12 +134,16 @@ public class DyeHelper {
         }
 
         /* Get the dye type from the damage value */
-        public static DyeType getDye(int id) {
+        public static DyeType getDyeFromDamage(int dmg) {
 
-            if (id < 0 || id >= VALID_DYES.length)
-                return INVALID;
+            if (dmg >= 0 && dmg <= 15) {
+                for (int i = 0; i <= 15; i++) {
+                    if (VALID_DYES[i].getDmg() == dmg)
+                        return VALID_DYES[i];
+                }
+            }
 
-            return VALID_DYES[id];
+            return INVALID;
         }
 
         public static ItemStack getStack(String oreName) {
