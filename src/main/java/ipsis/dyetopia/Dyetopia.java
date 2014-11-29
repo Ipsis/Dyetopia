@@ -4,6 +4,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import ipsis.dyetopia.init.*;
 import ipsis.dyetopia.gui.GuiHandler;
 import ipsis.dyetopia.manager.*;
+import ipsis.dyetopia.manager.dyeableblocks.DyeableBlocksManager;
 import ipsis.dyetopia.network.PacketHandler;
 import ipsis.dyetopia.proxy.IProxy;
 import ipsis.dyetopia.reference.Reference;
@@ -63,6 +64,7 @@ public class Dyetopia {
         SqueezerManager.initialise();
         MixerManager.initialise();
         StamperManager.initialise();
+        DyeableBlocksManager.initialise();
 
         DyeSourceManager.getInstance().initialize();
 
