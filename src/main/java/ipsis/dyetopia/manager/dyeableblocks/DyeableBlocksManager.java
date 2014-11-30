@@ -1,8 +1,7 @@
 package ipsis.dyetopia.manager.dyeableblocks;
 
-
-import cofh.lib.inventory.ComparableItemStackSafe;
 import ipsis.dyetopia.manager.IFactoryRecipe;
+import ipsis.dyetopia.util.ComparableItemStackBlockSafe;
 import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.init.Blocks;
@@ -13,10 +12,10 @@ import java.util.HashMap;
 
 public class DyeableBlocksManager {
 
-    private static ArrayList<HashMap<ComparableItemStackSafe, DyedBlockRecipe>> recipeMap = new ArrayList<HashMap<ComparableItemStackSafe, DyedBlockRecipe>>(16);
+    private static ArrayList<HashMap<ComparableItemStackBlockSafe, DyedBlockRecipe>> recipeMap = new ArrayList<HashMap<ComparableItemStackBlockSafe, DyedBlockRecipe>>(16);
     static {
         for (int i = 0; i < 16; i++) {
-            HashMap<ComparableItemStackSafe, DyedBlockRecipe> entry = new HashMap<ComparableItemStackSafe, DyedBlockRecipe>();
+            HashMap<ComparableItemStackBlockSafe, DyedBlockRecipe> entry = new HashMap<ComparableItemStackBlockSafe, DyedBlockRecipe>();
             recipeMap.add(i, entry);
         }
     }
@@ -48,8 +47,8 @@ public class DyeableBlocksManager {
 
     private static void addEntry(ItemStack source, DyeHelper.DyeType dye, ItemStack output) {
 
-        ComparableItemStackSafe key = new ComparableItemStackSafe(source.copy());
-        HashMap<ComparableItemStackSafe, DyedBlockRecipe> rmap = recipeMap.get(dye.ordinal());
+        ComparableItemStackBlockSafe key = new ComparableItemStackBlockSafe(source.copy());
+        HashMap<ComparableItemStackBlockSafe, DyedBlockRecipe> rmap = recipeMap.get(dye.ordinal());
         if (!rmap.containsKey(key)) {
             rmap.put(key, new DyedBlockRecipe(source, dye, output));
         } else {
@@ -99,8 +98,8 @@ public class DyeableBlocksManager {
         if (source == null)
             return null;
 
-        ComparableItemStackSafe key = new ComparableItemStackSafe(source);
-        HashMap<ComparableItemStackSafe, DyedBlockRecipe> rmap = recipeMap.get(dye.ordinal());
+        ComparableItemStackBlockSafe key = new ComparableItemStackBlockSafe(source);
+        HashMap<ComparableItemStackBlockSafe, DyedBlockRecipe> rmap = recipeMap.get(dye.ordinal());
 
         return rmap.get(key);
     }
@@ -113,7 +112,7 @@ public class DyeableBlocksManager {
     public static boolean canDyeBlock(ItemStack source) {
 
         for (int i = 0; i < 16; i++) {
-            if (recipeMap.get(i).containsKey(new ComparableItemStackSafe(source)))
+            if (recipeMap.get(i).containsKey(new ComparableItemStackBlockSafe(source)))
                 return true;
         }
 
