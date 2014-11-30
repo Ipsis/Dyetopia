@@ -6,7 +6,6 @@ import ipsis.dyetopia.item.plantlife.ItemBlockHeartDye;
 import ipsis.dyetopia.item.plantlife.ItemBlockLeavesDye;
 import ipsis.dyetopia.item.plantlife.ItemBlockLogDye;
 import ipsis.dyetopia.item.plantlife.ItemBlockSaplingDye;
-import ipsis.dyetopia.plugins.nei.UsageManager;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ipsis.dyetopia.reference.Names;
 import ipsis.dyetopia.reference.Settings;
@@ -72,8 +71,6 @@ public class ModBlocks {
         GameRegistry.registerBlock(blockPodRedDye, Names.Blocks.BLOCK_POD_DYE_RED);
         GameRegistry.registerBlock(blockPodYellowDye, Names.Blocks.BLOCK_POD_DYE_YELLOW);
         GameRegistry.registerBlock(blockPodBlueDye, Names.Blocks.BLOCK_POD_DYE_BLUE);
-
-        UsageManager.addUsage(blockSqueezer, new String[]{blockSqueezer.getUnlocalizedName() + "neiuse.0", blockSqueezer.getUnlocalizedName() + "neiuse.1"});
     }
 
     public static void initialize() {
