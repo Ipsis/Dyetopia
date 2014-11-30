@@ -27,8 +27,6 @@ public class TileEntityMachinePureDye extends TileEntityMachine implements IFlui
         this.tankMgr.registerTank(TankType.PURE.getName(), capacity);
         this.tankMgr.addToWhitelist(TankType.PURE.getName(), ModFluids.fluidDyePure);
         this.tankMgr.blockTankDrainAll(TankType.PURE.getName());
-
-        LogHelper.info(this.tankMgr);
     }
 
     /**

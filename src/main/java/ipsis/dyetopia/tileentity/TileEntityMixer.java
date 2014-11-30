@@ -112,8 +112,6 @@ public class TileEntityMixer extends TileEntityMultiBlockMaster implements  ITan
         this.tankMgr.blockTankDrainAll(TankType.YELLOW.getName());
         this.tankMgr.blockTankDrainAll(TankType.BLUE.getName());
         this.tankMgr.blockTankDrainAll(TankType.WHITE.getName());
-
-        LogHelper.info("Mixer: " + this.tankMgr);
     }
 
     /**

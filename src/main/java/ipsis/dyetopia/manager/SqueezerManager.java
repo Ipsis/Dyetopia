@@ -1,6 +1,7 @@
 package ipsis.dyetopia.manager;
 
 import cofh.lib.inventory.ComparableItemStackSafe;
+import cofh.lib.util.helpers.ItemHelper;
 import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.init.ModItems;
 import ipsis.dyetopia.util.LogHelper;
@@ -97,15 +98,16 @@ public class SqueezerManager {
         recipes.put(new ComparableItemStackSafe(in), new SqueezerRecipe(in.copy(), 0, 0, DyeLiquidManager.DYE_BASE_AMOUNT * 2, 0, RECIPE_ENERGY));
         in = new ItemStack(ModItems.itemDyeDrop, 1, 3);
         recipes.put(new ComparableItemStackSafe(in), new SqueezerRecipe(in.copy(), DyeLiquidManager.DYE_BASE_AMOUNT, DyeLiquidManager.DYE_BASE_AMOUNT, DyeLiquidManager.DYE_BASE_AMOUNT, DyeLiquidManager.DYE_BASE_AMOUNT, RECIPE_ENERGY));
+
+        for (SqueezerRecipe r : recipes.values())
+            LogHelper.info("SqueezerManager: " + r.getInput() + "->" + r.getRedAmount() + "/" + r.getYellowAmount() + "/" + r.getBlueAmount() + "/" + r.getWhiteAmount());
     }
 
     private static void addRecipe(ItemStack in, ItemStack out) {
 
         DyeRecipe r = DyeLiquidManager.getInstance().getRecipe(out);
-        if (r != null) {
+        if (r != null)
             recipes.put(new ComparableItemStackSafe(in), new SqueezerRecipe(in.copy(), r.getRedAmount(), r.getYellowAmount(), r.getBlueAmount(), r.getWhiteAmount(), RECIPE_ENERGY));
-            LogHelper.info("[SqueezerManager]: " + in + "->" + out);
-        }
     }
 
     public static SqueezerRecipe getRecipe(ItemStack in) {
@@ -142,6 +144,7 @@ public class SqueezerManager {
         public int getYellowAmount() { return this.yellow.amount; }
         public int getBlueAmount() { return this.blue.amount; }
         public int getWhiteAmount() { return this.white.amount; }
+        public ItemStack getInput() { return this.input; }
 
         public FluidStack getRedFluidStack(){ return this.red.copy(); }
         public FluidStack getYellowFluidStack(){ return this.yellow.copy(); }

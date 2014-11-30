@@ -107,8 +107,6 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
         this.tankMgr.blockTankFillAll(TankType.YELLOW.getName());
         this.tankMgr.blockTankFillAll(TankType.BLUE.getName());
         this.tankMgr.blockTankFillAll(TankType.WHITE.getName());
-
-        LogHelper.info("Squeezer: " + this.tankMgr);
     }
 
     /***************
