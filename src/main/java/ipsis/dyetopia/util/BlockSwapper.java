@@ -27,8 +27,6 @@ public class BlockSwapper {
         /* Remove the old block */
         world.setBlockToAir(x, y, z);
 
-        LogHelper.info("Place " + stack + "->" + Block.getBlockFromItem(stack.getItem()));
-
         /**
          * This tries to replicate the ItemBlock placeBlockAt code
          */
