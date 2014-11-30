@@ -9,6 +9,8 @@ import ipsis.dyetopia.network.PacketHandler;
 import ipsis.dyetopia.network.message.MessageGuiWidget;
 import ipsis.dyetopia.reference.GuiIds;
 import ipsis.dyetopia.util.DyeHelper;
+import ipsis.dyetopia.util.LogHelper;
+import ipsis.dyetopia.util.TankType;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -86,7 +88,7 @@ public class TileEntityPainter extends TileEntityMachinePureDye implements ISide
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
 
-        if (slot == INPUT_SLOT && stack != null && DyeableBlocksManager.canDye(stack))
+        if (slot == INPUT_SLOT && stack != null && DyeableBlocksManager.canDyeBlock(stack))
             return true;
 
         return false;
@@ -115,6 +117,18 @@ public class TileEntityPainter extends TileEntityMachinePureDye implements ISide
     @Override
     public boolean isOutputValid(IFactoryRecipe recipe) {
 
+        if (recipe == null || !(recipe instanceof DyeableBlocksManager.DyedBlockRecipe))
+            return false;
+
+        DyeableBlocksManager.DyedBlockRecipe dbr = (DyeableBlocksManager.DyedBlockRecipe)recipe;
+
+        ItemStack curr = getStackInSlot(OUTPUT_SLOT);
+        if (curr == null)
+            return true;
+
+        if (curr.isItemEqual(dbr.getOutput()) && curr.stackSize + 1 <= curr.getMaxStackSize())
+            return true;
+
         return false;
     }
 
@@ -125,10 +139,32 @@ public class TileEntityPainter extends TileEntityMachinePureDye implements ISide
 
     @Override
     public void consumeInputs(IFactoryRecipe recipe) {
+
+        if (recipe == null || !(recipe instanceof DyeableBlocksManager.DyedBlockRecipe))
+            return;
+
+        DyeableBlocksManager.DyedBlockRecipe dbr = (DyeableBlocksManager.DyedBlockRecipe)recipe;
+        decrStackSize(INPUT_SLOT, 1);
+
+        this.getTankMgr().drain(TankType.PURE.getName(), dbr.getPureAmount(), true);
     }
 
     @Override
     public void createOutputs(IFactoryRecipe recipe) {
+
+        if (recipe == null || !(recipe instanceof DyeableBlocksManager.DyedBlockRecipe))
+            return;
+
+        DyeableBlocksManager.DyedBlockRecipe dbr = (DyeableBlocksManager.DyedBlockRecipe)recipe;
+        ItemStack out = getStackInSlot(OUTPUT_SLOT);
+        if (out == null) {
+            out = dbr.getOutput();
+            setInventorySlotContents(OUTPUT_SLOT, out);
+        } else {
+            out.stackSize++;
+            if (out.stackSize > out.getMaxStackSize())
+                out.stackSize = out.getMaxStackSize();
+        }
     }
 
     @Override
@@ -144,7 +180,11 @@ public class TileEntityPainter extends TileEntityMachinePureDye implements ISide
     @Override
     public IFactoryRecipe getRecipe() {
 
-        return null;
+        ItemStack in = getStackInSlot(INPUT_SLOT);
+        if (in == null || in.stackSize <= 0)
+            return null;
+
+        return DyeableBlocksManager.getDyedBlock(in, this.currSelected);
     }
 
     @Override
@@ -161,7 +201,6 @@ public class TileEntityPainter extends TileEntityMachinePureDye implements ISide
         if (worldObj.isRemote) {
 
             this.currSelected = PainterManager.getNext(this.currSelected);
-
             PacketHandler.INSTANCE.sendToServer(
                     new MessageGuiWidget(GuiIds.GUI_PAINTER, GuiIds.GUI_CTRL_BUTTON,
                             GuiPainter.BUTTON_UP_ID, 0, 0));
@@ -193,6 +232,11 @@ public class TileEntityPainter extends TileEntityMachinePureDye implements ISide
     public void setPrevCurrSelected() {
 
         this.currSelected = PainterManager.getPrev(this.currSelected);
+    }
+
+    /* GUI updating only! */
+    public void setCurrSelected(DyeHelper.DyeType dye) {
+        this.currSelected = dye;
     }
 
 }

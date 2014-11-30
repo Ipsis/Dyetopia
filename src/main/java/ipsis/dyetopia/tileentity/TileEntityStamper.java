@@ -228,4 +228,9 @@ public class TileEntityStamper extends TileEntityMachinePureDye implements ISide
 
         this.currSelected = StamperManager.getPrev(this.currSelected);
     }
+
+    /* GUI updating only! */
+    public void setCurrSelected(DyeHelper.DyeType dye) {
+        this.currSelected = dye;
+    }
 }

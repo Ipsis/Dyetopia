@@ -2,28 +2,35 @@ package ipsis.dyetopia.manager.dyeableblocks;
 
 
 import cofh.lib.inventory.ComparableItemStackSafe;
+import ipsis.dyetopia.manager.IFactoryRecipe;
 import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 public class DyeableBlocksManager {
 
-    private static HashMap<ComparableItemStackSafe, DyedBlock[]> dyedBlockMap = new HashMap<ComparableItemStackSafe, DyedBlock[]>();
+    private static ArrayList<HashMap<ComparableItemStackSafe, DyedBlockRecipe>> recipeMap = new ArrayList<HashMap<ComparableItemStackSafe, DyedBlockRecipe>>(16);
+    static {
+        for (int i = 0; i < 16; i++) {
+            HashMap<ComparableItemStackSafe, DyedBlockRecipe> entry = new HashMap<ComparableItemStackSafe, DyedBlockRecipe>();
+            recipeMap.add(i, entry);
+        }
+    }
 
     public static void initialise() {
 
         /* hardcoded mapping for now */
 
-        /* Clay */
-        for (DyeHelper.DyeType d : DyeHelper.DyeType.VALID_DYES)
+        /* Clay, glass, panes  */
+        for (DyeHelper.DyeType d : DyeHelper.DyeType.VALID_DYES) {
             addEntry(new ItemStack(Blocks.hardened_clay), d, new ItemStack(Blocks.stained_hardened_clay, 1, d.getDmg()));
-
+            addEntry(new ItemStack(Blocks.glass), d, new ItemStack(Blocks.stained_glass, 1, d.getDmg()));
+            addEntry(new ItemStack(Blocks.glass_pane), d, new ItemStack(Blocks.stained_glass_pane, 1, d.getDmg()));
+        }
 
         for (DyeHelper.DyeType d : DyeHelper.DyeType.VALID_DYES) {
             for (DyeHelper.DyeType d2 : DyeHelper.DyeType.VALID_DYES) {
@@ -41,58 +48,75 @@ public class DyeableBlocksManager {
 
     private static void addEntry(ItemStack source, DyeHelper.DyeType dye, ItemStack output) {
 
-        ComparableItemStackSafe cmp = new ComparableItemStackSafe(source.copy());
-
-        DyedBlock[] map;
-        if (dyedBlockMap.containsKey(cmp)) {
-            map = dyedBlockMap.get(cmp);
+        ComparableItemStackSafe key = new ComparableItemStackSafe(source.copy());
+        HashMap<ComparableItemStackSafe, DyedBlockRecipe> rmap = recipeMap.get(dye.ordinal());
+        if (!rmap.containsKey(key)) {
+            rmap.put(key, new DyedBlockRecipe(source, dye, output));
         } else {
-            map = new DyedBlock[16];
-            dyedBlockMap.put(cmp, map);
+            LogHelper.warn("addEntry: duplicate mapping " + source + " " + dye + " " + output);
         }
-
-        map[dye.getDmg()] = new DyedBlock(output);
     }
 
-    private static class DyedBlock {
+    public static class DyedBlockRecipe implements IFactoryRecipe {
 
+        private ItemStack input;
         private ItemStack output;
+        private DyeHelper.DyeType dye;
+        private int pureAmount;
 
-        public DyedBlock(ItemStack output) {
+        public DyedBlockRecipe(ItemStack input, DyeHelper.DyeType dye, ItemStack output, int pureAmount) {
+            this.input = input.copy();
+            this.dye = dye;
             this.output = output.copy();
+            this.pureAmount = pureAmount;
         }
 
-        public ItemStack getOutput() {
-            return this.output;
+        public DyedBlockRecipe(ItemStack input, DyeHelper.DyeType dye, ItemStack output) {
+            this(input, dye, output, 10);
+        }
+
+        @Override
+        public String toString() {
+            return input + " " + dye + " -> " + output;
+        }
+
+        public ItemStack getInput() { return input.copy(); }
+        public ItemStack getOutput() { return output.copy(); }
+        public int getPureAmount() { return pureAmount; }
+        public DyeHelper.DyeType getDye() { return dye; }
+
+        /**
+         * IFactoryRecipe
+         */
+        @Override
+        public int getEnergy() {
+            return 20;
         }
     }
 
-
-    public static ItemStack getDyed(ItemStack source, DyeHelper.DyeType dye) {
-
-        if (source == null || dye == DyeHelper.DyeType.INVALID)
-            return null;
-
-        DyedBlock[] map = dyedBlockMap.get(new ComparableItemStackSafe(source));
-        if (map == null)
-            return null;
-
-        if (map[dye.ordinal()] != null)
-            return map[dye.ordinal()].getOutput();
-
-        return null;
-    }
-
-    public static boolean canDye(ItemStack source, DyeHelper.DyeType dye) {
-
-        return getDyed(source, dye) != null;
-    }
-
-    public static boolean canDye(ItemStack source) {
+    public static DyedBlockRecipe getDyedBlock(ItemStack source, DyeHelper.DyeType dye) {
 
         if (source == null)
-            return false;
+            return null;
 
-        return dyedBlockMap.get(new ComparableItemStackSafe(source)) != null;
+        ComparableItemStackSafe key = new ComparableItemStackSafe(source);
+        HashMap<ComparableItemStackSafe, DyedBlockRecipe> rmap = recipeMap.get(dye.ordinal());
+
+        return rmap.get(key);
+    }
+
+    public static boolean canDyeBlock(ItemStack source, DyeHelper.DyeType dye) {
+
+        return getDyedBlock(source, dye) != null;
+    }
+
+    public static boolean canDyeBlock(ItemStack source) {
+
+        for (int i = 0; i < 16; i++) {
+            if (recipeMap.get(i).containsKey(new ComparableItemStackSafe(source)))
+                return true;
+        }
+
+        return false;
     }
 }

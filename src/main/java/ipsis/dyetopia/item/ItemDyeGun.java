@@ -239,13 +239,16 @@ public class ItemDyeGun extends ItemDYT {
         if (b != Blocks.air && !(b instanceof ITileEntityProvider)) {
 
             int meta = world.getBlockMetadata(x, y, z);
-            ItemStack replaceWith = DyeableBlocksManager.getDyed(new ItemStack(b, 1, meta), ((ItemDyeGun)itemStack.getItem()).getColor(itemStack));
 
-            if (BlockSwapper.swap(player, world, x, y, z, replaceWith)) {
-                if (!player.capabilities.isCreativeMode)
-                    drainGun(itemStack, DyeLiquidManager.DYE_BASE_AMOUNT);
+            DyeableBlocksManager.DyedBlockRecipe r = DyeableBlocksManager.getDyedBlock(new ItemStack(b, 1, meta), ((ItemDyeGun) itemStack.getItem()).getColor(itemStack));
+            if (r != null) {
 
-                return true;
+                if (BlockSwapper.swap(player, world, x, y, z, r.getOutput())) {
+                    if (!player.capabilities.isCreativeMode)
+                        drainGun(itemStack, DyeLiquidManager.DYE_BASE_AMOUNT);
+
+                    return true;
+                }
             }
         }
 

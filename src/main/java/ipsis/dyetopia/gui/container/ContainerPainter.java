@@ -1,17 +1,24 @@
 package ipsis.dyetopia.gui.container;
 
 import cofh.lib.gui.slot.SlotAcceptValid;
+import ipsis.dyetopia.gui.GuiPainter;
+import ipsis.dyetopia.gui.GuiStamper;
+import ipsis.dyetopia.gui.IGuiMessageHandler;
+import ipsis.dyetopia.network.message.MessageGuiWidget;
+import ipsis.dyetopia.reference.GuiIds;
 import ipsis.dyetopia.tileentity.TileEntityPainter;
+import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.TankType;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerPainter extends Container {
+public class ContainerPainter extends Container implements IGuiMessageHandler {
 
     private TileEntityPainter painter;
 
@@ -49,6 +56,8 @@ public class ContainerPainter extends Container {
      * Updating
      */
 
+    private DyeHelper.DyeType lastDye;
+
     @Override
     public void addCraftingToCrafters(ICrafting icrafting) {
         super.addCraftingToCrafters(icrafting);
@@ -56,6 +65,8 @@ public class ContainerPainter extends Container {
         this.painter.getTankMgr().initGuiTracking(icrafting, this, TankType.PURE.getName());
         this.painter.getEnergyMgr().initGuiTracking(icrafting, this);
         this.painter.getFactoryMgr().initGuiTracking(icrafting, this);
+
+        this.lastDye = this.painter.getCurrSelected();
     }
 
     @Override
@@ -67,6 +78,12 @@ public class ContainerPainter extends Container {
         this.painter.getTankMgr().processGuiTracking(id, data);
         this.painter.getEnergyMgr().processGuiTracking(id, data);
         this.painter.getFactoryMgr().processGuiTracking(id, data);
+
+        if (ProgressBar.getIDType(id) == ProgressBar.ID_TYPE.ID_GENERIC) {
+
+            if (ProgressBar.getIDValue(id) == 0)
+                this.painter.setCurrSelected(DyeHelper.DyeType.getDye(data));
+        }
     }
 
     @Override
@@ -76,5 +93,32 @@ public class ContainerPainter extends Container {
         this.painter.getTankMgr().updateGuiTracking(this.crafters, this, TankType.PURE.getName());
         this.painter.getEnergyMgr().updateGuiTracking(this.crafters, this);
         this.painter.getFactoryMgr().updateGuiTracking(this.crafters, this);
+
+        for (Object crafter : crafters) {
+
+            ICrafting icrafting = (ICrafting) crafter;
+
+            if (this.lastDye != this.painter.getCurrSelected()) {
+                int progId = ProgressBar.createIDGeneric(0);
+                icrafting.sendProgressBarUpdate(this, progId, this.painter.getCurrSelected().ordinal());
+            }
+        }
+
+        this.lastDye = this.painter.getCurrSelected();
+    }
+
+    /**
+     * IGuiMessageHandler
+     */
+    @Override
+    public void handleGuiWidget(MessageGuiWidget message) {
+
+        if (message.guiId != GuiIds.GUI_PAINTER || message.ctrlType != GuiIds.GUI_CTRL_BUTTON)
+            return;
+
+        if (message.ctrlId == GuiPainter.BUTTON_DN_ID)
+            this.painter.setPrevCurrSelected();
+        else if (message.ctrlId == GuiPainter.BUTTON_UP_ID)
+            this.painter.setNextCurrSelected();
     }
 }

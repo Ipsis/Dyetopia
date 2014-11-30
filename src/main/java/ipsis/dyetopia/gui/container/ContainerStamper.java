@@ -6,6 +6,7 @@ import ipsis.dyetopia.gui.IGuiMessageHandler;
 import ipsis.dyetopia.network.message.MessageGuiWidget;
 import ipsis.dyetopia.reference.GuiIds;
 import ipsis.dyetopia.tileentity.TileEntityStamper;
+import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.TankType;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -53,6 +54,8 @@ public class ContainerStamper extends Container implements IGuiMessageHandler {
      * Updating
      */
 
+    private DyeHelper.DyeType lastDye;
+
     @Override
     public void addCraftingToCrafters(ICrafting icrafting) {
         super.addCraftingToCrafters(icrafting);
@@ -60,6 +63,8 @@ public class ContainerStamper extends Container implements IGuiMessageHandler {
         this.stamper.getTankMgr().initGuiTracking(icrafting, this, TankType.PURE.getName());
         this.stamper.getEnergyMgr().initGuiTracking(icrafting, this);
         this.stamper.getFactoryMgr().initGuiTracking(icrafting, this);
+
+        this.lastDye = this.stamper.getCurrSelected();
     }
 
     @Override
@@ -71,6 +76,12 @@ public class ContainerStamper extends Container implements IGuiMessageHandler {
         this.stamper.getTankMgr().processGuiTracking(id, data);
         this.stamper.getEnergyMgr().processGuiTracking(id, data);
         this.stamper.getFactoryMgr().processGuiTracking(id, data);
+
+        if (ProgressBar.getIDType(id) == ProgressBar.ID_TYPE.ID_GENERIC) {
+
+            if (ProgressBar.getIDValue(id) == 0)
+                this.stamper.setCurrSelected(DyeHelper.DyeType.getDye(data));
+        }
     }
 
     @Override
@@ -80,6 +91,18 @@ public class ContainerStamper extends Container implements IGuiMessageHandler {
         this.stamper.getTankMgr().updateGuiTracking(this.crafters, this, TankType.PURE.getName());
         this.stamper.getEnergyMgr().updateGuiTracking(this.crafters, this);
         this.stamper.getFactoryMgr().updateGuiTracking(this.crafters, this);
+
+        for (Object crafter : crafters) {
+
+            ICrafting icrafting = (ICrafting) crafter;
+
+            if (this.lastDye != this.stamper.getCurrSelected()) {
+                int progId = ProgressBar.createIDGeneric(0);
+                icrafting.sendProgressBarUpdate(this, progId, this.stamper.getCurrSelected().ordinal());
+            }
+        }
+
+        this.lastDye = this.stamper.getCurrSelected();
     }
 
     /**

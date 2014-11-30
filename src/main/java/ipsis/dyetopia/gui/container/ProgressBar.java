@@ -32,6 +32,7 @@ public class ProgressBar {
     public static int createIDFluidId(int tank) { return (TAG_FLUID_ID | tank) & ID_MASK; }
     public static int createIDFluidAmount(int tank) { return (TAG_FLUID_AMOUNT | tank) & ID_MASK; }
     public static int createIDEnergy(int id) { return (TAG_ENERGY | id) & ID_MASK; }
+    public static int createIDGeneric(int id) { return (id) & ID_MASK; }
 
     public static ID_TYPE getIDType(int id) {
         if ((id & TAG_FLUID_ID) == TAG_FLUID_ID) return ID_TYPE.ID_FLUID_ID;

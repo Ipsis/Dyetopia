@@ -35,7 +35,6 @@ public class StamperManager {
     private static void addRecipe(DyeHelper.DyeType type) {
 
         StamperRecipe r = new StamperRecipe(type, type.getStack());
-        LogHelper.error("addRecipe : " + type + " == " + r.getOutput());
         recipes.add(r);
     }
 
