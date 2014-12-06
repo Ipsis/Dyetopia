@@ -46,7 +46,7 @@ archivesBaseName = "dyetopia"
 
 minecraft {
     version = "${config.minecraft_version}-${config.forge_version}"
-    assetDir = "eclipse/assets"
+    runDir = "eclipse"
 
     replaceIn "reference/Reference.java"
     replace "@VERSION@",project.version
@@ -67,10 +67,8 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
-    compile "codechicken:CodeChickenLib:1.7.10-1.1.1.95:dev"
-    compile "codechicken:CodeChickenCore:1.7.10-1.0.2.11:dev"
-    compile "codechicken:NotEnoughItems:1.7.10-1.0.2.26:dev"
-    compile "mcp.mobius.waila:Waila:1.5.3a_1.7.10"
+    compile "codechicken:CodeChickenCore:1.7.10-1.0.4.29:dev"
+    compile "mcp.mobius.waila:Waila:1.5.6_dev4_1.7.10"
 }
 
 processResources
@@ -93,14 +91,11 @@ processResources
             }
         }
 
-// some crazy stuff to make sure the chicken stuff is in the mods folder...
-// because it wont work otherwise...  because FML doesnt laod coremods from the classpath
 task copyChicken(type: Copy, dependsOn: "extractUserDev") {
     from { configurations.compile }
     include "**/*Chicken*.jar", "**/*NotEnoughItems*.jar"
     exclude "**/CodeChickenLib*" // because CCC downloads it anyways.. -_-
-    into file(minecraft.runDir + "/mods")
-
+    into file("./run/mods") // paralell to the assets dir
     mustRunAfter "deobfBinJar"
     mustRunAfter "repackMinecraft"
 }
