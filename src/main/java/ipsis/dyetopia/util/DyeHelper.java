@@ -25,22 +25,22 @@ public class DyeHelper {
 
     public static enum DyeType {
 
-        WHITE(       0,  DYE_OREDICT_NAME[0],     ColorHelper.DYE_WHITE,          0,      0,      0,        LCM),
-        ORANGE(      1,  DYE_OREDICT_NAME[1],     ColorHelper.DYE_ORANGE,     LCM/2,  LCM/2,      0,          0),
-        MAGENTA(     2,  DYE_OREDICT_NAME[2],     ColorHelper.DYE_MAGENTA,    LCM/2,      0,  LCM/4,      LCM/4),
-        LIGHTBLUE(   3,  DYE_OREDICT_NAME[3],     ColorHelper.DYE_LIGHT_BLUE,     0,      0,  LCM/2,      LCM/2),
-        YELLOW(      4,  DYE_OREDICT_NAME[4],     ColorHelper.DYE_YELLOW,         0,    LCM,      0,          0),
-        LIME(        5,  DYE_OREDICT_NAME[5],     ColorHelper.DYE_LIME,           0,  LCM/4,  LCM/4,      LCM/2),
-        PINK(        6,  DYE_OREDICT_NAME[6],     ColorHelper.DYE_PINK,       LCM/2,      0,      0,      LCM/2),
-        GRAY(        7,  DYE_OREDICT_NAME[7],     ColorHelper.DYE_GRAY,       LCM/6,  LCM/6,  LCM/6,      LCM/2),
-        LIGHTGRAY(   8,  DYE_OREDICT_NAME[8],     ColorHelper.DYE_LIGHT_GRAY, LCM/9,  LCM/9,  LCM/9,  2*(LCM/3)),
-        CYAN(        9,  DYE_OREDICT_NAME[9],     ColorHelper.DYE_CYAN,           0,      0,  LCM/4,  3*(LCM/4)),
-        PURPLE(     10,  DYE_OREDICT_NAME[10],    ColorHelper.DYE_PURPLE,     LCM/2,      0,  LCM/2,          0),
-        BLUE(       11,  DYE_OREDICT_NAME[11],    ColorHelper.DYE_BLUE,           0,      0,    LCM,          0),
-        BROWN(      12,  DYE_OREDICT_NAME[12],    ColorHelper.DYE_BROWN,  3*(LCM/4),  LCM/8,  LCM/8,          0),
-        GREEN(      13,  DYE_OREDICT_NAME[13],    ColorHelper.DYE_GREEN,          0,  LCM/2,  LCM/2,          0),
-        RED(        14,  DYE_OREDICT_NAME[14],    ColorHelper.DYE_RED,          LCM,      0,      0,          0),
-        BLACK(      15,  DYE_OREDICT_NAME[15],    ColorHelper.DYE_BLACK,      LCM/3,  LCM/3,  LCM/3,          0),
+        WHITE(      15,  DYE_OREDICT_NAME[0],     ColorHelper.DYE_WHITE,          0,      0,      0,        LCM),
+        ORANGE(     14,  DYE_OREDICT_NAME[1],     ColorHelper.DYE_ORANGE,     LCM/2,  LCM/2,      0,          0),
+        MAGENTA(    13,  DYE_OREDICT_NAME[2],     ColorHelper.DYE_MAGENTA,    LCM/2,      0,  LCM/4,      LCM/4),
+        LIGHTBLUE(  12,  DYE_OREDICT_NAME[3],     ColorHelper.DYE_LIGHT_BLUE,     0,      0,  LCM/2,      LCM/2),
+        YELLOW(     11,  DYE_OREDICT_NAME[4],     ColorHelper.DYE_YELLOW,         0,    LCM,      0,          0),
+        LIME(       10,  DYE_OREDICT_NAME[5],     ColorHelper.DYE_LIME,           0,  LCM/4,  LCM/4,      LCM/2),
+        PINK(        9,  DYE_OREDICT_NAME[6],     ColorHelper.DYE_PINK,       LCM/2,      0,      0,      LCM/2),
+        GRAY(        8,  DYE_OREDICT_NAME[7],     ColorHelper.DYE_GRAY,       LCM/6,  LCM/6,  LCM/6,      LCM/2),
+        LIGHTGRAY(   7,  DYE_OREDICT_NAME[8],     ColorHelper.DYE_LIGHT_GRAY, LCM/9,  LCM/9,  LCM/9,  2*(LCM/3)),
+        CYAN(        6,  DYE_OREDICT_NAME[9],     ColorHelper.DYE_CYAN,           0,      0,  LCM/4,  3*(LCM/4)),
+        PURPLE(      5,  DYE_OREDICT_NAME[10],    ColorHelper.DYE_PURPLE,     LCM/2,      0,  LCM/2,          0),
+        BLUE(        4,  DYE_OREDICT_NAME[11],    ColorHelper.DYE_BLUE,           0,      0,    LCM,          0),
+        BROWN(       3,  DYE_OREDICT_NAME[12],    ColorHelper.DYE_BROWN,  3*(LCM/4),  LCM/8,  LCM/8,          0),
+        GREEN(       2,  DYE_OREDICT_NAME[13],    ColorHelper.DYE_GREEN,          0,  LCM/2,  LCM/2,          0),
+        RED(         1,  DYE_OREDICT_NAME[14],    ColorHelper.DYE_RED,          LCM,      0,      0,          0),
+        BLACK(       0,  DYE_OREDICT_NAME[15],    ColorHelper.DYE_BLACK,      LCM/3,  LCM/3,  LCM/3,          0),
 
         INVALID(    99,        "INVALID DYE",   ColorHelper.DYE_WHITE,          0,      0,      0,          0);
 

@@ -25,11 +25,16 @@ public class DyeableBlocksManager {
 
         /* hardcoded mapping for now */
 
+        /**
+         * Vanilla dyes are ordered dmg 0 = black, dmg 15 = white
+         * Colored carpet, wool etc is ordered dmg 0 = white, dmg 15 = black
+         */
+
         /* Clay, glass, panes  */
         for (DyeHelper.DyeType d : DyeHelper.DyeType.VALID_DYES) {
-            addEntry(new ItemStack(Blocks.hardened_clay), d, new ItemStack(Blocks.stained_hardened_clay, 1, d.getDmg()));
-            addEntry(new ItemStack(Blocks.glass), d, new ItemStack(Blocks.stained_glass, 1, d.getDmg()));
-            addEntry(new ItemStack(Blocks.glass_pane), d, new ItemStack(Blocks.stained_glass_pane, 1, d.getDmg()));
+            addEntry(new ItemStack(Blocks.hardened_clay), d, new ItemStack(Blocks.stained_hardened_clay, 1, 15 - d.getDmg()));
+            addEntry(new ItemStack(Blocks.glass), d, new ItemStack(Blocks.stained_glass, 1, 15 - d.getDmg()));
+            addEntry(new ItemStack(Blocks.glass_pane), d, new ItemStack(Blocks.stained_glass_pane, 1, 15 - d.getDmg()));
         }
 
         for (DyeHelper.DyeType d : DyeHelper.DyeType.VALID_DYES) {
@@ -37,11 +42,11 @@ public class DyeableBlocksManager {
                 if (d == d2)
                     continue;
 
-                addEntry(new ItemStack(Blocks.stained_hardened_clay, 1, d.getDmg()), d2, new ItemStack(Blocks.stained_hardened_clay, 1, d2.getDmg()));
-                addEntry(new ItemStack(Blocks.wool, 1, d.getDmg()), d2, new ItemStack(Blocks.wool, 1, d2.getDmg()));
-                addEntry(new ItemStack(Blocks.stained_glass, 1, d.getDmg()), d2, new ItemStack(Blocks.stained_glass, 1, d2.getDmg()));
-                addEntry(new ItemStack(Blocks.stained_glass_pane, 1, d.getDmg()), d2, new ItemStack(Blocks.stained_glass_pane, 1, d2.getDmg()));
-                addEntry(new ItemStack(Blocks.carpet, 1, d.getDmg()), d2, new ItemStack(Blocks.carpet, 1, d2.getDmg()));
+                addEntry(new ItemStack(Blocks.stained_hardened_clay, 1, 15 - d.getDmg()), d2, new ItemStack(Blocks.stained_hardened_clay, 1, 15 - d2.getDmg()));
+                addEntry(new ItemStack(Blocks.wool, 1, 15 - d.getDmg()), d2, new ItemStack(Blocks.wool, 1, 15 - d2.getDmg()));
+                addEntry(new ItemStack(Blocks.stained_glass, 1, 15 - d.getDmg()), d2, new ItemStack(Blocks.stained_glass, 1, 15 - d2.getDmg()));
+                addEntry(new ItemStack(Blocks.stained_glass_pane, 1, 15 - d.getDmg()), d2, new ItemStack(Blocks.stained_glass_pane, 1, 15 - d2.getDmg()));
+                addEntry(new ItemStack(Blocks.carpet, 1, 15 - d.getDmg()), d2, new ItemStack(Blocks.carpet, 1,15 - d2.getDmg()));
             }
         }
     }

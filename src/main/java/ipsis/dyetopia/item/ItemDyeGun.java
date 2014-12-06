@@ -12,6 +12,7 @@ import ipsis.dyetopia.reference.Settings;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.util.BlockSwapper;
 import ipsis.dyetopia.util.DyeHelper;
+import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockColored;
 import net.minecraft.block.ITileEntityProvider;
@@ -288,6 +289,7 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
             DyeHelper.DyeType t = getColor(itemStack);
 
             int color = BlockColored.func_150032_b(t.getDmg());
+
             if (!entitysheep.getSheared() && entitysheep.getFleeceColor() != color)
             {
                 entitysheep.setFleeceColor(color);
