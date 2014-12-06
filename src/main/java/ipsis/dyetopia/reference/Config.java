@@ -39,4 +39,10 @@ public class Config {
         public static final String STAMPER_PURE_COST_TXT = "Stamper recipe pure dye cost (mB)";
         */
     }
+
+    public static class Items {
+
+        public static final String DYEGUN_TANK_CAPACITY = "dyeGunTankCapacity";
+        public static final String DYEGUN_TANK_CAPACITY_TXT = "Dye Gun Tank Capacity (mB)";
+    }
 }

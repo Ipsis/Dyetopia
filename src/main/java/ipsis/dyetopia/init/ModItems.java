@@ -64,7 +64,7 @@ public class ModItems {
 
     public static ItemDYT itemEraser;
     public static ItemDYT itemDyeBlank;
-    public static ItemDYT itemDyeGun;
+    public static ItemFluidContainerDYT itemDyeGun;
 
     public static ItemDYT itemDyemeal;
     public static ItemDYT itemDyeDrop;

@@ -1,11 +1,14 @@
 package ipsis.dyetopia.item;
 
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.init.ModItems;
-import ipsis.dyetopia.manager.DyeLiquidManager;
 import ipsis.dyetopia.manager.dyeableblocks.DyeableBlocksManager;
 import ipsis.dyetopia.reference.Names;
+import ipsis.dyetopia.reference.Nbt;
+import ipsis.dyetopia.reference.Settings;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.util.BlockSwapper;
 import ipsis.dyetopia.util.DyeHelper;
@@ -25,18 +28,16 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidStack;
 
 import java.util.List;
 
-public class ItemDyeGun extends ItemDYT {
-
-    private static final int CAPACITY = DyeLiquidManager.DYE_BASE_AMOUNT * 20;
-    private static final String FLUID_TAG = "FluidAmount";
-    private static final String COLOR_TAG = "CurrColor";
+public class ItemDyeGun extends ItemFluidContainerDYT {
 
     public ItemDyeGun() {
 
-        super();
+        super(0); /* itemID parameter not used */
+        setCapacity(Settings.Items.dyeGunTankCapacity);
         setUnlocalizedName(Names.Items.ITEM_DYE_GUN);
     }
 
@@ -94,7 +95,8 @@ public class ItemDyeGun extends ItemDYT {
         ItemStack itemStack = new ItemStack(ModItems.itemDyeGun);
 
         setDefaultTags(itemStack);
-        setFluidAmount(itemStack, CAPACITY);
+        FluidStack s = new FluidStack(ModFluids.fluidDyePure, Settings.Items.dyeGunTankCapacity);
+        fill(itemStack, s, true);
         list.add(itemStack);
     }
 
@@ -110,82 +112,23 @@ public class ItemDyeGun extends ItemDYT {
         setDefaultTags(itemStack);
     }
 
-    /**
-     * NBT stuff
-     */
-    public static void setDefaultTags(ItemStack itemStack) {
+    private static void setDefaultTags(ItemStack itemStack) {
 
         if (itemStack.stackTagCompound == null)
             itemStack.stackTagCompound = new NBTTagCompound();
 
-        /* White and empty */
-        itemStack.stackTagCompound.setInteger(COLOR_TAG, DyeHelper.DyeType.WHITE.ordinal());
-        itemStack.stackTagCompound.setInteger(FLUID_TAG, 0);
+        itemStack.stackTagCompound.setInteger(Nbt.Items.DYEGUN_COLOR_TAG, DyeHelper.DyeType.WHITE.ordinal());
     }
 
-    public static int getFluidAmount(ItemStack itemStack) {
-
-        if (itemStack.stackTagCompound == null)
-            setDefaultTags(itemStack);
-
-        return itemStack.stackTagCompound.getInteger(FLUID_TAG);
-    }
-
-    public static void setFluidAmount(ItemStack itemStack, int amount) {
-
-        if (itemStack.stackTagCompound == null)
-            setDefaultTags(itemStack);
-
-        if (amount > CAPACITY)
-            amount = CAPACITY;
-        else if (amount < 0)
-            amount = 0;
-
-        itemStack.stackTagCompound.setInteger(FLUID_TAG, amount);
-    }
-
-    public static void fillGun(ItemStack itemStack, int amount) {
-
-        if (itemStack.stackTagCompound == null)
-            setDefaultTags(itemStack);
-
-        int newAmount = getFluidAmount(itemStack) + amount;
-        if (newAmount > CAPACITY)
-            newAmount = CAPACITY;
-
-        setFluidAmount(itemStack, newAmount);
-    }
-
-    public static boolean isFull(ItemStack itemStack) {
-
-        if (itemStack.stackTagCompound == null)
-            setDefaultTags(itemStack);
-
-        if (getFluidAmount(itemStack) == CAPACITY)
-            return true;
-
-        return false;
-    }
-
-    public static void drainGun(ItemStack itemStack, int amount) {
-
-        if (itemStack.stackTagCompound == null)
-            setDefaultTags(itemStack);
-
-        int newAmount = getFluidAmount(itemStack) - amount;
-        if (newAmount < 0)
-            newAmount = 0;
-
-        setFluidAmount(itemStack, newAmount);
-
-    }
-
+    /**
+     * Color NBT
+     */
     public DyeHelper.DyeType getColor(ItemStack itemStack) {
 
         if (itemStack.stackTagCompound == null)
             setDefaultTags(itemStack);
 
-        return DyeHelper.DyeType.getDye(itemStack.stackTagCompound.getInteger(COLOR_TAG));
+        return DyeHelper.DyeType.getDye(itemStack.stackTagCompound.getInteger(Nbt.Items.DYEGUN_COLOR_TAG));
     }
 
     public void setColor(ItemStack itemStack, DyeHelper.DyeType color) {
@@ -193,10 +136,10 @@ public class ItemDyeGun extends ItemDYT {
         if (itemStack.stackTagCompound == null)
             setDefaultTags(itemStack);
 
-        itemStack.stackTagCompound.setInteger(COLOR_TAG, color.ordinal());
+        itemStack.stackTagCompound.setInteger(Nbt.Items.DYEGUN_COLOR_TAG, color.ordinal());
     }
 
-    public void setNextColor(ItemStack itemStack) {
+    private void setNextColor(ItemStack itemStack) {
 
         if (itemStack.stackTagCompound == null)
             setDefaultTags(itemStack);
@@ -205,8 +148,58 @@ public class ItemDyeGun extends ItemDYT {
         setColor(itemStack, color.getNext());
     }
 
+    public static boolean isFull(ItemStack itemStack) {
+
+        if (itemStack == null || !(itemStack.getItem() instanceof ItemDyeGun))
+            return false;
+
+        ItemDyeGun gun = (ItemDyeGun)itemStack.getItem();
+        FluidStack f = gun.getFluid(itemStack);
+        if (f == null)
+            return false;
+
+        return (f.amount == gun.capacity);
+    }
+
+    public static int fillGun(ItemStack itemStack, int amount, boolean doFill) {
+
+        if (itemStack == null || !(itemStack.getItem() instanceof ItemDyeGun))
+            return 0;
+
+        ItemDyeGun gun = (ItemDyeGun)itemStack.getItem();
+        return gun.fill(itemStack, new FluidStack(ModFluids.fluidDyePure, amount), doFill);
+    }
+
     /**
-     * Using
+     * Information
+     */
+
+    private String getColorTranslation(DyeHelper.DyeType type) {
+        return StatCollector.translateToLocal("tooltip.dyetopia:dyeGun." + type.getOreDictName());
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack itemStack,	EntityPlayer entityPlayer, List info, boolean useExtraInformation) {
+
+        if (itemStack.getItem() != ModItems.itemDyeGun)
+            return;
+
+        ItemDyeGun g = (ItemDyeGun)itemStack.getItem();
+        if (itemStack.stackTagCompound == null)
+            setDefaultTags(itemStack);
+
+
+        info.add(getColorTranslation(getColor(itemStack)));
+
+        FluidStack f = getFluid(itemStack);
+        info.add(f.amount + "/" + g.capacity + " mB");
+    }
+
+    /**
+     * Use
+     *
+     * Sneak RightClick change color
      */
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
@@ -232,21 +225,16 @@ public class ItemDyeGun extends ItemDYT {
         if (!player.canPlayerEdit(x, y, z, side, itemStack))
             return true;
 
-        if (!player.capabilities.isCreativeMode && getFluidAmount(itemStack) < DyeLiquidManager.DYE_BASE_AMOUNT)
-            return false;
-
         Block b = world.getBlock(x, y, z);
         if (b != Blocks.air && !(b instanceof ITileEntityProvider)) {
 
             int meta = world.getBlockMetadata(x, y, z);
 
             DyeableBlocksManager.DyedBlockRecipe r = DyeableBlocksManager.getDyedBlock(new ItemStack(b, 1, meta), ((ItemDyeGun) itemStack.getItem()).getColor(itemStack));
-            if (r != null) {
+            if (r != null && canShootGun(player, itemStack, r.getPureAmount())) {
 
                 if (BlockSwapper.swap(player, world, x, y, z, r.getOutput())) {
-                    if (!player.capabilities.isCreativeMode)
-                        drainGun(itemStack, DyeLiquidManager.DYE_BASE_AMOUNT);
-
+                    shootGun(player, itemStack, r.getPureAmount());
                     return true;
                 }
             }
@@ -255,10 +243,46 @@ public class ItemDyeGun extends ItemDYT {
         return false;
     }
 
-    /* Straight from vanilla ItemDye */
+    private boolean canDyeSheep(EntityPlayer player, ItemStack itemStack) {
+
+        return canShootGun(player, itemStack, DyeHelper.getLCM());
+    }
+
+    private boolean canShootGun(EntityPlayer player, ItemStack itemStack, int amount) {
+
+        if (player.capabilities.isCreativeMode)
+            return true;
+
+        FluidStack fStack = drain(itemStack, amount, false);
+        if (fStack == null)
+            return false;
+
+        return (fStack.amount == amount);
+    }
+
+    private void shootGun(EntityPlayer player, ItemStack itemStack) {
+
+        /* Fixed cost operation */
+        shootGun(player, itemStack, DyeHelper.getLCM());
+    }
+
+    private void shootGun(EntityPlayer player, ItemStack itemStack, int amount) {
+
+        if (player == null || itemStack == null)
+            return;
+
+        if (player.capabilities.isCreativeMode)
+            return;
+
+        drain(itemStack, amount, true);
+    }
+
+    /**
+     * Sheep!
+     * Straight from vanilla ItemDye */
     public boolean itemInteractionForEntity(ItemStack itemStack, EntityPlayer entityPlayer, EntityLivingBase entityLiving)
     {
-        if (entityLiving instanceof EntitySheep && itemStack.getItem() == ModItems.itemDyeGun)
+        if (entityLiving instanceof EntitySheep && itemStack.getItem() == ModItems.itemDyeGun && canDyeSheep(entityPlayer, itemStack))
         {
             EntitySheep entitysheep = (EntitySheep)entityLiving;
             DyeHelper.DyeType t = getColor(itemStack);
@@ -267,8 +291,7 @@ public class ItemDyeGun extends ItemDYT {
             if (!entitysheep.getSheared() && entitysheep.getFleeceColor() != color)
             {
                 entitysheep.setFleeceColor(color);
-                if (!entityPlayer.capabilities.isCreativeMode)
-                    drainGun(itemStack, DyeLiquidManager.DYE_BASE_AMOUNT);
+                shootGun(entityPlayer, itemStack);
             }
 
             return true;
@@ -277,25 +300,6 @@ public class ItemDyeGun extends ItemDYT {
         {
             return false;
         }
-    }
-
-    private String getColorTranslation(DyeHelper.DyeType type) {
-
-        return StatCollector.translateToLocal("tooltip.dyetopia:dyeGun." + type.getOreDictName());
-    }
-
-    /**
-     * Information
-     */
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack itemStack,	EntityPlayer entityPlayer, List info, boolean useExtraInformation) {
-
-        if (itemStack.stackTagCompound == null)
-            setDefaultTags(itemStack);
-
-        info.add(getColorTranslation(getColor(itemStack)));
-        info.add(itemStack.stackTagCompound.getInteger(FLUID_TAG) + "/" + CAPACITY + " mB");
     }
 
 }

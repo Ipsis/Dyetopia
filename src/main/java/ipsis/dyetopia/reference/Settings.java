@@ -31,6 +31,8 @@ public class Settings {
         public static final int DEF_PAINTER_RF_TICK = 10;
         public static final int DEF_PAINTER_RF_RECIPE = 120;
 
+
+
         public static int tankCapacity;
         public static int energyCapacity;
 
@@ -45,5 +47,13 @@ public class Settings {
         public static int fillerRfRecipe;
         public static int painterRfTick;
         public static int painterRfRecipe;
+
+    }
+
+    public static class Items {
+
+        public static final int DEF_DYEGUN_TANK_CAPACITY = 72 * 64;
+
+        public static int dyeGunTankCapacity;
     }
 }

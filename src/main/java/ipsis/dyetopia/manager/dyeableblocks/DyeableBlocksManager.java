@@ -72,7 +72,7 @@ public class DyeableBlocksManager {
         }
 
         public DyedBlockRecipe(ItemStack input, DyeHelper.DyeType dye, ItemStack output) {
-            this(input, dye, output, 10);
+            this(input, dye, output, DyeHelper.getLCM());
         }
 
         @Override

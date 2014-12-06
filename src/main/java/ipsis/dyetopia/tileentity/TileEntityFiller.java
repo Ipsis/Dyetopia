@@ -5,9 +5,7 @@ import ipsis.dyetopia.item.ItemDyeGun;
 import ipsis.dyetopia.manager.FactoryManager;
 import ipsis.dyetopia.manager.IFactory;
 import ipsis.dyetopia.manager.IFactoryRecipe;
-import ipsis.dyetopia.manager.StamperManager;
 import ipsis.dyetopia.reference.Settings;
-import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.TankType;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -17,6 +15,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class TileEntityFiller extends TileEntityMachinePureDye implements ISidedInventory, IFactory {
 
     public static final int INPUT_SLOT = 0;
+    public static final int DYE_PER_TICK = 1;
 
     private FactoryManager factoryMgr;
 
@@ -86,7 +85,22 @@ public class TileEntityFiller extends TileEntityMachinePureDye implements ISided
         if (worldObj.isRemote)
             return;
 
-        this.factoryMgr.run();
+        ItemStack itemStack = getStackInSlot(INPUT_SLOT);
+        if (itemStack == null || itemStack.getItem() != ModItems.itemDyeGun)
+            return;
+
+        if (ItemDyeGun.isFull(itemStack))
+            return;
+
+        if (Settings.Machines.fillerRfTick != this.energyMgr.extractEnergy(ForgeDirection.DOWN, Settings.Machines.fillerRfTick, true))
+            return;
+
+        int filled = ItemDyeGun.fillGun(itemStack, DYE_PER_TICK, true);
+        this.getTankMgr().drain(TankType.PURE.getName(), filled, true);
+
+        this.energyMgr.extractEnergy(ForgeDirection.DOWN, Settings.Machines.fillerRfTick, false);
+
+        /* We never run the factory before of the above code */
     }
 
     /**
@@ -98,70 +112,38 @@ public class TileEntityFiller extends TileEntityMachinePureDye implements ISided
 
     @Override
     public boolean isOutputValid(IFactoryRecipe recipe) {
-
-        ItemStack gun = getStackInSlot(INPUT_SLOT);
-        if (recipe == null || gun == null || gun.getItem() != ModItems.itemDyeGun)
-            return false;
-
-        /* Stop when full */
-        return !ItemDyeGun.isFull(gun);
+        return false;
     }
 
     @Override
     public boolean isEnergyAvailable(int amount) {
-        return amount ==  this.energyMgr.extractEnergy(ForgeDirection.DOWN, amount, true);
+        return false;
     }
 
     @Override
     public void consumeInputs(IFactoryRecipe recipe) {
-
-        if (recipe != null)
-            this.getTankMgr().drain(TankType.PURE.getName(), 1, true);
     }
 
     @Override
     public void createOutputs(IFactoryRecipe recipe) {
-
-        ItemStack gun = getStackInSlot(INPUT_SLOT);
-        if (recipe == null || gun == null || gun.getItem() != ModItems.itemDyeGun)
-                return;
-
-        ItemDyeGun.fillGun(gun, 1);
     }
 
     @Override
     public void consumeEnergy(int amount) {
-        this.energyMgr.extractEnergy(ForgeDirection.DOWN, amount, false);
     }
 
     @Override
     public int getEnergyTick() {
-        return Settings.Machines.painterRfTick;
+        return 0;
     }
 
     @Override
     public IFactoryRecipe getRecipe() {
-
-        ItemStack in = getStackInSlot(INPUT_SLOT);
-        if (in != null && in.getItem() == ModItems.itemDyeGun && !ItemDyeGun.isFull(in)) {
-            return recipe;
-        }
-
         return null;
     }
 
     @Override
     public void updateRunning(boolean running) {
 
-    }
-
-    private static FillerRecipe recipe = new FillerRecipe();
-
-    public static class FillerRecipe implements IFactoryRecipe {
-
-        @Override
-        public int getEnergy() {
-            return Settings.Machines.fillerRfRecipe;
-        }
     }
 }

@@ -76,6 +76,11 @@ public class ConfigHandler {
                 Config.Machines.PAINTER_RF_RECIPE, Settings.Machines.DEF_PAINTER_RF_RECIPE,
                 Config.Machines.PAINTER_RF_RECIPE_TXT).getInt(Settings.Machines.DEF_PAINTER_RF_RECIPE);
 
+        /* Items */
+        Settings.Items.dyeGunTankCapacity = configuration.get(Configuration.CATEGORY_GENERAL,
+                Config.Items.DYEGUN_TANK_CAPACITY, Settings.Items.DEF_DYEGUN_TANK_CAPACITY,
+                Config.Items.DYEGUN_TANK_CAPACITY_TXT).getInt(Settings.Items.DEF_DYEGUN_TANK_CAPACITY);
+
         if (configuration.hasChanged())
         {
             configuration.save();
