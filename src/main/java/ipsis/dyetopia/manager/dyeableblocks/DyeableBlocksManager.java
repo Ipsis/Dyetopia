@@ -1,6 +1,7 @@
 package ipsis.dyetopia.manager.dyeableblocks;
 
 import ipsis.dyetopia.manager.IFactoryRecipe;
+import ipsis.dyetopia.reference.Settings;
 import ipsis.dyetopia.util.ComparableItemStackBlockSafe;
 import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.LogHelper;
@@ -89,7 +90,7 @@ public class DyeableBlocksManager {
          */
         @Override
         public int getEnergy() {
-            return 20;
+            return Settings.Machines.painterRfRecipe;
         }
     }
 

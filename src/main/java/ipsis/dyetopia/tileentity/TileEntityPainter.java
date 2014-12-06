@@ -8,6 +8,7 @@ import ipsis.dyetopia.manager.dyeableblocks.DyeableBlocksManager;
 import ipsis.dyetopia.network.PacketHandler;
 import ipsis.dyetopia.network.message.MessageGuiWidget;
 import ipsis.dyetopia.reference.GuiIds;
+import ipsis.dyetopia.reference.Settings;
 import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.LogHelper;
 import ipsis.dyetopia.util.TankType;
@@ -19,8 +20,6 @@ import sun.org.mozilla.javascript.internal.xml.XMLLib;
 
 public class TileEntityPainter extends TileEntityMachinePureDye implements ISidedInventory, IFactory {
 
-    private static final int TANK_CAPACITY = 40000;
-    private static final int ENERGY_PER_TICK = 10;
     public static final int INPUT_SLOT = 0;
     public static final int OUTPUT_SLOT = 1;
 
@@ -28,7 +27,7 @@ public class TileEntityPainter extends TileEntityMachinePureDye implements ISide
 
     public TileEntityPainter() {
 
-        super(TANK_CAPACITY);
+        super(Settings.Machines.tankCapacity);
         inventory = new ItemStack[2];
         factoryMgr = new FactoryManager(this);
         this.currSelected = PainterManager.getFirst();
@@ -174,7 +173,7 @@ public class TileEntityPainter extends TileEntityMachinePureDye implements ISide
 
     @Override
     public int getEnergyTick() {
-        return ENERGY_PER_TICK;
+        return Settings.Machines.painterRfTick;
     }
 
     @Override

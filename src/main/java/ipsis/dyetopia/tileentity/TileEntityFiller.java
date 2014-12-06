@@ -6,6 +6,7 @@ import ipsis.dyetopia.manager.FactoryManager;
 import ipsis.dyetopia.manager.IFactory;
 import ipsis.dyetopia.manager.IFactoryRecipe;
 import ipsis.dyetopia.manager.StamperManager;
+import ipsis.dyetopia.reference.Settings;
 import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.TankType;
 import net.minecraft.inventory.ISidedInventory;
@@ -15,15 +16,13 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileEntityFiller extends TileEntityMachinePureDye implements ISidedInventory, IFactory {
 
-    private static final int TANK_CAPACITY = 40000;
-    private static final int ENERGY_PER_TICK = 1;
     public static final int INPUT_SLOT = 0;
 
     private FactoryManager factoryMgr;
 
     public TileEntityFiller() {
 
-        super(TANK_CAPACITY);
+        super(Settings.Machines.tankCapacity);
         inventory = new ItemStack[1];
         factoryMgr = new FactoryManager(this);
     }
@@ -137,7 +136,7 @@ public class TileEntityFiller extends TileEntityMachinePureDye implements ISided
 
     @Override
     public int getEnergyTick() {
-        return ENERGY_PER_TICK;
+        return Settings.Machines.painterRfTick;
     }
 
     @Override
@@ -162,7 +161,7 @@ public class TileEntityFiller extends TileEntityMachinePureDye implements ISided
 
         @Override
         public int getEnergy() {
-            return 1;
+            return Settings.Machines.fillerRfRecipe;
         }
     }
 }

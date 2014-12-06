@@ -6,6 +6,7 @@ import ipsis.dyetopia.manager.*;
 import ipsis.dyetopia.network.PacketHandler;
 import ipsis.dyetopia.network.message.MessageGuiWidget;
 import ipsis.dyetopia.reference.GuiIds;
+import ipsis.dyetopia.reference.Settings;
 import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.TankType;
 import net.minecraft.inventory.ISidedInventory;
@@ -15,8 +16,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileEntityStamper extends TileEntityMachinePureDye implements ISidedInventory, IFactory {
 
-    private static final int TANK_CAPACITY = 40000;
-    private static final int ENERGY_PER_TICK = 10;
     public static final int INPUT_SLOT = 0;
     public static final int OUTPUT_SLOT = 1;
 
@@ -24,7 +23,7 @@ public class TileEntityStamper extends TileEntityMachinePureDye implements ISide
 
     public TileEntityStamper() {
 
-        super(TANK_CAPACITY);
+        super(Settings.Machines.tankCapacity);
         inventory = new ItemStack[2];
         factoryMgr = new FactoryManager(this);
         this.currSelected = StamperManager.getFirst();
@@ -168,7 +167,7 @@ public class TileEntityStamper extends TileEntityMachinePureDye implements ISide
 
     @Override
     public int getEnergyTick() {
-        return ENERGY_PER_TICK;
+        return Settings.Machines.stamperRfTick;
     }
 
     @Override

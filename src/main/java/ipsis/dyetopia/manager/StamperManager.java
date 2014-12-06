@@ -1,6 +1,7 @@
 package ipsis.dyetopia.manager;
 
 
+import ipsis.dyetopia.reference.Settings;
 import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.item.ItemStack;
@@ -100,9 +101,6 @@ public class StamperManager {
         private DyeHelper.DyeType input;
         private int energy;
 
-        private static final int DEFAULT_PURE  = 75;
-        private static final int RECIPE_ENERGY = 120;
-
         private StamperRecipe() { }
 
         public StamperRecipe(DyeHelper.DyeType type, ItemStack output, int pureAmount) {
@@ -110,12 +108,12 @@ public class StamperManager {
             this.pureAmount = pureAmount;
             this.output = output;
             this.input = type;
-            this.energy = RECIPE_ENERGY;
+            this.energy = Settings.Machines.stamperRfRecipe;
         }
 
         public StamperRecipe(DyeHelper.DyeType type, ItemStack output) {
 
-            this(type, output, DEFAULT_PURE);
+            this(type, output, Settings.Machines.stamperPureCost);
         }
 
         public ItemStack getOutput() { return output.copy(); }
