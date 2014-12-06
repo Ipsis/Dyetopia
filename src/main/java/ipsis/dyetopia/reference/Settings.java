@@ -21,11 +21,10 @@ public class Settings {
         /* Stamper */
         public static final int DEF_STAMPER_RF_TICK = 10;
         public static final int DEF_STAMPER_RF_RECIPE = 120;
-        //public static final int DEF_STAMPER_PURE_COST = 72;
 
         /* Filler */
         public static final int DEF_FILLER_RF_TICK = 10;
-        public static final int DEF_FILLER_RF_RECIPE = 120;
+        public static final int DEF_FILLER_DYE_TICK = 5;
 
         /* Painter */
         public static final int DEF_PAINTER_RF_TICK = 10;
@@ -42,9 +41,8 @@ public class Settings {
         public static int mixerRfRecipe;
         public static int stamperRfTick;
         public static int stamperRfRecipe;
-        public static int stamperPureCost;
         public static int fillerRfTick;
-        public static int fillerRfRecipe;
+        public static int fillerDyeTick;
         public static int painterRfTick;
         public static int painterRfRecipe;
 

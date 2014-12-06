@@ -15,7 +15,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class TileEntityFiller extends TileEntityMachinePureDye implements ISidedInventory, IFactory {
 
     public static final int INPUT_SLOT = 0;
-    public static final int DYE_PER_TICK = 1;
 
     private FactoryManager factoryMgr;
 
@@ -95,7 +94,7 @@ public class TileEntityFiller extends TileEntityMachinePureDye implements ISided
         if (Settings.Machines.fillerRfTick != this.energyMgr.extractEnergy(ForgeDirection.DOWN, Settings.Machines.fillerRfTick, true))
             return;
 
-        int filled = ItemDyeGun.fillGun(itemStack, DYE_PER_TICK, true);
+        int filled = ItemDyeGun.fillGun(itemStack, Settings.Machines.fillerDyeTick, true);
         this.getTankMgr().drain(TankType.PURE.getName(), filled, true);
 
         this.energyMgr.extractEnergy(ForgeDirection.DOWN, Settings.Machines.fillerRfTick, false);

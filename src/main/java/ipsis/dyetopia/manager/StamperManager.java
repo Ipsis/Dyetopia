@@ -113,7 +113,7 @@ public class StamperManager {
 
         public StamperRecipe(DyeHelper.DyeType type, ItemStack output) {
 
-            this(type, output, Settings.Machines.stamperPureCost);
+            this(type, output, DyeHelper.getLCM());
         }
 
         public ItemStack getOutput() { return output.copy(); }

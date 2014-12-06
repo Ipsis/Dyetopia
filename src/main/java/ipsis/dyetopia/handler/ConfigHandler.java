@@ -56,18 +56,13 @@ public class ConfigHandler {
         Settings.Machines.stamperRfRecipe = configuration.get(Configuration.CATEGORY_GENERAL,
                 Config.Machines.STAMPER_RF_RECIPE, Settings.Machines.DEF_STAMPER_RF_RECIPE,
                 Config.Machines.STAMPER_RF_RECIPE_TXT).getInt(Settings.Machines.DEF_STAMPER_RF_RECIPE);
-        /*
-        No user mod or you will be able to squeeze->stamp->squeeze
-        Settings.Machines.stamperPureCost = configuration.get(Configuration.CATEGORY_GENERAL,
-                Config.Machines.STAMPER_PURE_COST, Settings.Machines.DEF_STAMPER_PURE_COST,
-                Config.Machines.STAMPER_PURE_COST_TXT).getInt(Settings.Machines.DEF_STAMPER_PURE_COST); */
 
         Settings.Machines.fillerRfTick = configuration.get(Configuration.CATEGORY_GENERAL,
                 Config.Machines.FILLER_RF_TICK, Settings.Machines.DEF_FILLER_RF_TICK,
                 Config.Machines.FILLER_RF_TICK_TXT).getInt(Settings.Machines.DEF_FILLER_RF_TICK);
-        Settings.Machines.fillerRfRecipe = configuration.get(Configuration.CATEGORY_GENERAL,
-                Config.Machines.FILLER_RF_RECIPE, Settings.Machines.DEF_FILLER_RF_RECIPE,
-                Config.Machines.FILLER_RF_RECIPE_TXT).getInt(Settings.Machines.DEF_FILLER_RF_RECIPE);
+        Settings.Machines.fillerDyeTick = configuration.get(Configuration.CATEGORY_GENERAL,
+                Config.Machines.FILLER_DYE_TICK, Settings.Machines.DEF_FILLER_DYE_TICK,
+                Config.Machines.FILLER_DYE_TICK_TXT).getInt(Settings.Machines.DEF_FILLER_DYE_TICK);
 
         Settings.Machines.painterRfTick = configuration.get(Configuration.CATEGORY_GENERAL,
                 Config.Machines.PAINTER_RF_TICK, Settings.Machines.DEF_PAINTER_RF_TICK,
