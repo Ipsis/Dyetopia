@@ -100,3 +100,9 @@ tooltip.dyetopia:dyeGun.dyeLightBlue=Light Blue Dye
 tooltip.dyetopia:dyeGun.dyeMagenta=Magenta Dye
 tooltip.dyetopia:dyeGun.dyeOrange=Orange Dye
 tooltip.dyetopia:dyeGun.dyeWhite=White Dye
+
+hud.msg.dyetopia:tank.redTank=Red Tank
+hud.msg.dyetopia:tank.yellowTank=Yellow Tank
+hud.msg.dyetopia:tank.blueTank=Blue Tank
+hud.msg.dyetopia:tank.whiteTank=White Tank
+hud.msg.dyetopia:tank.pureTank=Pure Tank
