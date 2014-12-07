@@ -1,2 +1,32 @@
-Dyetopia
-========
+#Dyetopia
+
+Fraking Flowers!
+
+#What Is This?
+
+Create liquid pure dye and use it to create dye items and color blocks.
+(You even get a dye gun).
+
+* [Minecraft Forum Thread](http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/2262586-dyetopia-fraking-flowers)
+* [CurseForge Project Page](TBD)
+
+#Credits
+I rely heavily on CoFHLib for help with the GUI code and some other bits and pieces.
+[https://github.com/CoFH/CoFHLib]
+
+Railcraft for ideas on how to sync the GUI update messages for tanks.
+[https://github.com/CovertJaguar/Railcraft]
+
+#Code From Other Project
+This mod uses a small number of classes from other mods.
+## CoFH
+[https://github.com/CoFH/ThermalFoundation]
+
+I think I based the fluid textures on the ThermalFoundation ones.
+
+## Pahimar
+[EE3 Repository](https://github.com/pahimar/Equivalent-Exchange-3)
+
+The following classes:
+
+* LogHelper.java
