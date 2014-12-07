@@ -1,6 +1,12 @@
 Dyetopia ChangeLog
 ==========================
 
+1.7.10-1.0.0B2
+
+Fixes
+* Crash on breaking a dye heart #1
+
+
 1.7.10-1.0.0B1
 
 * Initial release

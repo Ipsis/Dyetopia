@@ -65,8 +65,14 @@ public class BlockHeartDye extends BlockDYT {
     public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
         ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
 
-        if (metadata >= 0 && metadata < Names.Blocks.BLOCK_HEART_DYE_TYPES.length)
-           ret.add(new ItemStack(ModItems.itemDyeBeans, world.rand.nextInt(fortune) + 1, metadata));
+        if (metadata >= 0 && metadata < Names.Blocks.BLOCK_HEART_DYE_TYPES.length) {
+
+            /* 1 -> 3 */
+            int quantity = world.rand.nextInt(3) + 1;
+            for (int i = 0; i < quantity; i++) {
+                ret.add(new ItemStack(ModItems.itemDyeBeans, 1, metadata));
+            }
+        }
 
         return ret;
     }
