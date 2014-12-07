@@ -1,5 +1,6 @@
 package ipsis.dyetopia.creative;
 
+import ipsis.dyetopia.init.ModItems;
 import ipsis.dyetopia.reference.Reference;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -15,7 +16,7 @@ public class CreativeTab {
         @Override
         public Item getTabIconItem() {
 
-            return Items.dye;
+            return ModItems.itemDyeChunk;
         }
 
         @Override
