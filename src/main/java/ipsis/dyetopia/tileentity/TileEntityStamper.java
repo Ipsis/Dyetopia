@@ -8,11 +8,13 @@ import ipsis.dyetopia.network.message.MessageGuiWidget;
 import ipsis.dyetopia.reference.GuiIds;
 import ipsis.dyetopia.reference.Settings;
 import ipsis.dyetopia.util.DyeHelper;
+import ipsis.dyetopia.util.LogHelper;
 import ipsis.dyetopia.util.TankType;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
 
 public class TileEntityStamper extends TileEntityMachinePureDye implements ISidedInventory, IFactory {
 
@@ -114,6 +116,10 @@ public class TileEntityStamper extends TileEntityMachinePureDye implements ISide
             return false;
 
         StamperManager.StamperRecipe sr = (StamperManager.StamperRecipe)recipe;
+
+        FluidStack fs = this.getTankMgr().drain(TankType.PURE.getName(), sr.getPureAmount(), false);
+        if (fs == null || fs.amount != sr.getPureAmount())
+            return false;
 
         ItemStack curr = getStackInSlot(OUTPUT_SLOT);
         if (curr == null)

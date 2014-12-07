@@ -11,6 +11,7 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
 
 public class TileEntityFiller extends TileEntityMachinePureDye implements ISidedInventory, IFactory {
 
@@ -92,6 +93,10 @@ public class TileEntityFiller extends TileEntityMachinePureDye implements ISided
             return;
 
         if (Settings.Machines.fillerRfTick != this.energyMgr.extractEnergy(ForgeDirection.DOWN, Settings.Machines.fillerRfTick, true))
+            return;
+
+        FluidStack fs = this.getTankMgr().drain(TankType.PURE.getName(), Settings.Machines.fillerDyeTick, false);
+        if (fs == null || fs.amount != Settings.Machines.fillerDyeTick)
             return;
 
         int filled = ItemDyeGun.fillGun(itemStack, Settings.Machines.fillerDyeTick, true);

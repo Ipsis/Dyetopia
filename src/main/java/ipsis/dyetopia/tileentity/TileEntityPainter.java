@@ -16,7 +16,10 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
 import sun.org.mozilla.javascript.internal.xml.XMLLib;
+
+import java.util.logging.Logger;
 
 public class TileEntityPainter extends TileEntityMachinePureDye implements ISidedInventory, IFactory {
 
@@ -120,6 +123,10 @@ public class TileEntityPainter extends TileEntityMachinePureDye implements ISide
             return false;
 
         DyeableBlocksManager.DyedBlockRecipe dbr = (DyeableBlocksManager.DyedBlockRecipe)recipe;
+
+        FluidStack fs = this.getTankMgr().drain(TankType.PURE.getName(), dbr.getPureAmount(), false);
+        if (fs == null || fs.amount != dbr.getPureAmount())
+            return false;
 
         ItemStack curr = getStackInSlot(OUTPUT_SLOT);
         if (curr == null)
