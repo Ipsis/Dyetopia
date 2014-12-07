@@ -4,8 +4,9 @@ Dyetopia ChangeLog
 1.7.10-1.0.0B2
 
 Fixes
-* Crash on breaking a dye heart #1
-
+* BGZ001 - Fixed Crash on breaking a dye heart. Now gives 1-3 dye beans.
+* BGZ002 - Fixed Painter, Squeezer and Filler dont check for pure dye.
+* BGZ003 - Fixed Painter is not creating the correct output block colors.
 
 1.7.10-1.0.0B1
 
