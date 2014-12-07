@@ -100,12 +100,14 @@ public class DyeHelper {
 
         public ItemStack getStack() {
 
-            return new ItemStack(ModItems.itemDyeChunk, 1, this.dmg);
+            /* dye chunks map to ordinal for damage */
+            return new ItemStack(ModItems.itemDyeChunk, 1, this.ordinal());
         }
 
         public IIcon getIcon() {
 
-            return ModItems.itemDyeChunk.getIconFromDamage(this.dmg);
+            /* dye chunks map to ordinal for damage */
+            return ModItems.itemDyeChunk.getIconFromDamage(this.ordinal());
         }
 
         public int getRed() { return red; }
