@@ -53,29 +53,26 @@ public abstract class BlockDYTMultiBlock extends BlockDYT implements ITileEntity
         if (entityPlayer.isSneaking())
             return false;
 
-        if (!world.isRemote) {
-            TileEntity te = world.getTileEntity(x, y, z);
-            if (te instanceof  TileEntityMultiBlockBase) {
+        if (world.isRemote)
+            return true;
 
-                TileEntityMultiBlockBase bte = (TileEntityMultiBlockBase)te;
-                if (bte.isStructureValid()) {
+        TileEntity te = world.getTileEntity(x, y, z);
+        if (te instanceof  TileEntityMultiBlockBase) {
 
-                    TileEntityMultiBlockMaster mte = bte.getMasterTE();
-                    if (mte != null) {
-                        if (mte instanceof TileEntitySqueezer)
-                            entityPlayer.openGui(Dyetopia.instance, 0, world, mte.getMasterX(), mte.getMasterY(), mte.getMasterZ());
-                        else if (mte instanceof TileEntityMixer)
-                            entityPlayer.openGui(Dyetopia.instance, 1, world, mte.getMasterX(), mte.getMasterY(), mte.getMasterZ());
+            TileEntityMultiBlockBase bte = (TileEntityMultiBlockBase)te;
+            if (bte.isStructureValid()) {
 
-                        return true;
-                    }
+                TileEntityMultiBlockMaster mte = bte.getMasterTE();
+                if (mte != null) {
+                    if (mte instanceof TileEntitySqueezer)
+                        entityPlayer.openGui(Dyetopia.instance, 0, world, mte.getMasterX(), mte.getMasterY(), mte.getMasterZ());
+                    else if (mte instanceof TileEntityMixer)
+                        entityPlayer.openGui(Dyetopia.instance, 1, world, mte.getMasterX(), mte.getMasterY(), mte.getMasterZ());
                 }
             }
-
-            return false;
         }
-
-        return false;
+        
+        return true;
     }
 
     @Override

@@ -66,24 +66,20 @@ public abstract class BlockDYTMachine extends BlockDYT implements ITileEntityPro
         if (entityPlayer.isSneaking())
             return false;
 
-        if (!world.isRemote) {
+        if (world.isRemote)
+            return true;
 
-            TileEntity te = world.getTileEntity(x, y, z);
-            if (te instanceof TileEntityMachine) {
+        TileEntity te = world.getTileEntity(x, y, z);
+        if (te instanceof TileEntityMachine) {
 
-                if (te instanceof TileEntityPainter)
-                    entityPlayer.openGui(Dyetopia.instance, GuiIds.GUI_PAINTER, world, x, y, z);
-                else if (te instanceof TileEntityStamper)
-                    entityPlayer.openGui(Dyetopia.instance, GuiIds.GUI_STAMPER, world, x, y, z);
-                else if (te instanceof TileEntityFiller)
-                    entityPlayer.openGui(Dyetopia.instance, GuiIds.GUI_FILLER, world, x, y, z);
-                else
-                    return false;
-
-                return true;
-            }
+            if (te instanceof TileEntityPainter)
+                entityPlayer.openGui(Dyetopia.instance, GuiIds.GUI_PAINTER, world, x, y, z);
+            else if (te instanceof TileEntityStamper)
+                entityPlayer.openGui(Dyetopia.instance, GuiIds.GUI_STAMPER, world, x, y, z);
+            else if (te instanceof TileEntityFiller)
+                entityPlayer.openGui(Dyetopia.instance, GuiIds.GUI_FILLER, world, x, y, z);
         }
 
-        return false;
+        return true;
     }
 }
