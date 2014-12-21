@@ -22,7 +22,7 @@ public class ItemEraser extends ItemDYT {
             return false;
 
         Block b = world.getBlock(x, y, z);
-        if (b != null && b != Blocks.air && !(b instanceof ITileEntityProvider)) {
+        if (b != null && !b.isAir(world, x, y, z) && !(b instanceof ITileEntityProvider)) {
 
             /* ItemStack origin = OriginHelper.getOrigin(new ItemStack(b));
             if (origin != null)

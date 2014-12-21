@@ -227,8 +227,7 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
             return true;
 
         Block b = world.getBlock(x, y, z);
-        if (b != Blocks.air && !(b instanceof ITileEntityProvider)) {
-
+        if (!b.isAir(world, x, y, z) && !(b instanceof ITileEntityProvider)) {
             int meta = world.getBlockMetadata(x, y, z);
 
             DyeableBlocksManager.DyedBlockRecipe r = DyeableBlocksManager.getDyedBlock(new ItemStack(b, 1, meta), ((ItemDyeGun) itemStack.getItem()).getColor(itemStack));
