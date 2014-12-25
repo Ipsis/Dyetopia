@@ -17,10 +17,14 @@ public class DyeHelper {
     private static int LCM = 72;
     public static int getLCM() { return LCM; }
 
-
     private static final String[] DYE_OREDICT_NAME = {
             "dyeWhite", "dyeOrange", "dyeMagenta", "dyeLightBlue", "dyeYellow", "dyeLime", "dyePink", "dyeGray",
             "dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue", "dyeBrown", "dyeGreen", "dyeRed", "dyeBlack"
+    };
+
+    private static final String[] DYE_TAG_NAME = {
+            "white", "orange", "magenta", "lightblue", "yellow", "lime", "pink", "gray",
+            "lightgray", "cyan", "purple", "blue", "brown", "green", "red", "black"
     };
 
     public static enum DyeType {
@@ -118,6 +122,30 @@ public class DyeHelper {
         public String getDisplayName() {
 
             return StatCollector.translateToLocal("general." + Reference.MOD_ID + ":" + oreDictName);
+        }
+
+        public String getTagName() {
+
+            return DYE_TAG_NAME[ordinal()];
+        }
+
+        public static boolean isDyeTagName(String name) {
+            if (name != null && !name.equals("")) {
+                for (String c : DYE_TAG_NAME)
+                    if (c.equals(name))
+                        return true;
+            }
+
+            return false;
+        }
+
+        public static DyeType getDyeFromTag(String tagName) {
+
+            for (DyeType r : VALID_DYES)
+                if (r.getTagName().equals(tagName))
+                    return r;
+
+            return INVALID;
         }
 
         /* Get the dye type for the input stack */
