@@ -1,6 +1,7 @@
 package ipsis.dyetopia;
 
 import cpw.mods.fml.common.FMLCommonHandler;
+import ipsis.dyetopia.handler.DyeFileHandler;
 import ipsis.dyetopia.init.*;
 import ipsis.dyetopia.gui.GuiHandler;
 import ipsis.dyetopia.manager.*;
@@ -41,6 +42,9 @@ public class Dyetopia {
 
         ModOreDict.preInit();
 
+        DyeFileHandler.load(event.getModConfigurationDirectory() + "\\dyetopia_vanilla.json");
+        DyeFileHandler.load(event.getModConfigurationDirectory() + "\\dyetopia_blocks.json");
+
         FMLInterModComms.sendMessage("Waila", "register", "ipsis.dyetopia.plugins.waila.DYTWailaProvider.callbackRegister");
     }
 
@@ -78,5 +82,6 @@ public class Dyetopia {
         ModItems.postInit();
         ModBlocks.postInit();
         DYTWorldGen.postInit();
+        DyeableBlocksManager.postInit();
     }
 }

@@ -1,11 +1,16 @@
 package ipsis.dyetopia.manager.dyeableblocks;
 
+import cpw.mods.fml.common.registry.GameData;
+import cpw.mods.fml.common.registry.GameRegistry;
+import ipsis.dyetopia.handler.DyeFileHandler;
 import ipsis.dyetopia.manager.IFactoryRecipe;
 import ipsis.dyetopia.reference.Settings;
 import ipsis.dyetopia.util.ComparableItemStackBlockSafe;
 import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.LogHelper;
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
@@ -31,6 +36,8 @@ public class DyeableBlocksManager {
          */
 
         /* Clay, glass, panes  */
+
+        /*
         for (DyeHelper.DyeType d : DyeHelper.DyeType.VALID_DYES) {
             addEntry(new ItemStack(Blocks.hardened_clay), d, new ItemStack(Blocks.stained_hardened_clay, 1, 15 - d.getDmg()));
             addEntry(new ItemStack(Blocks.glass), d, new ItemStack(Blocks.stained_glass, 1, 15 - d.getDmg()));
@@ -48,17 +55,103 @@ public class DyeableBlocksManager {
                 addEntry(new ItemStack(Blocks.stained_glass_pane, 1, 15 - d.getDmg()), d2, new ItemStack(Blocks.stained_glass_pane, 1, 15 - d2.getDmg()));
                 addEntry(new ItemStack(Blocks.carpet, 1, 15 - d.getDmg()), d2, new ItemStack(Blocks.carpet, 1,15 - d2.getDmg()));
             }
+        } */
+    }
+
+    /**
+     * Run only after all mods are loaded, or you cannot find their blocks/items
+     */
+    public static void postInit() {
+
+        for (DyeableBlockDesc desc : DyeFileHandler.cfgArray) {
+
+            if (!desc.isValid())
+                continue;
+
+            switch (desc.type) {
+                case SIMPLE:
+                    handleSimpleDesc(desc);
+                    break;
+                case VANILLA:
+                    handleVanillaDesc(desc);
+                    break;
+                case FULL_META:
+                    break;
+                case FULL_BLOCK:
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Convert the name to an itemstack
+     * Default meta of 0
+     */
+    private static ItemStack getItemStackFromRegistry(String name) {
+
+        Block block = GameData.getBlockRegistry().getObject(name);
+        if (block != null && block != Blocks.air)
+            return new ItemStack(block);
+
+        /* Not a block, get the item */
+        Item item = GameData.getItemRegistry().getObject(name);
+        if (item != null)
+            return new ItemStack(item);
+
+        return null;
+    }
+
+    private static void handleSimpleDesc(DyeableBlockDesc desc) {
+
+        if (desc.hasOrigin()) {
+
+        }
+    }
+
+    private static void handleVanillaDesc(DyeableBlockDesc desc) {
+
+        if (!desc.hasBlockName())
+            return;
+
+        ItemStack outStack = getItemStackFromRegistry(desc.blockName);
+        if (outStack == null)
+            return;
+
+        if (desc.hasOrigin()) {
+
+            ItemStack originStack = getItemStackFromRegistry(desc.originName);
+            if (originStack != null) {
+                originStack.setItemDamage(desc.originMeta);
+
+                for (DyeHelper.DyeType d : DyeHelper.DyeType.VALID_DYES)
+                    addEntry(originStack, d, new ItemStack(outStack.getItem(), 1, 15 - d.getDmg()));
+            }
+        }
+
+        if (desc.associative) {
+
+            for (DyeHelper.DyeType d : DyeHelper.DyeType.VALID_DYES) {
+                for (DyeHelper.DyeType d2 : DyeHelper.DyeType.VALID_DYES) {
+                    if (d == d2)
+                        continue;
+
+                    addEntry(new ItemStack(outStack.getItem(), 1, 15 - d.getDmg()), d2, new ItemStack(outStack.getItem(), 1, 15 - d2.getDmg()));
+                }
+            }
         }
     }
 
     private static void addEntry(ItemStack source, DyeHelper.DyeType dye, ItemStack output) {
 
+        LogHelper.warn("addEntry: " + source + "/" + dye + ":" + dye.getDmg() + " -> " + output);
         ComparableItemStackBlockSafe key = new ComparableItemStackBlockSafe(source.copy());
         HashMap<ComparableItemStackBlockSafe, DyedBlockRecipe> rmap = recipeMap.get(dye.ordinal());
         if (!rmap.containsKey(key)) {
             rmap.put(key, new DyedBlockRecipe(source, dye, output));
         } else {
-            LogHelper.warn("addEntry: duplicate mapping " + source + " " + dye + " " + output);
+            LogHelper.warn("addEntry: DUPLICATE MAPPING");
         }
     }
 
