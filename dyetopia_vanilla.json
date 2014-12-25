@@ -1,0 +1,38 @@
+{
+  "dyeblocks" : [
+    {
+      "refname"     : "Vanilla Stained Clay",
+      "assoc"		: true,
+      "origin"	    : { "name" : "minecraft:hardened_clay", "meta" : 0 },
+      "vanilla"     : { },
+      "blockname"	: "minecraft:stained_hardened_clay"
+    },
+    {
+      "refname"     : "Vanilla Stained Glass",
+      "assoc"		: true,
+      "origin"	    : { "name" : "minecraft:glass", "meta" : 0 },
+      "vanilla"     : { },
+      "blockname"	: "minecraft:stained_glass"
+    },
+    {
+      "refname"     : "Vanilla Stained Glass Pane",
+      "assoc"		: true,
+      "origin"	    : { "name" : "minecraft:glass_pane", "meta" : 0 },
+      "vanilla"     : { },
+      "blockname"	: "minecraft:stained_glass_pane"
+    },
+    {
+      "refname"     : "Vanilla Wool",
+      "assoc"		: true,
+      "vanilla"     : { },
+      "blockname"	: "minecraft:wool"
+    },
+    {
+      "refname"     : "Vanilla Carpet",
+      "assoc"		: true,
+      "vanilla"     : { },
+      "blockname"	: "minecraft:carpet"
+    }
+  ]
+
+}
