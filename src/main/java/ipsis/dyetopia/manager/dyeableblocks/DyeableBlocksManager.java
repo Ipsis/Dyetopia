@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class DyeableBlocksManager {
 
@@ -27,35 +28,22 @@ public class DyeableBlocksManager {
     }
 
     public static void initialise() {
+        /* Nothing anymore */
+    }
 
-        /* hardcoded mapping for now */
+    public static void refreshMap() {
 
-        /**
-         * Vanilla dyes are ordered dmg 0 = black, dmg 15 = white
-         * Colored carpet, wool etc is ordered dmg 0 = white, dmg 15 = black
-         */
-
-        /* Clay, glass, panes  */
-
-        /*
-        for (DyeHelper.DyeType d : DyeHelper.DyeType.VALID_DYES) {
-            addEntry(new ItemStack(Blocks.hardened_clay), d, new ItemStack(Blocks.stained_hardened_clay, 1, 15 - d.getDmg()));
-            addEntry(new ItemStack(Blocks.glass), d, new ItemStack(Blocks.stained_glass, 1, 15 - d.getDmg()));
-            addEntry(new ItemStack(Blocks.glass_pane), d, new ItemStack(Blocks.stained_glass_pane, 1, 15 - d.getDmg()));
-        }
-
-        for (DyeHelper.DyeType d : DyeHelper.DyeType.VALID_DYES) {
-            for (DyeHelper.DyeType d2 : DyeHelper.DyeType.VALID_DYES) {
-                if (d == d2)
-                    continue;
-
-                addEntry(new ItemStack(Blocks.stained_hardened_clay, 1, 15 - d.getDmg()), d2, new ItemStack(Blocks.stained_hardened_clay, 1, 15 - d2.getDmg()));
-                addEntry(new ItemStack(Blocks.wool, 1, 15 - d.getDmg()), d2, new ItemStack(Blocks.wool, 1, 15 - d2.getDmg()));
-                addEntry(new ItemStack(Blocks.stained_glass, 1, 15 - d.getDmg()), d2, new ItemStack(Blocks.stained_glass, 1, 15 - d2.getDmg()));
-                addEntry(new ItemStack(Blocks.stained_glass_pane, 1, 15 - d.getDmg()), d2, new ItemStack(Blocks.stained_glass_pane, 1, 15 - d2.getDmg()));
-                addEntry(new ItemStack(Blocks.carpet, 1, 15 - d.getDmg()), d2, new ItemStack(Blocks.carpet, 1,15 - d2.getDmg()));
+        /* Update the hashes */
+        for (int i = 0; i < 16; i++) {
+            HashMap<ComparableItemStackBlockSafe, DyedBlockRecipe> map = new HashMap<ComparableItemStackBlockSafe, DyedBlockRecipe>(recipeMap.get(i).size());
+            for (Map.Entry entry : recipeMap.get(i).entrySet()) {
+                DyedBlockRecipe r = (DyedBlockRecipe) entry.getValue();
+                map.put(new ComparableItemStackBlockSafe(r.getInput()), r);
             }
-        } */
+
+            recipeMap.get(i).clear();
+            recipeMap.set(i, map);
+        }
     }
 
     /**
@@ -113,13 +101,35 @@ public class DyeableBlocksManager {
 
     private static void handleSimpleDesc(DyeableBlockDesc desc) {
 
+        /* WHITE = 0, BLACK = 15 */
+        ItemStack outStack = getItemStackFromRegistry(desc.blockName);
+        if (outStack == null)
+            return;
+
         if (desc.hasOrigin()) {
 
+            ItemStack originStack = getItemStackFromRegistry(desc.originName);
+            if (originStack != null) {
+                originStack.setItemDamage(desc.originMeta);
+
+                for (DyeHelper.DyeType d : DyeHelper.DyeType.VALID_DYES)
+                    addEntry(originStack, d, new ItemStack(outStack.getItem(), 1, d.ordinal()));
+            }
+        }
+
+        for (DyeHelper.DyeType d : DyeHelper.DyeType.VALID_DYES) {
+            for (DyeHelper.DyeType d2 : DyeHelper.DyeType.VALID_DYES) {
+                if (d == d2)
+                    continue;
+
+                addEntry(new ItemStack(outStack.getItem(), 1, d.ordinal()), d2, new ItemStack(outStack.getItem(), 1, d2.ordinal()));
+            }
         }
     }
 
     private static void handleVanillaDesc(DyeableBlockDesc desc) {
 
+        /* WHITE = 15, BLACK = 0 */
         ItemStack outStack = getItemStackFromRegistry(desc.blockName);
         if (outStack == null)
             return;
@@ -150,7 +160,6 @@ public class DyeableBlocksManager {
 
     private static void addEntry(ItemStack source, DyeHelper.DyeType dye, ItemStack output) {
 
-        LogHelper.warn("addEntry: " + source + "/" + dye + ":" + dye.getDmg() + " -> " + output);
         ComparableItemStackBlockSafe key = new ComparableItemStackBlockSafe(source.copy());
         HashMap<ComparableItemStackBlockSafe, DyedBlockRecipe> rmap = recipeMap.get(dye.ordinal());
         if (!rmap.containsKey(key)) {
@@ -204,7 +213,7 @@ public class DyeableBlocksManager {
 
         ComparableItemStackBlockSafe key = new ComparableItemStackBlockSafe(source);
         HashMap<ComparableItemStackBlockSafe, DyedBlockRecipe> rmap = recipeMap.get(dye.ordinal());
-
+        LogHelper.info("getDyedBlock:" + source + "/" + key.hashCode());
         return rmap.get(key);
     }
 

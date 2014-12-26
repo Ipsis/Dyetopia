@@ -119,6 +119,17 @@ public class SqueezerManager {
         return r;
     }
 
+    public static void refreshMap() {
+
+        HashMap<ComparableItemStackSafe, SqueezerRecipe> remapped = new HashMap<ComparableItemStackSafe, SqueezerRecipe>(recipes.size());
+        for (Map.Entry entry : recipes.entrySet()) {
+            SqueezerRecipe r = (SqueezerRecipe)entry.getValue();
+            remapped.put(new ComparableItemStackSafe(r.getInput()), r);
+        }
+        recipes.clear();
+        recipes = remapped;
+    }
+
     public static class SqueezerRecipe implements IFactoryRecipe {
 
         private ItemStack input;

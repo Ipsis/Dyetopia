@@ -1,10 +1,13 @@
 package ipsis.dyetopia;
 
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.event.*;
+import ipsis.dyetopia.handler.BucketHandler;
 import ipsis.dyetopia.handler.DyeFileHandler;
 import ipsis.dyetopia.init.*;
 import ipsis.dyetopia.gui.GuiHandler;
 import ipsis.dyetopia.manager.*;
+import ipsis.dyetopia.manager.dyeableblocks.DyeableBlockDesc;
 import ipsis.dyetopia.manager.dyeableblocks.DyeableBlocksManager;
 import ipsis.dyetopia.network.PacketHandler;
 import ipsis.dyetopia.proxy.IProxy;
@@ -12,10 +15,6 @@ import ipsis.dyetopia.reference.Reference;
 import ipsis.dyetopia.handler.ConfigHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLInterModComms;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import ipsis.dyetopia.world.gen.feature.DYTWorldGen;
 
@@ -69,8 +68,6 @@ public class Dyetopia {
         StamperManager.initialise();
         DyeableBlocksManager.initialise();
 
-        DyeSourceManager.getInstance().initialize();
-
         Recipes.init();
     }
 
@@ -82,5 +79,20 @@ public class Dyetopia {
         ModBlocks.postInit();
         DYTWorldGen.postInit();
         DyeableBlocksManager.postInit();
+    }
+
+    @Mod.EventHandler
+    public void handleModIdMapping(FMLModIdMappingEvent event) {
+
+        /**
+         * All managers that use ComparableItemStack must refresh their entries
+         * This is because the ids that are assigned at initialisation can be remapped if a the mods that are loaded are
+         * different. The lookups are then performed with remapped ids.
+         * eg. mod item stone id 127 on boot, mod item stone remapped to 278 o world load
+         */
+        BucketHandler.INSTANCE.refreshMap();
+        SqueezerManager.refreshMap();
+        DyeableBlocksManager.refreshMap();
+
     }
 }
