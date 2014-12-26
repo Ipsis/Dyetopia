@@ -1,0 +1,67 @@
+{
+	"mods": [
+	  {
+		"id": "ThermalExpansion",
+		"maps": [
+		  {
+			"refname": "Rockwool",
+			"assoc": true,
+			"blockname": "ThermalExpansion:Rockwool",
+			"vanilla": {}
+		  }
+		]
+	  },
+	  {
+		"id": "ExtraUtilities",
+		"maps": [
+		  {
+			"refname": "Colored Stone Bricks",
+			"assoc": true,
+			"blockname": "ExtraUtilities:colorStoneBricks",
+			"vanilla": {}
+		  },
+		  {
+			"refname": "Colored Oak Wood Planks",
+			"assoc": true,
+			"blockname": "ExtraUtilities:colorWoodPlanks",
+			"vanilla": {}
+		  },
+		  {
+			"refname": "Colored Glowstone",
+			"assoc": true,
+			"blockname": "ExtraUtilities:color_lightgem",
+			"vanilla": {}
+		  },
+		  {
+			"refname": "Colored Stone",
+			"assoc": true,
+			"blockname": "ExtraUtilities:color_stone",
+			"vanilla": {}
+		  },
+		  {
+			"refname": "Colored Block Of Quartz",
+			"assoc": true,
+			"blockname": "ExtraUtilities:color_quartzBlock",
+			"vanilla": {}
+		  },
+		  {
+			"refname": "Colored Soul Sand",
+			"assoc": true,
+			"blockname": "ExtraUtilities:color_hellsand",
+			"vanilla": {}
+		  },
+		  {
+			"refname": "Colored Redstone Lamp",
+			"assoc": true,
+			"blockname": "ExtraUtilities:color_redstoneLight",
+			"vanilla": {}
+		  }
+		]
+	  },
+	  {
+		"id": "Railcraft",
+		"maps": [
+		]
+	  }
+	]
+}

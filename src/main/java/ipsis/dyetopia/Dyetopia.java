@@ -42,8 +42,7 @@ public class Dyetopia {
 
         ModOreDict.preInit();
 
-        DyeFileHandler.load(event.getModConfigurationDirectory() + "\\dyetopia_vanilla.json");
-        DyeFileHandler.load(event.getModConfigurationDirectory() + "\\dyetopia_blocks.json");
+        DyeFileHandler.getInstance().load(event.getModConfigurationDirectory());
 
         FMLInterModComms.sendMessage("Waila", "register", "ipsis.dyetopia.plugins.waila.DYTWailaProvider.callbackRegister");
     }

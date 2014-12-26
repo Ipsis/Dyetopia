@@ -63,24 +63,32 @@ public class DyeableBlocksManager {
      */
     public static void postInit() {
 
-        for (DyeableBlockDesc desc : DyeFileHandler.cfgArray) {
+        for (DyeableModInfo modInfo : DyeFileHandler.getInstance().cfgArray) {
 
-            if (!desc.isValid())
+            if (!modInfo.isLoaded()) {
+                LogHelper.info("DyeableBlocksManager: skipping " + modInfo.modid + " not loaded");
                 continue;
+            }
 
-            switch (desc.type) {
-                case SIMPLE:
-                    handleSimpleDesc(desc);
-                    break;
-                case VANILLA:
-                    handleVanillaDesc(desc);
-                    break;
-                case FULL_META:
-                    break;
-                case FULL_BLOCK:
-                    break;
-                default:
-                    break;
+            for (DyeableBlockDesc desc : modInfo.mappings) {
+
+                if (!desc.isValid())
+                    continue;
+
+                switch (desc.type) {
+                    case SIMPLE:
+                        handleSimpleDesc(desc);
+                        break;
+                    case VANILLA:
+                        handleVanillaDesc(desc);
+                        break;
+                    case FULL_META:
+                        break;
+                    case FULL_BLOCK:
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
@@ -111,9 +119,6 @@ public class DyeableBlocksManager {
     }
 
     private static void handleVanillaDesc(DyeableBlockDesc desc) {
-
-        if (!desc.hasBlockName())
-            return;
 
         ItemStack outStack = getItemStackFromRegistry(desc.blockName);
         if (outStack == null)

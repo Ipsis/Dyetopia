@@ -13,6 +13,11 @@ public class DyeableBlockDesc {
         INVALID
     }
 
+    @Override
+    public String toString() {
+        return refname + ":" + blockName + ":" + type;
+    }
+
     public static class BlockMapDesc {
         public String name;
         public int meta;
@@ -91,12 +96,6 @@ public class DyeableBlockDesc {
     public void setMetaMap(int idx, int v) {
         if (metaMap != null && idx >= 0 && idx < 16)
             metaMap[idx] = v;
-    }
-
-    public void addBlockDesc(DyeableBlockDesc desc) {
-
-        if (type != MapType.INVALID)
-            DyeFileHandler.cfgArray.add(desc);
     }
 
     public boolean hasOrigin() {
