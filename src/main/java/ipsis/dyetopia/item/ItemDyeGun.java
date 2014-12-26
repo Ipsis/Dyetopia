@@ -15,6 +15,7 @@ import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockColored;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -227,7 +228,7 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
             return true;
 
         Block b = world.getBlock(x, y, z);
-        if (!b.isAir(world, x, y, z) && !(b instanceof ITileEntityProvider)) {
+        if (!b.isAir(world, x, y, z) && !(b instanceof ITileEntityProvider) && !(b instanceof BlockContainer)) {
             int meta = world.getBlockMetadata(x, y, z);
 
             DyeableBlocksManager.DyedBlockRecipe r = DyeableBlocksManager.getDyedBlock(new ItemStack(b, 1, meta), ((ItemDyeGun) itemStack.getItem()).getColor(itemStack));

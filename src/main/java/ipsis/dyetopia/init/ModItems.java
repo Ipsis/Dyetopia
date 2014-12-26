@@ -41,6 +41,10 @@ public class ModItems {
         GameRegistry.registerItem(itemDyeDrop, "item." + Names.Items.ITEM_DYE_DROP);
         GameRegistry.registerItem(itemDyeBeans, "item." + Names.Items.ITEM_DYE_BEANS);
         GameRegistry.registerItem(itemDyeChunk, "item" + Names.Items.ITEM_DYE_CHUNK);
+
+        /* debug only */
+        itemDebug = new ItemDebug();
+        GameRegistry.registerItem(itemDebug, "item.debug");
     }
 
     public static void initialize() {
@@ -70,4 +74,7 @@ public class ModItems {
     public static ItemDYT itemDyeDrop;
     public static ItemDYT itemDyeBeans;
     public static ItemDYT itemDyeChunk;
+
+    /* debug only */
+    public static ItemDYT itemDebug;
 }
