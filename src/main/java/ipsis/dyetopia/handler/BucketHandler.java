@@ -38,8 +38,4 @@ public class BucketHandler {
             event.result = new ItemStack(bucket, 1);
         }
     }
-
-    public void refreshMap() {
-
-    }
 }

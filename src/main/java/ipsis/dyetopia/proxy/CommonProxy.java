@@ -28,6 +28,7 @@ public abstract class CommonProxy implements IProxy {
 
         MinecraftForge.EVENT_BUS.register(this);
 
+        /* Add our liquids and register our bucket handler */
         BucketHandler.INSTANCE.buckets.put(ModBlocks.blockFluidDyeRed, ModItems.bucketDyeRed);
         BucketHandler.INSTANCE.buckets.put(ModBlocks.blockFluidDyeYellow, ModItems.bucketDyeYellow);
         BucketHandler.INSTANCE.buckets.put(ModBlocks.blockFluidDyeBlue, ModItems.bucketDyeBlue);

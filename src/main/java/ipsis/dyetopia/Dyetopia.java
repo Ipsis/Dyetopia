@@ -90,7 +90,6 @@ public class Dyetopia {
          * different. The lookups are then performed with remapped ids.
          * eg. mod item stone id 127 on boot, mod item stone remapped to 278 o world load
          */
-        BucketHandler.INSTANCE.refreshMap();
         SqueezerManager.refreshMap();
         DyeableBlocksManager.refreshMap();
 
