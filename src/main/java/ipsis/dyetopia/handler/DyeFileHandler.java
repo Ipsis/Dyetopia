@@ -3,8 +3,11 @@ package ipsis.dyetopia.handler;
 import com.google.gson.stream.JsonReader;
 import ipsis.dyetopia.manager.dyeableblocks.DyeableBlockDesc;
 import ipsis.dyetopia.manager.dyeableblocks.DyeableModInfo;
+import ipsis.dyetopia.reference.Reference;
 import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.LogHelper;
+import net.minecraft.util.ResourceLocation;
+import sun.rmi.runtime.Log;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -48,23 +51,16 @@ public class DyeFileHandler {
     private static final String TAG_COLOR = "color";
     private static final String TAG_BLOCKNAME = "blockname";
 
-    private static final String VANILLA_FILENAME = "\\dyetopia_vanilla.json";
-    private static final String MODDED_FILENAME = "\\dyetopia_blocks.json";
-
-
-    private boolean doesFileExist(String file) {
-
-        /** EE3 Serialization Helper dataFileExist */
-
-        //if (FMLCommonHandler.instance().getMinecraftServerInstance() == null)
-        //    return false;
-
-        File configFile = new File(file);
-        if (configFile.exists() && configFile.isFile())
-            return true;
-
-        return false;
-    }
+    /** There are three files to load
+     * Vanilla is a mod shipped file specifying the vanilla blocks
+     * Modded is a mod shipped file specifying predefined modded blocks
+     * CustomMap is a user created config file specifying extra modded blocks
+     *
+     */
+    private static final String VANILLA_FILENAME = "dyetopia_vanilla.json";
+    private static final String MODDED_FILENAME = "dyetopia_modded.json";
+    private static final String USERCUSTOM_FILENAME = "dyetopia_custommaps.json";
+    private static final String ASSET_PATH = "/assets/" + Reference.MOD_ID;
 
     private void readOrigin(DyeableBlockDesc desc, JsonReader reader) throws IOException {
 
@@ -212,20 +208,57 @@ public class DyeFileHandler {
         reader.endArray();
     }
 
-    public  void load(File configDir) {
+    public void load(File configDir) {
 
-        load(configDir + VANILLA_FILENAME);
-        load(configDir + MODDED_FILENAME);
+        InputStream inStream;
+
+        inStream = getClass().getResourceAsStream(ASSET_PATH + "/" + VANILLA_FILENAME);
+        if (inStream == null) {
+            LogHelper.warn("Could not find " + VANILLA_FILENAME);
+        } else {
+            LogHelper.info("Loading " + ASSET_PATH + "/" + VANILLA_FILENAME);
+            loadFromStream(inStream);
+        }
+
+        inStream = getClass().getResourceAsStream(ASSET_PATH + "/" + MODDED_FILENAME);
+        if (inStream == null) {
+            LogHelper.warn("Could not find " + MODDED_FILENAME);
+        } else {
+            LogHelper.info("Loading " + ASSET_PATH + "/" + MODDED_FILENAME);
+            loadFromStream(inStream);
+        }
+
+        /* Load the user configuration last */
+        loadUserConfig(configDir);
+
     }
 
-    private void load(String jsonFile) {
+    private void loadUserConfig(File configDir) {
 
-        if (!doesFileExist(jsonFile))
+        try {
+            JsonReader reader = new JsonReader(new FileReader(configDir.toPath() + USERCUSTOM_FILENAME));
+            LogHelper.info("Loading " + USERCUSTOM_FILENAME);
+            load(reader);
+        } catch (FileNotFoundException ignored) {
+            LogHelper.info("No user configuration file " + USERCUSTOM_FILENAME);
+        }
+    }
+
+    private void loadFromStream(InputStream in) {
+
+        if (in == null)
             return;
 
-        JsonReader reader;
+        JsonReader reader = new JsonReader(new InputStreamReader(in));
+        load(reader);
+    }
+
+    private void load(JsonReader reader) {
+
+        if (reader == null)
+            return;
+
         try {
-            reader = new JsonReader(new FileReader(jsonFile));
             reader.beginObject();
             while (reader.hasNext()) {
                 String name = reader.nextName();
@@ -237,11 +270,7 @@ public class DyeFileHandler {
             }
             reader.endObject();
             reader.close();
-
-        } catch (FileNotFoundException ignored) {
-            LogHelper.warn("DyeFileHandler: cannot find file " + jsonFile);
         } catch (IllegalStateException expected) {
-            LogHelper.warn("DyeFileHandler: invalid file " + jsonFile);
             expected.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
