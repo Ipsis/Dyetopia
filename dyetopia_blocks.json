@@ -17,7 +17,7 @@
 		  {
 			"refname": "Colored Stone Bricks",
 			"assoc": true,
-			"blockname": "ExtraUtilities:colorStoneBricks",
+			"blockname": "ExtraUtilities:colorStoneBrick",
 			"vanilla": {}
 		  },
 		  {
@@ -55,12 +55,91 @@
 			"assoc": true,
 			"blockname": "ExtraUtilities:color_redstoneLight",
 			"vanilla": {}
+		  },
+		  {
+			"refname": "Colored Bricks",
+			"assoc": true,
+			"blockname": "ExtraUtilities:color_brick",
+			"vanilla": { }
+		  },
+		  {
+			"refname": "Colored Cobblestone",
+			"assoc": true,
+			"blockname": "ExtraUtilities:color_stonebrick",
+			"vanilla": { }
+		  },
+		  {
+			"refname": "Colored Lapiz Lazuli",
+			"assoc": true,
+			"blockname": "ExtraUtilities:color_blockLapis",
+			"vanilla": { }
+		  },
+		  {
+			"refname": "Colored Obsidian",
+			"assoc": true,
+			"blockname": "ExtraUtilities:color_obsidian",
+			"vanilla": { }
+		  },
+		  {
+			"refname": "Colored Block Of Redstone",
+			"assoc": true,
+			"blockname": "ExtraUtilities:color_blockRedstone",
+			"vanilla": { }
+		  },
+		  {
+			"refname": "Colored Block Of Coal",
+			"assoc": true,
+			"blockname": "ExtraUtilities:color_blockCoale",
+			"vanilla": { }
+		  },
+		  {
+			"refname": "Colored Greenscreen",
+			"assoc": true,
+			"blockname": "ExtraUtilities:greenscreen",
+			"vanilla": { }
 		  }
 		]
 	  },
 	  {
 		"id": "Railcraft",
 		"maps": [
+		  {
+			"refname": "Strengthened Glass",
+			"assoc": true,
+			"blockname": "Railcraft:tile.railcraft.glass",
+			"vanilla": { }
+		  }
+		]
+	  },
+	  {
+		"id": "ProjectRed-Illumination",
+		"maps": [
+
+		]
+	  },
+	  {
+		"id": "TConstruct",
+		"maps": [
+		  {
+			"refname": "Stained Glass",
+			"assoc": true,
+			"origin": {
+			  "name": "TConstruct:GlassBlock",
+			  "meta": 0
+			},
+			"blockname": "TConstruct:GlassBlock.StainedClear",
+			"vanilla": { }
+		  },
+		  {
+			"refname": "Stained Pane",
+			"assoc": true,
+			"origin": {
+			  "name": "TConstruct:GlassPane",
+			  "meta": 0
+			},
+			"blockname": "TConstruct:GlassPaneClearStained",
+			"vanilla": { }
+		  }
 		]
 	  }
 	]
