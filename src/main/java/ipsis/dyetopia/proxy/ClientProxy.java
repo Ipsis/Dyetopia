@@ -11,6 +11,7 @@ public class ClientProxy extends CommonProxy {
     public void textureHook(TextureStitchEvent.Post event) {
 
         if (event.map.getTextureType() == 0) {
+            /* Only register when the terrain texture type */
             ModFluids.fluidDyeRed.setIcons(ModBlocks.blockFluidDyeRed.getBlockTextureFromSide(1), ModBlocks.blockFluidDyeRed.getBlockTextureFromSide(2));
             ModFluids.fluidDyeYellow.setIcons(ModBlocks.blockFluidDyeYellow.getBlockTextureFromSide(1), ModBlocks.blockFluidDyeYellow.getBlockTextureFromSide(2));
             ModFluids.fluidDyeBlue.setIcons(ModBlocks.blockFluidDyeBlue.getBlockTextureFromSide(1), ModBlocks.blockFluidDyeBlue.getBlockTextureFromSide(2));

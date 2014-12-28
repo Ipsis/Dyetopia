@@ -40,6 +40,11 @@ public class BlockFluidDYT extends BlockFluidClassic {
 
     @Override
     public IIcon getIcon(int side, int meta) {
-        return side != 0 && side != 1 ? this.icons[1] : this.icons[side];
+
+        /* For top/bottom return still, all other sides get flowing */
+        if (side == 0 || side == 1)
+            return this.icons[0];
+
+        return this.icons[1];
     }
 }
