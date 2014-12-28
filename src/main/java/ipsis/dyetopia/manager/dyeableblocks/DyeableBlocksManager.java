@@ -213,7 +213,6 @@ public class DyeableBlocksManager {
 
         ComparableItemStackBlockSafe key = new ComparableItemStackBlockSafe(source);
         HashMap<ComparableItemStackBlockSafe, DyedBlockRecipe> rmap = recipeMap.get(dye.ordinal());
-        LogHelper.info("getDyedBlock:" + source + "/" + key.hashCode());
         return rmap.get(key);
     }
 
