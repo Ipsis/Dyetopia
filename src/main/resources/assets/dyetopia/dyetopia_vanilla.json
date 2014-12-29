@@ -1,4 +1,8 @@
 {
+    "blacklist": {
+      "mods": [ ],
+      "blocks": [ ]
+    },
     "mods": [
       {
         "id": "vanilla",

@@ -102,7 +102,15 @@ public class DyeableBlockDesc {
         return originMeta != -1 && originName != null;
     }
 
+    public boolean isOriginBlacklisted() {
+        return (hasOrigin() && DyeFileHandler.getInstance().isBlockBlacklisted(originName));
+    }
+
     public boolean hasBlockName() {
         return blockName != null && !blockName.equals("");
+    }
+
+    public boolean isBlockBlacklisted() {
+        return (hasBlockName() && DyeFileHandler.getInstance().isBlockBlacklisted(blockName));
     }
 }

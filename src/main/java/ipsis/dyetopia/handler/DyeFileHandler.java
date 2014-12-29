@@ -1,6 +1,7 @@
 package ipsis.dyetopia.handler;
 
 import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import ipsis.dyetopia.manager.dyeableblocks.DyeableBlockDesc;
 import ipsis.dyetopia.manager.dyeableblocks.DyeableModInfo;
 import ipsis.dyetopia.reference.Reference;
@@ -26,12 +27,24 @@ import java.util.ArrayList;
 public class DyeFileHandler {
 
     public ArrayList<DyeableModInfo> cfgArray;
+    private ArrayList<String> modBlacklist;
+    private ArrayList<String> blockBlacklist;
 
     private static final DyeFileHandler instance = new DyeFileHandler();
     public static final DyeFileHandler getInstance() { return instance; }
 
     private DyeFileHandler() {
         cfgArray = new ArrayList<DyeableModInfo>();
+        modBlacklist = new ArrayList<String>();
+        blockBlacklist = new ArrayList<String>();
+    }
+
+    public boolean isModBlacklisted(String mod) {
+        return modBlacklist.contains(mod);
+    }
+
+    public boolean isBlockBlacklisted(String block) {
+        return blockBlacklist.contains(block);
     }
 
     private static final String TAG_DYEBLOCK = "dyeblocks";
@@ -50,6 +63,8 @@ public class DyeFileHandler {
     private static final String TAG_META = "meta";
     private static final String TAG_COLOR = "color";
     private static final String TAG_BLOCKNAME = "blockname";
+    private static final String TAG_BLACKLIST = "blacklist";
+    private static final String TAG_BLOCKS = "blocks";
 
     /** There are three files to load
      * Vanilla is a mod shipped file specifying the vanilla blocks
@@ -208,6 +223,34 @@ public class DyeFileHandler {
         reader.endArray();
     }
 
+    private void readBlacklists(JsonReader reader) throws IOException {
+
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            if (name.equals(TAG_MODS)) {
+                reader.beginArray();
+                while (reader.hasNext()) {
+                    String mod = reader.nextString();
+                    modBlacklist.add(mod);
+                }
+                reader.endArray();
+            }
+            else if (name.equals(TAG_BLOCKS)) {
+                reader.beginArray();
+                while (reader.hasNext()) {
+                    String blockname = reader.nextString();
+                    blockBlacklist.add(blockname);
+                }
+                reader.endArray();
+            }
+            else {
+                reader.skipValue();
+            }
+        }
+        reader.endObject();
+    }
+
     public void load(File configDir) {
 
         InputStream inStream;
@@ -236,11 +279,44 @@ public class DyeFileHandler {
     private void loadUserConfig(File configDir) {
 
         try {
-            JsonReader reader = new JsonReader(new FileReader(configDir.toPath() + USERCUSTOM_FILENAME));
+            JsonReader reader = new JsonReader(new FileReader(configDir.toPath() + "/" + USERCUSTOM_FILENAME));
             LogHelper.info("Loading " + USERCUSTOM_FILENAME);
             load(reader);
         } catch (FileNotFoundException ignored) {
-            LogHelper.info("No user configuration file " + USERCUSTOM_FILENAME);
+            /* Create a blank one for the user to edit */
+            writeEmptyUserConfig(configDir);
+        }
+    }
+
+    private void writeEmptyUserConfig(File configDir) {
+
+        JsonWriter writer;
+        try
+        {
+            writer = new JsonWriter(new FileWriter(configDir.toPath() + "/" + USERCUSTOM_FILENAME));
+            writer.setIndent("    ");
+            writer.beginObject();
+
+            writer.name(TAG_BLACKLIST);
+            writer.beginObject();
+            writer.name(TAG_MODS);
+            writer.beginArray();
+            writer.endArray();
+            writer.name(TAG_BLOCKS);
+            writer.beginArray();
+            writer.endArray();
+            writer.endObject();
+
+            writer.name(TAG_MODS);
+            writer.beginArray();
+            writer.endArray();
+
+            writer.endObject();
+            writer.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
         }
     }
 
@@ -264,6 +340,8 @@ public class DyeFileHandler {
                 String name = reader.nextName();
                 if (name.equals(TAG_MODS)) {
                     readMods(reader);
+                } else if (name.equals(TAG_BLACKLIST)) {
+                    readBlacklists(reader);
                 } else {
                     reader.skipValue();
                 }

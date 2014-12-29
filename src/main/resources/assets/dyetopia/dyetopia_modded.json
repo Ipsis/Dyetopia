@@ -1,4 +1,8 @@
 {
+	"blacklist": {
+	  "mods": [ ],
+	  "blocks": [ ]
+	},
 	"mods": [
 	  {
 		"id": "ThermalExpansion",
@@ -108,6 +112,26 @@
 			"assoc": true,
 			"blockname": "Railcraft:tile.railcraft.glass",
 			"vanilla": { }
+		  },
+		  {
+			"refname": "Metal Platform",
+			"assoc": true,
+			"origin": {
+			  "name": "Railcraft:tile.railcraft.post",
+			  "meta": 6
+			},
+			"blockname": "Railcraft:tile.railcraft.post.metal.platform",
+			"simple": { }
+		  },
+		  {
+			"refname": "Metal Post",
+			"assoc": true,
+			"origin": {
+			  "name": "Railcraft:tile.railcraft.post",
+			  "meta": 2
+			},
+			"blockname": "Railcraft:tile.railcraft.post.metal",
+			"simple": { }
 		  }
 		]
 	  },

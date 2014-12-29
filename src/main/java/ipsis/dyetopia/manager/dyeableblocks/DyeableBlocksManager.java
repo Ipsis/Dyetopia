@@ -1,7 +1,6 @@
 package ipsis.dyetopia.manager.dyeableblocks;
 
 import cpw.mods.fml.common.registry.GameData;
-import cpw.mods.fml.common.registry.GameRegistry;
 import ipsis.dyetopia.handler.DyeFileHandler;
 import ipsis.dyetopia.manager.IFactoryRecipe;
 import ipsis.dyetopia.reference.Settings;
@@ -58,6 +57,11 @@ public class DyeableBlocksManager {
                 continue;
             }
 
+            if (DyeFileHandler.getInstance().isModBlacklisted(modInfo.modid)) {
+                LogHelper.info("DyeableBlocksManager: skipping " + modInfo.modid + " blacklisted");
+                continue;
+            }
+
             for (DyeableBlockDesc desc : modInfo.mappings) {
 
                 if (!desc.isValid())
@@ -101,6 +105,11 @@ public class DyeableBlocksManager {
 
     private static void handleSimpleDesc(DyeableBlockDesc desc) {
 
+        if (desc.isBlockBlacklisted()) {
+            LogHelper.info("DyeableBlocksManager: skipping " + desc.refname + " target block blacklisted " + desc.blockName);
+            return;
+        }
+
         /* WHITE = 0, BLACK = 15 */
         ItemStack outStack = getItemStackFromRegistry(desc.blockName);
         if (outStack == null)
@@ -108,12 +117,16 @@ public class DyeableBlocksManager {
 
         if (desc.hasOrigin()) {
 
-            ItemStack originStack = getItemStackFromRegistry(desc.originName);
-            if (originStack != null) {
-                originStack.setItemDamage(desc.originMeta);
+            if (!desc.isOriginBlacklisted()) {
+                LogHelper.info("DyeableBlocksManager: skipping " + desc.refname + " origin, blacklisted " + desc.blockName);
+            } else {
+                ItemStack originStack = getItemStackFromRegistry(desc.originName);
+                if (originStack != null) {
+                    originStack.setItemDamage(desc.originMeta);
 
-                for (DyeHelper.DyeType d : DyeHelper.DyeType.VALID_DYES)
-                    addEntry(originStack, d, new ItemStack(outStack.getItem(), 1, d.ordinal()));
+                    for (DyeHelper.DyeType d : DyeHelper.DyeType.VALID_DYES)
+                        addEntry(originStack, d, new ItemStack(outStack.getItem(), 1, d.ordinal()));
+                }
             }
         }
 
@@ -129,6 +142,11 @@ public class DyeableBlocksManager {
 
     private static void handleVanillaDesc(DyeableBlockDesc desc) {
 
+        if (desc.isBlockBlacklisted()) {
+            LogHelper.info("DyeableBlocksManager: skipping " + desc.refname + " target block blacklisted " + desc.blockName);
+            return;
+        }
+
         /* WHITE = 15, BLACK = 0 */
         ItemStack outStack = getItemStackFromRegistry(desc.blockName);
         if (outStack == null)
@@ -136,12 +154,16 @@ public class DyeableBlocksManager {
 
         if (desc.hasOrigin()) {
 
-            ItemStack originStack = getItemStackFromRegistry(desc.originName);
-            if (originStack != null) {
-                originStack.setItemDamage(desc.originMeta);
+            if (!desc.isOriginBlacklisted()) {
+                LogHelper.info("DyeableBlocksManager: skipping " + desc.refname + " origin, blacklisted " + desc.blockName);
+            } else {
+                ItemStack originStack = getItemStackFromRegistry(desc.originName);
+                if (originStack != null) {
+                    originStack.setItemDamage(desc.originMeta);
 
-                for (DyeHelper.DyeType d : DyeHelper.DyeType.VALID_DYES)
-                    addEntry(originStack, d, new ItemStack(outStack.getItem(), 1, 15 - d.getDmg()));
+                    for (DyeHelper.DyeType d : DyeHelper.DyeType.VALID_DYES)
+                        addEntry(originStack, d, new ItemStack(outStack.getItem(), 1, 15 - d.getDmg()));
+                }
             }
         }
 
