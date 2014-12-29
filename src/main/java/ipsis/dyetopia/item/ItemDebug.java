@@ -1,6 +1,8 @@
 package ipsis.dyetopia.item;
 
+import ipsis.dyetopia.manager.dyeableblocks.DyeableBlocksManager;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -28,8 +30,13 @@ public class ItemDebug extends ItemDYT {
         if (!b.isAir(world, x, y, z)) {
             player.addChatComponentMessage(new ChatComponentText("Block:" + b + "meta:" + world.getBlockMetadata(x, y, z)));
             player.addChatComponentMessage(new ChatComponentText("Block: item:" + b.getItem(world, x, y, z)));
+            player.addChatComponentMessage(new ChatComponentText("Block: name:" + b.getUnlocalizedName()));
+            player.addChatComponentMessage(new ChatComponentText("Block: origin: " + DyeableBlocksManager.hasOrigin(new ItemStack(b, 1, world.getBlockMetadata(x, y, z)))));
             if (b instanceof ITileEntityProvider)
                 player.addChatComponentMessage(new ChatComponentText("Block is a TEProvider"));
+            if (b instanceof BlockContainer)
+                player.addChatComponentMessage(new ChatComponentText("Block is a BlockContainer"));
+
         }
 
         return true;
