@@ -19,12 +19,12 @@ import java.util.Map;
 public class DyeableBlocksManager {
 
     private static class OriginInfo {
-        public ItemStack in;
-        public ItemStack out;
+        public ItemStack block; /* hashmap key */
+        public ItemStack origin;
 
-        public OriginInfo(ItemStack in, ItemStack out) {
-            this.in = in;
-            this.out = out;
+        public OriginInfo(ItemStack origin, ItemStack block) {
+            this.origin = origin;
+            this.block = block;
         }
 
         private OriginInfo() { }
@@ -61,7 +61,7 @@ public class DyeableBlocksManager {
         HashMap<ComparableItemStackBlockSafe, OriginInfo> map = new HashMap<ComparableItemStackBlockSafe, OriginInfo>();
         for (Map.Entry entry : originMap.entrySet()) {
             OriginInfo info = (OriginInfo)entry.getValue();
-            map.put(new ComparableItemStackBlockSafe(info.in), info);
+            map.put(new ComparableItemStackBlockSafe(info.block), info);
         }
 
         originMap.clear();
@@ -227,16 +227,23 @@ public class DyeableBlocksManager {
         }
     }
 
-    private static void addOrigin(ItemStack origin, ItemStack output) {
-
-        LogHelper.info("addOrigin: " + output + "->" + origin);
-        ComparableItemStackBlockSafe key = new ComparableItemStackBlockSafe(output.copy());
-        originMap.put(key, new OriginInfo(origin, output));
+    private static void addOrigin(ItemStack origin, ItemStack block) {
+        
+        ComparableItemStackBlockSafe key = new ComparableItemStackBlockSafe(block.copy());
+        originMap.put(key, new OriginInfo(origin, block));
     }
 
-    public static boolean hasOrigin(ItemStack input) {
+    public static boolean hasOrigin(ItemStack itemStack) {
 
-        return originMap.containsKey(new ComparableItemStackBlockSafe(input));
+        return originMap.containsKey(new ComparableItemStackBlockSafe(itemStack));
+    }
+
+    public static ItemStack getOrigin(ItemStack itemStack) {
+
+        if (!hasOrigin(itemStack))
+            return null;
+
+        return originMap.get(new ComparableItemStackBlockSafe(itemStack)).origin.copy();
     }
 
     public static class DyedBlockRecipe implements IFactoryRecipe {

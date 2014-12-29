@@ -33,7 +33,7 @@ public class ModItems {
         GameRegistry.registerItem(bucketDyeWhite, "item.bucketDyeWhite");
         GameRegistry.registerItem(bucketDyePure, "item.bucketDyePure");
 
-        //GameRegistry.registerItem(itemEraser, "item.eraser");
+        GameRegistry.registerItem(itemEraser, "item.eraser");
         GameRegistry.registerItem(itemDyeBlank, "item.dyeBlank");
         GameRegistry.registerItem(itemDyeGun, "item." + Names.Items.ITEM_DYE_GUN);
 

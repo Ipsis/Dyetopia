@@ -1,5 +1,9 @@
 package ipsis.dyetopia.item;
 
+import ipsis.dyetopia.init.ModItems;
+import ipsis.dyetopia.manager.dyeableblocks.DyeableBlocksManager;
+import ipsis.dyetopia.util.BlockSwapper;
+import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,17 +22,22 @@ public class ItemEraser extends ItemDYT {
     @Override
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
 
-        if (world.isRemote || !player.canPlayerEdit(x, y, z, side, stack))
+        if (world.isRemote || player.isSneaking())
             return false;
+
+        if (!player.canPlayerEdit(x, y, z, side, stack))
+            return true;
 
         Block b = world.getBlock(x, y, z);
         if (b != null && !b.isAir(world, x, y, z) && !(b instanceof ITileEntityProvider)) {
 
-            /* ItemStack origin = OriginHelper.getOrigin(new ItemStack(b));
-            if (origin != null)
-                return BlockSwapper.swap(player, world, x, y, z, origin); */
+            int meta = world.getBlockMetadata(x, y, z);
+
+            ItemStack originStack = DyeableBlocksManager.getOrigin(new ItemStack(b, 1, meta));
+            if (originStack != null)
+                BlockSwapper.swap(player, world, x, y, z, originStack);
         }
 
-        return false;
+        return true;
     }
 }
