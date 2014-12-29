@@ -8,7 +8,8 @@ Create liquid pure dye and use it to create dye items and color blocks.
 (You even get a dye gun).
 
 * [Minecraft Forum Thread](http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/2262586-dyetopia-fraking-flowers)
-* [CurseForge Project Page](TBD)
+* [CurseForge Project Page](http://minecraft.curseforge.com/mc-mods/226037-dyetopia)
+* [Website](http://www.zen121381.zen.co.uk/dyetopia/index.shtml)
 
 #Credits
 I rely heavily on CoFHLib for help with the GUI code and some other bits and pieces.
