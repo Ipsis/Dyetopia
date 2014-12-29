@@ -232,6 +232,7 @@ public class DyeFileHandler {
                 reader.beginArray();
                 while (reader.hasNext()) {
                     String mod = reader.nextString();
+                    LogHelper.info("Blacklist mod " + mod);
                     modBlacklist.add(mod);
                 }
                 reader.endArray();
@@ -240,6 +241,7 @@ public class DyeFileHandler {
                 reader.beginArray();
                 while (reader.hasNext()) {
                     String blockname = reader.nextString();
+                    LogHelper.info("Blacklist: block " + blockname);
                     blockBlacklist.add(blockname);
                 }
                 reader.endArray();
