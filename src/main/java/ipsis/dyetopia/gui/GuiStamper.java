@@ -1,24 +1,20 @@
 package ipsis.dyetopia.gui;
 
 import cofh.lib.gui.GuiBase;
-import cofh.lib.gui.element.ElementButton;
-import cofh.lib.gui.element.ElementDualScaled;
-import cofh.lib.gui.element.ElementEnergyStored;
-import cofh.lib.gui.element.ElementFluidTank;
+import cofh.lib.gui.element.*;
 import ipsis.dyetopia.gui.container.ContainerStamper;
-import ipsis.dyetopia.gui.element.ElementEnergyStoredDYT;
-import ipsis.dyetopia.gui.element.ElementFluidTankDYT;
-import ipsis.dyetopia.gui.element.ElementIcon;
-import ipsis.dyetopia.gui.element.ElementProgressBar;
+import ipsis.dyetopia.gui.element.*;
+import ipsis.dyetopia.proxy.ClientProxy;
 import ipsis.dyetopia.reference.Reference;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntityStamper;
 import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.TankType;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
-public class GuiStamper extends GuiBase {
+public class GuiStamper extends GuiBaseDYT {
 
     private static final String TEXTURE_STR = new String(Textures.Gui.GUI_STAMPER);
     private static final ResourceLocation TEXTURE = new ResourceLocation(TEXTURE_STR);
@@ -63,6 +59,9 @@ public class GuiStamper extends GuiBase {
 
         this.selected = ((ElementIcon)addElement(new ElementIcon(this, 78, 62).setIcon(DyeHelper.DyeType.BLACK.getIcon())));
         addElement(selected);
+
+        addTab(new TabEnergy(this, TabBase.RIGHT, this.stamper));
+        addTab(new TabInfo(this, TabBase.LEFT, "Lots of wonderful text explaining how to use this block"));
     }
 
     @Override

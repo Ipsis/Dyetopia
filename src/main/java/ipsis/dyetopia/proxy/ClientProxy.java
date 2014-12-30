@@ -1,9 +1,14 @@
 package ipsis.dyetopia.proxy;
 
+import com.sun.prism.Texture;
 import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.init.ModBlocks;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import ipsis.dyetopia.util.IconRegistry;
+import net.minecraft.util.IIcon;
 import net.minecraftforge.client.event.TextureStitchEvent;
+
+import java.util.HashMap;
 
 public class ClientProxy extends CommonProxy {
 
@@ -17,6 +22,21 @@ public class ClientProxy extends CommonProxy {
             ModFluids.fluidDyeBlue.setIcons(ModBlocks.blockFluidDyeBlue.getBlockTextureFromSide(1), ModBlocks.blockFluidDyeBlue.getBlockTextureFromSide(2));
             ModFluids.fluidDyeWhite.setIcons(ModBlocks.blockFluidDyeWhite.getBlockTextureFromSide(1), ModBlocks.blockFluidDyeWhite.getBlockTextureFromSide(2));
             ModFluids.fluidDyePure.setIcons(ModBlocks.blockFluidDyePure.getBlockTextureFromSide(1), ModBlocks.blockFluidDyePure.getBlockTextureFromSide(2));
+        }
+    }
+
+    @SubscribeEvent
+    public void registerIcons(TextureStitchEvent.Pre event) {
+
+        if (event.map.getTextureType() == 1) {
+            /* Register our gui icons */
+            IconRegistry.addIcon("Icon_Energy", event.map.registerIcon("dyetopia:icons/Icon_Energy"));
+            IconRegistry.addIcon("Icon_Info", event.map.registerIcon("dyetopia:icons/Icon_Info"));
+
+            IconRegistry.addIcon("Icon_Up_Active", event.map.registerIcon("dyetopia:icons/Icon_Up_Active"));
+            IconRegistry.addIcon("Icon_Up_Inactive", event.map.registerIcon("dyetopia:icons/Icon_Up_Inactive"));
+            IconRegistry.addIcon("Icon_Dn_Active", event.map.registerIcon("dyetopia:icons/Icon_Dn_Active"));
+            IconRegistry.addIcon("Icon_Dn_Inactive", event.map.registerIcon("dyetopia:icons/Icon_Dn_Inactive"));
         }
     }
 }

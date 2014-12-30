@@ -106,3 +106,8 @@ hud.msg.dyetopia:tank.yellowTank=Yellow Tank
 hud.msg.dyetopia:tank.blueTank=Blue Tank
 hud.msg.dyetopia:tank.whiteTank=White Tank
 hud.msg.dyetopia:tank.pureTank=Pure Tank
+
+hud.msg.dyetopia:energy=Energy
+hud.msg.dyetopia:information=Information
+hud.msg.dyetopia:energytick=Energy Per Tick
+hud.msg.dyetopia:energystored=Energy Stored

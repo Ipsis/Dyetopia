@@ -191,6 +191,11 @@ public class TileEntityStamper extends TileEntityMachinePureDye implements ISide
 
     }
 
+    @Override
+    public int getInfoEnergyPerTick() {
+        return getEnergyTick();
+    }
+
     /**
      * Gui
      */

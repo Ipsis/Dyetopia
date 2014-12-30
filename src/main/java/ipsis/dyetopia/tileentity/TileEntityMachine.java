@@ -1,6 +1,7 @@
 package ipsis.dyetopia.tileentity;
 
 import cofh.api.energy.IEnergyHandler;
+import cofh.api.tileentity.IEnergyInfo;
 import ipsis.dyetopia.manager.EnergyManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -13,7 +14,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 /**
  * A single block machine that has an inventory and power
  */
-public class TileEntityMachine extends TileEntityDYT implements IInventory, IEnergyHandler {
+public class TileEntityMachine extends TileEntityDYT implements IInventory, IEnergyHandler, IEnergyInfo {
 
     protected EnergyManager energyMgr;
 
@@ -196,6 +197,27 @@ public class TileEntityMachine extends TileEntityDYT implements IInventory, IEne
     public boolean canConnectEnergy(ForgeDirection forgeDirection) {
 
         return energyMgr.canConnectEnergy(forgeDirection);
+    }
+
+    /**
+     * IEnergyInfo
+     */
+    public int getInfoEnergyPerTick() {
+        return 0;
+    }
+
+    public int getInfoMaxEnergyPerTick() {
+        return 0;
+    }
+
+    public int getInfoEnergyStored() {
+
+        return energyMgr.getEnergyStored(ForgeDirection.DOWN);
+    }
+
+    public int getInfoMaxEnergyStored() {
+
+        return this.getMaxEnergyStored(ForgeDirection.DOWN);
     }
 
 }
