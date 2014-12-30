@@ -34,10 +34,12 @@ public class ItemEraser extends ItemDYT {
             int meta = world.getBlockMetadata(x, y, z);
 
             ItemStack originStack = DyeableBlocksManager.getOrigin(new ItemStack(b, 1, meta));
-            if (originStack != null)
+            if (originStack != null) {
                 BlockSwapper.swap(player, world, x, y, z, originStack);
+                return true;
+            }
         }
 
-        return true;
+        return false;
     }
 }
