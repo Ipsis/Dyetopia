@@ -1,7 +1,7 @@
 Dyetopia ChangeLog
 ==========================
 
-1.7.10-1.0.0B3
+1.7.10-1.1.0B1
 
 Features
 
@@ -10,8 +10,10 @@ Features
 ** Custom config file supported (dyetopia_custommaps.json)
 ** Blacklist mods and blocks
 * Added eraser to uncolor certain blocks (eg. stained glass -> glass, stained hardened clay -> hardended clay)
+* Added tabs on the machine guis to show energy and usage information. (thankyou CoFHLib!)
 
 Fixes
+& BGZ007 - Fix multiblock placement requiring shift clicking.
 * BGZ005 - Fix right click of gui placing held block
 * XXXXXX - Process FMLModIdMappingEvent so that the world loaded ids are used correctly by the ComparableItemStack hashmaps
 
