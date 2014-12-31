@@ -3,6 +3,7 @@ package ipsis.dyetopia.gui.element;
 import cofh.api.tileentity.IEnergyInfo;
 import cofh.lib.gui.GuiBase;
 import cofh.lib.util.helpers.StringHelper;
+import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.reference.Textures;
 import org.lwjgl.opengl.GL11;
 
@@ -26,6 +27,6 @@ public class TabInfo extends TabScrolledText {
     @Override
     public String getTitle() {
 
-        return StringHelper.localize("hud.msg.dyetopia:information");
+        return StringHelper.localize(Lang.TAG_INFO_TITLE);
     }
 }

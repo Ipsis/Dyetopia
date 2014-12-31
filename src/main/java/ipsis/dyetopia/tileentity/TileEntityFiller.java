@@ -126,14 +126,17 @@ public class TileEntityFiller extends TileEntityMachinePureDye implements ISided
 
     @Override
     public void consumeInputs(IFactoryRecipe recipe) {
+        /* NA */
     }
 
     @Override
     public void createOutputs(IFactoryRecipe recipe) {
+        /* NA */
     }
 
     @Override
     public void consumeEnergy(int amount) {
+        /* NA */
     }
 
     @Override
@@ -149,5 +152,9 @@ public class TileEntityFiller extends TileEntityMachinePureDye implements ISided
     @Override
     public void updateRunning(boolean running) {
 
+    }
+
+    public int getInfoEnergyPerTick() {
+        return Settings.Machines.fillerRfTick;
     }
 }

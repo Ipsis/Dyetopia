@@ -101,13 +101,31 @@ tooltip.dyetopia:dyeGun.dyeMagenta=Magenta Dye
 tooltip.dyetopia:dyeGun.dyeOrange=Orange Dye
 tooltip.dyetopia:dyeGun.dyeWhite=White Dye
 
-hud.msg.dyetopia:tank.redTank=Red Tank
-hud.msg.dyetopia:tank.yellowTank=Yellow Tank
-hud.msg.dyetopia:tank.blueTank=Blue Tank
-hud.msg.dyetopia:tank.whiteTank=White Tank
-hud.msg.dyetopia:tank.pureTank=Pure Tank
+# Tab titles
+hud.dyetopia:energy=Energy
+hud.dyetopia:information=Information
 
-hud.msg.dyetopia:energy=Energy
-hud.msg.dyetopia:information=Information
-hud.msg.dyetopia:energytick=Energy Per Tick
-hud.msg.dyetopia:energystored=Energy Stored
+hud.dyetopia:energy.draw=Use Per Tick
+hud.dyetopia:energy.rxtick=Max Rx Per Tick
+hud.dyetopia:energy.stored=Energy Stored
+
+hud.dyetopia:tank=Tanks
+hud.dyetopia:tank.red=Red Tank
+hud.dyetopia:tank.yellow=Yellow Tank
+hud.dyetopia:tank.blue=Blue Tank
+hud.dyetopia:tank.white=White Tank
+hud.dyetopia:tank.pure=Pure Tank
+
+hud.dyetopia:info.squeezer.0=Turn items into dye.
+hud.dyetopia:info.squeezer.1=Put the item in the left slot and for the cost of some RF it will be squashed into the liquid dye.
+hud.dyetopia:info.mixer.0=Those liquid dyes wont do you much good.
+hud.dyetopia:info.mixer.1=You need shiny pure dye.
+hud.dyetopia:info.mixer.2=Pipe the red, yellow, blue and white dyes into this machine and it will mix them together for you.
+hud.dyetopia:info.stamper.0=Stamps out chunks of dye in any color.
+hud.dyetopia:info.stamper.1=Select your output color then put dye blanks into the input slot.
+hud.dyetopia:info.stamper.2=As long as you have enough pure dye and dye blanks, it will keep stamping them out.
+hud.dyetopia:info.painter.0=Block coloring on a bit scale!
+hud.dyetopia:info.painter.1=Select your output color then put your block into the input slot.
+hud.dyetopia:info.painter.2=As long as you have enough pure dye and input blocks, it will keep slapping on the paint.
+hud.dyetopia:info.filler.0=Dye gun in the input slot, pure dye in the tank.
+hud.dyetopia:info.filler.1=Dye gun gets filled up. Simples!

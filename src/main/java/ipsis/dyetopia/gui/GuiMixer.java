@@ -4,10 +4,10 @@ import cofh.lib.gui.GuiBase;
 import cofh.lib.gui.element.ElementDualScaled;
 import cofh.lib.gui.element.ElementEnergyStored;
 import cofh.lib.gui.element.ElementFluidTank;
+import cofh.lib.gui.element.TabBase;
 import ipsis.dyetopia.gui.container.ContainerMixer;
-import ipsis.dyetopia.gui.element.ElementEnergyStoredDYT;
-import ipsis.dyetopia.gui.element.ElementFluidTankDYT;
-import ipsis.dyetopia.gui.element.ElementProgressBar;
+import ipsis.dyetopia.gui.element.*;
+import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.reference.Reference;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntityMixer;
@@ -16,7 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
 
-public class GuiMixer extends GuiBase {
+public class GuiMixer extends GuiBaseDYT {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(Textures.Gui.GUI_MIXER);
 
@@ -49,6 +49,9 @@ public class GuiMixer extends GuiBase {
 
         this.progress = ((ElementProgressBar)addElement(new ElementProgressBar(this, 120, 33, ElementProgressBar.ProgressType.LEFT_TO_RIGHT)));
         addElement(progress);
+
+        addTab(new TabEnergy(this, TabBase.RIGHT, this.mixer));
+        addTab(new TabInfo(this, TabBase.LEFT, buildInfoString(Lang.MIXER_INFO, Lang.MIXER_INFO_LEN)));
     }
 
     @Override

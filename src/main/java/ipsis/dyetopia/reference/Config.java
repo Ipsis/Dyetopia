@@ -12,6 +12,8 @@ public class Config {
         public static final String TANK_CAPACITY_TXT = "Capacity of the machine tanks (mB)";
         public static final String ENERGY_CAPACITY = "energyCapacity";
         public static final String ENERGY_CAPACITY_TXT = "Capacity of the machine energy storage (RF)";
+        public static final String ENERGY_RX_TICK = "energyRxTick";
+        public static final String ENERGY_RX_TICK_TXT = "Receive RF/tick";
         public static final String SQUEEZER_RF_TICK = "squeezerRfTick";
         public static final String SQUEEZER_RF_TICK_TXT = "Squeezer RF/tick";
         public static final String MIXER_RF_TICK = "mixerRfTick";

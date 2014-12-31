@@ -1,6 +1,7 @@
 package ipsis.dyetopia.tileentity;
 
 import cofh.api.energy.IEnergyHandler;
+import cofh.api.tileentity.IEnergyInfo;
 import cofh.lib.util.position.BlockPosition;
 import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.manager.*;
@@ -15,7 +16,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 
-public class TileEntityMixer extends TileEntityMultiBlockMaster implements  ITankHandler, IEnergyHandler, IFactory  {
+public class TileEntityMixer extends TileEntityMultiBlockMaster implements  ITankHandler, IEnergyHandler, IEnergyInfo, IFactory  {
 
     private TankManager tankMgr;
     private EnergyManager energyMgr;
@@ -27,6 +28,7 @@ public class TileEntityMixer extends TileEntityMultiBlockMaster implements  ITan
         super();
         this.setMaster(this);
         energyMgr = new EnergyManager(Settings.Machines.energyCapacity);
+        energyMgr.getEnergyStorage().setMaxTransfer(Settings.Machines.energyRxTick);
         factoryMgr = new FactoryManager(this);
 
         setupTanks();
@@ -246,6 +248,27 @@ public class TileEntityMixer extends TileEntityMultiBlockMaster implements  ITan
             return false;
 
         return energyMgr.canConnectEnergy(forgeDirection);
+    }
+
+    /**
+     * IEnergyInfo
+     */
+    public int getInfoEnergyPerTick() {
+        return getEnergyTick();
+    }
+
+    public int getInfoMaxEnergyPerTick() {
+        return energyMgr.getEnergyStorage().getMaxReceive();
+    }
+
+    public int getInfoEnergyStored() {
+
+        return energyMgr.getEnergyStored(ForgeDirection.DOWN);
+    }
+
+    public int getInfoMaxEnergyStored() {
+
+        return this.getMaxEnergyStored(ForgeDirection.DOWN);
     }
 
     @Override

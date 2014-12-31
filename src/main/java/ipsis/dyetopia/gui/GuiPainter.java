@@ -1,15 +1,10 @@
 package ipsis.dyetopia.gui;
 
 import cofh.lib.gui.GuiBase;
-import cofh.lib.gui.element.ElementButton;
-import cofh.lib.gui.element.ElementDualScaled;
-import cofh.lib.gui.element.ElementEnergyStored;
-import cofh.lib.gui.element.ElementFluidTank;
+import cofh.lib.gui.element.*;
 import ipsis.dyetopia.gui.container.ContainerPainter;
-import ipsis.dyetopia.gui.element.ElementEnergyStoredDYT;
-import ipsis.dyetopia.gui.element.ElementFluidTankDYT;
-import ipsis.dyetopia.gui.element.ElementIcon;
-import ipsis.dyetopia.gui.element.ElementProgressBar;
+import ipsis.dyetopia.gui.element.*;
+import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.reference.Reference;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntityPainter;
@@ -18,7 +13,7 @@ import ipsis.dyetopia.util.TankType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
-public class GuiPainter  extends GuiBase {
+public class GuiPainter  extends GuiBaseDYT {
 
     private static final String TEXTURE_STR = new String(Textures.Gui.GUI_PAINTER);
     private static final ResourceLocation TEXTURE = new ResourceLocation(TEXTURE_STR);
@@ -64,6 +59,9 @@ public class GuiPainter  extends GuiBase {
 
         this.selected = ((ElementIcon)addElement(new ElementIcon(this, 78, 62).setIcon(DyeHelper.DyeType.BLACK.getIcon())));
         addElement(selected);
+
+        addTab(new TabEnergy(this, TabBase.RIGHT, this.painter));
+        addTab(new TabInfo(this, TabBase.LEFT, buildInfoString(Lang.PAINTER_INFO, Lang.PAINTER_INFO_LEN)));
     }
 
     @Override

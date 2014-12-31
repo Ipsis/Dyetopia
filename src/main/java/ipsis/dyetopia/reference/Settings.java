@@ -9,6 +9,7 @@ public class Settings {
     public static class Machines {
         public static final int DEF_TANK_CAPACITY = 16000;
         public static final int DEF_ENERGY_CAPACITY = 50000;
+        public static final int DEF_RX_RF_TICK = 40;
 
         /* Squeezer */
         public static final int DEF_SQUEEZER_RF_TICK = 10;
@@ -31,9 +32,9 @@ public class Settings {
         public static final int DEF_PAINTER_RF_RECIPE = 120;
 
 
-
         public static int tankCapacity;
         public static int energyCapacity;
+        public static int energyRxTick;
 
         public static int squeezerRfTick;
         public static int squeezerRfRecipe;

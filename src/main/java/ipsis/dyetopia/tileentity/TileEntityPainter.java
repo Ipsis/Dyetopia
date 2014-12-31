@@ -198,6 +198,10 @@ public class TileEntityPainter extends TileEntityMachinePureDye implements ISide
 
     }
 
+    public int getInfoEnergyPerTick() {
+        return getEnergyTick();
+    }
+
     /**
      * Gui
      */

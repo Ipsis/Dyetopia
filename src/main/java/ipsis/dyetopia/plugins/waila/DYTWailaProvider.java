@@ -142,7 +142,7 @@ public class DYTWailaProvider implements IWailaDataProvider{
         if (tm == null || names.length == 0)
             return currenttip;
 
-        currenttip.add(EnumChatFormatting.YELLOW + "Tanks");
+        currenttip.add(EnumChatFormatting.YELLOW + StringHelper.localize("hud.dyetopia:tank"));
         for (TankType name : names) {
 
             FluidTank tank = tm.getTank(name.getName());
@@ -150,7 +150,7 @@ public class DYTWailaProvider implements IWailaDataProvider{
                 continue;
 
             currenttip.add(EnumChatFormatting.ITALIC + String.format("%s : %s%d/%d%smB",
-                    StatCollector.translateToLocal("hud.msg.dyetopia:tank." + name.getName()),
+                    StringHelper.localize(name.getLocalisation()),
                     TAB + ALIGNRIGHT,
                     tank.getFluidAmount(),
                     tank.getCapacity(),

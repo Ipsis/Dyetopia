@@ -4,10 +4,10 @@ import cofh.lib.gui.GuiBase;
 import cofh.lib.gui.element.ElementDualScaled;
 import cofh.lib.gui.element.ElementEnergyStored;
 import cofh.lib.gui.element.ElementFluidTank;
+import cofh.lib.gui.element.TabBase;
 import ipsis.dyetopia.gui.container.ContainerSqueezer;
-import ipsis.dyetopia.gui.element.ElementEnergyStoredDYT;
-import ipsis.dyetopia.gui.element.ElementFluidTankDYT;
-import ipsis.dyetopia.gui.element.ElementProgressBar;
+import ipsis.dyetopia.gui.element.*;
+import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.reference.Reference;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntitySqueezer;
@@ -15,7 +15,7 @@ import ipsis.dyetopia.util.TankType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
-public class GuiSqueezer extends GuiBase {
+public class GuiSqueezer extends GuiBaseDYT {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(Textures.Gui.GUI_SQUEEZER);
 
@@ -47,6 +47,9 @@ public class GuiSqueezer extends GuiBase {
 
         this.progress = ((ElementProgressBar)addElement(new ElementProgressBar(this, 61, 34, ElementProgressBar.ProgressType.LEFT_TO_RIGHT)));
         addElement(progress);
+
+        addTab(new TabEnergy(this, TabBase.RIGHT, this.squeezer));
+        addTab(new TabInfo(this, TabBase.LEFT, buildInfoString(Lang.SQUEEZER_INFO, Lang.SQUEEZER_INFO_LEN)));
     }
 
     @Override

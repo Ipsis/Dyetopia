@@ -2,9 +2,11 @@ package ipsis.dyetopia.gui;
 
 import cofh.lib.gui.GuiBase;
 import cofh.lib.gui.element.*;
+import cofh.lib.util.helpers.StringHelper;
 import ipsis.dyetopia.gui.container.ContainerStamper;
 import ipsis.dyetopia.gui.element.*;
 import ipsis.dyetopia.proxy.ClientProxy;
+import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.reference.Reference;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntityStamper;
@@ -61,7 +63,7 @@ public class GuiStamper extends GuiBaseDYT {
         addElement(selected);
 
         addTab(new TabEnergy(this, TabBase.RIGHT, this.stamper));
-        addTab(new TabInfo(this, TabBase.LEFT, "Lots of wonderful text explaining how to use this block"));
+        addTab(new TabInfo(this, TabBase.LEFT, buildInfoString(Lang.STAMPER_INFO, Lang.STAMPER_INFO_LEN)));
     }
 
     @Override

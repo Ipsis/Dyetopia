@@ -3,6 +3,7 @@ package ipsis.dyetopia.tileentity;
 import cofh.api.energy.IEnergyHandler;
 import cofh.api.tileentity.IEnergyInfo;
 import ipsis.dyetopia.manager.EnergyManager;
+import ipsis.dyetopia.reference.Settings;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -20,11 +21,9 @@ public class TileEntityMachine extends TileEntityDYT implements IInventory, IEne
 
     public TileEntityMachine() {
         super();
-        energyMgr = new EnergyManager(ENERGY_CAPACITY);
+        energyMgr = new EnergyManager(Settings.Machines.energyCapacity);
+        energyMgr.getEnergyStorage().setMaxTransfer(Settings.Machines.energyRxTick);
     }
-
-    private static final int ENERGY_CAPACITY = 50000;
-    private static final int ENERGY_PER_TICK = 10;
 
     /*************
      * IInventory
@@ -207,7 +206,7 @@ public class TileEntityMachine extends TileEntityDYT implements IInventory, IEne
     }
 
     public int getInfoMaxEnergyPerTick() {
-        return 0;
+        return energyMgr.getEnergyStorage().getMaxReceive();
     }
 
     public int getInfoEnergyStored() {

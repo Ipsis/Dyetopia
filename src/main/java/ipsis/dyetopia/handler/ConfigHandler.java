@@ -35,6 +35,9 @@ public class ConfigHandler {
         Settings.Machines.energyCapacity = configuration.get(Configuration.CATEGORY_GENERAL,
                 Config.Machines.ENERGY_CAPACITY, Settings.Machines.DEF_ENERGY_CAPACITY,
                 Config.Machines.ENERGY_CAPACITY_TXT).getInt(Settings.Machines.DEF_ENERGY_CAPACITY);
+        Settings.Machines.energyRxTick = configuration.get(Configuration.CATEGORY_GENERAL,
+                Config.Machines.ENERGY_RX_TICK, Settings.Machines.DEF_RX_RF_TICK,
+                Config.Machines.ENERGY_RX_TICK_TXT).getInt(Settings.Machines.DEF_RX_RF_TICK);
 
         Settings.Machines.squeezerRfTick = configuration.get(Configuration.CATEGORY_GENERAL,
                 Config.Machines.SQUEEZER_RF_TICK, Settings.Machines.DEF_SQUEEZER_RF_TICK,
