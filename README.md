@@ -22,12 +22,27 @@ Railcraft for ideas on how to sync the GUI update messages for tanks.
 This mod uses a small number of classes from other mods.
 ## CoFH
 [https://github.com/CoFH/ThermalFoundation]
+The following classes are based off:
 
-I think I based the fluid textures on the ThermalFoundation ones.
+* BlockFluidDYT -> BlockFluidCoFHBase
+
+[https://github.com/CoFH/CoFHCore]
+
+The following classes are based off:
+
+* TabEnergy -> TabEnergy from CoFHCore
+* TabInfo -> TabInfo from CoFHCore
+
+The following classed are copied:
+
+* IconRegistry
+* TabScrolledText
+
+I think I based the fluid textures on the ThermalFoundation ones, but I'm no longer sure!
 
 ## Pahimar
 [EE3 Repository](https://github.com/pahimar/Equivalent-Exchange-3)
 
-The following classes:
+The following classed are copied:
 
 * LogHelper.java
