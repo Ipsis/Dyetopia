@@ -54,7 +54,7 @@ public abstract class BlockDYTMultiBlock extends BlockDYT implements ITileEntity
             return false;
 
         if (world.isRemote)
-            return true;
+            return false;
 
         TileEntity te = world.getTileEntity(x, y, z);
         if (te instanceof  TileEntityMultiBlockBase) {
@@ -64,15 +64,18 @@ public abstract class BlockDYTMultiBlock extends BlockDYT implements ITileEntity
 
                 TileEntityMultiBlockMaster mte = bte.getMasterTE();
                 if (mte != null) {
-                    if (mte instanceof TileEntitySqueezer)
+                    if (mte instanceof TileEntitySqueezer) {
                         entityPlayer.openGui(Dyetopia.instance, 0, world, mte.getMasterX(), mte.getMasterY(), mte.getMasterZ());
-                    else if (mte instanceof TileEntityMixer)
+                        return true;
+                    } else if (mte instanceof TileEntityMixer) {
                         entityPlayer.openGui(Dyetopia.instance, 1, world, mte.getMasterX(), mte.getMasterY(), mte.getMasterZ());
+                        return true;
+                    }
                 }
             }
         }
         
-        return true;
+        return false;
     }
 
     @Override
