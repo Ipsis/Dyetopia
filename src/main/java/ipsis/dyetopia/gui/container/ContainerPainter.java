@@ -21,13 +21,17 @@ import net.minecraft.item.ItemStack;
 public class ContainerPainter extends Container implements IGuiMessageHandler {
 
     private TileEntityPainter painter;
+    public static final int INPUT_SLOT_X = 52;
+    public static final int INPUT_SLOT_Y = 35;
+    public static final int OUTPUT_SLOT_X = 114;
+    public static final int OUTPUT_SLOT_Y = 35;
 
     public ContainerPainter(TileEntityPainter painter, EntityPlayer player) {
 
         this.painter = painter;
 
-        this.addSlotToContainer(new SlotAcceptValid(this.painter, this.painter.INPUT_SLOT, 53, 35));
-        this.addSlotToContainer(new SlotAcceptValid(this.painter, this.painter.OUTPUT_SLOT, 114, 35));
+        this.addSlotToContainer(new SlotAcceptValid(this.painter, this.painter.INPUT_SLOT, INPUT_SLOT_X, INPUT_SLOT_Y));
+        this.addSlotToContainer(new SlotAcceptValid(this.painter, this.painter.OUTPUT_SLOT, OUTPUT_SLOT_X, OUTPUT_SLOT_Y));
 
         /* Player inventory */
         for (int y = 0; y < 3; y++) {

@@ -4,6 +4,7 @@ import cofh.lib.inventory.ComparableItemStackSafe;
 import cofh.lib.util.helpers.ItemHelper;
 import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.init.ModItems;
+import ipsis.dyetopia.util.ComparableItemStackBlockSafe;
 import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -13,10 +14,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraftforge.fluids.FluidStack;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SqueezerManager {
 
@@ -128,6 +126,10 @@ public class SqueezerManager {
         }
         recipes.clear();
         recipes = remapped;
+    }
+
+    public static HashMap<ComparableItemStackSafe, SqueezerRecipe> getRecipes() {
+        return recipes;
     }
 
     public static class SqueezerRecipe implements IFactoryRecipe {

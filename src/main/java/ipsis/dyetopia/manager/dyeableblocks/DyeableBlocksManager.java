@@ -1,5 +1,6 @@
 package ipsis.dyetopia.manager.dyeableblocks;
 
+import cofh.lib.inventory.ComparableItemStackSafe;
 import cpw.mods.fml.common.registry.GameData;
 import ipsis.dyetopia.handler.DyeFileHandler;
 import ipsis.dyetopia.manager.IFactoryRecipe;
@@ -30,6 +31,18 @@ public class DyeableBlocksManager {
         private OriginInfo() { }
     }
 
+    /**
+     * The maps are as follows:
+     *
+     * The origin map has:
+     * key: colored itemstack
+     * value: uncolored origin item
+     *
+     * The recipe map is an array of 16 hashmaps, one for each dye color.
+     *
+     * key: itemstack to color (may be an uncolored origin or a colored itemstack
+     * value: recipe
+     */
     private static HashMap<ComparableItemStackBlockSafe, OriginInfo> originMap = new HashMap<ComparableItemStackBlockSafe, OriginInfo>();
     private static ArrayList<HashMap<ComparableItemStackBlockSafe, DyedBlockRecipe>> recipeMap = new ArrayList<HashMap<ComparableItemStackBlockSafe, DyedBlockRecipe>>(16);
     static {
@@ -66,6 +79,10 @@ public class DyeableBlocksManager {
 
         originMap.clear();
         originMap = map;
+    }
+
+    public static ArrayList<HashMap<ComparableItemStackBlockSafe, DyedBlockRecipe>> getRecipes() {
+        return recipeMap;
     }
 
     /**
@@ -248,10 +265,10 @@ public class DyeableBlocksManager {
 
     public static class DyedBlockRecipe implements IFactoryRecipe {
 
-        private ItemStack input;
-        private ItemStack output;
-        private DyeHelper.DyeType dye;
-        private int pureAmount;
+        private ItemStack input; /* the itemstack to color */
+        private ItemStack output; /* the colored itemstack */
+        private DyeHelper.DyeType dye; /* the dye to color with */
+        private int pureAmount; /* the amount of pure dye required */
 
         public DyedBlockRecipe(ItemStack input, DyeHelper.DyeType dye, ItemStack output, int pureAmount) {
             this.input = input.copy();
