@@ -19,6 +19,8 @@ public class Textures {
         public static final String GUI_SQUEEZER = RESOURCE_PREFIX + GUI_SHEET_LOCATION + "squeezer.png";
         public static final String GUI_STAMPER = RESOURCE_PREFIX + GUI_SHEET_LOCATION + "stamper.png";
 
+        public static final String GUI_NEI = RESOURCE_PREFIX + GUI_SHEET_LOCATION + "nei.png";
+
         public static final int ENERGY_TAB_BACKGROUND = 0xFF8E56;
         public static final int INFO_TAB_BACKGROUND = 0xC6EAFF;
     }
