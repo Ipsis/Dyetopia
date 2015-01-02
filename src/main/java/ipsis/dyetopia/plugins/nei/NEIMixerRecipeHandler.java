@@ -1,21 +1,13 @@
 package ipsis.dyetopia.plugins.nei;
 
-import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
-import cofh.lib.inventory.ComparableItemStackSafe;
 import ipsis.dyetopia.gui.GuiMixer;
-import ipsis.dyetopia.gui.GuiSqueezer;
 import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.manager.MixerManager;
-import ipsis.dyetopia.manager.SqueezerManager;
 import ipsis.dyetopia.reference.GuiLayout;
 import ipsis.dyetopia.reference.Settings;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class NEIMixerRecipeHandler extends TemplateRecipeHandlerBase {
 
