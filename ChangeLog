@@ -14,9 +14,16 @@ Features
 * Added NEI support
 
 Fixes
-& BGZ007 - Fix multiblock placement requiring shift clicking.
+* BGZ007 - Fix multiblock placement requiring shift clicking.
 * BGZ005 - Fix right click of gui placing held block
 * XXXXXX - Process FMLModIdMappingEvent so that the world loaded ids are used correctly by the ComparableItemStack hashmaps
+
+Build Environment
+* CoFHLib-[1.7.10]1.0.0B8-34
+* CodeChickenCore 1.7.10-1.0.4.29
+* CodeChickenLib 1.7.10-1.1.1.106
+* NEI 1.7.10-1.0.3.73
+* Waila 1.5.6a_1.7.10
 
 1.7.10-1.0.0B2
 
