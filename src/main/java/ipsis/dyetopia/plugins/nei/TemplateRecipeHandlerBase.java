@@ -280,6 +280,9 @@ public abstract class TemplateRecipeHandlerBase extends TemplateRecipeHandler {
 
         if (relMouse.x >= 0 && relMouse.y >= 0) {
 
+            /* Setup the widget values before drawing them */
+            updateWidgets(recipe);
+
             for (Widget widget : widgets) {
                 if (widget.pointInWidget(relMouse)) {
                     widget.drawTooltip(currenttip);
