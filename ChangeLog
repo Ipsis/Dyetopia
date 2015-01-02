@@ -11,6 +11,7 @@ Features
 ** Blacklist mods and blocks
 * Added eraser to uncolor certain blocks (eg. stained glass -> glass, stained hardened clay -> hardended clay)
 * Added tabs on the machine guis to show energy and usage information. (thankyou CoFHLib!)
+* Added NEI support
 
 Fixes
 & BGZ007 - Fix multiblock placement requiring shift clicking.
