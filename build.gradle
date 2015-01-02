@@ -71,6 +71,11 @@ dependencies {
     compile "codechicken:NotEnoughItems:${config.nei_version}:dev"
     compile "codechicken:CodeChickenLib:${config.code_chicken_lib_version}:dev"
 
+    // Waila pull the latest version, I want to specify
+    // Without trasitive set to false Waila's Maven information will override the one specified above
+    compile("mcp.mobius.waila:Waila:${config.waila_version}") {
+        transitive = false
+    }
 }
 
 processResources
