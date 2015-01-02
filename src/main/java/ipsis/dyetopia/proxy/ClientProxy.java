@@ -1,11 +1,9 @@
 package ipsis.dyetopia.proxy;
 
-import com.sun.prism.Texture;
 import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.init.ModBlocks;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import ipsis.dyetopia.util.IconRegistry;
-import net.minecraft.util.IIcon;
 import net.minecraftforge.client.event.TextureStitchEvent;
 
 import java.util.HashMap;
