@@ -12,12 +12,11 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NEIPainterRecipeManager extends TemplateRecipeHandlerBase {
+public class NEIPainterRecipeHandler extends TemplateRecipeHandlerBase {
 
     @Override
     public Class<? extends GuiContainer> getGuiClass() {
@@ -27,7 +26,7 @@ public class NEIPainterRecipeManager extends TemplateRecipeHandlerBase {
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
 
-        if (outputId.equals("painting") && getClass() == NEIPainterRecipeManager.class) {
+        if (outputId.equals("painting") && getClass() == NEIPainterRecipeHandler.class) {
 
             ArrayList<HashMap<ComparableItemStackBlockSafe, DyeableBlocksManager.DyedBlockRecipe>> recipes = DyeableBlocksManager.getRecipes();
             for (int i = 0; i < 16; i++) {
@@ -50,6 +49,22 @@ public class NEIPainterRecipeManager extends TemplateRecipeHandlerBase {
         for (int i = 0; i < 16; i++) {
             for (Map.Entry<ComparableItemStackBlockSafe, DyeableBlocksManager.DyedBlockRecipe> entry : recipes.get(i).entrySet()) {
                 if (NEIServerUtils.areStacksSameTypeCrafting(entry.getValue().getOutput(), result)) {
+                    PainterRecipe r = new PainterRecipe(entry.getValue().getInput(), entry.getValue().getOutput(),
+                            entry.getValue().getEnergy(), entry.getValue().getPureAmount(), entry.getValue().getDye());
+                    arecipes.add(r);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void loadUsageRecipes(ItemStack ingredient) {
+
+        /* Recipes that use this item */
+        ArrayList<HashMap<ComparableItemStackBlockSafe, DyeableBlocksManager.DyedBlockRecipe>> recipes = DyeableBlocksManager.getRecipes();
+        for (int i = 0; i < 16; i++) {
+            for (Map.Entry<ComparableItemStackBlockSafe, DyeableBlocksManager.DyedBlockRecipe> entry : recipes.get(i).entrySet()) {
+                if (NEIServerUtils.areStacksSameTypeCrafting(entry.getValue().getInput(), ingredient)) {
                     PainterRecipe r = new PainterRecipe(entry.getValue().getInput(), entry.getValue().getOutput(),
                             entry.getValue().getEnergy(), entry.getValue().getPureAmount(), entry.getValue().getDye());
                     arecipes.add(r);

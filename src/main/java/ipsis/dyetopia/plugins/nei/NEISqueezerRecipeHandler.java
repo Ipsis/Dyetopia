@@ -4,7 +4,6 @@ import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
 import cofh.lib.inventory.ComparableItemStackSafe;
 import ipsis.dyetopia.gui.GuiSqueezer;
-import ipsis.dyetopia.gui.container.ContainerSqueezer;
 import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.manager.SqueezerManager;
 import ipsis.dyetopia.reference.GuiLayout;
@@ -12,11 +11,10 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NEISqueezerRecipeManager extends TemplateRecipeHandlerBase {
+public class NEISqueezerRecipeHandler extends TemplateRecipeHandlerBase {
 
     @Override
     public Class<? extends GuiContainer> getGuiClass() {
@@ -26,7 +24,7 @@ public class NEISqueezerRecipeManager extends TemplateRecipeHandlerBase {
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
 
-        if (outputId.equals("squeezing") && getClass() == NEISqueezerRecipeManager.class) {
+        if (outputId.equals("squeezing") && getClass() == NEISqueezerRecipeHandler.class) {
             HashMap<ComparableItemStackSafe, SqueezerManager.SqueezerRecipe> recipes = SqueezerManager.getRecipes();
             for (Map.Entry<ComparableItemStackSafe,SqueezerManager.SqueezerRecipe> recipe : recipes.entrySet())
                 arecipes.add(new SqueezerRecipe(recipe.getValue().getInput(), recipe.getValue().getRedAmount(),

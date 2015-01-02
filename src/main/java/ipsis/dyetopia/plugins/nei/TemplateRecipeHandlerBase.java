@@ -31,7 +31,7 @@ public abstract class TemplateRecipeHandlerBase extends TemplateRecipeHandler {
     private static final int NEI_GUI_HEIGHT = 166;
 
     /**
-     * The below are all the texture sheet locations 
+     * The below are all the texture sheet locations
      */
 
     /* Energy background */
