@@ -12,7 +12,7 @@ public class NEIPluginInitConfig implements IConfigureNEI {
 
         LogHelper.info("Initialising " + getName());
 
-        API.registerRecipeHandler(new NEISqueezerRecipeManager2());
+        API.registerRecipeHandler(new NEISqueezerRecipeManager());
         API.registerRecipeHandler(new NEIPainterRecipeManager());
 
         API.registerUsageHandler(new NEISqueezerRecipeManager());

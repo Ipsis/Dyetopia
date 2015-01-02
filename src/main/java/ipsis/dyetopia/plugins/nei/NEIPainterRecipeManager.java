@@ -1,34 +1,108 @@
 package ipsis.dyetopia.plugins.nei;
 
+import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.TemplateRecipeHandler;
 import ipsis.dyetopia.gui.GuiPainter;
-import ipsis.dyetopia.gui.container.ContainerPainter;
+import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.manager.dyeableblocks.DyeableBlocksManager;
-import ipsis.dyetopia.reference.Textures;
+import ipsis.dyetopia.reference.GuiLayout;
 import ipsis.dyetopia.util.ComparableItemStackBlockSafe;
 import ipsis.dyetopia.util.DyeHelper;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+public class NEIPainterRecipeManager extends TemplateRecipeHandlerBase {
 
-public class NEIPainterRecipeManager extends TemplateRecipeHandler {
+    @Override
+    public Class<? extends GuiContainer> getGuiClass() {
+        return GuiPainter.class;
+    }
 
-    public class PainterSetup extends TemplateRecipeHandler.CachedRecipe {
+    @Override
+    public void loadCraftingRecipes(String outputId, Object... results) {
 
-        PositionedStack result; /* The output colored block */
+        if (outputId.equals("painting") && getClass() == NEIPainterRecipeManager.class) {
+
+            ArrayList<HashMap<ComparableItemStackBlockSafe, DyeableBlocksManager.DyedBlockRecipe>> recipes = DyeableBlocksManager.getRecipes();
+            for (int i = 0; i < 16; i++) {
+                for (Map.Entry<ComparableItemStackBlockSafe, DyeableBlocksManager.DyedBlockRecipe> entry : recipes.get(i).entrySet()) {
+                    PainterRecipe r = new PainterRecipe(entry.getValue().getInput(), entry.getValue().getOutput(),
+                            entry.getValue().getEnergy(), entry.getValue().getPureAmount(), entry.getValue().getDye());
+                    arecipes.add(r);
+                }
+            }
+        } else {
+            super.loadCraftingRecipes(outputId, results);
+        }
+    }
+
+    @Override
+    public void loadCraftingRecipes(ItemStack result) {
+
+        /* Recipes that create this item */
+        ArrayList<HashMap<ComparableItemStackBlockSafe, DyeableBlocksManager.DyedBlockRecipe>> recipes = DyeableBlocksManager.getRecipes();
+        for (int i = 0; i < 16; i++) {
+            for (Map.Entry<ComparableItemStackBlockSafe, DyeableBlocksManager.DyedBlockRecipe> entry : recipes.get(i).entrySet()) {
+                if (NEIServerUtils.areStacksSameTypeCrafting(entry.getValue().getOutput(), result)) {
+                    PainterRecipe r = new PainterRecipe(entry.getValue().getInput(), entry.getValue().getOutput(),
+                            entry.getValue().getEnergy(), entry.getValue().getPureAmount(), entry.getValue().getDye());
+                    arecipes.add(r);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void initialiseHandler() {
+
+        /**
+         * The fluid amounts compared to the tank sizes are quite small, so we scale back the tank display capacity
+         * so you actually see the fluids!
+         */
+        int energyMax = 2000;
+        int tankMax = 1000;
+
+        this.recipeName = "Painter Recipe";
+        addProgressTransferRect(GuiLayout.Painter.PROGRESS_X, GuiLayout.Painter.PROGRESS_Y, "painting");
+        addWidget(new Slot(GuiLayout.Painter.INPUT_SLOT_X, GuiLayout.Painter.INPUT_SLOT_Y, "inputSlot"));
+        addWidget(new Slot(GuiLayout.Painter.OUTPUT_SLOT_X, GuiLayout.Painter.OUTPUT_SLOT_Y, "outputSlot"));
+        addWidget(new Energy(GuiLayout.Painter.ENERGY_X, GuiLayout.Painter.ENERGY_Y, energyMax, "energy"));
+        addWidget(new Tank(GuiLayout.Painter.PURE_TANK_X, GuiLayout.Painter.PURE_TANK_Y, new FluidStack(ModFluids.fluidDyeRed, 10), tankMax, "pureTank"));
+        addWidget(new Progress(GuiLayout.Painter.PROGRESS_X, GuiLayout.Painter.PROGRESS_Y, "progress"));
+    }
+
+    @Override
+    public void updateWidgets(int recipe) {
+
+        PainterRecipe r = (PainterRecipe)arecipes.get(recipe);
+        if (r == null)
+            return;
+
+        updateEnergyWidget("energy", r.energy);
+        updateTankWidget("pureTank", r.pure);
+    }
+
+    public class PainterRecipe extends CachedRecipe {
+
+        int energy;
+        int pure;
         PositionedStack ingredient;
+        PositionedStack result;
         DyeHelper.DyeType dye;
 
-        public PainterSetup(ItemStack ingredient, ItemStack result, DyeHelper.DyeType dye) {
+        public PainterRecipe(ItemStack ingred, ItemStack result, int energy, int pure, DyeHelper.DyeType dye) {
 
-            this.ingredient = new PositionedStack(ingredient, ContainerPainter.INPUT_SLOT_X - 5, ContainerPainter.INPUT_SLOT_Y - 11);
-            this.result = new PositionedStack(result, ContainerPainter.OUTPUT_SLOT_X - 5, ContainerPainter.OUTPUT_SLOT_Y - 11);
+            /* itemstack sits inside the slot, which has a 1 pixel border */
+            this.ingredient = createPositionedStack(GuiLayout.Painter.INPUT_SLOT_X, GuiLayout.Painter.INPUT_SLOT_Y, ingred);
+            this.result = createPositionedStack(GuiLayout.Painter.OUTPUT_SLOT_X, GuiLayout.Painter.OUTPUT_SLOT_Y, result);
+            this.energy = energy;
+            this.pure = pure;
             this.dye = dye;
         }
 
@@ -42,83 +116,4 @@ public class NEIPainterRecipeManager extends TemplateRecipeHandler {
             return result;
         }
     }
-
-    @Override
-    public void loadTransferRects() {
-        transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(new Rectangle(78 - 5, 34 - 11, 24, 16), "painting"));
-    }
-
-    @Override
-    public String getGuiTexture() {
-        return Textures.Gui.GUI_PAINTER;
-    }
-
-    @Override
-    public String getRecipeName() {
-        return "Painter Recipe";
-    }
-
-    @Override
-    public void loadCraftingRecipes(String outputId, Object... results) {
-
-        if (outputId.equals("painting") && getClass() == NEIPainterRecipeManager.class) {
-
-            ArrayList<HashMap<ComparableItemStackBlockSafe, DyeableBlocksManager.DyedBlockRecipe>> recipes = DyeableBlocksManager.getRecipes();
-            for (int i = 0; i < 16; i++) {
-                for (Map.Entry<ComparableItemStackBlockSafe, DyeableBlocksManager.DyedBlockRecipe> entry : recipes.get(i).entrySet()) {
-                    PainterSetup r = new PainterSetup(entry.getValue().getInput(), entry.getValue().getOutput(), entry.getValue().getDye());
-                    arecipes.add(r);
-                }
-            }
-        } else {
-            super.loadCraftingRecipes(outputId, results);
-        }
-    }
-
-    @Override
-    public Class<? extends GuiContainer> getGuiClass() {
-        return GuiPainter.class;
-    }
-
-    @Override
-    public boolean hasOverlay(GuiContainer gui, net.minecraft.inventory.Container container, int recipe) {
-        return false;
-    }
-
-
-    /*
-    private static class ResultRecipe {
-
-        ArrayList<ItemStack> input;
-        ItemStack output;
-        DyeHelper.DyeType dye;
-
-        public ResultRecipe(ItemStack output, ItemStack input, DyeHelper.DyeType dye) {
-
-            this.output = output;
-            this.input = new ArrayList<ItemStack>();
-            this.input.add(input);
-            this.dye = dye;
-        }
-    }
-
-    private HashMap<ComparableItemStackBlockSafe, ResultRecipe> resultMap;
-    private void buildPainterMaps() {
-        resultMap = new HashMap<ComparableItemStackBlockSafe, ResultRecipe>();
-
-        ArrayList<HashMap<ComparableItemStackBlockSafe, DyeableBlocksManager.DyedBlockRecipe>> recipes = DyeableBlocksManager.getRecipes();
-        for (int i = 0; i < 16; i++) {
-            for (Map.Entry<ComparableItemStackBlockSafe, DyeableBlocksManager.DyedBlockRecipe> entry : recipes.get(i).entrySet()) {
-
-                ComparableItemStackBlockSafe key = new ComparableItemStackBlockSafe(entry.getValue().getOutput());
-                ResultRecipe r = resultMap.get(key);
-                if (r != null) {
-                    r.input.add(entry.getValue().getInput());
-                } else {
-                    r = new ResultRecipe(entry.getValue().getOutput(), entry.getValue().getInput(), entry.getValue().getDye());
-                    resultMap.put(key, r);
-                }
-            }
-        }
-    } */
 }

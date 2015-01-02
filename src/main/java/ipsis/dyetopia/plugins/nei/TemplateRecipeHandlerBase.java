@@ -1,6 +1,7 @@
 package ipsis.dyetopia.plugins.nei;
 
 import codechicken.lib.gui.GuiDraw;
+import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import cofh.lib.render.RenderHelper;
@@ -10,6 +11,7 @@ import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.inventory.Container;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.fluids.FluidStack;
 import org.lwjgl.opengl.GL11;
@@ -21,12 +23,16 @@ import java.util.List;
 public abstract class TemplateRecipeHandlerBase extends TemplateRecipeHandler {
 
     /* NEI GUI coords are slightly offset from the normal ones used in GuiXXX */
-    public static final int X_OFFSET = 5;
-    public static final int Y_OFFSET = 11;
+    private static final int X_OFFSET = 5;
+    private static final int Y_OFFSET = 11;
 
     /** NEI Background */
     private static final int NEI_GUI_WIDTH = 176;
     private static final int NEI_GUI_HEIGHT = 166;
+
+    /**
+     * The below are all the texture sheet locations 
+     */
 
     /* Energy background */
     private static final int GUI_ENERGY_X = 176;
@@ -311,7 +317,18 @@ public abstract class TemplateRecipeHandlerBase extends TemplateRecipeHandler {
         initialiseHandler();
     }
 
+    public void addProgressTransferRect(int x, int y, String name) {
+        transferRects.add(new RecipeTransferRect(new Rectangle(x - X_OFFSET, y - Y_OFFSET, GUI_PROGRESS_BAR_W, GUI_PROGRESS_BAR_H), name));
+    }
+
+
     public abstract void initialiseHandler();
+
+    public PositionedStack createPositionedStack(int x, int y, ItemStack stack) {
+
+        /* itemstack sits inside the slot, which has a 1 pixel border */
+        return new PositionedStack(stack, x - X_OFFSET + 1, y - Y_OFFSET + 1);
+    }
 
     /**
      * From CoFHLib to render the fluids
