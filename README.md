@@ -46,3 +46,8 @@ I think I based the fluid textures on the ThermalFoundation ones, but I'm no lon
 The following classed are copied:
 
 * LogHelper.java
+
+##Tonius
+[NEI-Integration](https://github.com/Tonius/NEI-Integration/src/main/java/tonius/neiintegration/RecipeHandlerBase.java)
+
+A tiny piece of code but an important one. How to change the mouse x,y into recipe x,y for use in NEI recipe handlers!
