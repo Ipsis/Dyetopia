@@ -1,6 +1,7 @@
 package ipsis.dyetopia.gui.container;
 
 import cofh.lib.gui.slot.SlotAcceptValid;
+import ipsis.dyetopia.reference.GuiLayout;
 import ipsis.dyetopia.tileentity.TileEntitySqueezer;
 import ipsis.dyetopia.util.TankType;
 import cpw.mods.fml.relauncher.Side;
@@ -14,13 +15,11 @@ import net.minecraft.item.ItemStack;
 public class ContainerSqueezer extends Container {
 
     private TileEntitySqueezer squeezer;
-    public static final int INPUT_SLOT_X = 33;
-    public static final int INPUT_SLOT_Y = 34;
 
     public ContainerSqueezer(TileEntitySqueezer squeezer, EntityPlayer player) {
         this.squeezer = squeezer;
 
-        this.addSlotToContainer(new SlotAcceptValid(this.squeezer, this.squeezer.INPUT_SLOT, INPUT_SLOT_X, INPUT_SLOT_Y));
+        this.addSlotToContainer(new SlotAcceptValid(this.squeezer, this.squeezer.INPUT_SLOT, GuiLayout.Squeezer.INPUT_SLOT_X, GuiLayout.Squeezer.INPUT_SLOT_Y));
 
 		/* Player inventory */
         for (int y = 0; y < 3; y++) {

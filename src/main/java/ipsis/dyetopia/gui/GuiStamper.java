@@ -6,6 +6,7 @@ import cofh.lib.util.helpers.StringHelper;
 import ipsis.dyetopia.gui.container.ContainerStamper;
 import ipsis.dyetopia.gui.element.*;
 import ipsis.dyetopia.proxy.ClientProxy;
+import ipsis.dyetopia.reference.GuiLayout;
 import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.reference.Reference;
 import ipsis.dyetopia.reference.Textures;
@@ -47,16 +48,16 @@ public class GuiStamper extends GuiBaseDYT {
         super.initGui();
 
         /* tanks */
-        addElement(new ElementFluidTankDYT(this, 150, 12, this.stamper.getTankMgr().getTank(TankType.PURE.getName())));
+        addElement(new ElementFluidTankDYT(this, GuiLayout.Stamper.PURE_TANK_X, GuiLayout.Stamper.PURE_TANK_Y, this.stamper.getTankMgr().getTank(TankType.PURE.getName())));
 
         /* energy */
-        addElement(new ElementEnergyStoredDYT(this, 7, 22, this.stamper.getEnergyMgr().getEnergyStorage()));
+        addElement(new ElementEnergyStoredDYT(this, GuiLayout.Stamper.ENERGY_X, GuiLayout.Stamper.ENERGY_Y, this.stamper.getEnergyMgr().getEnergyStorage()));
 
         /* buttons */
         addElement(new ElementButton(this, 60, 62, BTN_DN_STR, 176, 0, 176, 16, 176, 32, 16, 16, TEXTURE_STR));
         addElement(new ElementButton(this, 96, 62, BTN_UP_STR, 192, 0, 192, 16, 192, 32, 16, 16, TEXTURE_STR));
 
-        this.progress = ((ElementProgressBar)addElement(new ElementProgressBar(this, 76, 34, ElementProgressBar.ProgressType.LEFT_TO_RIGHT)));
+        this.progress = ((ElementProgressBar)addElement(new ElementProgressBar(this, GuiLayout.Stamper.PROGRESS_X, GuiLayout.Stamper.PROGRESS_Y, ElementProgressBar.ProgressType.LEFT_TO_RIGHT)));
         addElement(progress);
 
         this.selected = ((ElementIcon)addElement(new ElementIcon(this, 78, 62).setIcon(DyeHelper.DyeType.BLACK.getIcon())));

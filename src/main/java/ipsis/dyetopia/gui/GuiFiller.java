@@ -7,6 +7,7 @@ import cofh.lib.gui.element.ElementFluidTank;
 import cofh.lib.gui.element.TabBase;
 import ipsis.dyetopia.gui.container.ContainerFiller;
 import ipsis.dyetopia.gui.element.*;
+import ipsis.dyetopia.reference.GuiLayout;
 import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.reference.Reference;
 import ipsis.dyetopia.reference.Textures;
@@ -36,12 +37,12 @@ public class GuiFiller extends GuiBaseDYT {
         super.initGui();
 
         /* tanks */
-        addElement(new ElementFluidTankDYT(this, 150, 12, this.filler.getTankMgr().getTank(TankType.PURE.getName())));
+        addElement(new ElementFluidTankDYT(this, GuiLayout.Filler.PURE_TANK_X, GuiLayout.Filler.PURE_TANK_Y, this.filler.getTankMgr().getTank(TankType.PURE.getName())));
 
         /* energy */
-        addElement(new ElementEnergyStoredDYT(this, 7, 22, this.filler.getEnergyMgr().getEnergyStorage()));
+        addElement(new ElementEnergyStoredDYT(this, GuiLayout.Filler.ENERGY_X, GuiLayout.Filler.ENERGY_Y, this.filler.getEnergyMgr().getEnergyStorage()));
 
-        this.progress = ((ElementProgressBar)addElement(new ElementProgressBar(this, 28, 54, ElementProgressBar.ProgressType.LEFT_TO_RIGHT)));
+        this.progress = ((ElementProgressBar)addElement(new ElementProgressBar(this, GuiLayout.Filler.PROGRESS_X, GuiLayout.Filler.PROGRESS_Y, ElementProgressBar.ProgressType.LEFT_TO_RIGHT)));
         addElement(progress);
 
         addTab(new TabEnergy(this, TabBase.RIGHT, this.filler));

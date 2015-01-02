@@ -5,6 +5,7 @@ import ipsis.dyetopia.gui.GuiStamper;
 import ipsis.dyetopia.gui.IGuiMessageHandler;
 import ipsis.dyetopia.network.message.MessageGuiWidget;
 import ipsis.dyetopia.reference.GuiIds;
+import ipsis.dyetopia.reference.GuiLayout;
 import ipsis.dyetopia.tileentity.TileEntityStamper;
 import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.TankType;
@@ -24,8 +25,8 @@ public class ContainerStamper extends Container implements IGuiMessageHandler {
 
         this.stamper = stamper;
 
-        this.addSlotToContainer(new SlotAcceptValid(this.stamper, this.stamper.INPUT_SLOT, 33, 35));
-        this.addSlotToContainer(new SlotAcceptValid(this.stamper, this.stamper.OUTPUT_SLOT, 119, 35));
+        this.addSlotToContainer(new SlotAcceptValid(this.stamper, this.stamper.INPUT_SLOT, GuiLayout.Stamper.INPUT_SLOT_X, GuiLayout.Stamper.INPUT_SLOT_Y));
+        this.addSlotToContainer(new SlotAcceptValid(this.stamper, this.stamper.OUTPUT_SLOT, GuiLayout.Stamper.OUTPUT_SLOT_X, GuiLayout.Stamper.OUTPUT_SLOT_Y));
 
         /* Player inventory */
         for (int y = 0; y < 3; y++) {

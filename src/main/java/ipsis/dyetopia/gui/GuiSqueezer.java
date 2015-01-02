@@ -7,6 +7,7 @@ import cofh.lib.gui.element.ElementFluidTank;
 import cofh.lib.gui.element.TabBase;
 import ipsis.dyetopia.gui.container.ContainerSqueezer;
 import ipsis.dyetopia.gui.element.*;
+import ipsis.dyetopia.reference.GuiLayout;
 import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.reference.Reference;
 import ipsis.dyetopia.reference.Textures;
@@ -36,16 +37,16 @@ public class GuiSqueezer extends GuiBaseDYT {
         super.initGui();
 
         /* tanks */
-        addElement(new ElementFluidTankDYT(this, 96, 12, this.squeezer.getTankMgr().getTank(TankType.RED.getName())));
-        addElement(new ElementFluidTankDYT(this, 114, 12, this.squeezer.getTankMgr().getTank(TankType.YELLOW.getName())));
-        addElement(new ElementFluidTankDYT(this, 132, 12, this.squeezer.getTankMgr().getTank(TankType.BLUE.getName())));
-        addElement(new ElementFluidTankDYT(this, 150, 12, this.squeezer.getTankMgr().getTank(TankType.WHITE.getName())));
+        addElement(new ElementFluidTankDYT(this, GuiLayout.Squeezer.RED_TANK_X, GuiLayout.Squeezer.TANK_Y, this.squeezer.getTankMgr().getTank(TankType.RED.getName())));
+        addElement(new ElementFluidTankDYT(this, GuiLayout.Squeezer.YELLOW_TANK_X, GuiLayout.Squeezer.TANK_Y, this.squeezer.getTankMgr().getTank(TankType.YELLOW.getName())));
+        addElement(new ElementFluidTankDYT(this, GuiLayout.Squeezer.BLUE_TANK_X, GuiLayout.Squeezer.TANK_Y, this.squeezer.getTankMgr().getTank(TankType.BLUE.getName())));
+        addElement(new ElementFluidTankDYT(this, GuiLayout.Squeezer.WHITE_TANK_X, GuiLayout.Squeezer.TANK_Y, this.squeezer.getTankMgr().getTank(TankType.WHITE.getName())));
 
         /* energy */
-        addElement(new ElementEnergyStoredDYT(this, 7, 22, this.squeezer.getEnergyMgr().getEnergyStorage()));
+        addElement(new ElementEnergyStoredDYT(this, GuiLayout.Squeezer.ENERGY_X, GuiLayout.Squeezer.ENERGY_Y, this.squeezer.getEnergyMgr().getEnergyStorage()));
 
 
-        this.progress = ((ElementProgressBar)addElement(new ElementProgressBar(this, 61, 34, ElementProgressBar.ProgressType.LEFT_TO_RIGHT)));
+        this.progress = ((ElementProgressBar)addElement(new ElementProgressBar(this, GuiLayout.Squeezer.PROGRESS_X, GuiLayout.Squeezer.PROGRESS_Y, ElementProgressBar.ProgressType.LEFT_TO_RIGHT)));
         addElement(progress);
 
         addTab(new TabEnergy(this, TabBase.RIGHT, this.squeezer));

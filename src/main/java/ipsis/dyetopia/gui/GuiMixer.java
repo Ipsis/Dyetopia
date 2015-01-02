@@ -7,6 +7,7 @@ import cofh.lib.gui.element.ElementFluidTank;
 import cofh.lib.gui.element.TabBase;
 import ipsis.dyetopia.gui.container.ContainerMixer;
 import ipsis.dyetopia.gui.element.*;
+import ipsis.dyetopia.reference.GuiLayout;
 import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.reference.Reference;
 import ipsis.dyetopia.reference.Textures;
@@ -37,17 +38,17 @@ public class GuiMixer extends GuiBaseDYT {
         super.initGui();
 
         /* tanks */
-        addElement(new ElementFluidTankDYT(this, 42, 12, this.mixer.getTankMgr().getTank(TankType.RED.getName())));
-        addElement(new ElementFluidTankDYT(this, 60, 12, this.mixer.getTankMgr().getTank(TankType.YELLOW.getName())));
-        addElement(new ElementFluidTankDYT(this, 78, 12, this.mixer.getTankMgr().getTank(TankType.BLUE.getName())));
-        addElement(new ElementFluidTankDYT(this, 96, 12, this.mixer.getTankMgr().getTank(TankType.WHITE.getName())));
+        addElement(new ElementFluidTankDYT(this, GuiLayout.Mixer.RED_TANK_X, GuiLayout.Mixer.TANK_Y, this.mixer.getTankMgr().getTank(TankType.RED.getName())));
+        addElement(new ElementFluidTankDYT(this, GuiLayout.Mixer.YELLOW_TANK_X, GuiLayout.Mixer.TANK_Y, this.mixer.getTankMgr().getTank(TankType.YELLOW.getName())));
+        addElement(new ElementFluidTankDYT(this, GuiLayout.Mixer.BLUE_TANK_X, GuiLayout.Mixer.TANK_Y, this.mixer.getTankMgr().getTank(TankType.BLUE.getName())));
+        addElement(new ElementFluidTankDYT(this, GuiLayout.Mixer.WHITE_TANK_X, GuiLayout.Mixer.TANK_Y, this.mixer.getTankMgr().getTank(TankType.WHITE.getName())));
 
-        addElement(new ElementFluidTankDYT(this, 150, 12, this.mixer.getTankMgr().getTank(TankType.PURE.getName())));
+        addElement(new ElementFluidTankDYT(this, GuiLayout.Mixer.PURE_TANK_X, GuiLayout.Mixer.TANK_Y, this.mixer.getTankMgr().getTank(TankType.PURE.getName())));
 
         /* energy */
-        addElement(new ElementEnergyStoredDYT(this, 7, 22, this.mixer.getEnergyMgr().getEnergyStorage()));
+        addElement(new ElementEnergyStoredDYT(this, GuiLayout.Mixer.ENERGY_X, GuiLayout.Mixer.ENERGY_Y, this.mixer.getEnergyMgr().getEnergyStorage()));
 
-        this.progress = ((ElementProgressBar)addElement(new ElementProgressBar(this, 120, 33, ElementProgressBar.ProgressType.LEFT_TO_RIGHT)));
+        this.progress = ((ElementProgressBar)addElement(new ElementProgressBar(this, GuiLayout.Mixer.PROGRESS_X, GuiLayout.Mixer.PROGRESS_Y, ElementProgressBar.ProgressType.LEFT_TO_RIGHT)));
         addElement(progress);
 
         addTab(new TabEnergy(this, TabBase.RIGHT, this.mixer));
