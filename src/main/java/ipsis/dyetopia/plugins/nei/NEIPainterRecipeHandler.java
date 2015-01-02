@@ -18,6 +18,8 @@ import java.util.Map;
 
 public class NEIPainterRecipeHandler extends TemplateRecipeHandlerBase {
 
+    private static final String OUTPUT_ID = "painting";
+
     @Override
     public Class<? extends GuiContainer> getGuiClass() {
         return GuiPainter.class;
@@ -26,7 +28,7 @@ public class NEIPainterRecipeHandler extends TemplateRecipeHandlerBase {
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
 
-        if (outputId.equals("painting") && getClass() == NEIPainterRecipeHandler.class) {
+        if (outputId.equals(OUTPUT_ID) && getClass() == NEIPainterRecipeHandler.class) {
 
             ArrayList<HashMap<ComparableItemStackBlockSafe, DyeableBlocksManager.DyedBlockRecipe>> recipes = DyeableBlocksManager.getRecipes();
             for (int i = 0; i < 16; i++) {
@@ -84,11 +86,11 @@ public class NEIPainterRecipeHandler extends TemplateRecipeHandlerBase {
         int tankMax = 1000;
 
         this.recipeName = "Painter Recipe";
-        addProgressTransferRect(GuiLayout.Painter.PROGRESS_X, GuiLayout.Painter.PROGRESS_Y, "painting");
+        addProgressTransferRect(GuiLayout.Painter.PROGRESS_X, GuiLayout.Painter.PROGRESS_Y, OUTPUT_ID);
         addWidget(new Slot(GuiLayout.Painter.INPUT_SLOT_X, GuiLayout.Painter.INPUT_SLOT_Y, "inputSlot"));
         addWidget(new Slot(GuiLayout.Painter.OUTPUT_SLOT_X, GuiLayout.Painter.OUTPUT_SLOT_Y, "outputSlot"));
         addWidget(new Energy(GuiLayout.Painter.ENERGY_X, GuiLayout.Painter.ENERGY_Y, energyMax, "energy"));
-        addWidget(new Tank(GuiLayout.Painter.PURE_TANK_X, GuiLayout.Painter.PURE_TANK_Y, new FluidStack(ModFluids.fluidDyeRed, 10), tankMax, "pureTank"));
+        addWidget(new Tank(GuiLayout.Painter.PURE_TANK_X, GuiLayout.Painter.PURE_TANK_Y, new FluidStack(ModFluids.fluidDyePure, 10), tankMax, "pureTank"));
         addWidget(new Progress(GuiLayout.Painter.PROGRESS_X, GuiLayout.Painter.PROGRESS_Y, "progress"));
     }
 

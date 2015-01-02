@@ -16,6 +16,8 @@ import java.util.Map;
 
 public class NEISqueezerRecipeHandler extends TemplateRecipeHandlerBase {
 
+    private static final String OUTPUT_ID = "squeezing";
+
     @Override
     public Class<? extends GuiContainer> getGuiClass() {
         return GuiSqueezer.class;
@@ -24,7 +26,7 @@ public class NEISqueezerRecipeHandler extends TemplateRecipeHandlerBase {
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
 
-        if (outputId.equals("squeezing") && getClass() == NEISqueezerRecipeHandler.class) {
+        if (outputId.equals(OUTPUT_ID) && getClass() == NEISqueezerRecipeHandler.class) {
             HashMap<ComparableItemStackSafe, SqueezerManager.SqueezerRecipe> recipes = SqueezerManager.getRecipes();
             for (Map.Entry<ComparableItemStackSafe,SqueezerManager.SqueezerRecipe> recipe : recipes.entrySet())
                 arecipes.add(new SqueezerRecipe(recipe.getValue().getInput(), recipe.getValue().getRedAmount(),
@@ -60,7 +62,7 @@ public class NEISqueezerRecipeHandler extends TemplateRecipeHandlerBase {
         int tankMax = 500;
 
         this.recipeName = "Squeezer Recipe";
-        addProgressTransferRect(GuiLayout.Squeezer.PROGRESS_X, GuiLayout.Squeezer.PROGRESS_Y, "squeezing");
+        addProgressTransferRect(GuiLayout.Squeezer.PROGRESS_X, GuiLayout.Squeezer.PROGRESS_Y, OUTPUT_ID);
         addWidget(new Slot(GuiLayout.Squeezer.INPUT_SLOT_X, GuiLayout.Squeezer.INPUT_SLOT_Y, "inputSlot"));
         addWidget(new Energy(GuiLayout.Squeezer.ENERGY_X, GuiLayout.Squeezer.ENERGY_Y, energyMax, "energy"));
         addWidget(new Tank(GuiLayout.Squeezer.RED_TANK_X, GuiLayout.Squeezer.TANK_Y, new FluidStack(ModFluids.fluidDyeRed, 10), tankMax, "redTank"));

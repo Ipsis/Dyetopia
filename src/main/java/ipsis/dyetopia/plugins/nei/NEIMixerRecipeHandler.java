@@ -19,6 +19,8 @@ import java.util.Map;
 
 public class NEIMixerRecipeHandler extends TemplateRecipeHandlerBase {
 
+    private static final String OUTPUT_ID = "mixing";
+
     @Override
     public Class<? extends GuiContainer> getGuiClass() {
         return GuiMixer.class;
@@ -28,7 +30,7 @@ public class NEIMixerRecipeHandler extends TemplateRecipeHandlerBase {
     public void loadCraftingRecipes(String outputId, Object... results) {
 
         /* There is only one recipe */
-        if (outputId.equals("mixing") && getClass() == NEIMixerRecipeHandler.class) {
+        if (outputId.equals(OUTPUT_ID) && getClass() == NEIMixerRecipeHandler.class) {
 
             arecipes.add(new MixerRecipe(
                     MixerManager.getRecipe().getRedAmount(),
@@ -44,18 +46,18 @@ public class NEIMixerRecipeHandler extends TemplateRecipeHandlerBase {
 
     @Override
     public void initialiseHandler() {
-        
+
         int energyMax = 2000;
         int tankMax = Settings.Machines.tankCapacity;
 
         this.recipeName = "Mixer Recipe";
-        addProgressTransferRect(GuiLayout.Mixer.PROGRESS_X, GuiLayout.Mixer.PROGRESS_Y, "mixing");
+        addProgressTransferRect(GuiLayout.Mixer.PROGRESS_X, GuiLayout.Mixer.PROGRESS_Y, OUTPUT_ID);
         addWidget(new Energy(GuiLayout.Mixer.ENERGY_X, GuiLayout.Mixer.ENERGY_Y, energyMax, "energy"));
         addWidget(new Tank(GuiLayout.Mixer.RED_TANK_X, GuiLayout.Mixer.TANK_Y, new FluidStack(ModFluids.fluidDyeRed, 10), tankMax, "redTank"));
         addWidget(new Tank(GuiLayout.Mixer.YELLOW_TANK_X, GuiLayout.Mixer.TANK_Y, new FluidStack(ModFluids.fluidDyeYellow, 10), tankMax, "yellowTank"));
         addWidget(new Tank(GuiLayout.Mixer.BLUE_TANK_X, GuiLayout.Mixer.TANK_Y, new FluidStack(ModFluids.fluidDyeBlue, 10), tankMax, "blueTank"));
         addWidget(new Tank(GuiLayout.Mixer.WHITE_TANK_X, GuiLayout.Mixer.TANK_Y, new FluidStack(ModFluids.fluidDyeWhite, 10), tankMax, "whiteTank"));
-        addWidget(new Tank(GuiLayout.Mixer.PURE_TANK_X, GuiLayout.Mixer.TANK_Y, new FluidStack(ModFluids.fluidDyeWhite, 10), tankMax, "pureTank"));
+        addWidget(new Tank(GuiLayout.Mixer.PURE_TANK_X, GuiLayout.Mixer.TANK_Y, new FluidStack(ModFluids.fluidDyePure, 10), tankMax, "pureTank"));
         addWidget(new Progress(GuiLayout.Mixer.PROGRESS_X, GuiLayout.Mixer.PROGRESS_Y, "progress"));
     }
 

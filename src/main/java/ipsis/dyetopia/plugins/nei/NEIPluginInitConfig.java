@@ -15,9 +15,11 @@ public class NEIPluginInitConfig implements IConfigureNEI {
         API.registerRecipeHandler(new NEISqueezerRecipeHandler());
         API.registerRecipeHandler(new NEIPainterRecipeHandler());
         API.registerRecipeHandler(new NEIMixerRecipeHandler());
+        API.registerRecipeHandler(new NEIStamperRecipeHandler());
 
         API.registerUsageHandler(new NEISqueezerRecipeHandler());
         API.registerUsageHandler(new NEIPainterRecipeHandler());
+        API.registerUsageHandler(new NEIStamperRecipeHandler());
     }
 
     @Override
