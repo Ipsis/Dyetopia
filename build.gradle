@@ -67,8 +67,10 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
-    compile "codechicken:CodeChickenCore:1.7.10-1.0.4.29:dev"
-    compile "mcp.mobius.waila:Waila:1.5.6_dev4_1.7.10"
+    compile "codechicken:CodeChickenCore:${config.code_chicken_core_version}:dev"
+    compile "codechicken:NotEnoughItems:${config.nei_version}:dev"
+    compile "codechicken:CodeChickenLib:${config.code_chicken_lib_version}:dev"
+
 }
 
 processResources
