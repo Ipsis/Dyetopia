@@ -26,6 +26,11 @@ repositories {
         name 'CB Repo'
         url "http://chickenbones.net/maven/"
     }
+
+    ivy { // The repo from which to get CoFHLib
+        name "CoFHLib"
+        artifactPattern "http://addons.cursecdn.com/files/2221/834/[module]-[revision].[ext]"
+    }
 }
 
 apply plugin: 'forge'
@@ -67,6 +72,7 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
+    compile name: 'CoFHLib', version: "${config.cofh_lib_version}", ext: 'jar'
     compile "codechicken:CodeChickenCore:${config.code_chicken_core_version}:dev"
     compile "codechicken:NotEnoughItems:${config.nei_version}:dev"
     compile "codechicken:CodeChickenLib:${config.code_chicken_lib_version}:dev"
