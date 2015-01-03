@@ -416,6 +416,27 @@
 			{ "color": "red", "name": "chisel:stained_glass_pane_red", "meta": 5 },
 			{ "color": "black", "name": "chisel:stained_glass_pane_red", "meta": 13 }
 		  ]
+		},
+		{
+		  "refname": "Woolen Clay",
+		  "assoc": true,
+		  "simple": { },
+		  "blockname": "chisel:woolen_clay",
+		  "vanilla": { }
+		},
+		{
+		  "refname": "Carpet Block",
+		  "assoc": true,
+		  "simple": { },
+		  "blockname": "chisel:carpet_block",
+		  "vanilla": { }
+		},
+		{
+		  "refname": "Carpet Floor",
+		  "assoc": true,
+		  "simple": { },
+		  "blockname": "chisel:carpet",
+		  "vanilla": { }
 		}
 	  ]
 	}

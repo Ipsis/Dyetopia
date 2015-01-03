@@ -2,16 +2,12 @@ package ipsis.dyetopia.handler;
 
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import ipsis.dyetopia.manager.dyeableblocks.DyeableBlockDesc;
-import ipsis.dyetopia.manager.dyeableblocks.DyeableModInfo;
+import ipsis.dyetopia.manager.dyeableblocks.config.*;
 import ipsis.dyetopia.reference.Reference;
 import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.LogHelper;
-import net.minecraft.util.ResourceLocation;
-import sun.rmi.runtime.Log;
 
 import java.io.*;
-import java.util.ArrayList;
 
 /**
         # simple dye : 0 = black, 15 = white
@@ -26,43 +22,23 @@ import java.util.ArrayList;
 
 public class DyeFileHandler {
 
-    public ArrayList<DyeableModInfo> cfgArray;
-    private ArrayList<String> modBlacklist;
-    private ArrayList<String> blockBlacklist;
-
     private static final DyeFileHandler instance = new DyeFileHandler();
-    public static final DyeFileHandler getInstance() { return instance; }
+    public static DyeFileHandler getInstance() { return instance; }
 
-    private DyeFileHandler() {
-        cfgArray = new ArrayList<DyeableModInfo>();
-        modBlacklist = new ArrayList<String>();
-        blockBlacklist = new ArrayList<String>();
-    }
-
-    public boolean isModBlacklisted(String mod) {
-        return modBlacklist.contains(mod);
-    }
-
-    public boolean isBlockBlacklisted(String block) {
-        return blockBlacklist.contains(block);
-    }
-
-    private static final String TAG_DYEBLOCK = "dyeblocks";
     private static final String TAG_MODID = "id";
     private static final String TAG_MODS = "mods";
     private static final String TAG_MAPS = "maps";
     private static final String TAG_REFNAME = "refname";
     private static final String TAG_ASSOC = "assoc";
     private static final String TAG_ORIGIN = "origin";
-    private static final String TAG_OFFSET = "offset";
     private static final String TAG_SIMPLE = "simple";
     private static final String TAG_VANILLA = "vanilla";
     private static final String TAG_FULL_META = "fullmeta";
     private static final String TAG_FULL_BLOCK = "fullblock";
     private static final String TAG_NAME = "name";
-    private static final String TAG_META = "meta";
+    private static final String TAG_ATTR = "meta";
     private static final String TAG_COLOR = "color";
-    private static final String TAG_BLOCKNAME = "blockname";
+    private static final String TAG_BASENAME = "blockname";
     private static final String TAG_BLACKLIST = "blacklist";
     private static final String TAG_BLOCKS = "blocks";
 
@@ -77,134 +53,151 @@ public class DyeFileHandler {
     private static final String USERCUSTOM_FILENAME = "dyetopia_custommaps.json";
     private static final String ASSET_PATH = "/assets/" + Reference.MOD_ID;
 
-    private void readOrigin(DyeableBlockDesc desc, JsonReader reader) throws IOException {
+    private ModObjectDesc readOrigin(JsonReader reader) throws IOException {
+
+        int originAttr = -1;
+        String originName = null;
 
         reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();
             if (name.equals(TAG_NAME))
-                desc.originName = reader.nextString();
-            else if (name.equals(TAG_META))
-                desc.originMeta = reader.nextInt();
+                originName = reader.nextString();
+            else if (name.equals(TAG_ATTR))
+                originAttr = reader.nextInt();
             else
                 reader.skipValue();
         }
         reader.endObject();
+
+        return new ModObjectDesc(originName, originAttr);
     }
 
-    private void readSimple(DyeableBlockDesc desc, JsonReader reader) throws IOException {
+    private BlockDescBase readSimple(JsonReader reader) throws IOException {
 
-        desc.type = DyeableBlockDesc.MapType.SIMPLE;
         reader.beginObject();
         while (reader.hasNext()) {
                 reader.skipValue();
         }
         reader.endObject();
+
+        BlockDescSimple desc = new BlockDescSimple();
+        desc.setVanillaOrder(false);
+        return desc;
     }
 
-    private void readVanilla(DyeableBlockDesc desc, JsonReader reader) throws IOException {
+    private BlockDescBase readVanilla(JsonReader reader) throws IOException {
 
-        desc.type = DyeableBlockDesc.MapType.VANILLA;
         reader.beginObject();
         while (reader.hasNext()) {
-            String name = reader.nextName();
-            if (name.equals(TAG_OFFSET))
-                desc.offset = reader.nextInt();
-            else
                 reader.skipValue();
         }
         reader.endObject();
+
+        return new BlockDescSimple();
     }
 
-    private void readFullMeta(DyeableBlockDesc desc, JsonReader reader) throws IOException {
+    private BlockDescBase readFullMeta(JsonReader reader) throws IOException {
 
-        desc.type = DyeableBlockDesc.MapType.FULL_META;
-        desc.initMetaMap();
+        BlockDescAttrMap desc = new BlockDescAttrMap();
         reader.beginArray();
         int i = 0;
         while (reader.hasNext()) {
-            desc.setMetaMap(i++, reader.nextInt());
+            desc.setAttrMapEntry(DyeHelper.DyeType.getDye(i), reader.nextInt());
         }
         reader.endArray();
+        return desc;
     }
 
-    private void readFullBlock(DyeableBlockDesc desc, JsonReader reader) throws IOException {
+    private BlockDescBase readFullBlock(JsonReader reader) throws IOException {
 
-        desc.type = DyeableBlockDesc.MapType.FULL_BLOCK;
-        desc.initBlockMap();
-
+        BlockDescFull desc = new BlockDescFull();
         reader.beginArray();
         while (reader.hasNext()) {
 
+            DyeHelper.DyeType dye = DyeHelper.DyeType.INVALID;
+            String blockName = null;
+            int blockAttr = -1;
             reader.beginObject();
-            DyeableBlockDesc.BlockMapDesc d = new DyeableBlockDesc.BlockMapDesc();
             while (reader.hasNext()) {
 
                 String name = reader.nextName();
-
-                if (name.equals(TAG_COLOR)) {
-                    d.dye = DyeHelper.DyeType.getDyeFromTag(reader.nextString());
-                } else if (name.equals(TAG_NAME)) {
-                    d.name = reader.nextString();
-                } else if (name.equals(TAG_META)) {
-                    d.meta = reader.nextInt();
-                } else {
+                if (name.equals(TAG_COLOR))
+                    dye = DyeHelper.DyeType.getDyeFromTag(reader.nextString());
+                else if (name.equals(TAG_NAME))
+                    blockName = reader.nextString();
+                else if (name.equals(TAG_ATTR))
+                    blockAttr = reader.nextInt();
+                else
                     reader.skipValue();
-                }
             }
             reader.endObject();
-
-            if (d.dye != DyeHelper.DyeType.INVALID && d.name != null && d.meta != -1)
-                desc.blockMap[d.dye.ordinal()] = d;
+            desc.addEntry(blockName, blockAttr, dye);
         }
         reader.endArray();
+        return desc;
     }
 
-    // TODO Chisel add Woolen Clay, Carpet Block, Floor Carpet
-
-    private void readMap(DyeableBlockDesc desc, JsonReader reader) throws IOException {
+    private void readMap(ModInfo modinfo, JsonReader reader) throws IOException {
 
         String name;
+        BlockDescBase desc = null;
+        String refname = null;
+        String basename = null;
+        boolean associative = false;
+        ModObjectDesc origin = new ModObjectDesc();
+
         reader.beginObject();
         while (reader.hasNext()) {
             name = reader.nextName();
             if (name.equals(TAG_REFNAME))
-                desc.refname = reader.nextString();
+                refname = reader.nextString();
             else if (name.equals(TAG_ASSOC))
-                desc.associative = reader.nextBoolean();
+                associative = reader.nextBoolean();
             else if (name.equals(TAG_ORIGIN))
-                readOrigin(desc, reader);
+                origin = readOrigin(reader);
             else if (name.equals(TAG_SIMPLE))
-                readSimple(desc, reader);
+                desc = readSimple(reader);
             else if (name.equals(TAG_VANILLA))
-                readVanilla(desc, reader);
+                desc = readVanilla(reader);
             else if (name.equals(TAG_FULL_META))
-                readFullMeta(desc, reader);
+                desc = readFullMeta(reader);
             else if (name.equals(TAG_FULL_BLOCK))
-                readFullBlock(desc, reader);
-            else if (name.equals(TAG_BLOCKNAME))
-                desc.blockName = reader.nextString();
+                desc = readFullBlock(reader);
+            else if (name.equals(TAG_BASENAME))
+                basename = reader.nextString();
             else
                 reader.skipValue();
         }
         reader.endObject();
+
+        if (desc == null)
+            return;
+
+        desc.refname = refname;
+        desc.associative = associative;
+
+        if (basename != null && !basename.equals("") && desc instanceof BlockDescSimple)
+            ((BlockDescSimple) desc).setBaseName(basename);
+
+        if (origin.isValid())
+            desc.setOrigin(origin);
+
+        modinfo.addMapping(desc);
     }
 
     private void readMod(JsonReader reader) throws IOException {
 
-        DyeableModInfo modInfo = new DyeableModInfo();
+        ModInfo modinfo = new ModInfo();
         reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();
             if (name.equals(TAG_MODID)) {
-                modInfo.modid = reader.nextString();
+                modinfo.setModid(reader.nextString());
             } else if (name.equals(TAG_MAPS)) {
                 reader.beginArray();
                 while (reader.hasNext()) {
-                    DyeableBlockDesc desc = new DyeableBlockDesc();
-                    readMap(desc, reader);
-                    if (desc.type != DyeableBlockDesc.MapType.INVALID)
-                        modInfo.mappings.add(desc);
+                    readMap(modinfo, reader);
                 }
                 reader.endArray();
             } else {
@@ -213,8 +206,8 @@ public class DyeFileHandler {
         }
         reader.endObject();
 
-        if (modInfo.modid != null && !modInfo.modid.equals(""))
-            cfgArray.add(modInfo);
+        if (modinfo.hasModid())
+            DyeableBlocksConfigManager.getInstance().addMod(modinfo.getModid(), modinfo);
     }
 
     private void readMods(JsonReader reader) throws IOException {
@@ -235,20 +228,25 @@ public class DyeFileHandler {
                 while (reader.hasNext()) {
                     String mod = reader.nextString();
                     LogHelper.info("Blacklist mod " + mod);
-                    modBlacklist.add(mod);
                 }
                 reader.endArray();
-            }
-            else if (name.equals(TAG_BLOCKS)) {
+            } else if (name.equals(TAG_BLOCKS)) {
                 reader.beginArray();
                 while (reader.hasNext()) {
                     String blockname = reader.nextString();
                     LogHelper.info("Blacklist: block " + blockname);
-                    blockBlacklist.add(blockname);
+                    DyeableBlocksConfigManager.getInstance().addBlockToBlacklist(blockname);
                 }
                 reader.endArray();
-            }
-            else {
+            } else if (name.equals(TAG_REFNAME)) {
+                reader.beginArray();
+                while (reader.hasNext()) {
+                    String refname = reader.nextString();
+                    LogHelper.info("Blacklist: refname " + refname);
+                    DyeableBlocksConfigManager.getInstance().addRefnameToBlacklist(refname);
+                }
+                reader.endArray();
+            } else {
                 reader.skipValue();
             }
         }
@@ -277,7 +275,6 @@ public class DyeFileHandler {
 
         /* Load the user configuration last */
         loadUserConfig(configDir);
-
     }
 
     private void loadUserConfig(File configDir) {

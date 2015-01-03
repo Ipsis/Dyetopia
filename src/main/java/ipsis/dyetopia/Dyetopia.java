@@ -2,13 +2,12 @@ package ipsis.dyetopia;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.*;
-import ipsis.dyetopia.handler.BucketHandler;
 import ipsis.dyetopia.handler.DyeFileHandler;
 import ipsis.dyetopia.init.*;
 import ipsis.dyetopia.gui.GuiHandler;
 import ipsis.dyetopia.manager.*;
-import ipsis.dyetopia.manager.dyeableblocks.DyeableBlockDesc;
 import ipsis.dyetopia.manager.dyeableblocks.DyeableBlocksManager;
+import ipsis.dyetopia.manager.dyeableblocks.config.DyeableBlocksConfigManager;
 import ipsis.dyetopia.network.PacketHandler;
 import ipsis.dyetopia.proxy.IProxy;
 import ipsis.dyetopia.reference.Reference;
@@ -42,6 +41,7 @@ public class Dyetopia {
         ModOreDict.preInit();
 
         DyeFileHandler.getInstance().load(event.getModConfigurationDirectory());
+        DyeableBlocksConfigManager.getInstance().applyBlacklists();
 
         FMLInterModComms.sendMessage("Waila", "register", "ipsis.dyetopia.plugins.waila.DYTWailaProvider.callbackRegister");
     }
