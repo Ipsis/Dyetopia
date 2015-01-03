@@ -20,6 +20,6 @@ public class DyeableModInfo {
         if (modid.equals("vanilla"))
             return true;
 
-        return Loader.isModLoaded(modid);
+        return Loader.isModLoaded(modid) || Loader.isModLoaded(modid.toLowerCase());
     }
 }
