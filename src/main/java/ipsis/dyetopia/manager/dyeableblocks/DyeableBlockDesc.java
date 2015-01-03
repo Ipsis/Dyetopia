@@ -27,6 +27,11 @@ public class DyeableBlockDesc {
             meta = -1;
             dye = DyeHelper.DyeType.INVALID;
         }
+
+        @Override
+        public String toString() {
+            return dye + ":" + name + "/" + meta;
+        }
     }
 
     public String refname;
@@ -56,12 +61,15 @@ public class DyeableBlockDesc {
         if (type == MapType.INVALID)
             return false;
 
-        /* No point */
-        if ((!hasOrigin() && !associative) || !hasBlockName())
-            return false;
+        if (type != MapType.FULL_BLOCK) {
 
-        if (blockName == null && blockName.equals(""))
-            return false;
+            /* No point */
+            if ((!hasOrigin() && !associative) || !hasBlockName())
+                return false;
+
+            if (blockName == null || blockName.equals(""))
+                return false;
+        }
 
         if (type == MapType.FULL_META) {
             if (metaMap == null)
@@ -75,7 +83,7 @@ public class DyeableBlockDesc {
         } else if (type == MapType.FULL_BLOCK) {
 
             for (BlockMapDesc desc : blockMap) {
-                if (desc.name == null || desc.name.equals(""))
+                if (desc == null || desc.name == null || desc.name.equals(""))
                     return false;
             }
         }
@@ -91,6 +99,15 @@ public class DyeableBlockDesc {
 
     public void initBlockMap() {
         blockMap = new BlockMapDesc[16];
+    }
+
+    public BlockMapDesc getBlockMapDesc(DyeHelper.DyeType dye) {
+
+        BlockMapDesc d = blockMap[dye.ordinal()];
+        if (d == null || d.name == null || d.name.equals("") || d.meta < 0)
+            return null;
+
+        return d;
     }
 
     public void setMetaMap(int idx, int v) {

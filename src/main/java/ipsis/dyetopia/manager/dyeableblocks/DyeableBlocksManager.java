@@ -126,6 +126,7 @@ public class DyeableBlocksManager {
                     case FULL_META:
                         break;
                     case FULL_BLOCK:
+                        handleFullBlockDesc(desc, originBlacklisted);
                         break;
                     default:
                         break;
@@ -233,10 +234,65 @@ public class DyeableBlocksManager {
         }
     }
 
+    private static void handleFullBlockDesc(DyeableBlockDesc desc, boolean originBlacklisted) {
+
+        /* TODO handle blacklist */
+        /* The block name is not needed here, as each block is fully described */
+        if (desc.hasOrigin()) {
+            if (originBlacklisted) {
+                LogHelper.info("DyeableBlocksManager: skipping " + desc.refname + " origin, blacklisted " + desc.blockName);
+            } else {
+                ItemStack originStack = getItemStackFromRegistry(desc.originName);
+                if (originStack != null) {
+                    originStack.setItemDamage(desc.originMeta);
+
+                    for (DyeHelper.DyeType dye : DyeHelper.DyeType.VALID_DYES) {
+
+                        DyeableBlockDesc.BlockMapDesc blockDesc = desc.blockMap[dye.ordinal()];
+                        if (blockDesc == null)
+                            continue;
+
+                        ItemStack outStack = getItemStackFromRegistry(blockDesc.name);
+                        if (outStack != null) {
+                            addEntry(originStack, dye, new ItemStack(outStack.getItem(), 1, blockDesc.meta));
+                            addOrigin(originStack, new ItemStack(outStack.getItem(), 1, blockDesc.meta));
+                        }
+                    }
+                }
+            }
+        }
+
+        if (desc.associative) {
+
+            for (DyeHelper.DyeType d : DyeHelper.DyeType.VALID_DYES) {
+
+                DyeableBlockDesc.BlockMapDesc inDesc = desc.getBlockMapDesc(d);
+                if (inDesc == null)
+                    continue;
+
+                ItemStack inStack = getItemStackFromRegistry(inDesc.name);
+                if (inStack == null)
+                    continue;
+
+                for (DyeHelper.DyeType d2 : DyeHelper.DyeType.VALID_DYES) {
+                    DyeableBlockDesc.BlockMapDesc outDesc = desc.getBlockMapDesc(d2);
+                    if (outDesc == null || d == d2)
+                        continue;
+
+                    ItemStack outStack = getItemStackFromRegistry(outDesc.name);
+                    if (outStack != null) {
+                        addEntry(new ItemStack(inStack.getItem(), 1, inDesc.meta), d2, new ItemStack(outStack.getItem(), 1, outDesc.meta));
+                    }
+                }
+            }
+        }
+    }
+
     private static void addEntry(ItemStack source, DyeHelper.DyeType dye, ItemStack output) {
 
         ComparableItemStackBlockSafe key = new ComparableItemStackBlockSafe(source.copy());
         HashMap<ComparableItemStackBlockSafe, DyedBlockRecipe> rmap = recipeMap.get(dye.ordinal());
+
         if (!rmap.containsKey(key)) {
             rmap.put(key, new DyedBlockRecipe(source, dye, output));
         } else {

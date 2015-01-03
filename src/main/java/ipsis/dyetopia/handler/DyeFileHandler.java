@@ -133,12 +133,12 @@ public class DyeFileHandler {
         desc.type = DyeableBlockDesc.MapType.FULL_BLOCK;
         desc.initBlockMap();
 
-        reader.beginObject();
+        reader.beginArray();
         while (reader.hasNext()) {
 
             reader.beginObject();
+            DyeableBlockDesc.BlockMapDesc d = new DyeableBlockDesc.BlockMapDesc();
             while (reader.hasNext()) {
-                DyeableBlockDesc.BlockMapDesc d = new DyeableBlockDesc.BlockMapDesc();
 
                 String name = reader.nextName();
 
@@ -151,14 +151,16 @@ public class DyeFileHandler {
                 } else {
                     reader.skipValue();
                 }
-                reader.endObject();
-
-                if (d.dye != DyeHelper.DyeType.INVALID && d.name != null && d.meta != -1)
-                    desc.blockMap[d.dye.ordinal()] = d;
             }
+            reader.endObject();
+
+            if (d.dye != DyeHelper.DyeType.INVALID && d.name != null && d.meta != -1)
+                desc.blockMap[d.dye.ordinal()] = d;
         }
-        reader.endObject();
+        reader.endArray();
     }
+
+    // TODO Chisel add Woolen Clay, Carpet Block, Floor Carpet
 
     private void readMap(DyeableBlockDesc desc, JsonReader reader) throws IOException {
 
