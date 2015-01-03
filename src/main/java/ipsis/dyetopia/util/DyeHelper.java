@@ -142,7 +142,7 @@ public class DyeHelper {
         public static DyeType getDyeFromTag(String tagName) {
 
             for (DyeType r : VALID_DYES)
-                if (r.getTagName().equals(tagName))
+                if (r.getTagName().equals(tagName) || r.getTagName().equals(tagName.toLowerCase()))
                     return r;
 
             return INVALID;
