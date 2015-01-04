@@ -1,9 +1,10 @@
 package ipsis.dyetopia.block;
 
+import cofh.lib.util.helpers.StringHelper;
+import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.reference.Names;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntityValve;
-import ipsis.dyetopia.util.TankType;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.ITileEntityProvider;
@@ -13,7 +14,9 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockValve extends BlockDYTMultiBlock implements ITileEntityProvider{
+import java.util.List;
+
+public class BlockValve extends BlockDYTMultiBlock implements ITileEntityProvider, ITooltipInfo{
 
     public BlockValve() {
         super();
@@ -77,5 +80,11 @@ public class BlockValve extends BlockDYTMultiBlock implements ITileEntityProvide
     @Override
     public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
         return new TileEntityValve();
+    }
+
+    @Override
+    public void getTooltip(List<String> toolTip, boolean showAdvancedItemTooltips, int meta, boolean detail) {
+        toolTip.add(StringHelper.localize(Lang.Tooltips.BLOCK_VALVE));
+        toolTip.add(StringHelper.localize(Lang.Tooltips.MULTIBLOCK));
     }
 }

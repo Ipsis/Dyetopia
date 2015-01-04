@@ -1,18 +1,15 @@
 package ipsis.dyetopia.item;
 
 
+import cofh.lib.util.helpers.StringHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.init.ModItems;
 import ipsis.dyetopia.manager.dyeableblocks.DyeableBlocksManager;
-import ipsis.dyetopia.reference.Names;
-import ipsis.dyetopia.reference.Nbt;
-import ipsis.dyetopia.reference.Settings;
-import ipsis.dyetopia.reference.Textures;
+import ipsis.dyetopia.reference.*;
 import ipsis.dyetopia.util.BlockSwapper;
 import ipsis.dyetopia.util.DyeHelper;
-import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockColored;
 import net.minecraft.block.BlockContainer;
@@ -22,7 +19,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -40,7 +36,7 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
 
         super(0); /* itemID parameter not used */
         setCapacity(Settings.Items.dyeGunTankCapacity);
-        setUnlocalizedName(Names.Items.ITEM_DYE_GUN);
+        setUnlocalizedName(Names.Items.DYE_GUN);
     }
 
     @SideOnly(Side.CLIENT)
@@ -51,8 +47,8 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister)
     {
-        pass0Icon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + Names.Items.ITEM_DYE_GUN + ".Pass0");
-        pass1Icon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + Names.Items.ITEM_DYE_GUN + ".Pass1");
+        pass0Icon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + Names.Items.DYE_GUN + ".Pass0");
+        pass1Icon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + Names.Items.DYE_GUN + ".Pass1");
     }
 
     @Override
@@ -191,7 +187,7 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
         if (itemStack.stackTagCompound == null)
             setDefaultTags(itemStack);
 
-
+        info.add(StringHelper.localize(Lang.Tooltips.ITEM_DYE_GUN));
         info.add(getColorTranslation(getColor(itemStack)));
 
         FluidStack f = getFluid(itemStack);
@@ -303,5 +299,4 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
             return false;
         }
     }
-
 }

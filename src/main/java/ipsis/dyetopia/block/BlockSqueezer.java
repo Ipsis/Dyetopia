@@ -1,12 +1,14 @@
 package ipsis.dyetopia.block;
 
+import cofh.lib.util.helpers.StringHelper;
+import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.reference.Names;
-import ipsis.dyetopia.reference.Reference;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntityMultiBlockMaster;
 import ipsis.dyetopia.tileentity.TileEntitySqueezer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ipsis.dyetopia.util.TooltipHelper;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
@@ -15,7 +17,9 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockSqueezer extends BlockDYTMultiBlock implements ITileEntityProvider {
+import java.util.List;
+
+public class BlockSqueezer extends BlockDYTMultiBlock implements ITileEntityProvider, ITooltipInfo {
 
     public BlockSqueezer() {
         super();
@@ -80,5 +84,16 @@ public class BlockSqueezer extends BlockDYTMultiBlock implements ITileEntityProv
         }
 
         return casingUnformedIcon;
+    }
+
+    @Override
+    public void getTooltip(List<String> toolTip, boolean showAdvancedItemTooltips, int meta, boolean detail) {
+        toolTip.add(StringHelper.localize(Lang.Tooltips.BLOCK_SQUEEZER));
+        toolTip.add(StringHelper.localize(Lang.Tooltips.MULTIBLOCK));
+
+        if (!detail)
+            TooltipHelper.addMoreInfo(toolTip);
+        else
+            TooltipHelper.addRequires(toolTip, Lang.Tooltips.REQUIRES_RF);
     }
 }

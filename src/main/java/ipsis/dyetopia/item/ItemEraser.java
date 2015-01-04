@@ -1,21 +1,24 @@
 package ipsis.dyetopia.item;
 
-import ipsis.dyetopia.init.ModItems;
+import cofh.lib.util.helpers.StringHelper;
 import ipsis.dyetopia.manager.dyeableblocks.DyeableBlocksManager;
+import ipsis.dyetopia.reference.Lang;
+import ipsis.dyetopia.reference.Names;
 import ipsis.dyetopia.util.BlockSwapper;
-import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class ItemEraser extends ItemDYT {
 
     public ItemEraser() {
         super();
-        this.setUnlocalizedName("eraser");
+        this.setUnlocalizedName(Names.Items.ERASER);
+        this.setTooltip(Lang.Tooltips.ITEM_ERASER);
         this.setMaxStackSize(64);
     }
 

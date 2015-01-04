@@ -1,7 +1,9 @@
 package ipsis.dyetopia.block;
 
+import cofh.lib.util.helpers.StringHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.reference.Names;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntityCasing;
@@ -13,7 +15,9 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockCasing extends BlockDYTMultiBlock implements ITileEntityProvider {
+import java.util.List;
+
+public class BlockCasing extends BlockDYTMultiBlock implements ITileEntityProvider, ITooltipInfo {
 
     public BlockCasing() {
         super();
@@ -49,5 +53,11 @@ public class BlockCasing extends BlockDYTMultiBlock implements ITileEntityProvid
     @Override
     public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
         return new TileEntityCasing();
+    }
+
+    @Override
+    public void getTooltip(List<String> toolTip, boolean showAdvancedItemTooltips, int meta, boolean detail) {
+        toolTip.add(StringHelper.localize(Lang.Tooltips.BLOCK_CONTROLLER));
+        toolTip.add(StringHelper.localize(Lang.Tooltips.MULTIBLOCK));
     }
 }

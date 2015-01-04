@@ -1,19 +1,19 @@
 package ipsis.dyetopia.block.plantlife;
 
 
+import cofh.lib.util.helpers.StringHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ipsis.dyetopia.block.ITooltipInfo;
+import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.reference.Names;
 import ipsis.dyetopia.reference.Textures;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
 import java.util.List;
 
-public class BlockRootDye extends BlockLogDYT {
+public class BlockRootDye extends BlockLogDYT implements ITooltipInfo {
 
     public BlockRootDye() {
 
@@ -50,4 +50,8 @@ public class BlockRootDye extends BlockLogDYT {
         return icons[1];
     }
 
+    @Override
+    public void getTooltip(List<String> toolTip, boolean showAdvancedItemTooltips, int meta, boolean detail) {
+        toolTip.add(StringHelper.localize(Lang.Tooltips.BLOCK_ROOT_DYE));
+    }
 }

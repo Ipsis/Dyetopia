@@ -35,12 +35,12 @@ public class ModItems {
 
         GameRegistry.registerItem(itemEraser, "item.eraser");
         GameRegistry.registerItem(itemDyeBlank, "item.dyeBlank");
-        GameRegistry.registerItem(itemDyeGun, "item." + Names.Items.ITEM_DYE_GUN);
+        GameRegistry.registerItem(itemDyeGun, "item." + Names.Items.DYE_GUN);
 
         GameRegistry.registerItem(itemDyemeal, "item.dyemeal");
-        GameRegistry.registerItem(itemDyeDrop, "item." + Names.Items.ITEM_DYE_DROP);
-        GameRegistry.registerItem(itemDyeBeans, "item." + Names.Items.ITEM_DYE_BEANS);
-        GameRegistry.registerItem(itemDyeChunk, "item" + Names.Items.ITEM_DYE_CHUNK);
+        GameRegistry.registerItem(itemDyeDrop, "item." + Names.Items.DYE_DROP);
+        GameRegistry.registerItem(itemDyeBeans, "item." + Names.Items.DYE_BEANS);
+        GameRegistry.registerItem(itemDyeChunk, "item" + Names.Items.DYE_CHUNK);
 
         /* debug only */
         //itemDebug = new ItemDebug();

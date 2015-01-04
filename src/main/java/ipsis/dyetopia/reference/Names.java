@@ -37,23 +37,26 @@ public class Names {
     /* Items */
     public static final class Items {
 
-        public static final String ITEM_DYE_DROP = "dyeDrop";
-        public static final String[] ITEM_DYE_DROP_TYPES = {
+        public static final String DYE_DROP = "dyeDrop";
+        public static final String[] DYE_DROP_TYPES = {
                 "Red", "Yellow", "Blue", "Pure"
         };
 
-        public static final String ITEM_DYE_BEANS = "dyeBeans";
-        public static final String[] ITEM_DYE_BEANS_TYPES = {
+        public static final String DYE_BEANS = "dyeBeans";
+        public static final String[] DYE_BEANS_TYPES = {
                 "Red", "Yellow", "Blue"
         };
 
         /* Vanilla dmg -> matching color */
-        public static final String ITEM_DYE_CHUNK = "dyeChunk";
-        public static final String[] ITEM_DYE_CHUNK_TYPES = {
+        public static final String DYE_CHUNK = "dyeChunk";
+        public static final String[] DYE_CHUNK_TYPES = {
                 "White", "Orange", "Magenta", "LightBlue", "Yellow", "Lime", "Pink", "Gray",
                 "LightGray", "Cyan", "Purple", "Blue", "Brown", "Green", "Red", "Black"
         };
 
-        public static final String ITEM_DYE_GUN = "dyeGun";
+        public static final String DYE_GUN = "dyeGun";
+        public static final String DYEMEAL = "dyemeal";
+        public static final String DYE_BLANK = "dyeBlank";
+        public static final String ERASER = "eraser";
     }
 }

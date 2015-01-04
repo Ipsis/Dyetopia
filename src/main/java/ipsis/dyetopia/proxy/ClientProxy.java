@@ -1,10 +1,13 @@
 package ipsis.dyetopia.proxy;
 
+import ipsis.dyetopia.handler.ItemTooltipHandler;
 import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.init.ModBlocks;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import ipsis.dyetopia.util.IconRegistry;
+import net.minecraft.item.ItemTool;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.util.HashMap;
 
@@ -36,5 +39,12 @@ public class ClientProxy extends CommonProxy {
             IconRegistry.addIcon("Icon_Dn_Active", event.map.registerIcon("dyetopia:icons/Icon_Dn_Active"));
             IconRegistry.addIcon("Icon_Dn_Inactive", event.map.registerIcon("dyetopia:icons/Icon_Dn_Inactive"));
         }
+    }
+
+    @Override
+    public void registerEventHandlers() {
+        super.registerEventHandlers();
+
+        MinecraftForge.EVENT_BUS.register(new ItemTooltipHandler());
     }
 }

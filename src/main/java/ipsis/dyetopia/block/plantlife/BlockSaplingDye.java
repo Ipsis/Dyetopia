@@ -1,8 +1,11 @@
 package ipsis.dyetopia.block.plantlife;
 
+import cofh.lib.util.helpers.StringHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ipsis.dyetopia.block.ITooltipInfo;
 import ipsis.dyetopia.init.ModBlocks;
+import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.reference.Names;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.world.gen.feature.WorldGenDyeTree;
@@ -19,7 +22,7 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import java.util.List;
 import java.util.Random;
 
-public class BlockSaplingDye extends BlockSaplingDYT {
+public class BlockSaplingDye extends BlockSaplingDYT implements ITooltipInfo {
 
     public BlockSaplingDye() {
 
@@ -122,5 +125,10 @@ public class BlockSaplingDye extends BlockSaplingDYT {
                 world.setBlock(x, y, z, this, meta, 2);
             }
         }
+    }
+
+    @Override
+    public void getTooltip(List<String> toolTip, boolean showAdvancedItemTooltips, int meta, boolean detail) {
+        toolTip.add(StringHelper.localize(Lang.Tooltips.BLOCK_SAPLING));
     }
 }
