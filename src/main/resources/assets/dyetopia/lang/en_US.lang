@@ -102,12 +102,6 @@ tooltip.dyetopia:dyeGun.dyeOrange=Orange Dye
 tooltip.dyetopia:dyeGun.dyeWhite=White Dye
 
 # Tab titles
-hud.dyetopia:energy=Energy
-hud.dyetopia:information=Information
-
-hud.dyetopia:energy.draw=Use Per Tick
-hud.dyetopia:energy.rxtick=Max Rx Per Tick
-hud.dyetopia:energy.stored=Energy Stored
 
 hud.dyetopia:tank=Tanks
 hud.dyetopia:tank.red=Red Tank
@@ -115,20 +109,6 @@ hud.dyetopia:tank.yellow=Yellow Tank
 hud.dyetopia:tank.blue=Blue Tank
 hud.dyetopia:tank.white=White Tank
 hud.dyetopia:tank.pure=Pure Tank
-
-hud.dyetopia:info.squeezer.0=Turn items into dye.
-hud.dyetopia:info.squeezer.1=Put the item in the left slot and for the cost of some RF it will be squashed into the liquid dye.
-hud.dyetopia:info.mixer.0=Those liquid dyes wont do you much good.
-hud.dyetopia:info.mixer.1=You need shiny pure dye.
-hud.dyetopia:info.mixer.2=Pipe the red, yellow, blue and white dyes into this machine and it will mix them together for you.
-hud.dyetopia:info.stamper.0=Stamps out chunks of dye in any color.
-hud.dyetopia:info.stamper.1=Select your output color then put dye blanks into the input slot.
-hud.dyetopia:info.stamper.2=As long as you have enough pure dye and dye blanks, it will keep stamping them out.
-hud.dyetopia:info.painter.0=Block coloring on a bit scale!
-hud.dyetopia:info.painter.1=Select your output color then put your block into the input slot.
-hud.dyetopia:info.painter.2=As long as you have enough pure dye and input blocks, it will keep slapping on the paint.
-hud.dyetopia:info.filler.0=Dye gun in the input slot, pure dye in the tank.
-hud.dyetopia:info.filler.1=Dye gun gets filled up. Simples!
 
 ### New layout below here
 
@@ -160,3 +140,33 @@ tooltip.dyetopia:hasDetail=Press shift for more info
 tooltip.dyetopia:multiblock=Part of multiblock
 tooltip.dyetopia:requires.rf=Requires: RF
 tooltip.dyetopia:requires.dye=Requires: Pure Liquid Dye
+
+# Gui
+
+gui.dyetopia:tab.energy=Energy
+gui.dyetopia:tab.info=Information
+
+gui.dyetopia:energy.draw=Use Per Tick
+gui.dyetopia:energy.rxtick=Max Rx Per Tick
+gui.dyetopia:energy.stored=Energy Stored
+
+gui.dyetopia:info.squeezer.0=Squashes various items into liquid dyes.
+gui.dyetopia:info.squeezer.1=The liquid dye colors produced, depend on the item squashed.
+gui.dyetopia:info.squeezer.2=Dye drops give the most liquid dye per squeeze.
+gui.dyetopia:info.squeezer.3=Pipe the liquid dyes out of the squeezer and store carefully in the liquid storage option of your choice.
+
+gui.dyetopia:info.mixer.0=Mixes red, yellow, blue and white dye into shiny pure dye.
+gui.dyetopia:info.mixer.1=You can tell it is pure because it is PURPLE!
+gui.dyetopia:info.mixer.2=Just pipe in the four dyes, apply some power, leave to simmer and out comes pure dye.
+gui.dyetoipa:info.mixer.3=The pure dye can be piped out and stored elsewhere.
+
+gui.dyetopia:info.stamper.0=Stamps out chunks of dye in any color.
+gui.dyetopia:info.stamper.1=Select your output color then put dye blanks into the input slot.
+gui.dyetopia:info.stamper.2=As long as you have enough pure dye and dye blanks, it will keep stamping them out.
+
+gui.dyetopia:info.painter.0=Block coloring on a big scale!
+gui.dyetopia:info.painter.1=Select your output color then put your block into the input slot.
+gui.dyetopia:info.painter.2=As long as you have enough pure dye and input blocks, it will keep slapping on the paint.
+
+gui.dyetopia:info.filler.0=Dye gun in the input slot, pure dye in the tank.
+gui.dyetopia:info.filler.1=Dye gun gets filled up. Simples!

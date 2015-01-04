@@ -62,7 +62,7 @@ public class GuiPainter  extends GuiBaseDYT {
         addElement(selected);
 
         addTab(new TabEnergy(this, TabBase.RIGHT, this.painter));
-        addTab(new TabInfo(this, TabBase.LEFT, buildInfoString(Lang.PAINTER_INFO, Lang.PAINTER_INFO_LEN)));
+        addTab(new TabInfo(this, TabBase.LEFT, buildInfoString(Lang.Gui.INFO_PAINTER)));
     }
 
     @Override

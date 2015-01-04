@@ -50,7 +50,7 @@ public class GuiSqueezer extends GuiBaseDYT {
         addElement(progress);
 
         addTab(new TabEnergy(this, TabBase.RIGHT, this.squeezer));
-        addTab(new TabInfo(this, TabBase.LEFT, buildInfoString(Lang.SQUEEZER_INFO, Lang.SQUEEZER_INFO_LEN)));
+        addTab(new TabInfo(this, TabBase.LEFT, buildInfoString(Lang.Gui.INFO_SQUEEZER)));
     }
 
     @Override

@@ -64,7 +64,7 @@ public class GuiStamper extends GuiBaseDYT {
         addElement(selected);
 
         addTab(new TabEnergy(this, TabBase.RIGHT, this.stamper));
-        addTab(new TabInfo(this, TabBase.LEFT, buildInfoString(Lang.STAMPER_INFO, Lang.STAMPER_INFO_LEN)));
+        addTab(new TabInfo(this, TabBase.LEFT, buildInfoString(Lang.Gui.INFO_STAMPER)));
     }
 
     @Override

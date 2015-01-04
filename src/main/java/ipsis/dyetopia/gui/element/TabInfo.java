@@ -27,6 +27,6 @@ public class TabInfo extends TabScrolledText {
     @Override
     public String getTitle() {
 
-        return StringHelper.localize(Lang.TAG_INFO_TITLE);
+        return StringHelper.localize(Lang.Gui.TAB_INFO);
     }
 }

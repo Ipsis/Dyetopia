@@ -52,7 +52,7 @@ public class GuiMixer extends GuiBaseDYT {
         addElement(progress);
 
         addTab(new TabEnergy(this, TabBase.RIGHT, this.mixer));
-        addTab(new TabInfo(this, TabBase.LEFT, buildInfoString(Lang.MIXER_INFO, Lang.MIXER_INFO_LEN)));
+        addTab(new TabInfo(this, TabBase.LEFT, buildInfoString(Lang.Gui.INFO_MIXER)));
     }
 
     @Override
