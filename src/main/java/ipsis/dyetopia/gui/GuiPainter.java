@@ -2,6 +2,7 @@ package ipsis.dyetopia.gui;
 
 import cofh.lib.gui.GuiBase;
 import cofh.lib.gui.element.*;
+import cofh.lib.util.helpers.StringHelper;
 import ipsis.dyetopia.gui.container.ContainerPainter;
 import ipsis.dyetopia.gui.element.*;
 import ipsis.dyetopia.reference.GuiLayout;
@@ -36,6 +37,7 @@ public class GuiPainter  extends GuiBaseDYT {
 
         super(new ContainerPainter(painter, player), TEXTURE);
         this.painter = painter;
+        this.name = StringHelper.localize(Lang.Gui.TITLE_PAINTER);
 
         xSize = 174;
         ySize = 177;

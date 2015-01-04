@@ -5,6 +5,7 @@ import cofh.lib.gui.element.ElementDualScaled;
 import cofh.lib.gui.element.ElementEnergyStored;
 import cofh.lib.gui.element.ElementFluidTank;
 import cofh.lib.gui.element.TabBase;
+import cofh.lib.util.helpers.StringHelper;
 import ipsis.dyetopia.gui.container.ContainerFiller;
 import ipsis.dyetopia.gui.element.*;
 import ipsis.dyetopia.reference.GuiLayout;
@@ -27,6 +28,7 @@ public class GuiFiller extends GuiBaseDYT {
 
         super(new ContainerFiller(filler, player), TEXTURE);
         this.filler = filler;
+        this.name = StringHelper.localize(Lang.Gui.TITLE_FILLER);
 
         xSize = 174;
         ySize = 177;

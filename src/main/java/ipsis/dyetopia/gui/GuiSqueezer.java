@@ -5,6 +5,7 @@ import cofh.lib.gui.element.ElementDualScaled;
 import cofh.lib.gui.element.ElementEnergyStored;
 import cofh.lib.gui.element.ElementFluidTank;
 import cofh.lib.gui.element.TabBase;
+import cofh.lib.util.helpers.StringHelper;
 import ipsis.dyetopia.gui.container.ContainerSqueezer;
 import ipsis.dyetopia.gui.element.*;
 import ipsis.dyetopia.reference.GuiLayout;
@@ -27,6 +28,7 @@ public class GuiSqueezer extends GuiBaseDYT {
 
         super(new ContainerSqueezer(squeezer, player), TEXTURE);
         this.squeezer = squeezer;
+        this.name = StringHelper.localize(Lang.Gui.TITLE_SQUEEZER);
 
         xSize = 174;
         ySize = 177;

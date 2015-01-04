@@ -38,6 +38,7 @@ public class GuiStamper extends GuiBaseDYT {
 
         super(new ContainerStamper(stamper, player), TEXTURE);
         this.stamper = stamper;
+        this.name = StringHelper.localize(Lang.Gui.TITLE_STAMPER);
 
         xSize = 174;
         ySize = 177;

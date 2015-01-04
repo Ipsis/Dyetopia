@@ -5,6 +5,7 @@ import cofh.lib.gui.element.ElementDualScaled;
 import cofh.lib.gui.element.ElementEnergyStored;
 import cofh.lib.gui.element.ElementFluidTank;
 import cofh.lib.gui.element.TabBase;
+import cofh.lib.util.helpers.StringHelper;
 import ipsis.dyetopia.gui.container.ContainerMixer;
 import ipsis.dyetopia.gui.element.*;
 import ipsis.dyetopia.reference.GuiLayout;
@@ -28,6 +29,7 @@ public class GuiMixer extends GuiBaseDYT {
 
         super(new ContainerMixer(mixer, player), TEXTURE);
         this.mixer = mixer;
+        this.name = StringHelper.localize(Lang.Gui.TITLE_MIXER);
 
         xSize = 174;
         ySize = 177;
