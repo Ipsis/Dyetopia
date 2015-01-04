@@ -4,11 +4,11 @@ import ipsis.dyetopia.reference.Lang;
 
 public enum TankType {
 
-    RED("redTank", Lang.TANK_RED),
-    YELLOW("yellowTank", Lang.TANK_YELLOW),
-    BLUE("blueTank", Lang.TANK_BLUE),
-    WHITE("whiteTank", Lang.TANK_WHITE),
-    PURE("pureTank", Lang.TANK_PURE);
+    RED("redTank", Lang.Gui.TANKS_RED),
+    YELLOW("yellowTank", Lang.Gui.TANKS_YELLOW),
+    BLUE("blueTank", Lang.Gui.TANKS_BLUE),
+    WHITE("whiteTank", Lang.Gui.TANKS_WHITE),
+    PURE("pureTank", Lang.Gui.TANKS_PURE);
 
     private String name;
     private String localisation;

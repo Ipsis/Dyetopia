@@ -1,4 +1,5 @@
-key.categories.dyetopia=Dyetopia
+# Creative Tabs
+itemGroup.dyetopia:Dyetopia
 
 # Fluids
 tile.dyetopia:fluid.dyered.name=Red Liquid Dye
@@ -101,15 +102,6 @@ tooltip.dyetopia:dyeGun.dyeMagenta=Magenta Dye
 tooltip.dyetopia:dyeGun.dyeOrange=Orange Dye
 tooltip.dyetopia:dyeGun.dyeWhite=White Dye
 
-# Tab titles
-
-hud.dyetopia:tank=Tanks
-hud.dyetopia:tank.red=Red Tank
-hud.dyetopia:tank.yellow=Yellow Tank
-hud.dyetopia:tank.blue=Blue Tank
-hud.dyetopia:tank.white=White Tank
-hud.dyetopia:tank.pure=Pure Tank
-
 ### New layout below here
 
 # Tooltips
@@ -145,10 +137,17 @@ tooltip.dyetopia:requires.dye=Requires: Pure Liquid Dye
 
 gui.dyetopia:tab.energy=Energy
 gui.dyetopia:tab.info=Information
+gui.dyetopia:tab.tanks=Tanks
 
 gui.dyetopia:energy.draw=Use Per Tick
 gui.dyetopia:energy.rxtick=Max Rx Per Tick
 gui.dyetopia:energy.stored=Energy Stored
+
+gui.dyetopia:tanks.red=Red Tank
+gui.dyetopia:tanks.yellow=Yellow Tank
+gui.dyetopia:tanks.blue=Blue Tank
+gui.dyetopia:tanks.white=White Tank
+gui.dyetopia:tanks.pure=Pure Tank
 
 gui.dyetopia:info.squeezer.0=Squashes various items into liquid dyes.
 gui.dyetopia:info.squeezer.1=The liquid dye colors produced, depend on the item squashed.
@@ -170,3 +169,28 @@ gui.dyetopia:info.painter.2=As long as you have enough pure dye and input blocks
 
 gui.dyetopia:info.filler.0=Dye gun in the input slot, pure dye in the tank.
 gui.dyetopia:info.filler.1=Dye gun gets filled up. Simples!
+
+# Configuration
+config.dyetopia:trees.enabled=Dye trees are enabled. Disabling this means you will not be able to acquire dye drops.
+config.dyetopia:machines.tank.capacity=How much fluid a machine tank can store (mB).
+config.dyetopia:machines.energy.capacity=How much energy the machines can store (RF).
+config.dyetopia:machines.energy.rxTick=How much energy a machines can receive (RF/tick).
+config.dyetopia:machines.energy.squeezer.rfTick=How much energy the Squeezer uses (RF/tick).
+config.dyetopia:machines.energy.mixer.rfTick=How much energy the Mixer uses (RF/tick).
+config.dyetopia:machines.energy.stamper.rfTick=How much energy the Stamper uses (RF/tick).
+config.dyetopia:machines.energy.filler.rfTick=How much energy the Filler uses (RF/tick).
+config.dyetopia:machines.energy.painter.rfTick=How much energy the Painter uses (RF/tick).
+
+config.dyetopia:machines.dye.filler.dbTick=How much fluid the Filler transfers (mB/tick).
+
+config.dyetopia:dyeGun.capacity=How much fluid the Dye Gun can hold (mB).
+
+config.dyetopia:machines.recipe.squeezer.energy=How much energy the Squeezer uses per recipe (RF).
+config.dyetopia:machines.recipe.mixer.energy=How much energy the Mixer uses per recipe (RF).
+config.dyetopia:machines.recipe.stamper.energy=How much energy the Stamper uses per recipe (RF).
+config.dyetopia:machines.recipe.painter.energy=How much energy the Painter uses per recipe (RF).
+
+config.dyetopia:machines.recipe.mixer.amount.red=How much red dye is needed to produce 1000mB of pure dye (mB)
+config.dyetopia:machines.recipe.mixer.amount.yellow=How much yellow dye is needed to produce 1000mB of pure dye (mB)
+config.dyetopia:machines.recipe.mixer.amount.blue=How much blue dye is needed to produce 1000mB of pure dye (mB)
+config.dyetopia:machines.recipe.mixer.amount.white=How much white dye is needed to produce 1000mB of pure dye (mB)

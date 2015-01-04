@@ -2,43 +2,47 @@ package ipsis.dyetopia.reference;
 
 public class Lang {
 
-    /* Dye Tanks */
-    public static final String TANK_RED = "hud.dyetopia:tank.red";
-    public static final String TANK_YELLOW = "hud.dyetopia:tank.yellow";
-    public static final String TANK_BLUE = "hud.dyetopia:tank.blue";
-    public static final String TANK_WHITE = "hud.dyetopia:tank.white";
-    public static final String TANK_PURE = "hud.dyetopia:tank.pure";
-
-    /**
-     * New stuff below
-     */
-
     /* General */
     private static final String TAG_TOOLTIP = "tooltip." + Reference.MOD_ID + ":";
     private static final String TAG_GUI = "gui." + Reference.MOD_ID + ":";
     private static final String TAG_CONFIG = "config." + Reference.MOD_ID + ":";
-    private static final String TAG_TAB = "itemGroup." + Reference.MOD_ID + ":";
+
+    public static final String TAG_TAB = "itemGroup." + Reference.MOD_ID + ":";
 
     /* Config */
     public static class Config {
 
-        private static final String TREES_ENABLED = TAG_CONFIG + "trees.enabled";
-        private static final String MACHINES_TANK_CAPACITY = TAG_CONFIG + "machines.tank.capacity";
-        private static final String MACHINES_ENERGY_CAPACITY = TAG_CONFIG + "machines.energy.capacity";
-        private static final String MACHINES_ENERGY_RX = TAG_CONFIG + "machines.energy.rxTick";
-        private static final String MACHINES_ENERGY_SQUEEZER_RF_TICK = TAG_CONFIG + "machines.energy.squeezer.rfTick";
-        private static final String MACHINES_ENERGY_MIXER_RF_TICK = TAG_CONFIG + "machines.energy.mixer.rfTick";
-        private static final String MACHINES_ENERGY_STAMPER_RF_TICK = TAG_CONFIG + "machines.energy.stamer.rfTick";
-        private static final String MACHINES_ENERGY_FILLER_RF_TICK = TAG_CONFIG + "machines.energy.filler.rfTick";
-        private static final String MACHINES_ENERGY_PAINTER_RF_TICK = TAG_CONFIG + "machines.energy.painter.rfTick";
+        public static final String TREES_ENABLED = TAG_CONFIG + "trees.enabled";
+        public static final String MACHINES_TANK_CAPACITY = TAG_CONFIG + "machines.tank.capacity";
+        public static final String MACHINES_ENERGY_CAPACITY = TAG_CONFIG + "machines.energy.capacity";
+        public static final String MACHINES_ENERGY_RX_TICK = TAG_CONFIG + "machines.energy.rxTick";
+        public static final String MACHINES_ENERGY_SQUEEZER_RF_TICK = TAG_CONFIG + "machines.energy.squeezer.rfTick";
+        public static final String MACHINES_ENERGY_MIXER_RF_TICK = TAG_CONFIG + "machines.energy.mixer.rfTick";
+        public static final String MACHINES_ENERGY_STAMPER_RF_TICK = TAG_CONFIG + "machines.energy.stamper.rfTick";
+        public static final String MACHINES_ENERGY_FILLER_RF_TICK = TAG_CONFIG + "machines.energy.filler.rfTick";
+        public static final String MACHINES_ENERGY_PAINTER_RF_TICK = TAG_CONFIG + "machines.energy.painter.rfTick";
 
-        private static final String MACHINES_DYE_FILLER_MB_TICK = TAG_CONFIG + "machines.dye.filler.dbTick";
+        public static final String ITEM_DYEGUN_CAPACITY = TAG_CONFIG + Names.Items.DYE_GUN + ".capacity";
+
+        public static final String MACHINES_RECIPE_SQUEEZER_ENERGY = TAG_CONFIG + "machines.recipe.squeezer.energy";
+        public static final String MACHINES_RECIPE_MIXER_ENERGY = TAG_CONFIG + "machines.recipe.mixer.energy";
+        public static final String MACHINES_RECIPE_STAMPER_ENERGY = TAG_CONFIG + "machines.recipe.stamper.energy";
+        public static final String MACHINES_RECIPE_PAINTER_ENERGY = TAG_CONFIG + "machines.recipe.painter.energy";
+
+        public static final String MACHINES_DYE_FILLER_MB_TICK = TAG_CONFIG + "machines.dye.filler.dbTick";
+
+        public static final String MACHINES_RECIPE_MIXER_RED_AMOUNT = TAG_CONFIG + "machines.recipe.mixer.amount.red";
+        public static final String MACHINES_RECIPE_MIXER_YELLOW_AMOUNT = TAG_CONFIG + "machines.recipe.mixer.amount.yellow";
+        public static final String MACHINES_RECIPE_MIXER_BLUE_AMOUNT = TAG_CONFIG + "machines.recipe.mixer.amount.blue";
+        public static final String MACHINES_RECIPE_MIXER_WHITE_AMOUNT = TAG_CONFIG + "machines.recipe.mixer.amount.white";
+
     }
 
     public static class Gui {
 
         public static final String TAB_INFO = TAG_GUI + "tab.info";
         public static final String TAB_ENERGY = TAG_GUI + "tab.energy";
+        public static final String TAB_TANKS = TAG_GUI + "tab.tanks";
 
         public static final String ENERGY_DRAW = TAG_GUI + "energy.draw";
         public static final String ENERGY_RX_TICK = TAG_GUI + "energy.rxtick";
@@ -49,7 +53,17 @@ public class Lang {
         public static final String INFO_STAMPER = TAG_GUI + "info.stamper";
         public static final String INFO_PAINTER = TAG_GUI + "info.painter";
         public static final String INFO_FILLER = TAG_GUI + "info.filler";
+
+        public static final String TANKS_RED = TAG_GUI + "tanks.red";
+        public static final String TANKS_YELLOW = TAG_GUI + "tanks.yellow";
+        public static final String TANKS_BLUE = TAG_GUI + "tanks.blue";
+        public static final String TANKS_WHITE = TAG_GUI + "tanks.white";
+        public static final String TANKS_PURE = TAG_GUI + "tanks.pure";
+
+        public static final String TRECT_SQUEEZER = TAG_GUI + "trect.squeezer";
+        public static final String TRECT_MIXER = TAG_GUI + "trect.mixer";
     }
+
 
     public static class Tooltips {
 

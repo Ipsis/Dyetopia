@@ -9,7 +9,11 @@ public class MixerManager {
     private static MixerRecipe recipe;
 
     public static void initialise() {
-        recipe = new MixerRecipe(1000, 1000, 1000, 1000, 1000);
+        recipe = new MixerRecipe(
+                Settings.Machines.mixerAmountRed,
+                Settings.Machines.mixerAmountYellow,
+                Settings.Machines.mixerAmountBlue,
+                Settings.Machines.mixerAmountWhite, 1000);
     }
 
     public static MixerRecipe getRecipe() {
@@ -84,7 +88,7 @@ public class MixerManager {
          */
         @Override
         public int getEnergy() {
-            return Settings.Machines.DEF_MIXER_RF_RECIPE;
+            return Settings.Machines.mixerRfRecipe;
         }
     }
 }

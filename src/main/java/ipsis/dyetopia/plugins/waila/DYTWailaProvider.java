@@ -4,6 +4,7 @@ package ipsis.dyetopia.plugins.waila;
 import cofh.api.energy.EnergyStorage;
 import cofh.lib.util.helpers.StringHelper;
 import ipsis.dyetopia.manager.TankManager;
+import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.tileentity.*;
 import ipsis.dyetopia.util.TankType;
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -149,7 +150,7 @@ public class DYTWailaProvider implements IWailaDataProvider{
         if (tm == null || names.length == 0)
             return currenttip;
 
-        currenttip.add(EnumChatFormatting.YELLOW + StringHelper.localize("hud.dyetopia:tank"));
+        currenttip.add(EnumChatFormatting.YELLOW + StringHelper.localize(Lang.Gui.TAB_TANKS));
         for (TankType name : names) {
 
             FluidTank tank = tm.getTank(name.getName());

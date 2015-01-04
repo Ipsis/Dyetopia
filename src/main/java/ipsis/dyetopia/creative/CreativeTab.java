@@ -1,6 +1,7 @@
 package ipsis.dyetopia.creative;
 
 import ipsis.dyetopia.init.ModItems;
+import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.reference.Reference;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -23,7 +24,7 @@ public class CreativeTab {
         @SideOnly(Side.CLIENT)
         public String getTranslatedTabLabel() {
 
-            return StatCollector.translateToLocal("key.categories.dyetopia");
+            return StatCollector.translateToLocal(Lang.TAG_TAB);
         }
     };
 }

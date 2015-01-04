@@ -57,7 +57,7 @@ public class BlockCasing extends BlockDYTMultiBlock implements ITileEntityProvid
 
     @Override
     public void getTooltip(List<String> toolTip, boolean showAdvancedItemTooltips, int meta, boolean detail) {
-        toolTip.add(StringHelper.localize(Lang.Tooltips.BLOCK_CONTROLLER));
+        toolTip.add(StringHelper.localize(Lang.Tooltips.BLOCK_CASING));
         toolTip.add(StringHelper.localize(Lang.Tooltips.MULTIBLOCK));
     }
 }

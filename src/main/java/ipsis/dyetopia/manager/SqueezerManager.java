@@ -4,6 +4,8 @@ import cofh.lib.inventory.ComparableItemStackSafe;
 import cofh.lib.util.helpers.ItemHelper;
 import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.init.ModItems;
+import ipsis.dyetopia.reference.Config;
+import ipsis.dyetopia.reference.Settings;
 import ipsis.dyetopia.util.ComparableItemStackBlockSafe;
 import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.init.Items;
@@ -27,8 +29,6 @@ public class SqueezerManager {
      *
      */
     private static HashMap<ComparableItemStackSafe, SqueezerRecipe> recipes = new HashMap<ComparableItemStackSafe, SqueezerRecipe>();
-
-    private static final int RECIPE_ENERGY = 120;
 
     public static void initialise() {
 
@@ -88,14 +88,15 @@ public class SqueezerManager {
          * Add the dye drops as they are special
          */
         ItemStack in;
+        int recipeEnergy = Settings.Machines.squeezerRfRecipe;
         in = new ItemStack(ModItems.itemDyeDrop, 1, 0);
-        recipes.put(new ComparableItemStackSafe(in), new SqueezerRecipe(in.copy(), DyeLiquidManager.DYE_BASE_AMOUNT * 2, 0, 0, 0, RECIPE_ENERGY));
+        recipes.put(new ComparableItemStackSafe(in), new SqueezerRecipe(in.copy(), DyeLiquidManager.DYE_BASE_AMOUNT * 2, 0, 0, 0, recipeEnergy));
         in = new ItemStack(ModItems.itemDyeDrop, 1, 1);
-        recipes.put(new ComparableItemStackSafe(in), new SqueezerRecipe(in.copy(), 0, DyeLiquidManager.DYE_BASE_AMOUNT * 2, 0, 0, RECIPE_ENERGY));
+        recipes.put(new ComparableItemStackSafe(in), new SqueezerRecipe(in.copy(), 0, DyeLiquidManager.DYE_BASE_AMOUNT * 2, 0, 0, recipeEnergy));
         in = new ItemStack(ModItems.itemDyeDrop, 1, 2);
-        recipes.put(new ComparableItemStackSafe(in), new SqueezerRecipe(in.copy(), 0, 0, DyeLiquidManager.DYE_BASE_AMOUNT * 2, 0, RECIPE_ENERGY));
+        recipes.put(new ComparableItemStackSafe(in), new SqueezerRecipe(in.copy(), 0, 0, DyeLiquidManager.DYE_BASE_AMOUNT * 2, 0, recipeEnergy));
         in = new ItemStack(ModItems.itemDyeDrop, 1, 3);
-        recipes.put(new ComparableItemStackSafe(in), new SqueezerRecipe(in.copy(), DyeLiquidManager.DYE_BASE_AMOUNT, DyeLiquidManager.DYE_BASE_AMOUNT, DyeLiquidManager.DYE_BASE_AMOUNT, DyeLiquidManager.DYE_BASE_AMOUNT, RECIPE_ENERGY));
+        recipes.put(new ComparableItemStackSafe(in), new SqueezerRecipe(in.copy(), DyeLiquidManager.DYE_BASE_AMOUNT, DyeLiquidManager.DYE_BASE_AMOUNT, DyeLiquidManager.DYE_BASE_AMOUNT, DyeLiquidManager.DYE_BASE_AMOUNT, recipeEnergy));
 
         for (SqueezerRecipe r : recipes.values())
             LogHelper.info("SqueezerManager: " + r.getInput() + "->" + r.getRedAmount() + "/" + r.getYellowAmount() + "/" + r.getBlueAmount() + "/" + r.getWhiteAmount());
@@ -105,7 +106,7 @@ public class SqueezerManager {
 
         DyeRecipe r = DyeLiquidManager.getInstance().getRecipe(out);
         if (r != null)
-            recipes.put(new ComparableItemStackSafe(in), new SqueezerRecipe(in.copy(), r.getRedAmount(), r.getYellowAmount(), r.getBlueAmount(), r.getWhiteAmount(), RECIPE_ENERGY));
+            recipes.put(new ComparableItemStackSafe(in), new SqueezerRecipe(in.copy(), r.getRedAmount(), r.getYellowAmount(), r.getBlueAmount(), r.getWhiteAmount(), Settings.Machines.squeezerRfRecipe));
     }
 
     public static SqueezerRecipe getRecipe(ItemStack in) {

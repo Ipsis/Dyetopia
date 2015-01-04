@@ -19,6 +19,11 @@ public class Settings {
         public static final int DEF_MIXER_RF_TICK = 10;
         public static final int DEF_MIXER_RF_RECIPE = 120;
 
+        public static final int DEF_MIXER_MB_RED = 1000;
+        public static final int DEF_MIXER_MB_YELLOW = 1000;
+        public static final int DEF_MIXER_MB_BLUE = 1000;
+        public static final int DEF_MIXER_MB_WHITE = 1000;
+
         /* Stamper */
         public static final int DEF_STAMPER_RF_TICK = 10;
         public static final int DEF_STAMPER_RF_RECIPE = 120;
@@ -46,6 +51,11 @@ public class Settings {
         public static int fillerDyeTick;
         public static int painterRfTick;
         public static int painterRfRecipe;
+
+        public static int mixerAmountRed;
+        public static int mixerAmountYellow;
+        public static int mixerAmountBlue;
+        public static int mixerAmountWhite;
 
     }
 
