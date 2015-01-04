@@ -60,8 +60,12 @@ public class Lang {
         public static final String TANKS_WHITE = TAG_GUI + "tanks.white";
         public static final String TANKS_PURE = TAG_GUI + "tanks.pure";
 
-        public static final String TRECT_SQUEEZER = TAG_GUI + "trect.squeezer";
-        public static final String TRECT_MIXER = TAG_GUI + "trect.mixer";
+        /* Just hook into the block names for now */
+        public static final String TITLE_SQUEEZER = "tile." + Reference.MOD_ID + ":" + Names.Blocks.BLOCK_MACHINE_SQUEEZER + ".name";
+        public static final String TITLE_MIXER = "tile." + Reference.MOD_ID + ":" + Names.Blocks.BLOCK_MACHINE_MIXER + ".name";
+        public static final String TITLE_STAMPER = "tile." + Reference.MOD_ID + ":" + Names.Blocks.BLOCK_MACHINE_STAMPER + ".name";
+        public static final String TITLE_PAINTER = "tile." + Reference.MOD_ID + ":" + Names.Blocks.BLOCK_MACHINE_PAINTER + ".name";
+        public static final String TITLE_FILLER = "tile." + Reference.MOD_ID + ":" + Names.Blocks.BLOCK_MACHINE_FILLER + ".name";
     }
 
 
