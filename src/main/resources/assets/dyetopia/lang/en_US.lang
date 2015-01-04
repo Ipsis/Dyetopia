@@ -129,3 +129,34 @@ hud.dyetopia:info.painter.1=Select your output color then put your block into th
 hud.dyetopia:info.painter.2=As long as you have enough pure dye and input blocks, it will keep slapping on the paint.
 hud.dyetopia:info.filler.0=Dye gun in the input slot, pure dye in the tank.
 hud.dyetopia:info.filler.1=Dye gun gets filled up. Simples!
+
+### New layout below here
+
+# Tooltips
+tooltip.dyetopia:dyeBeans.red=Found inside the heart of the Red Dye Tree
+tooltip.dyetopia:dyeBeans.yellow=Found inside the heart of the Yellow Dye Tree
+tooltip.dyetopia:dyeBeans.blue=Found inside the heart of the Blue Dye Tree
+tooltip.dyetopia:dyeBlank=Feed into a stamper to create dye chunks
+tooltip.dyetopia:dyeChunk=Acts just like a vanilla dye
+tooltip.dyetopia:dyeDrop=Best source of liquid dye
+tooltip.dyetopia:dyeGun=Painting blocks on the go
+tooltip.dyetopia:dyemeal=Like bonemeal but only for dye saplings
+tooltip.dyetopia:eraser=Remove the color from blocks
+
+tooltip.dyetopia:saplingDyeTree=Grow with dyemeal
+tooltip.dyetopia:rootDyeTree=Only place dye beans can grow
+
+tooltip.dyetopia:machineCasing=Casing for the squeezer and mixer
+tooltip.dyetopia:machineController=Core for the squeezer and mixer
+tooltip.dyetopia:machineFiller=Fills the dye gun
+tooltip.dyetopia:machineMixer=Mix liquid dyes into pure dye
+tooltip.dyetopia:machinePainter=Painting blocks on a large scale
+tooltip.dyetopia:machineSqueezer=Squishes things into liquid dye
+tooltip.dyetopia:machineStamper=Stamp out your favourite dye
+tooltip.dyetopia:machineValve=Dye goes in, or dye goes out
+
+tooltip.dyetopia:hasDetail=Press shift for more info
+
+tooltip.dyetopia:multiblock=Part of multiblock
+tooltip.dyetopia:requires.rf=Requires: RF
+tooltip.dyetopia:requires.dye=Requires: Pure Liquid Dye

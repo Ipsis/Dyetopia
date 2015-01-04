@@ -9,8 +9,8 @@ public class ModOreDict {
 
     public static void preInit() {
 
-        for (int i = 0; i < Names.Items.ITEM_DYE_CHUNK_TYPES.length; i++) {
-            OreDictionary.registerOre("dye" + Names.Items.ITEM_DYE_CHUNK_TYPES[i], new ItemStack(ModItems.itemDyeChunk, 1, i));
+        for (int i = 0; i < Names.Items.DYE_CHUNK_TYPES.length; i++) {
+            OreDictionary.registerOre("dye" + Names.Items.DYE_CHUNK_TYPES[i], new ItemStack(ModItems.itemDyeChunk, 1, i));
             OreDictionary.registerOre("dye", new ItemStack(ModItems.itemDyeChunk, 1, i));
         }
 

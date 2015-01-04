@@ -1,8 +1,10 @@
 package ipsis.dyetopia.item;
 
+import cofh.lib.util.helpers.StringHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ipsis.dyetopia.init.ModBlocks;
+import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.reference.Names;
 import ipsis.dyetopia.reference.Textures;
 import net.minecraft.block.Block;
@@ -11,6 +13,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -22,7 +25,7 @@ public class ItemDyeBeans extends ItemDYT {
     public ItemDyeBeans() {
 
         super();
-        setUnlocalizedName(Names.Items.ITEM_DYE_BEANS);
+        setUnlocalizedName(Names.Items.DYE_BEANS);
         setHasSubtypes(true);
         setMaxStackSize(16);
     }
@@ -30,13 +33,13 @@ public class ItemDyeBeans extends ItemDYT {
     @Override
     public String getUnlocalizedName()
     {
-        return String.format("item.%s%s", Textures.RESOURCE_PREFIX, Names.Items.ITEM_DYE_BEANS);
+        return String.format("item.%s%s", Textures.RESOURCE_PREFIX, Names.Items.DYE_BEANS);
     }
 
     @Override
     public String getUnlocalizedName(ItemStack itemStack)
     {
-        return String.format("item.%s%s.%s", Textures.RESOURCE_PREFIX, Names.Items.ITEM_DYE_BEANS, Names.Items.ITEM_DYE_BEANS_TYPES[MathHelper.clamp_int(itemStack.getItemDamage(), 0, Names.Items.ITEM_DYE_DROP_TYPES.length - 1)]);
+        return String.format("item.%s%s.%s", Textures.RESOURCE_PREFIX, Names.Items.DYE_BEANS, Names.Items.DYE_BEANS_TYPES[MathHelper.clamp_int(itemStack.getItemDamage(), 0, Names.Items.DYE_DROP_TYPES.length - 1)]);
     }
 
     @SideOnly(Side.CLIENT)
@@ -46,7 +49,7 @@ public class ItemDyeBeans extends ItemDYT {
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs creativeTab, List list)
     {
-        for (int meta = 0; meta < Names.Items.ITEM_DYE_BEANS_TYPES.length; ++meta)
+        for (int meta = 0; meta < Names.Items.DYE_BEANS_TYPES.length; ++meta)
         {
             list.add(new ItemStack(this, 1, meta));
         }
@@ -54,19 +57,19 @@ public class ItemDyeBeans extends ItemDYT {
 
     @Override
     public IIcon getIconFromDamage(int dmg) {
-        return icons[MathHelper.clamp_int(dmg, 0, Names.Items.ITEM_DYE_BEANS_TYPES.length - 1)];
+        return icons[MathHelper.clamp_int(dmg, 0, Names.Items.DYE_BEANS_TYPES.length - 1)];
     }
 
     @Override
     public void registerIcons(IIconRegister ir) {
 
-        icons = new IIcon[Names.Items.ITEM_DYE_BEANS_TYPES.length];
+        icons = new IIcon[Names.Items.DYE_BEANS_TYPES.length];
 
-        for (int i = 0 ; i < Names.Items.ITEM_DYE_BEANS_TYPES.length; i++) {
+        for (int i = 0 ; i < Names.Items.DYE_BEANS_TYPES.length; i++) {
             icons[i] = ir.registerIcon(
                     Textures.RESOURCE_PREFIX +
-                            Names.Items.ITEM_DYE_BEANS + "." +
-                            Names.Items.ITEM_DYE_BEANS_TYPES[i]);
+                            Names.Items.DYE_BEANS + "." +
+                            Names.Items.DYE_BEANS_TYPES[i]);
         }
     }
 
@@ -113,5 +116,17 @@ public class ItemDyeBeans extends ItemDYT {
             --stack.stackSize;
 
         return true;
+    }
+
+    @Override
+    public void addInformation(ItemStack itemStack, EntityPlayer player, List info, boolean showAdvanced) {
+        super.addInformation(itemStack, player, info, showAdvanced);
+
+        if (itemStack == null)
+            return;;
+
+        int meta = itemStack.getItemDamage();
+        if (meta >= 0 && meta < Names.Items.DYE_BEANS_TYPES.length)
+            info.add(StringHelper.localize(Lang.Tooltips.ITEM_DYE_BEANS + "." + Names.Items.DYE_BEANS_TYPES[meta].toLowerCase()));
     }
 }
