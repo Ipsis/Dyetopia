@@ -1,10 +1,12 @@
 package ipsis.dyetopia.plugins.nei;
 
 import codechicken.nei.PositionedStack;
+import cofh.lib.util.helpers.StringHelper;
 import ipsis.dyetopia.gui.GuiMixer;
 import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.manager.MixerManager;
 import ipsis.dyetopia.reference.GuiLayout;
+import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.reference.Settings;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraftforge.fluids.FluidStack;
@@ -42,7 +44,7 @@ public class NEIMixerRecipeHandler extends TemplateRecipeHandlerBase {
         int energyMax = 2000;
         int tankMax = Settings.Machines.tankCapacity;
 
-        this.recipeName = "Mixer Recipe";
+        this.recipeName = StringHelper.localize(Lang.Gui.TITLE_MIXER);
         addProgressTransferRect(GuiLayout.Mixer.PROGRESS_X, GuiLayout.Mixer.PROGRESS_Y, OUTPUT_ID);
         addWidget(new Energy(GuiLayout.Mixer.ENERGY_X, GuiLayout.Mixer.ENERGY_Y, energyMax, "energy"));
         addWidget(new Tank(GuiLayout.Mixer.RED_TANK_X, GuiLayout.Mixer.TANK_Y, new FluidStack(ModFluids.fluidDyeRed, 10), tankMax, "redTank"));

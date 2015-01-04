@@ -3,10 +3,12 @@ package ipsis.dyetopia.plugins.nei;
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
 import cofh.lib.inventory.ComparableItemStackSafe;
+import cofh.lib.util.helpers.StringHelper;
 import ipsis.dyetopia.gui.GuiSqueezer;
 import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.manager.SqueezerManager;
 import ipsis.dyetopia.reference.GuiLayout;
+import ipsis.dyetopia.reference.Lang;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -61,7 +63,7 @@ public class NEISqueezerRecipeHandler extends TemplateRecipeHandlerBase {
         int energyMax = 2000;
         int tankMax = 500;
 
-        this.recipeName = "Squeezer Recipe";
+        this.recipeName = StringHelper.localize(Lang.Gui.TITLE_SQUEEZER);
         addProgressTransferRect(GuiLayout.Squeezer.PROGRESS_X, GuiLayout.Squeezer.PROGRESS_Y, OUTPUT_ID);
         addWidget(new Slot(GuiLayout.Squeezer.INPUT_SLOT_X, GuiLayout.Squeezer.INPUT_SLOT_Y, "inputSlot"));
         addWidget(new Energy(GuiLayout.Squeezer.ENERGY_X, GuiLayout.Squeezer.ENERGY_Y, energyMax, "energy"));

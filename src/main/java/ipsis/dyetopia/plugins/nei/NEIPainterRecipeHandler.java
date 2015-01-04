@@ -2,10 +2,12 @@ package ipsis.dyetopia.plugins.nei;
 
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
+import cofh.lib.util.helpers.StringHelper;
 import ipsis.dyetopia.gui.GuiPainter;
 import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.manager.dyeableblocks.DyeableBlocksManager;
 import ipsis.dyetopia.reference.GuiLayout;
+import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.util.ComparableItemStackBlockSafe;
 import ipsis.dyetopia.util.DyeHelper;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -85,7 +87,7 @@ public class NEIPainterRecipeHandler extends TemplateRecipeHandlerBase {
         int energyMax = 2000;
         int tankMax = 1000;
 
-        this.recipeName = "Painter Recipe";
+        this.recipeName = StringHelper.localize(Lang.Gui.TITLE_PAINTER);
         addProgressTransferRect(GuiLayout.Painter.PROGRESS_X, GuiLayout.Painter.PROGRESS_Y, OUTPUT_ID);
         addWidget(new Slot(GuiLayout.Painter.INPUT_SLOT_X, GuiLayout.Painter.INPUT_SLOT_Y, "inputSlot"));
         addWidget(new Slot(GuiLayout.Painter.OUTPUT_SLOT_X, GuiLayout.Painter.OUTPUT_SLOT_Y, "outputSlot"));
