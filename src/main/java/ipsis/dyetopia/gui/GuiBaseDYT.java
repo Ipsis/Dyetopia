@@ -6,6 +6,8 @@ import cofh.lib.util.helpers.StringHelper;
 import ipsis.dyetopia.proxy.ClientProxy;
 import ipsis.dyetopia.util.IconRegistry;
 import ipsis.dyetopia.util.LogHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
@@ -18,7 +20,23 @@ public class GuiBaseDYT extends GuiBase {
 
     @Override
     public IIcon getIcon(String s) {
-        return IconRegistry.getIcon(s);
+
+        /**
+         * This must NEVER return null, as the icon rendering is passed straight to the the
+         * drawTexturedModelRectFromIcon function with no checking for the icon being null.
+         * The vanilla path uses getIconSafe to turn a null IIcon into
+         * the missing icon.
+         * So we replicate that here.
+         *
+         * Of course you should never be calling the getIcon with a string that maps to no icon.
+         * But this should prevent an actual rendering crash
+          */
+
+        IIcon icon = IconRegistry.getIcon(s);
+        if (icon == null)
+            icon = ((TextureMap) Minecraft.getMinecraft().getTextureManager().getTexture(TextureMap.locationBlocksTexture)).getAtlasSprite("missingno");
+
+        return icon;
     }
 
     protected String buildInfoString(String baseTag) {

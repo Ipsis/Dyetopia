@@ -53,6 +53,7 @@ public class GuiSqueezer extends GuiBaseDYT {
 
         addTab(new TabEnergy(this, TabBase.RIGHT, this.squeezer));
         addTab(new TabInfo(this, TabBase.LEFT, buildInfoString(Lang.Gui.INFO_SQUEEZER)));
+        addTab(new TabTanks(this, TabBase.RIGHT, this.squeezer.getTankMgr(), TankType.RED, TankType.YELLOW, TankType.BLUE, TankType.WHITE));
     }
 
     @Override

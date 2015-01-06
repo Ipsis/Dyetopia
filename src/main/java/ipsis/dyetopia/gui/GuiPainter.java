@@ -65,6 +65,7 @@ public class GuiPainter  extends GuiBaseDYT {
 
         addTab(new TabEnergy(this, TabBase.RIGHT, this.painter));
         addTab(new TabInfo(this, TabBase.LEFT, buildInfoString(Lang.Gui.INFO_PAINTER)));
+        addTab(new TabTanks(this, TabBase.RIGHT, this.painter.getTankMgr(), TankType.PURE));
     }
 
     @Override

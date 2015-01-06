@@ -49,5 +49,6 @@ public class GuiFiller extends GuiBaseDYT {
 
         addTab(new TabEnergy(this, TabBase.RIGHT, this.filler));
         addTab(new TabInfo(this, TabBase.LEFT, buildInfoString(Lang.Gui.INFO_FILLER)));
+        addTab(new TabTanks(this, TabBase.RIGHT, this.filler.getTankMgr(), TankType.PURE));
     }
 }

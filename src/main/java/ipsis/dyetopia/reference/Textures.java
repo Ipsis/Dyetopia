@@ -23,5 +23,6 @@ public class Textures {
 
         public static final int ENERGY_TAB_BACKGROUND = 0xFF8E56;
         public static final int INFO_TAB_BACKGROUND = 0xC6EAFF;
+        public static final int TANKS_TAB_BACKGROUND = 0xC6EAFF;
     }
 }

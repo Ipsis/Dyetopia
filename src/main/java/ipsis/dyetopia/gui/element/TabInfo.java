@@ -16,6 +16,7 @@ public class TabInfo extends TabScrolledText {
     public TabInfo(GuiBase gui, int side, String infoString) {
 
         super(gui, side, infoString);
+        backgroundColor = Textures.Gui.INFO_TAB_BACKGROUND;
     }
 
     @Override

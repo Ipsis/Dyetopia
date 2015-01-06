@@ -55,6 +55,7 @@ public class GuiMixer extends GuiBaseDYT {
 
         addTab(new TabEnergy(this, TabBase.RIGHT, this.mixer));
         addTab(new TabInfo(this, TabBase.LEFT, buildInfoString(Lang.Gui.INFO_MIXER)));
+        addTab(new TabTanks(this, TabBase.RIGHT, this.mixer.getTankMgr(), TankType.RED, TankType.YELLOW, TankType.BLUE, TankType.WHITE, TankType.PURE));
     }
 
     @Override
