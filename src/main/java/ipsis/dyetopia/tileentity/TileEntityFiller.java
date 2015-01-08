@@ -5,6 +5,7 @@ import ipsis.dyetopia.item.ItemDyeGun;
 import ipsis.dyetopia.manager.FactoryManager;
 import ipsis.dyetopia.manager.IFactory;
 import ipsis.dyetopia.manager.IFactoryRecipe;
+import ipsis.dyetopia.reference.Nbt;
 import ipsis.dyetopia.reference.Settings;
 import ipsis.dyetopia.util.TankType;
 import net.minecraft.inventory.ISidedInventory;
@@ -34,14 +35,14 @@ public class TileEntityFiller extends TileEntityMachinePureDye implements ISided
 
         super.writeToNBT(nbttagcompound);
         this.factoryMgr.writeToNBT(nbttagcompound);
-        nbttagcompound.setInteger("consumedEnergy", this.consumedEnergy);
+        nbttagcompound.setInteger(Nbt.Blocks.CONSUMED_ENERGY, this.consumedEnergy);
     }
 
     @Override
     public void readFromNBT(NBTTagCompound nbttagcompound) {
         super.readFromNBT(nbttagcompound);
         this.factoryMgr.readFromNBT(nbttagcompound);
-        this.consumedEnergy = nbttagcompound.getInteger("consumedEnergy");
+        this.consumedEnergy = nbttagcompound.getInteger(Nbt.Blocks.CONSUMED_ENERGY);
     }
 
     /**

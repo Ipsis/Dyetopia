@@ -6,6 +6,7 @@ import ipsis.dyetopia.manager.*;
 import ipsis.dyetopia.network.PacketHandler;
 import ipsis.dyetopia.network.message.MessageGuiWidget;
 import ipsis.dyetopia.reference.GuiIds;
+import ipsis.dyetopia.reference.Nbt;
 import ipsis.dyetopia.reference.Settings;
 import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.LogHelper;
@@ -40,8 +41,8 @@ public class TileEntityStamper extends TileEntityMachinePureDye implements ISide
 
         this.factoryMgr.writeToNBT(nbttagcompound);
 
-        nbttagcompound.setInteger("consumedEnergy", this.consumedEnergy);
-        nbttagcompound.setInteger("currSelected", this.currSelected.ordinal());
+        nbttagcompound.setInteger(Nbt.Blocks.CONSUMED_ENERGY, this.consumedEnergy);
+        nbttagcompound.setInteger(Nbt.Blocks.CURR_SELETED, this.currSelected.ordinal());
     }
 
     @Override
@@ -50,8 +51,8 @@ public class TileEntityStamper extends TileEntityMachinePureDye implements ISide
 
         this.factoryMgr.readFromNBT(nbttagcompound);
 
-        this.consumedEnergy = nbttagcompound.getInteger("consumedEnergy");
-        this.currSelected =  DyeHelper.DyeType.getDye(nbttagcompound.getInteger("currSelected"));
+        this.consumedEnergy = nbttagcompound.getInteger(Nbt.Blocks.CONSUMED_ENERGY);
+        this.currSelected =  DyeHelper.DyeType.getDye(nbttagcompound.getInteger(Nbt.Blocks.CURR_SELETED));
 
     }
 

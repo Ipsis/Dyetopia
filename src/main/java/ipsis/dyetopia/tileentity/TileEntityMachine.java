@@ -3,6 +3,7 @@ package ipsis.dyetopia.tileentity;
 import cofh.api.energy.IEnergyHandler;
 import cofh.api.tileentity.IEnergyInfo;
 import ipsis.dyetopia.manager.EnergyManager;
+import ipsis.dyetopia.reference.Nbt;
 import ipsis.dyetopia.reference.Settings;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -37,10 +38,10 @@ public class TileEntityMachine extends TileEntityDYT implements IInventory, IEne
 
         super.readFromNBT(nbttagcompound);
 
-        NBTTagList nbttaglist = nbttagcompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
+        NBTTagList nbttaglist = nbttagcompound.getTagList(Nbt.Blocks.ITEMS, Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < nbttaglist.tagCount(); i++) {
             NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
-            int slot = nbttagcompound1.getByte("Slot") & 0xff;
+            int slot = nbttagcompound1.getByte(Nbt.Blocks.SLOT) & 0xff;
             if (slot >= 0 && slot < inventory.length) {
                 setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(nbttagcompound1));
             }
@@ -60,13 +61,13 @@ public class TileEntityMachine extends TileEntityDYT implements IInventory, IEne
 
             if (stack != null) {
                 NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-                nbttagcompound1.setByte("Slot", (byte) i);
+                nbttagcompound1.setByte(Nbt.Blocks.SLOT, (byte) i);
                 stack.writeToNBT(nbttagcompound1);
                 nbttaglist.appendTag(nbttagcompound1);
             }
         }
 
-        nbttagcompound.setTag("Items", nbttaglist);
+        nbttagcompound.setTag(Nbt.Blocks.ITEMS, nbttaglist);
 
         this.energyMgr.writeToNBT(nbttagcompound);
     }

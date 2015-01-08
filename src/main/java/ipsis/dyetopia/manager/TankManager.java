@@ -3,6 +3,7 @@ package ipsis.dyetopia.manager;
 import ipsis.dyetopia.gui.container.ProgressBar;
  import ipsis.dyetopia.network.PacketHandler;
  import ipsis.dyetopia.network.message.MessageGuiFixedProgressBar;
+import ipsis.dyetopia.reference.Nbt;
 import net.minecraft.entity.player.EntityPlayerMP;
  import net.minecraft.inventory.Container;
  import net.minecraft.inventory.ICrafting;
@@ -364,15 +365,20 @@ public class TankManager {
       */
      public void readFromNBT(NBTTagCompound nbttagcompound) {
 
-         NBTTagList nbttaglist = nbttagcompound.getTagList("Tanks", Constants.NBT.TAG_COMPOUND);
+         if (!nbttagcompound.hasKey(Nbt.Blocks.TANKS))
+             return;
+
+         NBTTagList nbttaglist = nbttagcompound.getTagList(Nbt.Blocks.TANKS, Constants.NBT.TAG_COMPOUND);
          for (int i = 0; i < nbttaglist.tagCount(); i++) {
              NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
 
-             String name = nbttagcompound1.getString("Name");
-             if (tanks.get(name) != null) {
-                 FluidTank f = tanks.get(name).tank;
-                 if (f != null)
-                     f.readFromNBT(nbttagcompound1);
+             if (nbttagcompound.hasKey(Nbt.Blocks.TANK_NAME)) {
+                 String name = nbttagcompound1.getString(Nbt.Blocks.TANK_NAME);
+                 if (tanks.get(name) != null) {
+                     FluidTank f = tanks.get(name).tank;
+                     if (f != null)
+                         f.readFromNBT(nbttagcompound1);
+                 }
              }
          }
      }
@@ -386,12 +392,12 @@ public class TankManager {
              Map.Entry pairs = (Map.Entry)it.next();
 
              NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-             nbttagcompound1.setString("Name", (String)pairs.getKey());
+             nbttagcompound1.setString(Nbt.Blocks.TANK_NAME, (String)pairs.getKey());
              ((TankConfig)pairs.getValue()).tank.writeToNBT(nbttagcompound1);
              nbttaglist.appendTag(nbttagcompound1);
          }
 
-         nbttagcompound.setTag("Tanks", nbttaglist);
+         nbttagcompound.setTag(Nbt.Blocks.TANKS, nbttaglist);
      }
 
      /**

@@ -1,6 +1,8 @@
 package ipsis.dyetopia.manager;
 
 import ipsis.dyetopia.gui.container.ProgressBar;
+import ipsis.dyetopia.reference.Nbt;
+import ipsis.dyetopia.reference.Reference;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
@@ -123,12 +125,15 @@ public class FactoryManager {
      *****/
     public void writeToNBT(NBTTagCompound nbttagcompound) {
 
-        nbttagcompound.setBoolean("Running", running);
+        nbttagcompound.setBoolean(Nbt.Blocks.RUNNING, running);
     }
 
     public void readFromNBT(NBTTagCompound nbttagcompound) {
 
-        running = nbttagcompound.getBoolean("Running");
+        if (nbttagcompound.hasKey(Nbt.Blocks.RUNNING))
+            running = nbttagcompound.getBoolean(Nbt.Blocks.RUNNING);
+        else
+            running = false;
     }
 
     /**

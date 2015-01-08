@@ -5,6 +5,7 @@ import cofh.api.tileentity.IEnergyInfo;
 import cofh.lib.util.position.BlockPosition;
 import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.manager.*;
+import ipsis.dyetopia.reference.Nbt;
 import ipsis.dyetopia.reference.Settings;
 import ipsis.dyetopia.util.LogHelper;
 import ipsis.dyetopia.util.TankType;
@@ -174,7 +175,7 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
         this.energyMgr.writeToNBT(nbttagcompound);
         this.factoryMgr.writeToNBT(nbttagcompound);
 
-        nbttagcompound.setInteger("consumedEnergy", this.consumedEnergy);
+        nbttagcompound.setInteger(Nbt.Blocks.CONSUMED_ENERGY, this.consumedEnergy);
     }
 
     @Override
@@ -185,7 +186,7 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
         this.energyMgr.readFromNBT(nbttagcompound);
         this.factoryMgr.readFromNBT(nbttagcompound);
 
-        this.consumedEnergy = nbttagcompound.getInteger("consumedEnergy");
+        this.consumedEnergy = nbttagcompound.getInteger(Nbt.Blocks.CONSUMED_ENERGY);
     }
 
     /**

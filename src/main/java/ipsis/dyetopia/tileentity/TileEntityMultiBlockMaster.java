@@ -5,6 +5,7 @@ import cofh.lib.util.position.BlockPosition;
 import ipsis.dyetopia.block.BlockDYTMultiBlock;
 import ipsis.dyetopia.network.PacketHandler;
 import ipsis.dyetopia.network.message.MessageTileEntityMultiBlockMaster;
+import ipsis.dyetopia.reference.Nbt;
 import ipsis.dyetopia.util.multiblock.MultiBlockPattern;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -162,10 +163,10 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
 
         super.readFromNBT(nbttagcompound);
 
-        NBTTagList nbttaglist = nbttagcompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
+        NBTTagList nbttaglist = nbttagcompound.getTagList(Nbt.Blocks.ITEMS, Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < nbttaglist.tagCount(); i++) {
             NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
-            int slot = nbttagcompound1.getByte("Slot") & 0xff;
+            int slot = nbttagcompound1.getByte(Nbt.Blocks.SLOT) & 0xff;
             if (slot >= 0 && slot < inventory.length) {
                 setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(nbttagcompound1));
             }
@@ -185,13 +186,13 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
 
             if (stack != null) {
                 NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-                nbttagcompound1.setByte("Slot", (byte) i);
+                nbttagcompound1.setByte(Nbt.Blocks.SLOT, (byte) i);
                 stack.writeToNBT(nbttagcompound1);
                 nbttaglist.appendTag(nbttagcompound1);
             }
         }
 
-        nbttagcompound.setTag("Items", nbttaglist);
+        nbttagcompound.setTag(Nbt.Blocks.ITEMS, nbttaglist);
     }
 
     @Override

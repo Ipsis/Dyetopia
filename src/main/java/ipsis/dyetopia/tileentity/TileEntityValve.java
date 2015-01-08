@@ -1,5 +1,6 @@
 package ipsis.dyetopia.tileentity;
 
+import ipsis.dyetopia.reference.Nbt;
 import ipsis.dyetopia.util.TankType;
  import net.minecraft.nbt.NBTTagCompound;
  import net.minecraft.network.NetworkManager;
@@ -116,14 +117,14 @@ public class TileEntityValve extends TileEntityMultiBlockBase implements IFluidH
      public void writeToNBT(NBTTagCompound nbttagcompound) {
          super.writeToNBT(nbttagcompound);
 
-         nbttagcompound.setInteger("Color", this.color.ordinal());
+         nbttagcompound.setInteger(Nbt.Blocks.COLOR, this.color.ordinal());
      }
 
      @Override
      public void readFromNBT(NBTTagCompound nbttagcompound) {
          super.readFromNBT(nbttagcompound);
 
-         color = Color.getColor(nbttagcompound.getInteger("Color"));
+         color = Color.getColor(nbttagcompound.getInteger(Nbt.Blocks.COLOR));
      }
 
      @Override

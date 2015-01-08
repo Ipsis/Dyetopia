@@ -3,6 +3,7 @@ package ipsis.dyetopia.tileentity;
 
 import ipsis.dyetopia.network.PacketHandler;
 import ipsis.dyetopia.network.message.MessageTileEntityDYT;
+import ipsis.dyetopia.reference.Nbt;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
@@ -29,14 +30,14 @@ public class TileEntityDYT extends TileEntity {
     public void writeToNBT(NBTTagCompound nbttagcompound) {
         super.writeToNBT(nbttagcompound);
 
-        nbttagcompound.setInteger("Facing", this.facing.ordinal());
+        nbttagcompound.setInteger(Nbt.Blocks.FACING, this.facing.ordinal());
     }
 
     @Override
     public void readFromNBT(NBTTagCompound nbttagcompound) {
         super.readFromNBT(nbttagcompound);
 
-        facing = ForgeDirection.getOrientation(nbttagcompound.getInteger("Facing"));
+        facing = ForgeDirection.getOrientation(nbttagcompound.getInteger(Nbt.Blocks.FACING));
     }
 
     @Override

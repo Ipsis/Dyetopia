@@ -3,6 +3,7 @@ package ipsis.dyetopia.tileentity;
 import cofh.api.energy.IEnergyHandler;
 import ipsis.dyetopia.network.PacketHandler;
 import ipsis.dyetopia.network.message.MessageTileEntityMultiBlock;
+import ipsis.dyetopia.reference.Nbt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -110,20 +111,20 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
     public void writeToNBT(NBTTagCompound nbttagcompound) {
         super.writeToNBT(nbttagcompound);
 
-        nbttagcompound.setInteger("MasterX", this.masterX);
-        nbttagcompound.setInteger("MasterY", this.masterY);
-        nbttagcompound.setInteger("MasterZ", this.masterZ);
-        nbttagcompound.setBoolean("HasMaster", this.hasMaster);
+        nbttagcompound.setInteger(Nbt.Blocks.MASTER_X, this.masterX);
+        nbttagcompound.setInteger(Nbt.Blocks.MASTER_Y, this.masterY);
+        nbttagcompound.setInteger(Nbt.Blocks.MASTER_Z, this.masterZ);
+        nbttagcompound.setBoolean(Nbt.Blocks.HAS_MASTER, this.hasMaster);
     }
 
     @Override
     public void readFromNBT(NBTTagCompound nbttagcompound) {
         super.readFromNBT(nbttagcompound);
 
-        this.masterX = nbttagcompound.getInteger("MasterX");
-        this.masterY = nbttagcompound.getInteger("MasterY");
-        this.masterZ = nbttagcompound.getInteger("MasterZ");
-        this.hasMaster = nbttagcompound.getBoolean("HasMaster");
+        this.masterX = nbttagcompound.getInteger(Nbt.Blocks.MASTER_X);
+        this.masterY = nbttagcompound.getInteger(Nbt.Blocks.MASTER_Y);
+        this.masterZ = nbttagcompound.getInteger(Nbt.Blocks.MASTER_Z);
+        this.hasMaster = nbttagcompound.getBoolean(Nbt.Blocks.HAS_MASTER);
     }
 
 
