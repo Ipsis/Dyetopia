@@ -10,6 +10,8 @@ import ipsis.dyetopia.reference.Settings;
 import ipsis.dyetopia.util.LogHelper;
 import ipsis.dyetopia.util.TankType;
 import ipsis.dyetopia.util.multiblock.MultiBlockPattern;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -17,7 +19,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 
-public class TileEntityMixer extends TileEntityMultiBlockMaster implements  ITankHandler, IEnergyHandler, IEnergyInfo, IFactory  {
+public class TileEntityMixer extends TileEntityMultiBlockMaster implements  ITankHandler, ISidedInventory, IEnergyHandler, IEnergyInfo, IFactory  {
 
     private TankManager tankMgr;
     private EnergyManager energyMgr;
@@ -368,5 +370,35 @@ public class TileEntityMixer extends TileEntityMultiBlockMaster implements  ITan
     @Override
     public void updateRunning(boolean running) {
         setStatus(running);
+    }
+
+    /**
+     * ISidedInventory
+     */
+    private static final int[] fakeAccessSlots = new int[0];
+    @Override
+    public int[] getAccessibleSlotsFromSide(int side) {
+
+        /* No  slots accessible from any side */
+        return fakeAccessSlots;
+    }
+
+    @Override
+    public boolean canInsertItem(int slot, ItemStack itemStack, int side) {
+
+        return false;
+    }
+
+    @Override
+    public boolean canExtractItem(int slot, ItemStack itemStack, int side) {
+
+        /* Nothing to extract from this machine */
+        return false;
+    }
+
+    @Override
+    public boolean isItemValidForSlot(int slot, ItemStack stack) {
+
+        return false;
     }
 }
