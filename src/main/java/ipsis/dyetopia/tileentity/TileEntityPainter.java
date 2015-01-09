@@ -196,7 +196,7 @@ public class TileEntityPainter extends TileEntityMachinePureDye implements ISide
 
     @Override
     public void updateRunning(boolean running) {
-
+        setStatus(running);
     }
 
     public int getInfoEnergyPerTick() {

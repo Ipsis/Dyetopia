@@ -367,6 +367,6 @@ public class TileEntityMixer extends TileEntityMultiBlockMaster implements  ITan
 
     @Override
     public void updateRunning(boolean running) {
-
+        setStatus(running);
     }
 }

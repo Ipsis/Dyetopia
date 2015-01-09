@@ -5,6 +5,7 @@ public class Nbt {
     public static final class Blocks {
 
         public static final String FACING = "Facing";
+        public static final String STATUS = "Status";
         public static final String CONSUMED_ENERGY = "consumedEnergy";
         public static final String ITEMS = "Items";
         public static final String SLOT = "Slot";

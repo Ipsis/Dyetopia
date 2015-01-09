@@ -12,9 +12,11 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class TileEntityDYT extends TileEntity {
 
     private ForgeDirection facing;
+    private boolean status;
 
     public TileEntityDYT() {
         facing =  ForgeDirection.SOUTH;
+        status = false;
     }
 
     public void setDirectionFacing(ForgeDirection facing) {
@@ -22,6 +24,15 @@ public class TileEntityDYT extends TileEntity {
     }
 
     public ForgeDirection getDirectionFacing() { return this.facing; }
+
+    public void setStatus(boolean status) {
+
+        if (this.status != status) {
+            this.status = status;
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        }
+    }
+    public boolean getStatus() { return this.status; }
 
     /**
      * NBT and description packet
@@ -31,6 +42,7 @@ public class TileEntityDYT extends TileEntity {
         super.writeToNBT(nbttagcompound);
 
         nbttagcompound.setInteger(Nbt.Blocks.FACING, this.facing.ordinal());
+        nbttagcompound.setBoolean(Nbt.Blocks.STATUS, this.status);
     }
 
     @Override
@@ -38,6 +50,7 @@ public class TileEntityDYT extends TileEntity {
         super.readFromNBT(nbttagcompound);
 
         facing = ForgeDirection.getOrientation(nbttagcompound.getInteger(Nbt.Blocks.FACING));
+        status = nbttagcompound.getBoolean(Nbt.Blocks.STATUS);
     }
 
     @Override
@@ -49,6 +62,7 @@ public class TileEntityDYT extends TileEntity {
     public void handleDescriptionPacket(MessageTileEntityDYT msg) {
 
         this.facing = ForgeDirection.getOrientation(msg.facing);
+        this.status = msg.status;
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 

@@ -32,9 +32,9 @@ public class BlockSqueezer extends BlockDYTMultiBlock implements ITileEntityProv
     }
 
     @SideOnly(Side.CLIENT)
-    IIcon formedIcon;
+    IIcon frontIconActive;
     @SideOnly(Side.CLIENT)
-    IIcon formedActiveIcon;
+    IIcon frontIconInactive;
     @SideOnly(Side.CLIENT)
     IIcon casingFormedIcon;
     @SideOnly(Side.CLIENT)
@@ -45,8 +45,8 @@ public class BlockSqueezer extends BlockDYTMultiBlock implements ITileEntityProv
     public void registerBlockIcons(IIconRegister iconRegister)
     {
         blockIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_SQUEEZER + ".Unformed");
-        formedIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_SQUEEZER + ".Formed");
-        formedActiveIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_SQUEEZER + ".Formed.Active");
+        frontIconInactive = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_SQUEEZER + ".Formed");
+        frontIconActive = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_SQUEEZER + ".Formed.Active");
         casingFormedIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_CASING + ".Formed");
         casingUnformedIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_CASING + ".Unformed");
     }
@@ -74,10 +74,14 @@ public class BlockSqueezer extends BlockDYTMultiBlock implements ITileEntityProv
 
             TileEntityMultiBlockMaster mte = (TileEntityMultiBlockMaster) te;
             if (side == mte.getDirectionFacing().ordinal()) {
-                if (mte.isStructureValid())
-                    return formedIcon; // TODO check active
-                else
+                if (mte.isStructureValid()) {
+                    if (mte.getStatus())
+                        return frontIconActive;
+                    else
+                        return frontIconInactive;
+                } else {
                     return blockIcon;
+                }
             } else {
                 return casingUnformedIcon;
             }

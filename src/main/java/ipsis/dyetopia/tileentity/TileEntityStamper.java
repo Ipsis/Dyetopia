@@ -189,7 +189,7 @@ public class TileEntityStamper extends TileEntityMachinePureDye implements ISide
 
     @Override
     public void updateRunning(boolean running) {
-
+        setStatus(running);
     }
 
     @Override

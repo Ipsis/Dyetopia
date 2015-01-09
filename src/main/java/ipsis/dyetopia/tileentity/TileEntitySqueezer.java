@@ -383,6 +383,6 @@ public class TileEntitySqueezer extends TileEntityMultiBlockMaster implements IT
 
     @Override
     public void updateRunning(boolean running) {
-
+        setStatus(running);
     }
 }

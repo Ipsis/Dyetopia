@@ -50,7 +50,10 @@ public abstract class BlockDYTMachine extends BlockDYT implements ITileEntityPro
 
             TileEntityMachine m = (TileEntityMachine)te;
             if (side == m.getDirectionFacing().ordinal()) {
-                return frontIconInactive;
+                if (m.getStatus())
+                    return frontIconActive;
+                else
+                    return frontIconInactive;
             } else {
                 return blockIcon;
             }

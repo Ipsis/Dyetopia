@@ -301,6 +301,7 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
         this.masterZ = msg.masterZ;
         this.setStructureValid(msg.isStructureValid);
         this.setDirectionFacing(ForgeDirection.getOrientation(msg.facing));
+        this.setStatus(msg.status);
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 }

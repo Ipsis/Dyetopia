@@ -152,7 +152,7 @@ public class TileEntityFiller extends TileEntityMachinePureDye implements ISided
 
     @Override
     public void updateRunning(boolean running) {
-
+        setStatus(running);
     }
 
     public int getInfoEnergyPerTick() {

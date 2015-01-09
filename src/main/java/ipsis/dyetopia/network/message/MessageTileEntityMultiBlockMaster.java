@@ -15,6 +15,7 @@ public class MessageTileEntityMultiBlockMaster implements IMessage, IMessageHand
     public int facing;
     public int masterX, masterY, masterZ;
     public boolean isStructureValid;
+    public boolean status;
 
     public MessageTileEntityMultiBlockMaster() { }
 
@@ -28,6 +29,7 @@ public class MessageTileEntityMultiBlockMaster implements IMessage, IMessageHand
         this.masterY = te.getMasterY();
         this.masterZ = te.getMasterZ();
         this.isStructureValid = te.isStructureValid();
+        this.status = te.getStatus();
     }
 
     @Override
@@ -41,6 +43,7 @@ public class MessageTileEntityMultiBlockMaster implements IMessage, IMessageHand
         this.masterY = buf.readInt();
         this.masterZ = buf.readInt();
         this.isStructureValid = buf.readBoolean();
+        this.status = buf.readBoolean();
     }
 
     @Override
@@ -54,6 +57,7 @@ public class MessageTileEntityMultiBlockMaster implements IMessage, IMessageHand
         buf.writeInt(masterY);
         buf.writeInt(masterZ);
         buf.writeBoolean(this.isStructureValid);
+        buf.writeBoolean(this.status);
     }
 
     @Override

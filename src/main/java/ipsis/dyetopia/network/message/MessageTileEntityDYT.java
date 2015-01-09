@@ -12,6 +12,7 @@ public class MessageTileEntityDYT implements IMessage, IMessageHandler<MessageTi
 
     public int x, y, z;
     public int facing;
+    public boolean status;
 
     public MessageTileEntityDYT() {}
 
@@ -21,6 +22,7 @@ public class MessageTileEntityDYT implements IMessage, IMessageHandler<MessageTi
         this.y = te.yCoord;
         this.z = te.zCoord;
         this.facing = (byte) te.getDirectionFacing().ordinal();
+        this.status = te.getStatus();
     }
 
     @Override
@@ -30,6 +32,7 @@ public class MessageTileEntityDYT implements IMessage, IMessageHandler<MessageTi
         this.y = buf.readInt();
         this.z = buf.readInt();
         this.facing = buf.readByte();
+        this.status = buf.readBoolean();
     }
 
     @Override
@@ -39,6 +42,7 @@ public class MessageTileEntityDYT implements IMessage, IMessageHandler<MessageTi
         buf.writeInt(y);
         buf.writeInt(z);
         buf.writeByte(facing);
+        buf.writeBoolean(status);
     }
 
     @Override
