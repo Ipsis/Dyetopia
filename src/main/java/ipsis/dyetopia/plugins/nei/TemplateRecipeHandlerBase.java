@@ -24,7 +24,7 @@ public abstract class TemplateRecipeHandlerBase extends TemplateRecipeHandler {
 
     /* NEI GUI coords are slightly offset from the normal ones used in GuiXXX */
     private static final int X_OFFSET = 5;
-    private static final int Y_OFFSET = 11;
+    private static final int Y_OFFSET = 18;
 
     /** NEI Background */
     private static final int NEI_GUI_WIDTH = 176;

@@ -55,13 +55,13 @@ public class GuiStamper extends GuiBaseDYT {
         addElement(new ElementEnergyStoredDYT(this, GuiLayout.Stamper.ENERGY_X, GuiLayout.Stamper.ENERGY_Y, this.stamper.getEnergyMgr().getEnergyStorage()));
 
         /* buttons */
-        addElement(new ElementButton(this, 60, 62, BTN_DN_STR, 176, 0, 176, 16, 176, 32, 16, 16, TEXTURE_STR));
-        addElement(new ElementButton(this, 96, 62, BTN_UP_STR, 192, 0, 192, 16, 192, 32, 16, 16, TEXTURE_STR));
+        addElement(new ElementButton(this, 59, 64, BTN_DN_STR, 176, 0, 176, 16, 176, 32, 16, 16, TEXTURE_STR));
+        addElement(new ElementButton(this, 96, 64, BTN_UP_STR, 192, 0, 192, 16, 192, 32, 16, 16, TEXTURE_STR));
 
         this.progress = ((ElementProgressBar)addElement(new ElementProgressBar(this, GuiLayout.Stamper.PROGRESS_X, GuiLayout.Stamper.PROGRESS_Y, ElementProgressBar.ProgressType.LEFT_TO_RIGHT)));
         addElement(progress);
 
-        this.selected = ((ElementIcon)addElement(new ElementIcon(this, 78, 62).setIcon(DyeHelper.DyeType.BLACK.getIcon())));
+        this.selected = ((ElementIcon)addElement(new ElementIcon(this, 78, 64).setIcon(DyeHelper.DyeType.BLACK.getIcon())));
         addElement(selected);
 
         addTab(new TabEnergy(this, TabBase.RIGHT, this.stamper));
