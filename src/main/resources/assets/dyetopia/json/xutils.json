@@ -1,0 +1,97 @@
+{
+  "blacklist": {
+    "mods": [],
+    "blocks": []
+  },
+  "mods": [
+    {
+      "id": "ExtraUtilities",
+      "maps": [
+        {
+          "refname": "Colored Stone Bricks",
+          "assoc": true,
+          "blockname": "ExtraUtilities:colorStoneBrick",
+          "vanilla": {}
+        },
+        {
+          "refname": "Colored Oak Wood Planks",
+          "assoc": true,
+          "blockname": "ExtraUtilities:colorWoodPlanks",
+          "vanilla": {}
+        },
+        {
+          "refname": "Colored Glowstone",
+          "assoc": true,
+          "blockname": "ExtraUtilities:color_lightgem",
+          "vanilla": {}
+        },
+        {
+          "refname": "Colored Stone",
+          "assoc": true,
+          "blockname": "ExtraUtilities:color_stone",
+          "vanilla": {}
+        },
+        {
+          "refname": "Colored Block Of Quartz",
+          "assoc": true,
+          "blockname": "ExtraUtilities:color_quartzBlock",
+          "vanilla": {}
+        },
+        {
+          "refname": "Colored Soul Sand",
+          "assoc": true,
+          "blockname": "ExtraUtilities:color_hellsand",
+          "vanilla": {}
+        },
+        {
+          "refname": "Colored Redstone Lamp",
+          "assoc": true,
+          "blockname": "ExtraUtilities:color_redstoneLight",
+          "vanilla": {}
+        },
+        {
+          "refname": "Colored Bricks",
+          "assoc": true,
+          "blockname": "ExtraUtilities:color_brick",
+          "vanilla": { }
+        },
+        {
+          "refname": "Colored Cobblestone",
+          "assoc": true,
+          "blockname": "ExtraUtilities:color_stonebrick",
+          "vanilla": { }
+        },
+        {
+          "refname": "Colored Lapiz Lazuli",
+          "assoc": true,
+          "blockname": "ExtraUtilities:color_blockLapis",
+          "vanilla": { }
+        },
+        {
+          "refname": "Colored Obsidian",
+          "assoc": true,
+          "blockname": "ExtraUtilities:color_obsidian",
+          "vanilla": { }
+        },
+        {
+          "refname": "Colored Block Of Redstone",
+          "assoc": true,
+          "blockname": "ExtraUtilities:color_blockRedstone",
+          "vanilla": { }
+        },
+        {
+          "refname": "Colored Block Of Coal",
+          "assoc": true,
+          "blockname": "ExtraUtilities:color_blockCoale",
+          "vanilla": { }
+        },
+        {
+          "refname": "Colored Greenscreen",
+          "assoc": true,
+          "blockname": "ExtraUtilities:greenscreen",
+          "vanilla": { }
+        }
+      ]
+    }
+  ]
+}

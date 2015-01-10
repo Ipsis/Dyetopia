@@ -1,0 +1,19 @@
+{
+  "blacklist": {
+    "mods": [],
+    "blocks": []
+  },
+  "mods": [
+    {
+      "id": "ThermalExpansion",
+      "maps": [
+        {
+          "refname": "Rockwool",
+          "assoc": true,
+          "blockname": "ThermalExpansion:Rockwool",
+          "vanilla": {}
+        }
+      ]
+    }
+  ]
+}

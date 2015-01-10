@@ -3,6 +3,7 @@ package ipsis.dyetopia.handler;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import ipsis.dyetopia.manager.dyeableblocks.config.*;
+import ipsis.dyetopia.reference.Config;
 import ipsis.dyetopia.reference.Reference;
 import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.LogHelper;
@@ -48,10 +49,9 @@ public class DyeFileHandler {
      * CustomMap is a user created config file specifying extra modded blocks
      *
      */
-    private static final String VANILLA_FILENAME = "dyetopia_vanilla.json";
-    private static final String MODDED_FILENAME = "dyetopia_modded.json";
-    private static final String USERCUSTOM_FILENAME = "dyetopia_custommaps.json";
-    private static final String ASSET_PATH = "/assets/" + Reference.MOD_ID;
+    private static final String VANILLA_FILENAME =  "vanilla.json";
+    private static final String USERCUSTOM_FILENAME = Reference.MOD_ID + "_custommaps.json";
+    private static final String ASSET_PATH = "/assets/" + Reference.MOD_ID + "/json/";
 
     private ModObjectDesc readOrigin(JsonReader reader) throws IOException {
 
@@ -257,20 +257,25 @@ public class DyeFileHandler {
 
         InputStream inStream;
 
-        inStream = getClass().getResourceAsStream(ASSET_PATH + "/" + VANILLA_FILENAME);
+        inStream = getClass().getResourceAsStream(ASSET_PATH + VANILLA_FILENAME);
         if (inStream == null) {
             LogHelper.warn("Could not find " + VANILLA_FILENAME);
         } else {
-            LogHelper.info("Loading " + ASSET_PATH + "/" + VANILLA_FILENAME);
+            LogHelper.info("Loading " + ASSET_PATH + VANILLA_FILENAME);
             loadFromStream(inStream);
         }
 
-        inStream = getClass().getResourceAsStream(ASSET_PATH + "/" + MODDED_FILENAME);
-        if (inStream == null) {
-            LogHelper.warn("Could not find " + MODDED_FILENAME);
-        } else {
-            LogHelper.info("Loading " + ASSET_PATH + "/" + MODDED_FILENAME);
-            loadFromStream(inStream);
+        /* Load each modded file that is present */
+        for (Config.SupportedMods m : Config.SupportedMods.values()) {
+            String filename = m.getFilename() + ".json";
+
+            inStream = getClass().getResourceAsStream(ASSET_PATH + filename);
+            if (inStream == null) {
+                LogHelper.warn("Could not find " + filename);
+            } else {
+                LogHelper.info("Loading " + ASSET_PATH + filename);
+                loadFromStream(inStream);
+            }
         }
 
         /* Load the user configuration last */

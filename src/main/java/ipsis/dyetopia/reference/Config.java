@@ -33,4 +33,20 @@ public class Config {
 
         public static final String DYEGUN_TANK_CAPACITY = "dyeGunTankCapacity";
     }
+
+    public static enum SupportedMods {
+
+        THERMAL_EXPANSION("thermalexp"),
+        EXTRA_UTILS("xutils"),
+        RAILCRAFT("railcraft"),
+        TINKERS("tconstruct"),
+        FORESTRY("forestry"),
+        MFR("mfr"),
+        CHISEL("chisel");
+
+        private String filename;
+        private SupportedMods(String filename) { this.filename = filename; }
+
+        public String getFilename() { return this.filename; }
+    }
 }

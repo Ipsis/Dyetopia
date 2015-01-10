@@ -1,0 +1,19 @@
+{
+  "blacklist": {
+    "mods": [],
+    "blocks": []
+  },
+  "mods": [
+    {
+      "id": "Forestry",
+      "maps": [
+        {
+          "refname": "Stained Glass",
+          "assoc": true,
+          "vanilla": {},
+          "blockname": "Forestry:stained"
+        }
+      ]
+    }
+  ]
+}

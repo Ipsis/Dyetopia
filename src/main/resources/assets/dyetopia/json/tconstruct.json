@@ -1,0 +1,33 @@
+{
+  "blacklist": {
+    "mods": [],
+    "blocks": []
+  },
+  "mods": [
+    {
+      "id": "TConstruct",
+      "maps": [
+        {
+          "refname": "Stained Glass",
+          "assoc": true,
+          "origin": {
+            "name": "TConstruct:GlassBlock",
+            "meta": 0
+          },
+          "blockname": "TConstruct:GlassBlock.StainedClear",
+          "vanilla": { }
+        },
+        {
+          "refname": "Stained Pane",
+          "assoc": true,
+          "origin": {
+            "name": "TConstruct:GlassPane",
+            "meta": 0
+          },
+          "blockname": "TConstruct:GlassPaneClearStained",
+          "vanilla": { }
+        }
+      ]
+    }
+  ]
+}
