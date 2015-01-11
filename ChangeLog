@@ -14,9 +14,13 @@ Features
 * Added NEI support
 
 Fixes
+* BGZ005 - Fix right click of gui placing held block.
+* BGZ006 - Changed yellow dye fluid color so that it is picked up by XUtilities drums.
 * BGZ007 - Fix multiblock placement requiring shift clicking.
-* BGZ005 - Fix right click of gui placing held block
-* XXXXXX - Process FMLModIdMappingEvent so that the world loaded ids are used correctly by the ComparableItemStack hashmaps
+* BGZ008 - Added NEI support.
+* BGZ010 - Fix hopper being placed on mixer causing stack overflow.
+* XXXXXX - Process FMLModIdMappingEvent so that the world loaded ids are used correctly by the ComparableItemStack hashmaps.
+
 
 Build Environment
 * CoFHLib-[1.7.10]1.0.0B8-34
