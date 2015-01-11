@@ -19,6 +19,7 @@ Fixes
 * BGZ007 - Fix multiblock placement requiring shift clicking.
 * BGZ008 - Added NEI support.
 * BGZ010 - Fix hopper being placed on mixer causing stack overflow.
+* BGZ011 - Dye trees can no longer exceed the world height limits. ie. their top block must not exceed the last block placed limit.
 * XXXXXX - Process FMLModIdMappingEvent so that the world loaded ids are used correctly by the ComparableItemStack hashmaps.
 
 

@@ -1,6 +1,7 @@
 package ipsis.dyetopia.world.gen.feature;
 
 import ipsis.dyetopia.init.ModBlocks;
+import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
@@ -40,6 +41,8 @@ public class WorldGenDyeTree extends WorldGenAbstractTree {
      * We require space for the logs + 1 top leaf + 1 air above.
      * This means that required space is numLogs + 2
      * A tree of numLogs  takes up blocks y -> y + numLogs - 1
+     * World height is y:0 -> world.getHeight()
+     * Last block can place is world.getHeight() - 2
      *
      */
     @Override
@@ -47,12 +50,12 @@ public class WorldGenDyeTree extends WorldGenAbstractTree {
 
         int numLogs = rand.nextInt(3) + this.minTreeHeight;
 
-        /* Do we have space for the soil and roots */
+        /* Do we have space for the soil and roots. */
         if (y < 1)
             return false;
 
-        /* Are we exceeding the world height : numLogs + 1 leaf + 1 */
-        if (y + numLogs + 1 > 256)
+        /* Is the tree + 1 leaf exceeding the last valid block placed value */
+        if (y + numLogs + 1 - 1 > world.getHeight() - 2)
             return false;
 
         Block soilBlock = world.getBlock(x, y - 1, z);

@@ -30,8 +30,8 @@ public class WorldGenPureDyeTree extends WorldGenAbstractTree {
         if (y < 2)
             return false;
 
-        /* Are we exceeding the world height : numLogs + 1 leaf + 1 + 2 root */
-        if (y + numLogs + 1 + 2 > 256)
+        /* Is the tree + 1 leaf exceeding the last valid block placed value */
+        if (y + numLogs + 1 - 1 > world.getHeight() - 2)
             return false;
 
         Block soilBlock = world.getBlock(x, y - 1, z);
