@@ -1,5 +1,6 @@
 package ipsis.dyetopia.creative;
 
+import cofh.lib.util.helpers.StringHelper;
 import ipsis.dyetopia.init.ModItems;
 import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.reference.Reference;
@@ -24,7 +25,7 @@ public class CreativeTab {
         @SideOnly(Side.CLIENT)
         public String getTranslatedTabLabel() {
 
-            return StatCollector.translateToLocal(Lang.TAG_TAB);
+            return StringHelper.localize(Lang.TAG_TAB);
         }
     };
 }
