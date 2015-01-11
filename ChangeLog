@@ -1,6 +1,11 @@
 Dyetopia ChangeLog
 ==========================
 
+1.7.10-1.1.0B2
+
+Fixes
+* BGZ012 - Dye gun now has the correct name when crafted.
+
 1.7.10-1.1.0B1
 
 Features

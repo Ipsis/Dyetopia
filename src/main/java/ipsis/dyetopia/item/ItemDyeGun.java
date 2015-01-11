@@ -37,6 +37,22 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
         super(0); /* itemID parameter not used */
         setCapacity(Settings.Items.dyeGunTankCapacity);
         setUnlocalizedName(Names.Items.DYE_GUN);
+        setHasSubtypes(true);
+    }
+
+    @Override
+    public String getUnlocalizedName()
+    {
+        return String.format("item.%s%s", Textures.RESOURCE_PREFIX, Names.Items.DYE_GUN);
+    }
+
+    @Override
+    public String getUnlocalizedName(ItemStack itemStack)
+    {
+        if (itemStack.getItemDamage() == 0)
+            return getUnlocalizedName();
+        else
+            return String.format("item.%s%s.creative", Textures.RESOURCE_PREFIX, Names.Items.DYE_GUN);
     }
 
     @SideOnly(Side.CLIENT)
@@ -90,17 +106,20 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
     @Override
     public void getSubItems(Item item, CreativeTabs creativeTab, List list) {
 
-        ItemStack itemStack = new ItemStack(ModItems.itemDyeGun);
-
+        ItemStack itemStack = new ItemStack(ModItems.itemDyeGun, 1, 0);
         setDefaultTags(itemStack);
-        FluidStack s = new FluidStack(ModFluids.fluidDyePure, Settings.Items.dyeGunTankCapacity);
-        fill(itemStack, s, true);
         list.add(itemStack);
+
+        ItemStack creativeItemStack = new ItemStack(ModItems.itemDyeGun, 1, 1);
+        setDefaultTags(creativeItemStack);
+        ItemDyeGun.fillGun(creativeItemStack, Settings.Items.dyeGunTankCapacity, true);
+        list.add(creativeItemStack);
     }
 
     @Override
     public boolean getShareTag() {
 
+        /* Send NBT when writing the ItemStack for sending to the client */
         return true;
     }
 
@@ -112,10 +131,14 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
 
     private static void setDefaultTags(ItemStack itemStack) {
 
+        /* Default color of white, with 0 pure dye in the gun */
         if (itemStack.stackTagCompound == null)
             itemStack.stackTagCompound = new NBTTagCompound();
 
         itemStack.stackTagCompound.setInteger(Nbt.Items.DYEGUN_COLOR_TAG, DyeHelper.DyeType.WHITE.ordinal());
+
+        /* The fluid is part of the default tags, so fill with 0 of pure dye */
+        ItemDyeGun.fillGun(itemStack, 0, true);
     }
 
     /**
@@ -190,8 +213,13 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
         info.add(StringHelper.localize(Lang.Tooltips.ITEM_DYE_GUN));
         info.add(getColorTranslation(getColor(itemStack)));
 
-        FluidStack f = getFluid(itemStack);
-        info.add(f.amount + "/" + g.capacity + " mB");
+        if (itemStack.getItemDamage() == 0) {
+            FluidStack f = getFluid(itemStack);
+            info.add(f.amount + "/" + g.capacity + " mB");
+        }
+
+        if (itemStack.getItemDamage() == 1)
+            info.add(StringHelper.localize(Lang.Tooltips.CREATIVE_MODE));
     }
 
     /**

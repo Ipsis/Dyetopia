@@ -19,7 +19,7 @@ public class Recipes {
     private static void initItemRecipes() {
 
         GameRegistry.addShapedRecipe(new ItemStack(ModItems.itemDyeBlank, 16), "   ", " r ", "r r", 'r', Items.reeds);
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemDyeGun), " g ", " i ", "ipi", 'g', "nuggetGold", 'i', "ingotIron", 'p', "paneGlass"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemDyeGun, 1, 0), " g ", " i ", "ipi", 'g', "nuggetGold", 'i', "ingotIron", 'p', "paneGlass"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.itemDyemeal), " r ", "ymb", "   ", 'r', "dyeRed", 'y', "dyeYellow", 'b', "dyeBlue", 'm', Items.bone));
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.itemEraser), Items.clay_ball, ModItems.itemDyeBlank);
     }

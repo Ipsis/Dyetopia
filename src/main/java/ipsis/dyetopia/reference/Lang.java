@@ -79,6 +79,8 @@ public class Lang {
         public static final String ITEM_DYEMEAL = TAG_TOOLTIP + Names.Items.DYEMEAL;
         public static final String ITEM_ERASER = TAG_TOOLTIP + Names.Items.ERASER;
 
+        public static final String CREATIVE_MODE = TAG_TOOLTIP + "creativeOnly";
+
         public static final String BLOCK_SAPLING = TAG_TOOLTIP + Names.Blocks.BLOCK_SAPLING_DYE;
         public static final String BLOCK_ROOT_DYE = TAG_TOOLTIP + Names.Blocks.BLOCK_ROOT_DYE;
 

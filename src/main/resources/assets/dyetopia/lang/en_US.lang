@@ -58,6 +58,7 @@ item.dyetopia:eraser.name=Eraser
 item.dyetopia:dyeBlank.name=Dye Blank
 item.dyetopia:dyemeal.name=Dyemeal
 item.dyetopia:dyeGun.name=Dye Gun
+item.dyetopia:dyeGun.creative.name=Creative Dye Gun
 
 item.dyetopia:dyeDrop.Red.name=Red Dye Drop
 item.dyetopia:dyeDrop.Yellow.name=Yellow Dye Drop
@@ -102,8 +103,6 @@ tooltip.dyetopia:dyeGun.dyeMagenta=Magenta Dye
 tooltip.dyetopia:dyeGun.dyeOrange=Orange Dye
 tooltip.dyetopia:dyeGun.dyeWhite=White Dye
 
-### New layout below here
-
 # Tooltips
 tooltip.dyetopia:dyeBeans.red=Found inside the heart of the Red Dye Tree
 tooltip.dyetopia:dyeBeans.yellow=Found inside the heart of the Yellow Dye Tree
@@ -114,6 +113,8 @@ tooltip.dyetopia:dyeDrop=Best source of liquid dye
 tooltip.dyetopia:dyeGun=Painting blocks on the go
 tooltip.dyetopia:dyemeal=Like bonemeal but only for dye saplings
 tooltip.dyetopia:eraser=Remove the color from blocks
+
+tooltip.dyetopia:creativeOnly=Creative Mode Only
 
 tooltip.dyetopia:saplingDyeTree=Grow with dyemeal
 tooltip.dyetopia:rootDyeTree=Only place dye beans can grow
