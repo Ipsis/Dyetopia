@@ -5,6 +5,7 @@ Dyetopia ChangeLog
 
 Fixes
 * BGZ012 - Dye gun now has the correct name when crafted.
+* BGZ013 - Tanks save their NBT again.
 
 1.7.10-1.1.0B1
 

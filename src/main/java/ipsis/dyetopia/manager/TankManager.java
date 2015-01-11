@@ -372,7 +372,7 @@ public class TankManager {
          for (int i = 0; i < nbttaglist.tagCount(); i++) {
              NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
 
-             if (nbttagcompound.hasKey(Nbt.Blocks.TANK_NAME)) {
+             if (nbttagcompound1.hasKey(Nbt.Blocks.TANK_NAME)) {
                  String name = nbttagcompound1.getString(Nbt.Blocks.TANK_NAME);
                  if (tanks.get(name) != null) {
                      FluidTank f = tanks.get(name).tank;
