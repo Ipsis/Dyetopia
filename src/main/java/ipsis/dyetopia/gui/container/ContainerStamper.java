@@ -1,6 +1,7 @@
 package ipsis.dyetopia.gui.container;
 
 import cofh.lib.gui.slot.SlotAcceptValid;
+import cofh.lib.util.helpers.InventoryHelper;
 import ipsis.dyetopia.gui.GuiStamper;
 import ipsis.dyetopia.gui.IGuiMessageHandler;
 import ipsis.dyetopia.network.message.MessageGuiWidget;
@@ -46,9 +47,33 @@ public class ContainerStamper extends Container implements IGuiMessageHandler {
     }
 
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer player, int slot) {
+    public ItemStack transferStackInSlot(EntityPlayer player, int slotNum) {
 
-        return null;
+        Slot slot = getSlot(slotNum);
+        if (slot == null || !slot.getHasStack())
+            return null;
+
+        ItemStack stack = slot.getStack();
+        ItemStack result = stack.copy();
+
+        if (slotNum < 2) {
+            /* machine to player */
+            if (!InventoryHelper.mergeItemStack(this.inventorySlots, stack, 2, 2 + 27 + 9, false))
+                return null;
+        } else {
+            /* player to machine */
+            if (!InventoryHelper.mergeItemStack(this.inventorySlots, stack, 0, 1, false))
+                return null;
+        }
+
+        if (stack.stackSize == 0)
+            slot.putStack(null);
+        else
+            slot.onSlotChanged();
+
+        slot.onPickupFromSlot(player, stack);
+
+        return result;
     }
 
     /**
