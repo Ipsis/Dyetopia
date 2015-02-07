@@ -4,12 +4,30 @@ Fraking Flowers!
 
 #What Is This?
 
-Create liquid pure dye and use it to create dye items and color blocks.
-(You even get a dye gun).
+Squeeze colored dyes out vanilla and modded items and mix them to create pure dye.
+
+You can then either
+* Use the painter to feed in colored blocks and recolor them
+** eg. wool, carpet, stained clay and supported modded blocks
+* Use the dye gun to recolor blocks on-the-fly
+** Think of a "Wand Of Equal Trade" from Thaumcraft, but with color.
+
+The mods currently supported are:
+* Chisel
+* Forestry
+* MFR
+* Railcraft
+* Tinkers Construct
+* Thermal Expansion
+* Extra Utilities
 
 * [Minecraft Forum Thread](http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/2262586-dyetopia-fraking-flowers)
 * [CurseForge Project Page](http://minecraft.curseforge.com/mc-mods/226037-dyetopia)
 * [Website](http://www.zen121381.zen.co.uk/dyetopia/index.shtml)
+
+#Dependencies
+This mod requires CoFHLib.
+[http://www.curse.com/mc-mods/minecraft/220333-cofhlib]
 
 #Credits
 I rely heavily on CoFHLib for help with the GUI code and some other bits and pieces.

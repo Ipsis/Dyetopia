@@ -1,6 +1,16 @@
 Dyetopia ChangeLog
 ==========================
 
+1.7.10-1.1.0B3
+
+Fixes
+* BZ0009 - Add dependency information to mcmod.info to catch missing CoFHLib
+* XXXXXX - Fix phantom block placement when right clicking multiblock, with block in hand
+
+Features
+
+* Support shift-click in/out of machines
+
 1.7.10-1.1.0B2
 
 Fixes
