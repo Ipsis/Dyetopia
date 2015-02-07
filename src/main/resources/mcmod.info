@@ -11,7 +11,8 @@
   "credits": "",
   "logoFile": "assets/dyetopia/logo.png",
   "screenshots": [],
-  "dependencies": [
-    ]
+  "dependencies": [ CoFHLib ],
+  "requiredMods": [ CoFHLib ],
+  "useDependencyInformation": true
 }
 ]
