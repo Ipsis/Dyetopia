@@ -59,10 +59,7 @@ public class GuiStamper extends GuiBaseDYT {
         addElement(new ElementButton(this, 96, 64, BTN_UP_STR, 192, 0, 192, 16, 192, 32, 16, 16, TEXTURE_STR));
 
         this.progress = ((ElementProgressBar)addElement(new ElementProgressBar(this, GuiLayout.Stamper.PROGRESS_X, GuiLayout.Stamper.PROGRESS_Y, ElementProgressBar.ProgressType.LEFT_TO_RIGHT)));
-        addElement(progress);
-
         this.selected = (ElementIcon)addElement(new ElementIcon(this, 78, 64, DyeHelper.DyeType.BLACK.getIcon(), 1));
-        addElement(selected);
 
         addTab(new TabEnergy(this, TabBase.RIGHT, this.stamper));
         addTab(new TabInfo(this, TabBase.LEFT, buildInfoString(Lang.Gui.INFO_STAMPER)));

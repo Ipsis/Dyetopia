@@ -51,7 +51,6 @@ public class GuiMixer extends GuiBaseDYT {
         addElement(new ElementEnergyStoredDYT(this, GuiLayout.Mixer.ENERGY_X, GuiLayout.Mixer.ENERGY_Y, this.mixer.getEnergyMgr().getEnergyStorage()));
 
         this.progress = ((ElementProgressBar)addElement(new ElementProgressBar(this, GuiLayout.Mixer.PROGRESS_X, GuiLayout.Mixer.PROGRESS_Y, ElementProgressBar.ProgressType.LEFT_TO_RIGHT)));
-        addElement(progress);
 
         addTab(new TabEnergy(this, TabBase.RIGHT, this.mixer));
         addTab(new TabInfo(this, TabBase.LEFT, buildInfoString(Lang.Gui.INFO_MIXER)));
