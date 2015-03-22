@@ -267,6 +267,37 @@ public class DyeableBlocksManager {
 
     private static void processAttrMap(BlockDescAttrMap desc) {
 
+        ItemStack result = RegistryHelper.getItemStackFromRegistry(desc.getBaseName());
+        if (result == null)
+            return;
+
+        if (desc.hasOrigin()) {
+
+            ItemStack source = RegistryHelper.getItemStackFromRegistryAttr(desc.getOrigin().getName(), desc.getOrigin().getAttr());
+            if (source != null) {
+                for (DyeHelper.DyeType d : DyeHelper.DyeType.VALID_DYES) {
+
+                    int meta = desc.getAttrMapEntry(d);
+                    addEntry(source, d, new ItemStack(result.getItem(), 1, meta));
+                    addOrigin(source, new ItemStack(result.getItem(), 1, meta));
+                }
+            }
+        }
+
+        if (desc.isAssociative()) {
+
+            for (DyeHelper.DyeType d : DyeHelper.DyeType.VALID_DYES) {
+                for (DyeHelper.DyeType d2 : DyeHelper.DyeType.VALID_DYES) {
+                    if (d == d2)
+                        continue;
+
+                    int sourcemeta = desc.getAttrMapEntry(d);
+                    int resultmeta = desc.getAttrMapEntry(d2);
+
+                    addEntry(new ItemStack(result.getItem(), 1, sourcemeta), d2, new ItemStack(result.getItem(), 1, resultmeta));
+                }
+            }
+        }
     }
 
     private static void processSimple(BlockDescSimple desc) {
