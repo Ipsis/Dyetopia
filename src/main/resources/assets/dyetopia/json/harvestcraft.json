@@ -12,22 +12,22 @@
           "assoc": true,
           "vanilla": {},
           "fullblock":[
-            { "color": "white", "name": "harvestcraft:pamcandleDeco1", "meta": 0 },
-            { "color": "orange", "name": "harvestcraft:pamcandleDeco2", "meta": 0 },
-            { "color": "magenta", "name": "harvestcraft:pamcandleDeco3", "meta": 0 },
-            { "color": "lightblue", "name": "harvestcraft:pamcandleDeco4", "meta": 0 },
-            { "color": "yellow", "name": "harvestcraft:pamcandleDeco5", "meta": 0 },
-            { "color": "lime", "name": "harvestcraft:pamcandleDeco6", "meta": 0 },
-            { "color": "pink", "name": "harvestcraft:pamcandleDeco7", "meta": 0 },
-            { "color": "gray", "name": "harvestcraft:pamcandleDeco8", "meta": 0 },
-            { "color": "lightgray", "name": "harvestcraft:pamcandleDeco9", "meta": 0 },
-            { "color": "cyan", "name": "harvestcraft:pamcandleDeco10", "meta": 0 },
-            { "color": "purple", "name": "harvestcraft:pamcandleDeco11", "meta": 0 },
-            { "color": "blue", "name": "harvestcraft:pamcandleDeco12", "meta": 0 },
-            { "color": "brown", "name": "harvestcraft:pamcandleDeco13", "meta": 0 },
-            { "color": "green", "name": "harvestcraft:pamcandleDeco14", "meta": 0 },
-            { "color": "red", "name": "harvestcraft:pamcandleDeco15", "meta": 0 },
-            { "color": "black", "name": "harvestcraft:pamcandleDeco16", "meta": 0 }
+            { "color": "white", "name": "harvestcraft:pamcandleDeco1", "meta": 5 },
+            { "color": "orange", "name": "harvestcraft:pamcandleDeco2", "meta": 5 },
+            { "color": "magenta", "name": "harvestcraft:pamcandleDeco3", "meta": 5 },
+            { "color": "lightblue", "name": "harvestcraft:pamcandleDeco4", "meta": 5 },
+            { "color": "yellow", "name": "harvestcraft:pamcandleDeco5", "meta": 5 },
+            { "color": "lime", "name": "harvestcraft:pamcandleDeco6", "meta": 5 },
+            { "color": "pink", "name": "harvestcraft:pamcandleDeco7", "meta": 5 },
+            { "color": "gray", "name": "harvestcraft:pamcandleDeco8", "meta": 5 },
+            { "color": "lightgray", "name": "harvestcraft:pamcandleDeco9", "meta": 5 },
+            { "color": "cyan", "name": "harvestcraft:pamcandleDeco10", "meta": 5 },
+            { "color": "purple", "name": "harvestcraft:pamcandleDeco11", "meta": 5 },
+            { "color": "blue", "name": "harvestcraft:pamcandleDeco12", "meta": 5 },
+            { "color": "brown", "name": "harvestcraft:pamcandleDeco13", "meta": 5 },
+            { "color": "green", "name": "harvestcraft:pamcandleDeco14", "meta": 5 },
+            { "color": "red", "name": "harvestcraft:pamcandleDeco15", "meta": 5 },
+            { "color": "black", "name": "harvestcraft:pamcandleDeco16", "meta": 5 }
           ]
         }
       ]
