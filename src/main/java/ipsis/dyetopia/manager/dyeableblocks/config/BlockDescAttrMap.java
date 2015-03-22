@@ -14,6 +14,7 @@ public class BlockDescAttrMap extends BlockDescSimple {
     public BlockDescAttrMap() {
         super();
         attrMap = new int[DyeHelper.DyeType.VALID_DYES.length];
+        this.vanillaOrder = false;
     }
 
     public void setAttrMapEntry(DyeHelper.DyeType dye, int attr) {
