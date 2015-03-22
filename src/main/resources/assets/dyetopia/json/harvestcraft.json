@@ -8,7 +8,7 @@
       "id": "harvestcraft",
       "maps": [
         {
-          "refname": "CandleItem",
+          "refname": "Candle",
           "assoc": true,
           "vanilla": {},
           "fullblock":[
