@@ -10,6 +10,7 @@ import ipsis.dyetopia.manager.dyeableblocks.DyeableBlocksManager;
 import ipsis.dyetopia.reference.*;
 import ipsis.dyetopia.util.BlockSwapper;
 import ipsis.dyetopia.util.DyeHelper;
+import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockColored;
 import net.minecraft.block.BlockContainer;
@@ -252,20 +253,37 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
             return true;
 
         Block b = world.getBlock(x, y, z);
-        if (!b.isAir(world, x, y, z) && !(b instanceof ITileEntityProvider) && !(b instanceof BlockContainer)) {
+        if (!b.isAir(world, x, y, z)) {
+
             int meta = world.getBlockMetadata(x, y, z);
+            ItemStack tmp = new ItemStack(b, 1, meta);
+
+            LogHelper.info(b.getUnlocalizedName() + " " + meta + tmp.hasTagCompound());
+
+            if (tmp.hasTagCompound()) {
+                player.addChatComponentMessage(new ChatComponentText("Cannot recolor in world. Use Painter machine."));
+                return true;
+            }
 
             DyeableBlocksManager.DyedBlockRecipe r = DyeableBlocksManager.getDyedBlock(new ItemStack(b, 1, meta), ((ItemDyeGun) itemStack.getItem()).getColor(itemStack));
-            if (r != null && canShootGun(player, itemStack, r.getPureAmount())) {
+            if (r != null) {
+                /* Can recolor */
 
-                if (BlockSwapper.swap(player, world, x, y, z, r.getOutput())) {
-                    shootGun(player, itemStack, r.getPureAmount());
+                /*
+                if (b instanceof ITileEntityProvider || b instanceof BlockContainer) {
+                    player.addChatComponentMessage(new ChatComponentText("Cannot recolor in world. Use Painter machine."));
                     return true;
+                } */
+
+                if (canShootGun(player, itemStack, r.getPureAmount())) {
+                    if (BlockSwapper.swap(player, world, x, y, z, r.getOutput())) {
+                        shootGun(player, itemStack, r.getPureAmount());
+                    }
                 }
             }
         }
 
-        return false;
+        return true;
     }
 
     private boolean canDyeSheep(EntityPlayer player, ItemStack itemStack) {
