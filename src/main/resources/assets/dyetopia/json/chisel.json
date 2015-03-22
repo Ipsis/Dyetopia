@@ -230,23 +230,26 @@
         {
           "refname": "Woolen Clay",
           "assoc": true,
-          "simple": { },
           "blockname": "chisel:woolen_clay",
           "vanilla": { }
         },
         {
           "refname": "Carpet Block",
           "assoc": true,
-          "simple": { },
           "blockname": "chisel:carpet_block",
           "vanilla": { }
         },
         {
           "refname": "Carpet Floor",
           "assoc": true,
-          "simple": { },
           "blockname": "chisel:carpet",
           "vanilla": { }
+        },
+        {
+          "refname": "Antiblock",
+          "assoc": true,
+          "blockname": "chisel:antiBlock",
+          "simple": { }
         }
       ]
     }
