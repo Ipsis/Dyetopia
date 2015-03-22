@@ -258,28 +258,20 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
             int meta = world.getBlockMetadata(x, y, z);
             ItemStack tmp = new ItemStack(b, 1, meta);
 
-            LogHelper.info(b.getUnlocalizedName() + " " + meta + tmp.hasTagCompound());
-
             if (tmp.hasTagCompound()) {
-                player.addChatComponentMessage(new ChatComponentText("Cannot recolor in world. Use Painter machine."));
+                player.addChatComponentMessage(new ChatComponentText(StringHelper.localize(Lang.Messages.PAINTER_ONLY)));
                 return true;
             }
 
             DyeableBlocksManager.DyedBlockRecipe r = DyeableBlocksManager.getDyedBlock(new ItemStack(b, 1, meta), ((ItemDyeGun) itemStack.getItem()).getColor(itemStack));
             if (r != null) {
-                /* Can recolor */
-
-                /*
-                if (b instanceof ITileEntityProvider || b instanceof BlockContainer) {
-                    player.addChatComponentMessage(new ChatComponentText("Cannot recolor in world. Use Painter machine."));
-                    return true;
-                } */
-
                 if (canShootGun(player, itemStack, r.getPureAmount())) {
                     if (BlockSwapper.swap(player, world, x, y, z, r.getOutput())) {
                         shootGun(player, itemStack, r.getPureAmount());
                     }
                 }
+            } else {
+                player.addChatComponentMessage(new ChatComponentText(StringHelper.localize(Lang.Messages.NO_RECOLOR)));
             }
         }
 
