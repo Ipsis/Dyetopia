@@ -88,13 +88,15 @@ public class DyeableBlocksManager {
         return recipeMap;
     }
 
-    private static void addEntry(ItemStack source, DyeHelper.DyeType dye, ItemStack output) {
+    private static void addEntry(ItemStack source, DyeHelper.DyeType dye, ItemStack output, boolean validForBlock) {
 
         ComparableItemStackBlockSafe key = new ComparableItemStackBlockSafe(source.copy());
         HashMap<ComparableItemStackBlockSafe, DyedBlockRecipe> rmap = recipeMap.get(dye.ordinal());
 
         if (!rmap.containsKey(key)) {
-            rmap.put(key, new DyedBlockRecipe(source, dye, output));
+            DyedBlockRecipe recipe = new DyedBlockRecipe(source, dye, output);
+            recipe.setValidForBlock(validForBlock);
+            rmap.put(key, recipe);
         } else {
             LogHelper.warn("addEntry: DUPLICATE MAPPING");
         }
@@ -125,17 +127,22 @@ public class DyeableBlocksManager {
         private ItemStack output; /* the colored itemstack */
         private DyeHelper.DyeType dye; /* the dye to color with */
         private int pureAmount; /* the amount of pure dye required */
+        private boolean validForBlock;
 
         public DyedBlockRecipe(ItemStack input, DyeHelper.DyeType dye, ItemStack output, int pureAmount) {
             this.input = input.copy();
             this.dye = dye;
             this.output = output.copy();
             this.pureAmount = pureAmount;
+            this.validForBlock = true;
         }
 
         public DyedBlockRecipe(ItemStack input, DyeHelper.DyeType dye, ItemStack output) {
             this(input, dye, output, DyeHelper.getLCM());
         }
+
+        public void setValidForBlock(boolean valid) { this.validForBlock = valid; }
+        public boolean isValidForBlock() { return this.validForBlock; }
 
         @Override
         public String toString() {
@@ -230,7 +237,7 @@ public class DyeableBlocksManager {
                     if (result == null)
                         continue;
 
-                    addEntry(source, d, result);
+                    addEntry(source, d, result, desc.validForBlock);
                     addOrigin(source, result);
                 }
             }
@@ -260,7 +267,7 @@ public class DyeableBlocksManager {
                     if (result == null)
                         continue;
 
-                    addEntry(new ItemStack(source.getItem(), 1, sourceDesc.getAttr()), d2, result);
+                    addEntry(new ItemStack(source.getItem(), 1, sourceDesc.getAttr()), d2, result, desc.validForBlock);
 
                 }
             }
@@ -280,7 +287,7 @@ public class DyeableBlocksManager {
                 for (DyeHelper.DyeType d : DyeHelper.DyeType.VALID_DYES) {
 
                     int meta = desc.getAttrMapEntry(d);
-                    addEntry(source, d, new ItemStack(result.getItem(), 1, meta));
+                    addEntry(source, d, new ItemStack(result.getItem(), 1, meta), desc.validForBlock);
                     addOrigin(source, new ItemStack(result.getItem(), 1, meta));
                 }
             }
@@ -296,7 +303,7 @@ public class DyeableBlocksManager {
                     int sourcemeta = desc.getAttrMapEntry(d);
                     int resultmeta = desc.getAttrMapEntry(d2);
 
-                    addEntry(new ItemStack(result.getItem(), 1, sourcemeta), d2, new ItemStack(result.getItem(), 1, resultmeta));
+                    addEntry(new ItemStack(result.getItem(), 1, sourcemeta), d2, new ItemStack(result.getItem(), 1, resultmeta), desc.validForBlock);
                 }
             }
         }
@@ -315,7 +322,7 @@ public class DyeableBlocksManager {
                 for (DyeHelper.DyeType d : DyeHelper.DyeType.VALID_DYES) {
 
                     int meta = desc.getColorAttr(d);
-                    addEntry(source, d, new ItemStack(result.getItem(), 1, meta));
+                    addEntry(source, d, new ItemStack(result.getItem(), 1, meta), desc.validForBlock);
                     addOrigin(source, new ItemStack(result.getItem(), 1, meta));
                 }
             }
@@ -331,7 +338,7 @@ public class DyeableBlocksManager {
                     int sourcemeta = desc.getColorAttr(d);
                     int resultmeta = desc.getColorAttr(d2);
 
-                    addEntry(new ItemStack(result.getItem(), 1, sourcemeta), d2, new ItemStack(result.getItem(), 1, resultmeta));
+                    addEntry(new ItemStack(result.getItem(), 1, sourcemeta), d2, new ItemStack(result.getItem(), 1, resultmeta), desc.validForBlock);
                 }
             }
         }

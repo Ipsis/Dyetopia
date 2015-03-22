@@ -4,6 +4,7 @@ public abstract class BlockDescBase {
 
     public String refname;
     public boolean associative;
+    public boolean validForBlock;
 
     /* Optional origin */
     ModObjectDesc origin;
@@ -13,6 +14,7 @@ public abstract class BlockDescBase {
     public BlockDescBase() {
 
         associative = false;
+        validForBlock = true;
         origin = new ModObjectDesc();
     }
 

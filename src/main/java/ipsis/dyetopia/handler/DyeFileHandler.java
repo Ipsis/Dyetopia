@@ -42,6 +42,7 @@ public class DyeFileHandler {
     private static final String TAG_BASENAME = "blockname";
     private static final String TAG_BLACKLIST = "blacklist";
     private static final String TAG_BLOCKS = "blocks";
+    private static final String TAG_VALID_FOR_BLOCK = "validforblock";
 
     /** There are three files to load
      * Vanilla is a mod shipped file specifying the vanilla blocks
@@ -146,6 +147,7 @@ public class DyeFileHandler {
         String refname = null;
         String basename = null;
         boolean associative = false;
+        boolean validForBlock = true;
         ModObjectDesc origin = new ModObjectDesc();
 
         reader.beginObject();
@@ -167,6 +169,8 @@ public class DyeFileHandler {
                 desc = readFullBlock(reader);
             else if (name.equals(TAG_BASENAME))
                 basename = reader.nextString();
+            else if (name.equals(TAG_VALID_FOR_BLOCK))
+                validForBlock = reader.nextBoolean();
             else
                 reader.skipValue();
         }
@@ -177,6 +181,7 @@ public class DyeFileHandler {
 
         desc.refname = refname;
         desc.associative = associative;
+        desc.validForBlock = validForBlock;
 
         if (basename != null && !basename.equals("") && desc instanceof BlockDescSimple)
             ((BlockDescSimple) desc).setBaseName(basename);

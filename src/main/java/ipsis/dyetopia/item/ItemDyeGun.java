@@ -276,6 +276,12 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
 
             DyeableBlocksManager.DyedBlockRecipe r = DyeableBlocksManager.getDyedBlock(tmp, ((ItemDyeGun) itemStack.getItem()).getColor(itemStack));
             if (r != null) {
+
+                if (!r.isValidForBlock()) {
+                    player.addChatComponentMessage(new ChatComponentText(StringHelper.localize(Lang.Messages.PAINTER_ONLY)));
+                    return true;
+                }
+
                 if (canShootGun(player, itemStack, r.getPureAmount())) {
                     if (BlockSwapper.swap(player, world, x, y, z, r.getOutput())) {
                         shootGun(player, itemStack, r.getPureAmount());
