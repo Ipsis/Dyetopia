@@ -10,7 +10,7 @@
         {
           "refname": "Typewriter",
           "assoc": true,
-          "vanilla": {},
+          "fullmeta": [ 0, 5, 13, 10, 6, 7, 14, 2, 1, 9, 12, 11, 15, 8, 4, 3 ],
           "blockname": "BiblioCraft:BiblioTypewriter"
         },
         {
