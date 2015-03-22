@@ -104,6 +104,7 @@ public class DyeFileHandler {
         int i = 0;
         while (reader.hasNext()) {
             desc.setAttrMapEntry(DyeHelper.DyeType.getDye(i), reader.nextInt());
+            i++;
         }
         reader.endArray();
         return desc;
