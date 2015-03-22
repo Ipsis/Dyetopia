@@ -8,6 +8,7 @@ import ipsis.dyetopia.util.ComparableItemStackBlockSafe;
 import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.LogHelper;
 import ipsis.dyetopia.util.RegistryHelper;
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
@@ -171,8 +172,16 @@ public class DyeableBlocksManager {
 
     public static boolean canDyeBlock(ItemStack source) {
 
+        ItemStack testStack;
+        Block b = Block.getBlockFromItem(source.getItem());
+        if (b != null) {
+            testStack = new ItemStack(b, 1, source.getItem().getMetadata(source.getItemDamage()));
+        } else {
+            testStack = source.copy();
+        }
+
         for (int i = 0; i < 16; i++) {
-            if (recipeMap.get(i).containsKey(new ComparableItemStackBlockSafe(source)))
+            if (recipeMap.get(i).containsKey(new ComparableItemStackBlockSafe(testStack)))
                 return true;
         }
 
