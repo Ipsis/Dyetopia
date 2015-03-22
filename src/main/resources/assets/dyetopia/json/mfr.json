@@ -18,6 +18,16 @@
           "assoc": true,
           "vanilla": {},
           "blockname": "MineFactoryReloaded:stainedglass.pane"
+        },
+        {
+          "refname": "Conveyor Belt",
+          "assoc": true,
+          "origin": {
+            "name": "MineFactoryReloaded:conveyor",
+            "meta": 16
+          },
+          "vanilla": {},
+          "blockname": "MineFactoryReloaded:conveyor"
         }
       ]
     }

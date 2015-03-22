@@ -1,0 +1,49 @@
+{
+  "blacklist": {
+    "mods": [],
+    "blocks": []
+  },
+  "mods": [
+    {
+      "id": "BiblioCraft",
+      "maps": [
+        {
+          "refname": "Typewriter",
+          "assoc": true,
+          "vanilla": {},
+          "blockname": "BiblioCraft:BiblioTypewriter"
+        },
+        {
+          "refname": "Sword Pedestal",
+          "assoc": true,
+          "vanilla": {},
+          "blockname": "BiblioCraft:BiblioSwordPedestal"
+        },
+        {
+          "refname": "Fancy Lantern Gold",
+          "assoc": true,
+          "fullmeta": [ 0, 5, 13, 10, 6, 7, 14, 2, 1, 9, 12, 11, 15, 8, 4, 3 ],
+          "blockname": "BiblioCraft:BiblioLantern"
+        },
+        {
+          "refname": "Fancy Lantern Iron",
+          "assoc": true,
+          "fullmeta": [ 0, 5, 13, 10, 6, 7, 14, 2, 1, 9, 12, 11, 15, 8, 4, 3 ],
+          "blockname": "BiblioCraft:BiblioIronLantern"
+        },
+        {
+          "refname": "Fancy Lamp Gold",
+          "assoc": true,
+          "fullmeta": [ 0, 5, 13, 10, 6, 7, 14, 2, 1, 9, 12, 11, 15, 8, 4, 3 ],
+          "blockname": "BiblioCraft:BiblioLamp"
+        },
+        {
+          "refname": "Fancy Lamp Iron",
+          "assoc": true,
+          "fullmeta": [ 0, 5, 13, 10, 6, 7, 14, 2, 1, 9, 12, 11, 15, 8, 4, 3 ],
+          "blockname": "BiblioCraft:BiblioIronLamp"
+        }
+      ]
+    }
+  ]
+}
