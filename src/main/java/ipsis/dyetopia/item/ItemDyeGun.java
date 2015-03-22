@@ -256,7 +256,15 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
         if (!b.isAir(world, x, y, z)) {
 
             int meta = world.getBlockMetadata(x, y, z);
-            ItemStack tmp = new ItemStack(b, 1, meta);
+
+            /**
+             * Need to work out the true metadata for this block if it was being placed in the world.
+             * So change it from ... what for it ...
+             *
+             * Block + metadata -> item -> itemstack + item.metadata
+             */
+            Item t = b.getItem(world, x, y, z);
+            ItemStack tmp = new ItemStack(t, 1, t.getMetadata(meta));
 
             if (!DyeableBlocksManager.canDyeBlock(tmp)) {
                 player.addChatComponentMessage(new ChatComponentText(String.format(StringHelper.localize(Lang.Messages.NO_RECOLOR), tmp.getDisplayName())));
