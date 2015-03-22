@@ -263,7 +263,10 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
              *
              * Block + metadata -> item -> itemstack + item.metadata
              */
-            Item t = b.getItem(world, x, y, z);
+            Item t = Item.getItemFromBlock(b);
+            if (t == null)
+                return true;
+
             ItemStack tmp = new ItemStack(t, 1, t.getMetadata(meta));
 
             if (!DyeableBlocksManager.canDyeBlock(tmp)) {
