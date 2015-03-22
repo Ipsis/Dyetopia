@@ -259,7 +259,7 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
             ItemStack tmp = new ItemStack(b, 1, meta);
 
             if (!DyeableBlocksManager.canDyeBlock(tmp)) {
-                player.addChatComponentMessage(new ChatComponentText(StringHelper.localize(Lang.Messages.NO_RECOLOR)));
+                player.addChatComponentMessage(new ChatComponentText(String.format(StringHelper.localize(Lang.Messages.NO_RECOLOR), tmp.getDisplayName())));
                 return true;
             }
 
