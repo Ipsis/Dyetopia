@@ -15,10 +15,6 @@ public class BlockSwapper {
         if (player == null || world == null || world.isRemote || stack == null)
             return false;
 
-        /* No complicated blocks with nbt */
-        if (stack.hasTagCompound())
-            return false;
-
         Block b = world.getBlock(x, y, z);
         if (b == null || b.isAir(world, x, y, z))
             return false;
