@@ -1,0 +1,25 @@
+{
+  "blacklist": {
+    "mods": [],
+    "blocks": []
+  },
+  "mods": [
+    {
+      "id": "BuildCraft|Transport",
+      "maps": [
+        {
+          "refname": "Lens",
+          "assoc": true,
+          "simple": {},
+          "blockname": "BuildCraft|Transport:pipeLens"
+        },
+        {
+          "refname": "Filter",
+          "assoc": true,
+          "fullmeta": [ 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16],
+          "blockname": "BuildCraft|Transport:pipeLens"
+        }
+      ]
+    }
+  ]
+}

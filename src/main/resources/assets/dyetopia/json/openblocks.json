@@ -1,0 +1,19 @@
+{
+  "blacklist": {
+    "mods": [],
+    "blocks": []
+  },
+  "mods": [
+    {
+      "id": "OpenBlocks",
+      "maps": [
+        {
+          "refname": "Elevator",
+          "assoc": true,
+          "vanilla": {},
+          "blockname": "OpenBlocks:elevator"
+        }
+      ]
+    }
+  ]
+}
