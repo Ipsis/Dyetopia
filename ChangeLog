@@ -1,6 +1,24 @@
 Dyetopia ChangeLog
 ==========================
 
+1.7.10-1.1.B4
+
+Fixes
+* XXXXXX - Only add elements to GUIs once!
+
+Features
+
+* Add support for AE2, Bilbiocraft, Buildcraft, Harvestcraft, OpenBlocks, ProjectRed, Thaumcraft
+* Moved to Forge 10.13.2.1291
+* Changed DyeGun handling to allow more block types
+
+Build Environment
+* CoFHLib-[1.7.10]1.0.0RC7-127
+* CodeChickenCore 1.7.10-1.0.4.29
+* CodeChickenLib 1.7.10-1.1.1.106
+* NEI 1.7.10-1.0.3.73
+* Waila 1.5.6a_1.7.10
+
 1.7.10-1.1.0B3
 
 Fixes
