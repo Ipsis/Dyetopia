@@ -1,0 +1,121 @@
+{
+  "blacklist": {
+    "mods": [],
+    "blocks": []
+  },
+  "mods": [
+    {
+      "id": "ProjRed|Core",
+      "maps": [
+        {
+          "refname": "Illumar",
+          "assoc": true,
+          "fullmeta": [ 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34 ],
+          "blockname": "ProjRed|Core:projectred.core.part"
+        },
+        {
+          "refname": "Insulated Wire",
+          "assoc": true,
+          "fullmeta": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ],
+          "blockname": "ProjRed|Transmission:projectred.transmission.wire"
+        },
+        {
+          "refname": "Bundled Cable",
+          "assoc": true,
+          "fullmeta": [ 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 20, 30, 31, 32, 33 ],
+          "blockname": "ProjRed|Transmission:projectred.transmission.wire"
+        },
+        {
+          "refname": "Framed Insulated Wire",
+          "assoc": true,
+          "fullmeta": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ],
+          "blockname": "ProjRed|Transmission:projectred.transmission.framewire"
+        },
+        {
+          "refname": "Lamp",
+          "assoc": true,
+          "vanilla": { },
+          "validforblock": false,
+          "blockname": "ProjRed|Illumination:projectred.illumination.lamp"
+        },
+        {
+          "refname": "Inverted Lamp",
+          "assoc": true,
+          "validforblock": false,
+          "fullmeta": [ 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 ],
+          "blockname": "ProjRed|Illumination:projectred.illumination.lamp"
+        },
+        {
+          "refname": "Lantern",
+          "assoc": true,
+          "vanilla": { },
+          "validforblock": false,
+          "blockname": "ProjRed|Illumination:projectred.illumination.lantern"
+        },
+        {
+          "refname": "Inverted Lantern",
+          "assoc": true,
+          "vanilla": { },
+          "validforblock": false,
+          "blockname": "ProjRed|Illumination:projectred.illumination.lantern.inv"
+        },
+        {
+          "refname": "Fixture",
+          "assoc": true,
+          "vanilla": { },
+          "validforblock": false,
+          "blockname": "ProjRed|Illumination:projectred.illumination.fixture"
+        },
+        {
+          "refname": "Inverted Fixture",
+          "assoc": true,
+          "vanilla": { },
+          "validforblock": false,
+          "blockname": "ProjRed|Illumination:projectred.illumination.fixture.inv"
+        },
+        {
+          "refname": "Fallout Lamp",
+          "assoc": true,
+          "vanilla": { },
+          "validforblock": false,
+          "blockname": "ProjRed|Illumination:projectred.illumination.cagelamp"
+        },
+        {
+          "refname": "Inverted Fallout Lamp",
+          "assoc": true,
+          "vanilla": { },
+          "validforblock": false,
+          "blockname": "ProjRed|Illumination:projectred.illumination.cagelamp.inv"
+        },
+        {
+          "refname": "Cage Lamp",
+          "assoc": true,
+          "vanilla": { },
+          "validforblock": false,
+          "blockname": "ProjRed|Illumination:projectred.illumination.cagelamp2"
+        },
+        {
+          "refname": "Inverted Cage Lamp",
+          "assoc": true,
+          "vanilla": { },
+          "validforblock": false,
+          "blockname": "ProjRed|Illumination:projectred.illumination.cagelamp2.inv"
+        },
+        {
+          "refname": "Illumar Button",
+          "assoc": true,
+          "vanilla": { },
+          "validforblock": false,
+          "blockname": "ProjRed|Illumination:projectred.illumination.lightbutton"
+        },
+        {
+          "refname": "Illumar Feedback Button",
+          "assoc": true,
+          "vanilla": { },
+          "validforblock": false,
+          "blockname": "ProjRed|Illumination:projectred.illumination.flightbutton"
+        }
+      ]
+    }
+  ]
+}

@@ -14,10 +14,11 @@ public class BlockDescAttrMap extends BlockDescSimple {
     public BlockDescAttrMap() {
         super();
         attrMap = new int[DyeHelper.DyeType.VALID_DYES.length];
+        this.vanillaOrder = false;
     }
 
     public void setAttrMapEntry(DyeHelper.DyeType dye, int attr) {
-        if (attr >= 0 && attr <= 15 && dye != DyeHelper.DyeType.INVALID)
+        if (attr >= 0 && attr <= 65535 && dye != DyeHelper.DyeType.INVALID)
             attrMap[dye.ordinal()] = attr;
     }
 

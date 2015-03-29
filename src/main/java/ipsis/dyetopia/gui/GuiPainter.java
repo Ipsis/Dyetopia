@@ -58,10 +58,7 @@ public class GuiPainter  extends GuiBaseDYT {
         addElement(new ElementButton(this, 96, 64, BTN_UP_STR, 192, 0, 192, 16, 192, 32, 16, 16, TEXTURE_STR));
 
         this.progress = ((ElementProgressBar)addElement(new ElementProgressBar(this, GuiLayout.Painter.PROGRESS_X, GuiLayout.Painter.PROGRESS_Y, ElementProgressBar.ProgressType.LEFT_TO_RIGHT)));
-        addElement(progress);
-
-        this.selected = ((ElementIcon)addElement(new ElementIcon(this, 78, 64).setIcon(DyeHelper.DyeType.BLACK.getIcon())));
-        addElement(selected);
+        this.selected = (ElementIcon)addElement(new ElementIcon(this, 78, 64, DyeHelper.DyeType.BLACK.getIcon(), 1));
 
         addTab(new TabEnergy(this, TabBase.RIGHT, this.painter));
         addTab(new TabInfo(this, TabBase.LEFT, buildInfoString(Lang.Gui.INFO_PAINTER)));

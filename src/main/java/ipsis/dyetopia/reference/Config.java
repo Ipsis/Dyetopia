@@ -36,13 +36,20 @@ public class Config {
 
     public static enum SupportedMods {
 
-        THERMAL_EXPANSION("thermalexp"),
-        EXTRA_UTILS("xutils"),
+        APPLIED_ENERGISTICS("ae2"),
+        BIBLIOCRAFT("bibliocraft"),
+        BUILDCRAFT("buildcraft"),
+        CHISEL("chisel"),
+        FORESTRY("forestry"),
+        HARVESTCRAFT("harvestcraft"),
+        MFR("mfr"),
+        OPENBLOCKS("openblocks"),
+        PROJECTRED("projectred"),
         RAILCRAFT("railcraft"),
         TINKERS("tconstruct"),
-        FORESTRY("forestry"),
-        MFR("mfr"),
-        CHISEL("chisel");
+        THAUMCRAFT("thaumcraft"),
+        THERMAL_EXPANSION("thermalexp"),
+        EXTRA_UTILS("xutils");
 
         private String filename;
         private SupportedMods(String filename) { this.filename = filename; }

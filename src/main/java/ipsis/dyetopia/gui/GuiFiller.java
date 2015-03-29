@@ -45,7 +45,6 @@ public class GuiFiller extends GuiBaseDYT {
         addElement(new ElementEnergyStoredDYT(this, GuiLayout.Filler.ENERGY_X, GuiLayout.Filler.ENERGY_Y, this.filler.getEnergyMgr().getEnergyStorage()));
 
         this.progress = ((ElementProgressBar)addElement(new ElementProgressBar(this, GuiLayout.Filler.PROGRESS_X, GuiLayout.Filler.PROGRESS_Y, ElementProgressBar.ProgressType.LEFT_TO_RIGHT)));
-        addElement(progress);
 
         addTab(new TabEnergy(this, TabBase.RIGHT, this.filler));
         addTab(new TabInfo(this, TabBase.LEFT, buildInfoString(Lang.Gui.INFO_FILLER)));

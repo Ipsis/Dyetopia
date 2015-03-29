@@ -49,7 +49,6 @@ public class GuiSqueezer extends GuiBaseDYT {
 
 
         this.progress = ((ElementProgressBar)addElement(new ElementProgressBar(this, GuiLayout.Squeezer.PROGRESS_X, GuiLayout.Squeezer.PROGRESS_Y, ElementProgressBar.ProgressType.LEFT_TO_RIGHT)));
-        addElement(progress);
 
         addTab(new TabEnergy(this, TabBase.RIGHT, this.squeezer));
         addTab(new TabInfo(this, TabBase.LEFT, buildInfoString(Lang.Gui.INFO_SQUEEZER)));

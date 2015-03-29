@@ -16,7 +16,7 @@ public class BlockSwapper {
             return false;
 
         Block b = world.getBlock(x, y, z);
-        if (b == null || b.isAir(world, x, y, z) || b instanceof ITileEntityProvider)
+        if (b == null || b.isAir(world, x, y, z))
             return false;
 
         /* Don't replace the block with itself */

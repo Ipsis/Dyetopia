@@ -10,6 +10,7 @@ import ipsis.dyetopia.manager.dyeableblocks.DyeableBlocksManager;
 import ipsis.dyetopia.reference.*;
 import ipsis.dyetopia.util.BlockSwapper;
 import ipsis.dyetopia.util.DyeHelper;
+import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockColored;
 import net.minecraft.block.BlockContainer;
@@ -252,20 +253,44 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
             return true;
 
         Block b = world.getBlock(x, y, z);
-        if (!b.isAir(world, x, y, z) && !(b instanceof ITileEntityProvider) && !(b instanceof BlockContainer)) {
+        if (!b.isAir(world, x, y, z)) {
+
             int meta = world.getBlockMetadata(x, y, z);
 
-            DyeableBlocksManager.DyedBlockRecipe r = DyeableBlocksManager.getDyedBlock(new ItemStack(b, 1, meta), ((ItemDyeGun) itemStack.getItem()).getColor(itemStack));
-            if (r != null && canShootGun(player, itemStack, r.getPureAmount())) {
+            /**
+             * Need to work out the true metadata for this block if it was being placed in the world.
+             * So change it from ... what for it ...
+             *
+             * Block + metadata -> item -> itemstack + item.metadata
+             */
+            Item t = Item.getItemFromBlock(b);
+            if (t == null)
+                return true;
 
-                if (BlockSwapper.swap(player, world, x, y, z, r.getOutput())) {
-                    shootGun(player, itemStack, r.getPureAmount());
+            ItemStack tmp = new ItemStack(t, 1, t.getMetadata(meta));
+
+            if (!DyeableBlocksManager.canDyeBlock(tmp)) {
+                player.addChatComponentMessage(new ChatComponentText(String.format(StringHelper.localize(Lang.Messages.NO_RECOLOR), tmp.getDisplayName())));
+                return true;
+            }
+
+            DyeableBlocksManager.DyedBlockRecipe r = DyeableBlocksManager.getDyedBlock(tmp, ((ItemDyeGun) itemStack.getItem()).getColor(itemStack));
+            if (r != null) {
+
+                if (!r.isValidForBlock()) {
+                    player.addChatComponentMessage(new ChatComponentText(StringHelper.localize(Lang.Messages.PAINTER_ONLY)));
                     return true;
+                }
+
+                if (canShootGun(player, itemStack, r.getPureAmount())) {
+                    if (BlockSwapper.swap(player, world, x, y, z, r.getOutput())) {
+                        shootGun(player, itemStack, r.getPureAmount());
+                    }
                 }
             }
         }
 
-        return false;
+        return true;
     }
 
     private boolean canDyeSheep(EntityPlayer player, ItemStack itemStack) {

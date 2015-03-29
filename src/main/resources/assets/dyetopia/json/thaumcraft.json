@@ -1,0 +1,19 @@
+{
+  "blacklist": {
+    "mods": [],
+    "blocks": []
+  },
+  "mods": [
+    {
+      "id": "Thaumcraft",
+      "maps": [
+        {
+          "refname": "Candle",
+          "assoc": true,
+          "vanilla": {},
+          "blockname": "Thaumcraft:blockCandle"
+        }
+      ]
+    }
+  ]
+}

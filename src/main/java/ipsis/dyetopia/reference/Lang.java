@@ -6,6 +6,7 @@ public class Lang {
     private static final String TAG_TOOLTIP = "tooltip." + Reference.MOD_ID + ":";
     private static final String TAG_GUI = "gui." + Reference.MOD_ID + ":";
     private static final String TAG_CONFIG = "config." + Reference.MOD_ID + ":";
+    private static final String TAG_MESSAGE = "message." + Reference.MOD_ID + ":";
 
     public static final String TAG_TAB = "itemGroup." + Reference.MOD_ID + ":" + Reference.MOD_NAME;
 
@@ -97,6 +98,12 @@ public class Lang {
         public static final String MULTIBLOCK = TAG_TOOLTIP + "multiblock";
         public static final String REQUIRES_RF = TAG_TOOLTIP + "requires.rf";
         public static final String REQUIRES_DYE = TAG_TOOLTIP + "requires.dye";
+    }
+
+    public static class Messages {
+
+        public static final String NO_RECOLOR = TAG_MESSAGE + "noRecolor";
+        public static final String PAINTER_ONLY = TAG_MESSAGE + "painterOnly";
     }
 
 }
