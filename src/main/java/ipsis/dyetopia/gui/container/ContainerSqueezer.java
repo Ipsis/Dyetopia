@@ -2,6 +2,8 @@ package ipsis.dyetopia.gui.container;
 
 import cofh.lib.gui.slot.SlotAcceptValid;
 import cofh.lib.util.helpers.InventoryHelper;
+import ipsis.dyetopia.gui.IGuiFluidSyncHandler;
+import ipsis.dyetopia.network.message.MessageGuiFluidSync;
 import ipsis.dyetopia.reference.GuiLayout;
 import ipsis.dyetopia.tileentity.TileEntitySqueezer;
 import ipsis.dyetopia.util.TankType;
@@ -13,7 +15,7 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerSqueezer extends Container {
+public class ContainerSqueezer extends Container implements IGuiFluidSyncHandler {
 
     private TileEntitySqueezer squeezer;
 
@@ -94,7 +96,6 @@ public class ContainerSqueezer extends Container {
         super.updateProgressBar(id, data);
 
         /* The id will determine if anything happens in each manager */
-        this.squeezer.getTankMgr().processGuiTracking(id, data);
         this.squeezer.getEnergyMgr().processGuiTracking(id, data);
         this.squeezer.getFactoryMgr().processGuiTracking(id, data);
     }
@@ -111,6 +112,14 @@ public class ContainerSqueezer extends Container {
         this.squeezer.getEnergyMgr().updateGuiTracking(this.crafters, this);
 
         this.squeezer.getFactoryMgr().updateGuiTracking(this.crafters, this);
+    }
+
+    /**
+     * IGuiFluidSyncHandler
+     */
+    @Override
+    public void handleGuiFluidSync(MessageGuiFluidSync message) {
+        this.squeezer.getTankMgr().processGuiTracking(message.tankId, message.fluidStack);
     }
 
 }

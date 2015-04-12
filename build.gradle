@@ -29,7 +29,7 @@ repositories {
 
     ivy { // The repo from which to get CoFHLib
         name "CoFHLib"
-        artifactPattern "http://addons-origin.cursecdn.com/files/2230/208/[module]-[revision].[ext]"
+        artifactPattern "http://addons-origin.cursecdn.com/files/2233/895/[module]-[revision].[ext]"
     }
 }
 
@@ -50,7 +50,7 @@ group= "com.ipsis.dyetopia" // http://maven.apache.org/guides/mini/guide-naming-
 archivesBaseName = "dyetopia"
 
 minecraft {
-    version = "${config.minecraft_version}-${config.forge_version}"
+    version = "${config.minecraft_version}-${config.forge_version}-${config.minecraft_version}"
     runDir = "eclipse"
 
     replaceIn "reference/Reference.java"

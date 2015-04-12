@@ -1,5 +1,7 @@
 package ipsis.dyetopia.gui.container;
 
+import ipsis.dyetopia.gui.IGuiFluidSyncHandler;
+import ipsis.dyetopia.network.message.MessageGuiFluidSync;
 import ipsis.dyetopia.tileentity.TileEntityMixer;
 import ipsis.dyetopia.util.TankType;
 import cpw.mods.fml.relauncher.Side;
@@ -10,7 +12,7 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerMixer extends Container {
+public class ContainerMixer extends Container implements IGuiFluidSyncHandler {
 
     private TileEntityMixer mixer;
 
@@ -65,7 +67,6 @@ public class ContainerMixer extends Container {
         super.updateProgressBar(id, data);
 
         /* The id will determine if anything happens in each manager */
-        this.mixer.getTankMgr().processGuiTracking(id, data);
         this.mixer.getEnergyMgr().processGuiTracking(id, data);
         this.mixer.getFactoryMgr().processGuiTracking(id, data);
     }
@@ -83,5 +84,13 @@ public class ContainerMixer extends Container {
         this.mixer.getEnergyMgr().updateGuiTracking(this.crafters, this);
 
         this.mixer.getFactoryMgr().updateGuiTracking(this.crafters, this);
+    }
+
+    /**
+     * IGuiFluidSyncHandler
+     */
+    @Override
+    public void handleGuiFluidSync(MessageGuiFluidSync message) {
+        this.mixer.getTankMgr().processGuiTracking(message.tankId, message.fluidStack);
     }
  }
