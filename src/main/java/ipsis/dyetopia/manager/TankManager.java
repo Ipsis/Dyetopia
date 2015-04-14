@@ -402,13 +402,19 @@ public class TankManager {
       * GUI updating
       * Based off Railcraft handling of the TankManager
       */
+
+     /* Gui only - fluid in tank is null */
+     private boolean isTankEmpty(TankConfig tankCfg) {
+         return tankCfg.tank.getFluid() == null;
+     }
+
      public void initGuiTracking(ICrafting icrafting, Container container, String name) {
 
          if (tanks.get(name) == null)
              return;
 
          TankConfig tankCfg = tanks.get(name);
-         if (tankCfg.tank.getFluid() == null)
+         if (isTankEmpty(tankCfg))
              guiTanks.put(name, null);
          else
              guiTanks.put(name, tankCfg.tank.getFluid().copy());
@@ -427,36 +433,28 @@ public class TankManager {
          for (Object crafter : crafters) {
              ICrafting icrafting = (ICrafting)crafter;
              EntityPlayerMP player = (EntityPlayerMP)crafter;
+             boolean updateClient = false;
 
-             if (oldFluid == null && tankCfg.tank.getFluid() == null) {
-                 //LogHelper.info(name + " empty->empty");
-                  /* was empty and still is */
+             /* Empty -> Empty */
+             if (oldFluid == null && isTankEmpty(tankCfg))
                  return;
+
+             /* Filled -> Empty */
+             if (oldFluid != null && isTankEmpty(tankCfg)) {
+                 updateClient = true;
+             } else if (oldFluid == null && !isTankEmpty(tankCfg)) {
+                /* Empty -> Filled */
+                 updateClient = true;
+             } else if (!FluidHelper.isFluidEqual(oldFluid, tankCfg.tank.getFluid())) {
+                 /* Filled -> Filled fluid changed */
+                 updateClient = true;
+             } else if (oldFluid != null && !isTankEmpty(tankCfg) && oldFluid.amount != tankCfg.tank.getFluidAmount()) {
+                 /* Filled -> Filled amount changed */
+                 updateClient  = true;
              }
 
-             if (oldFluid == null && tankCfg.tank.getFluid() != null) {
-                  /* was empty, now isn't */
-                 //LogHelper.info(name + " empty->" + tankCfg.tank.getFluid());
+             if (updateClient)
                  PacketHandler.INSTANCE.sendTo(new MessageGuiFluidSync(tankCfg.id, tankCfg.tank.getFluid()), (EntityPlayerMP)icrafting);
-
-             } else if (oldFluid != null && tankCfg.tank.getFluid() == null) {
-                  /* wasn't empty now is */
-                 //LogHelper.info(name + " " + oldFluid + "->empty");
-                 PacketHandler.INSTANCE.sendTo(new MessageGuiFluidSync(tankCfg.id, null), (EntityPlayerMP)icrafting);
-             } else {
-
-                 if (oldFluid.getFluidID() != tankCfg.tank.getFluid().getFluidID()) {
-                      /* fluid id changed */
-                     //LogHelper.info(name + " " + oldFluid.fluidID + "->" + tankCfg.tank.getFluid().fluidID);
-                     PacketHandler.INSTANCE.sendTo(new MessageGuiFluidSync(tankCfg.id, tankCfg.tank.getFluid()), (EntityPlayerMP)icrafting);
-                 }
-
-                 if (oldFluid.amount != tankCfg.tank.getFluidAmount()) {
-                      /* fluid amount changed */
-                     //LogHelper.info(name + " " + oldFluid.amount + "->" + tankCfg.tank.getFluid().amount);
-                     PacketHandler.INSTANCE.sendTo(new MessageGuiFluidSync(tankCfg.id, tankCfg.tank.getFluid()), (EntityPlayerMP)icrafting);
-                 }
-             }
          }
 
           /* Update the values */
