@@ -25,7 +25,7 @@ public class TankManager {
          public FluidTank tank;
          private boolean[] allowDrain;
          private boolean[] allowFill;
-         private List<Integer> fluidWhitelist;
+         private List<Fluid> fluidWhitelist;
          private int id;
 
          public TankConfig(int id, int capacity) {
@@ -33,7 +33,7 @@ public class TankManager {
              tank = new FluidTank(capacity);
              allowDrain = new boolean[] { true, true, true, true, true, true };
              allowFill = new boolean[] { true, true, true, true, true, true };
-             fluidWhitelist = new ArrayList<Integer>();
+             fluidWhitelist = new ArrayList<Fluid>();
              this.id = id;
          }
 
@@ -119,7 +119,7 @@ public class TankManager {
 
          public void addToWhiteList(Fluid f) {
 
-             fluidWhitelist.add(f.getID());
+             fluidWhitelist.add(f);
          }
 
          public boolean isOnWhitelist(Fluid f) {
@@ -127,7 +127,7 @@ public class TankManager {
              if (fluidWhitelist.isEmpty())
                  return true;
 
-             return fluidWhitelist.contains(f.getID());
+             return fluidWhitelist.contains(f);
          }
      }
 
