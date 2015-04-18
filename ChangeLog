@@ -7,6 +7,7 @@ The hugs and cookies release.
 
 Features
 * Move to Forge 10.13.3.1370
+* Fixup all the Fluid changes and add a new Gui fluid sync
 
 Build Environment
 * CoFHLib-[1.7.10]1.0.1-153

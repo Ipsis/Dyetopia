@@ -467,7 +467,7 @@ public class TankManager {
          if (cfg != null)
              cfg.tank.setFluid(fluidStack);
      }
-
+;
      @Override
      public String toString() {
 
