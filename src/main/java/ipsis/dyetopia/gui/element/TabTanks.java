@@ -43,7 +43,7 @@ public class TabTanks extends TabBase {
     public void draw() {
 
         drawBackground();
-        drawTabIcon("Icon_Tanks");
+        drawTabIcon("Icon_Tank");
         if (!isFullyOpened()) {
             return;
         }

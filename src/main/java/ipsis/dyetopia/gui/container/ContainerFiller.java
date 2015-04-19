@@ -4,6 +4,8 @@ import cofh.lib.gui.slot.SlotAcceptValid;
 import cofh.lib.util.helpers.InventoryHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ipsis.dyetopia.gui.IGuiFluidSyncHandler;
+import ipsis.dyetopia.network.message.MessageGuiFluidSync;
 import ipsis.dyetopia.reference.GuiLayout;
 import ipsis.dyetopia.tileentity.TileEntityFiller;
 import ipsis.dyetopia.util.LogHelper;
@@ -14,7 +16,7 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerFiller extends Container {
+public class ContainerFiller extends Container implements IGuiFluidSyncHandler {
 
     private TileEntityFiller filler;
 
@@ -80,9 +82,7 @@ public class ContainerFiller extends Container {
         super.addCraftingToCrafters(icrafting);
 
         this.filler.getTankMgr().initGuiTracking(icrafting, this, TankType.PURE.getName());
-
         this.filler.getEnergyMgr().initGuiTracking(icrafting, this);
-
         this.filler.getFactoryMgr().initGuiTracking(icrafting, this);
     }
 
@@ -92,7 +92,6 @@ public class ContainerFiller extends Container {
         super.updateProgressBar(id, data);
 
         /* The id will determine if anything happens in each manager */
-        this.filler.getTankMgr().processGuiTracking(id, data);
         this.filler.getEnergyMgr().processGuiTracking(id, data);
         this.filler.getFactoryMgr().processGuiTracking(id, data);
     }
@@ -102,9 +101,15 @@ public class ContainerFiller extends Container {
         super.detectAndSendChanges();
 
         this.filler.getTankMgr().updateGuiTracking(this.crafters, this, TankType.PURE.getName());
-
         this.filler.getEnergyMgr().updateGuiTracking(this.crafters, this);
-
         this.filler.getFactoryMgr().updateGuiTracking(this.crafters, this);
+    }
+
+    /**
+     * IGuiFluidSyncHandler
+     */
+    @Override
+    public void handleGuiFluidSync(MessageGuiFluidSync message) {
+        this.filler.getTankMgr().processGuiTracking(message.tankId, message.fluidStack);
     }
 }

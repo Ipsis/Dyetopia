@@ -3,7 +3,9 @@ package ipsis.dyetopia.gui.container;
 import cofh.lib.gui.slot.SlotAcceptValid;
 import cofh.lib.util.helpers.InventoryHelper;
 import ipsis.dyetopia.gui.GuiStamper;
+import ipsis.dyetopia.gui.IGuiFluidSyncHandler;
 import ipsis.dyetopia.gui.IGuiMessageHandler;
+import ipsis.dyetopia.network.message.MessageGuiFluidSync;
 import ipsis.dyetopia.network.message.MessageGuiWidget;
 import ipsis.dyetopia.reference.GuiIds;
 import ipsis.dyetopia.reference.GuiLayout;
@@ -18,7 +20,7 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerStamper extends Container implements IGuiMessageHandler {
+public class ContainerStamper extends Container implements IGuiMessageHandler, IGuiFluidSyncHandler {
 
     private TileEntityStamper stamper;
 
@@ -99,7 +101,6 @@ public class ContainerStamper extends Container implements IGuiMessageHandler {
         super.updateProgressBar(id, data);
 
         /* The id will determine if anything happens in each manager */
-        this.stamper.getTankMgr().processGuiTracking(id, data);
         this.stamper.getEnergyMgr().processGuiTracking(id, data);
         this.stamper.getFactoryMgr().processGuiTracking(id, data);
 
@@ -144,5 +145,13 @@ public class ContainerStamper extends Container implements IGuiMessageHandler {
             this.stamper.setPrevCurrSelected();
         else if (message.ctrlId == GuiStamper.BUTTON_UP_ID)
             this.stamper.setNextCurrSelected();
+    }
+
+    /**
+     * IGuiFluidSyncHandler
+     */
+    @Override
+    public void handleGuiFluidSync(MessageGuiFluidSync message) {
+        this.stamper.getTankMgr().processGuiTracking(message.tankId, message.fluidStack);
     }
 }
