@@ -33,6 +33,7 @@ public class ClientProxy extends CommonProxy {
             /* Register our gui icons */
             IconRegistry.addIcon("Icon_Energy", event.map.registerIcon("dyetopia:icons/Icon_Energy"));
             IconRegistry.addIcon("Icon_Info", event.map.registerIcon("dyetopia:icons/Icon_Info"));
+            IconRegistry.addIcon("Icon_Tank", event.map.registerIcon("dyetopia:icons/Icon_Tank"));
 
             IconRegistry.addIcon("Icon_Up_Active", event.map.registerIcon("dyetopia:icons/Icon_Up_Active"));
             IconRegistry.addIcon("Icon_Up_Inactive", event.map.registerIcon("dyetopia:icons/Icon_Up_Inactive"));

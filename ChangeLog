@@ -3,19 +3,20 @@ Dyetopia ChangeLog
 
 1.7.10-1.1.0B5
 The hugs and cookies release.
-(JadedCat promised mod devs on Twitter)
+[context - JadedCat: Mod devs, I will give hugs and cookies to mods that work with the new fluid stuff]
 
 Features
-* Move to Forge 10.13.3.1370
+* Move to Forge 10.13.3.1378
 * Fixup all the Fluid changes and add a new Gui fluid sync
 
 Build Environment
-* CoFHLib-[1.7.10]1.0.1-153
+* CoFHLib-[1.7.10]1.0.1-156
 
 1.7.10-1.1.0B4
 
 Fixes
 * XXXXXX - Only add elements to GUIs once!
+* XXXXXX - Add a tank tab icon
 
 Features
 
