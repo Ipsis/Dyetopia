@@ -1,6 +1,14 @@
 Dyetopia ChangeLog
 ==========================
 
+1.7.10-1.1.0B6
+
+Features
+* Move to Forge 10.13.4.1448
+
+Build Environment
+* CoFHLib-[1.7.10]1.0.2-160
+
 1.7.10-1.1.0B5
 The hugs and cookies release.
 [context - JadedCat: Mod devs, I will give hugs and cookies to mods that work with the new fluid stuff]
