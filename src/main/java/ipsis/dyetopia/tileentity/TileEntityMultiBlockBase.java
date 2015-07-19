@@ -93,8 +93,12 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
      */
     @Override
     public void updateEntity() {
-
            /* Slaves do nothing */
+    }
+
+    @Override
+    public boolean canUpdate() {
+        return false;
     }
 
     public void breakStructure() {

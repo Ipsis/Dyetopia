@@ -124,6 +124,11 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
     }
 
     @Override
+    public boolean canUpdate() {
+        return true;
+    }
+
+    @Override
     public void updateEntity() {
 
         if (worldObj.isRemote)
