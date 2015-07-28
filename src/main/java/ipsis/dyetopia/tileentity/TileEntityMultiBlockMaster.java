@@ -6,6 +6,8 @@ import ipsis.dyetopia.block.BlockDYTMultiBlock;
 import ipsis.dyetopia.network.PacketHandler;
 import ipsis.dyetopia.network.message.MessageTileEntityMultiBlockMaster;
 import ipsis.dyetopia.reference.Nbt;
+import ipsis.dyetopia.util.LogHelper;
+import ipsis.dyetopia.util.WorldHelper;
 import ipsis.dyetopia.util.multiblock.MultiBlockPattern;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -74,11 +76,13 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
                         p.moveRight(1);
 
                     ItemStack itemStack = pattern.getItemStackAt(slice, row, col);
-                    Block b = this.worldObj.getBlock(p.x, p.y, p.z);
 
-                    if (itemStack != null && !BlockHelper.isEqual(b, Block.getBlockFromItem(itemStack.getItem()))) {
+                    Block b = WorldHelper.getBlockChunkLoaded(this.worldObj, p.x, p.y, p.z);
+                    if (b == null)
                         return false;
-                    }
+
+                    if (itemStack != null && !BlockHelper.isEqual(b, Block.getBlockFromItem(itemStack.getItem())))
+                        return false;
                 }
             }
         }
@@ -107,7 +111,7 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
                     else if (col == 2)
                         p.moveRight(1);
 
-                    Block b = this.worldObj.getBlock(p.x, p.y, p.z);
+                    Block b = WorldHelper.getBlockChunkLoaded(this.worldObj, p.x, p.y, p.z);
                     if (b instanceof BlockDYTMultiBlock) {
                         TileEntity te = this.worldObj.getTileEntity(p.x, p.y, p.z);
                         if (te instanceof TileEntityMultiBlockBase) {
