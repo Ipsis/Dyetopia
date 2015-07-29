@@ -12,14 +12,23 @@ You can then either
 * Use the dye gun to recolor blocks on-the-fly
 ** Think of a "Wand Of Equal Trade" from Thaumcraft, but with color.
 
-The mods currently supported are:
+The mods with in-game blocks that can be recolored are:
+* AE2
+* Bibliocraft
+* Buildcraft
 * Chisel
 * Forestry
+* Harvestcraft
 * MFR
+* Openblocks
+* ProjectRed
 * Railcraft
 * Tinkers Construct
+* Thaumcraft
 * Thermal Expansion
 * Extra Utilities
+
+Note: This means that the above mods have blocks that the dye gun can be used on and are configured in the shipped config files.
 
 * [Minecraft Forum Thread](http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/2262586-dyetopia-fraking-flowers)
 * [CurseForge Project Page](http://minecraft.curseforge.com/mc-mods/226037-dyetopia)
