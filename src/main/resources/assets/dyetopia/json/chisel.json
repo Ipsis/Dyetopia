@@ -250,6 +250,12 @@
           "assoc": true,
           "blockname": "chisel:antiBlock",
           "simple": { }
+        },
+        {
+          "refname": "Hex Plating",
+          "assoc": true,
+          "blockname": "chisel:hexPlating",
+          "simple": { }
         }
       ]
     }
