@@ -238,6 +238,10 @@ public class DyeableBlocksManager {
                     addOrigin(source, result);
                 }
             }
+            else
+            {
+                LogHelper.info("processFull: origin source does not exist - " + source);
+            }
         }
 
         if (desc.isAssociative()) {
@@ -249,8 +253,10 @@ public class DyeableBlocksManager {
                     continue;
 
                 ItemStack source = RegistryHelper.getItemStackFromRegistryAttr(sourceDesc.getName(), sourceDesc.getAttr());
-                if (source == null)
+                if (source == null) {
+                    LogHelper.info("processFull: assoc source does not exist - " + source);
                     continue;
+                }
 
                 for (DyeHelper.DyeType d2 : DyeHelper.DyeType.VALID_DYES) {
                     if (d == d2)
@@ -261,8 +267,10 @@ public class DyeableBlocksManager {
                         continue;
 
                     ItemStack result = RegistryHelper.getItemStackFromRegistryAttr(resultDesc.getName(), resultDesc.getAttr());
-                    if (result == null)
+                    if (result == null) {
+                        LogHelper.info("processFull: assoc result does not exist - " + source);
                         continue;
+                    }
 
                     addEntry(new ItemStack(source.getItem(), 1, sourceDesc.getAttr()), d2, result, desc.validForBlock);
 
@@ -287,6 +295,9 @@ public class DyeableBlocksManager {
                     addEntry(source, d, new ItemStack(result.getItem(), 1, meta), desc.validForBlock);
                     addOrigin(source, new ItemStack(result.getItem(), 1, meta));
                 }
+            }
+            {
+                LogHelper.info("processAttrMap: origin source does not exist - " + source);
             }
         }
 
@@ -322,6 +333,10 @@ public class DyeableBlocksManager {
                     addEntry(source, d, new ItemStack(result.getItem(), 1, meta), desc.validForBlock);
                     addOrigin(source, new ItemStack(result.getItem(), 1, meta));
                 }
+            }
+            else
+            {
+                LogHelper.info("processSimple: origin source does not exist - " + source);
             }
         }
 
