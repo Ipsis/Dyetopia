@@ -2,7 +2,6 @@ package ipsis.dyetopia.handler;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import ipsis.dyetopia.block.ITooltipInfo;
-import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;

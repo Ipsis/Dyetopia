@@ -18,7 +18,7 @@ public class EnergyManager {
 
     private EnergyStorage energyStorage;
 
-    private EnergyManager() { };
+    private EnergyManager() { }
 
     public EnergyManager(int capacity) {
 
@@ -87,8 +87,6 @@ public class EnergyManager {
         for (Object crafter : crafters) {
 
             ICrafting icrafting = (ICrafting) crafter;
-            EntityPlayerMP player = (EntityPlayerMP) crafter;
-
             icrafting.sendProgressBarUpdate(container, progId, energyStorage.getEnergyStored());
         }
 

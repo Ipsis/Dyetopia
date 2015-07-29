@@ -7,7 +7,6 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 import cofh.lib.render.RenderHelper;
 import cofh.lib.util.helpers.MathHelper;
 import ipsis.dyetopia.reference.Textures;
-import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.inventory.Container;
@@ -352,11 +351,11 @@ public abstract class TemplateRecipeHandlerBase extends TemplateRecipeHandler {
 
     private void drawTiledTexture(int x, int y, IIcon icon, int width, int height) {
 
-        int i = 0;
-        int j = 0;
+        int i;
+        int j;
 
-        int drawHeight = 0;
-        int drawWidth = 0;
+        int drawHeight;
+        int drawWidth;
 
         for (i = 0; i < width; i += 16) {
             for (j = 0; j < height; j += 16) {

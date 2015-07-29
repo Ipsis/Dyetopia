@@ -1,11 +1,9 @@
 package ipsis.dyetopia.gui.element;
 
-import cofh.api.tileentity.IEnergyInfo;
 import cofh.lib.gui.GuiBase;
 import cofh.lib.util.helpers.StringHelper;
 import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.reference.Textures;
-import org.lwjgl.opengl.GL11;
 
 /**
  * This is based off CoFHCore/src/main/java/cofh/core/gui/element/TabInfo.java

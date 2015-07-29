@@ -9,9 +9,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufInputStream;
 import io.netty.buffer.ByteBufOutputStream;
 import ipsis.dyetopia.gui.IGuiFluidSyncHandler;
-import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.client.entity.EntityClientPlayerMP;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.io.IOException;

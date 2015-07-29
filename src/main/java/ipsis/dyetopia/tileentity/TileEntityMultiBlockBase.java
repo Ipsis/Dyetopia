@@ -162,7 +162,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
 
         TileEntityMultiBlockMaster m = this.getMasterTE();
         if (m != null && m instanceof IEnergyHandler)
-            return (IEnergyHandler)m;
+            return m;
 
         return null;
     }
@@ -221,7 +221,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
 
         TileEntityMultiBlockMaster m = this.getMasterTE();
         if (m != null && m instanceof IInventory)
-            return (IInventory) m;
+            return m;
 
         return null;
     }
@@ -233,7 +233,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
 
         TileEntityMultiBlockMaster m = this.getMasterTE();
         if (m != null && m instanceof ISidedInventory)
-            return (ISidedInventory) m;
+            return m;
 
         return null;
     }

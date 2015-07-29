@@ -1,15 +1,11 @@
 package ipsis.dyetopia.manager;
 
 
-import cofh.lib.inventory.ComparableItemStackSafe;
 import ipsis.dyetopia.reference.Settings;
 import ipsis.dyetopia.util.DyeHelper;
-import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.item.ItemStack;
-import sun.rmi.runtime.Log;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class StamperManager {

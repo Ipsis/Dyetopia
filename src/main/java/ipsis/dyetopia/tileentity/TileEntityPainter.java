@@ -1,8 +1,6 @@
 package ipsis.dyetopia.tileentity;
 
 import ipsis.dyetopia.gui.GuiPainter;
-import ipsis.dyetopia.gui.GuiStamper;
-import ipsis.dyetopia.init.ModItems;
 import ipsis.dyetopia.manager.*;
 import ipsis.dyetopia.manager.dyeableblocks.DyeableBlocksManager;
 import ipsis.dyetopia.network.PacketHandler;
@@ -11,16 +9,12 @@ import ipsis.dyetopia.reference.GuiIds;
 import ipsis.dyetopia.reference.Nbt;
 import ipsis.dyetopia.reference.Settings;
 import ipsis.dyetopia.util.DyeHelper;
-import ipsis.dyetopia.util.LogHelper;
 import ipsis.dyetopia.util.TankType;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
-import sun.org.mozilla.javascript.internal.xml.XMLLib;
-
-import java.util.logging.Logger;
 
 public class TileEntityPainter extends TileEntityMachinePureDye implements ISidedInventory, IFactory {
 

@@ -2,14 +2,10 @@ package ipsis.dyetopia.block;
 
 import ipsis.dyetopia.Dyetopia;
 import ipsis.dyetopia.reference.GuiIds;
-import ipsis.dyetopia.reference.Names;
-import ipsis.dyetopia.reference.Reference;
-import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.*;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;

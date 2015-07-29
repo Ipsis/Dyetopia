@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class MultiBlockPatternManager {
 
-    public static enum Type {
+    public enum Type {
         SQUEEZER,
         MIXER
     }

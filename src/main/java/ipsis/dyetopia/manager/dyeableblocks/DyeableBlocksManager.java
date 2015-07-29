@@ -1,6 +1,5 @@
 package ipsis.dyetopia.manager.dyeableblocks;
 
-import ipsis.dyetopia.handler.DyeFileHandler;
 import ipsis.dyetopia.manager.IFactoryRecipe;
 import ipsis.dyetopia.manager.dyeableblocks.config.*;
 import ipsis.dyetopia.reference.Settings;
@@ -8,8 +7,6 @@ import ipsis.dyetopia.util.ComparableItemStackBlockSafe;
 import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.LogHelper;
 import ipsis.dyetopia.util.RegistryHelper;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;

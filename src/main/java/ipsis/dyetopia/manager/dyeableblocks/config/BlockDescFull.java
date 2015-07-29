@@ -1,11 +1,8 @@
 package ipsis.dyetopia.manager.dyeableblocks.config;
 
-import ipsis.dyetopia.handler.DyeFileHandler;
 import ipsis.dyetopia.util.DyeHelper;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class BlockDescFull extends BlockDescBase {
 

@@ -7,7 +7,6 @@ import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.manager.*;
 import ipsis.dyetopia.reference.Nbt;
 import ipsis.dyetopia.reference.Settings;
-import ipsis.dyetopia.util.LogHelper;
 import ipsis.dyetopia.util.TankType;
 import ipsis.dyetopia.util.multiblock.MultiBlockPattern;
 import net.minecraft.inventory.ISidedInventory;

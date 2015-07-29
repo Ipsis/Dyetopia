@@ -142,7 +142,7 @@ public class TileEntityValve extends TileEntityMultiBlockBase implements IFluidH
          worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
      }
 
-     public static enum Color {
+     public enum Color {
          NONE,
          RED,
          YELLOW,

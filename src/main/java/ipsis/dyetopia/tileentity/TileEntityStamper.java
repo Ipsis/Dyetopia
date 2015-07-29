@@ -9,7 +9,6 @@ import ipsis.dyetopia.reference.GuiIds;
 import ipsis.dyetopia.reference.Nbt;
 import ipsis.dyetopia.reference.Settings;
 import ipsis.dyetopia.util.DyeHelper;
-import ipsis.dyetopia.util.LogHelper;
 import ipsis.dyetopia.util.TankType;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;

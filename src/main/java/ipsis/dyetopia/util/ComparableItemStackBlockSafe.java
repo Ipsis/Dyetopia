@@ -1,7 +1,6 @@
 package ipsis.dyetopia.util;
 
 import cofh.lib.inventory.ComparableItemStack;
-import cofh.lib.inventory.ComparableItemStackSafe;
 import cofh.lib.util.helpers.ItemHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,7 +17,7 @@ public class ComparableItemStackBlockSafe extends ComparableItemStack {
     static final String INGOT = "ingot";
     static final String NUGGET = "nugget";
 
-    public static boolean safeOreType(String oreName) {
+    public static boolean unsafeOreType(String oreName) {
 
         return oreName.startsWith(ORE) || oreName.startsWith(DUST) || oreName.startsWith(INGOT) || oreName.startsWith(NUGGET);
     }
@@ -26,19 +25,12 @@ public class ComparableItemStackBlockSafe extends ComparableItemStack {
     public static int getOreID(ItemStack stack) {
 
         int id = ItemHelper.oreProxy.getOreID(stack);
-
-        if (!safeOreType(ItemHelper.oreProxy.getOreName(id))) {
-            return -1;
-        }
-        return id;
+        return unsafeOreType(ItemHelper.oreProxy.getOreName(id)) ? -1 : id;
     }
 
     public static int getOreID(String oreName) {
 
-        if (!safeOreType(oreName)) {
-            return -1;
-        }
-        return ItemHelper.oreProxy.getOreID(oreName);
+        return unsafeOreType(oreName) ? -1 : ItemHelper.oreProxy.getOreID(oreName);
     }
 
     public ComparableItemStackBlockSafe(ItemStack stack) {

@@ -104,7 +104,6 @@ public class BlockSaplingDye extends BlockSaplingDYT implements ITooltipInfo {
         int meta = world.getBlockMetadata(x, y, z);
         meta = MathHelper.clamp_int(meta, 0, Names.Blocks.BLOCK_SAPLING_DYE_TYPES.length - 1);
 
-        boolean grew = false;
         WorldGenAbstractTree gen = null;
 
         switch (meta) {

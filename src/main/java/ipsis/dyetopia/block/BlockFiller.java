@@ -12,7 +12,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-import javax.tools.Tool;
 import java.util.List;
 
 public class BlockFiller extends BlockDYTMachine implements ITooltipInfo {

@@ -1,7 +1,6 @@
 package ipsis.dyetopia.world.gen.feature;
 
 import ipsis.dyetopia.init.ModBlocks;
-import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
@@ -59,7 +58,7 @@ public class WorldGenDyeTree extends WorldGenAbstractTree {
             return false;
 
         Block soilBlock = world.getBlock(x, y - 1, z);
-        if (!soilBlock.canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable) ModBlocks.blockSaplingDye))
+        if (!soilBlock.canSustainPlant(world, x, y, z, ForgeDirection.UP, ModBlocks.blockSaplingDye))
             return false;
 
         /**

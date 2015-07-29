@@ -6,7 +6,6 @@ import ipsis.dyetopia.block.BlockDYTMultiBlock;
 import ipsis.dyetopia.network.PacketHandler;
 import ipsis.dyetopia.network.message.MessageTileEntityMultiBlockMaster;
 import ipsis.dyetopia.reference.Nbt;
-import ipsis.dyetopia.util.LogHelper;
 import ipsis.dyetopia.util.WorldHelper;
 import ipsis.dyetopia.util.multiblock.MultiBlockPattern;
 import net.minecraft.block.Block;

@@ -4,7 +4,7 @@ import net.minecraftforge.client.event.TextureStitchEvent;
 
 public interface IProxy {
 
-    public abstract void registerEventHandlers();
-    public abstract void initTileEntities();
-    public abstract void textureHook(TextureStitchEvent.Post event);
+    void registerEventHandlers();
+    void initTileEntities();
+    void textureHook(TextureStitchEvent.Post event);
 }
