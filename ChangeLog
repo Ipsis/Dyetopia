@@ -14,6 +14,7 @@ Fixes
 * XXXXXX - Change non-master multiblocks to be non-ticking
 * XXXXXX - Check chunk is loaded before accessing blocks in the multiblocks
 * XXXXXX - Fix the Railcraft mappings
+* XXXXXX - No longer need to shift-click to place multiblocks against each other
 
 Features
 

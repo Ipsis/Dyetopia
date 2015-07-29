@@ -71,6 +71,11 @@ public abstract class BlockDYTMultiBlock extends BlockDYT implements ITileEntity
                     }
                 }
             }
+            else
+            {
+                /* So we can place a block without shift clicking! */
+                return false;
+            }
         }
         
         return true;
