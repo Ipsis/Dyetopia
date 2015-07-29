@@ -95,7 +95,7 @@ public class DyeableBlocksManager {
             recipe.setValidForBlock(validForBlock);
             rmap.put(key, recipe);
         } else {
-            LogHelper.warn("addEntry: DUPLICATE MAPPING");
+            LogHelper.warn("addEntry: Duplicate : " + source + " (" + dye + " " + output + ")");
         }
     }
 
