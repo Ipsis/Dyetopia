@@ -74,7 +74,7 @@ public class WorldGenDyeTree extends WorldGenAbstractTree {
 
             for (int xOff = x - radius; xOff <= x + radius; xOff++) {
                 for (int zOff = z - radius; zOff <= z + radius; zOff++) {
-                    if (!this.isReplaceable(world, y + yOff, xOff, zOff))
+                    if (!this.isReplaceable(world, xOff, y + yOff, zOff))
                         return false;
                 }
             }
