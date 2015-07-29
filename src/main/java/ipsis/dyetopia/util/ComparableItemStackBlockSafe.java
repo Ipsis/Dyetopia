@@ -17,7 +17,7 @@ public class ComparableItemStackBlockSafe extends ComparableItemStack {
     static final String INGOT = "ingot";
     static final String NUGGET = "nugget";
 
-    public static boolean unsafeOreType(String oreName) {
+    public static boolean safeOreType(String oreName) {
 
         return oreName.startsWith(ORE) || oreName.startsWith(DUST) || oreName.startsWith(INGOT) || oreName.startsWith(NUGGET);
     }
@@ -25,12 +25,12 @@ public class ComparableItemStackBlockSafe extends ComparableItemStack {
     public static int getOreID(ItemStack stack) {
 
         int id = ItemHelper.oreProxy.getOreID(stack);
-        return unsafeOreType(ItemHelper.oreProxy.getOreName(id)) ? -1 : id;
+        return safeOreType(ItemHelper.oreProxy.getOreName(id)) ? id : -1;
     }
 
     public static int getOreID(String oreName) {
 
-        return unsafeOreType(oreName) ? -1 : ItemHelper.oreProxy.getOreID(oreName);
+        return safeOreType(oreName) ? ItemHelper.oreProxy.getOreID(oreName) : -1;
     }
 
     public ComparableItemStackBlockSafe(ItemStack stack) {
