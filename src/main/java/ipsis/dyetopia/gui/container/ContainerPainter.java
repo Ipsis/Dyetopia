@@ -28,8 +28,8 @@ public class ContainerPainter extends Container implements IGuiMessageHandler, I
 
         this.painter = painter;
 
-        this.addSlotToContainer(new SlotAcceptValid(this.painter, this.painter.INPUT_SLOT, GuiLayout.Painter.INPUT_SLOT_X, GuiLayout.Painter.INPUT_SLOT_Y));
-        this.addSlotToContainer(new SlotAcceptValid(this.painter, this.painter.OUTPUT_SLOT, GuiLayout.Painter.OUTPUT_SLOT_X, GuiLayout.Painter.OUTPUT_SLOT_Y));
+        this.addSlotToContainer(new SlotAcceptValid(this.painter, TileEntityPainter.INPUT_SLOT, GuiLayout.Painter.INPUT_SLOT_X, GuiLayout.Painter.INPUT_SLOT_Y));
+        this.addSlotToContainer(new SlotAcceptValid(this.painter, TileEntityPainter.OUTPUT_SLOT, GuiLayout.Painter.OUTPUT_SLOT_X, GuiLayout.Painter.OUTPUT_SLOT_Y));
 
         /* Player inventory */
         for (int y = 0; y < 3; y++) {

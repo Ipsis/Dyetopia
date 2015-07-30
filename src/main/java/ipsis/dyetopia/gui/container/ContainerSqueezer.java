@@ -22,7 +22,7 @@ public class ContainerSqueezer extends Container implements IGuiFluidSyncHandler
     public ContainerSqueezer(TileEntitySqueezer squeezer, EntityPlayer player) {
         this.squeezer = squeezer;
 
-        this.addSlotToContainer(new SlotAcceptValid(this.squeezer, this.squeezer.INPUT_SLOT, GuiLayout.Squeezer.INPUT_SLOT_X, GuiLayout.Squeezer.INPUT_SLOT_Y));
+        this.addSlotToContainer(new SlotAcceptValid(this.squeezer, TileEntitySqueezer.INPUT_SLOT, GuiLayout.Squeezer.INPUT_SLOT_X, GuiLayout.Squeezer.INPUT_SLOT_Y));
 
 		/* Player inventory */
         for (int y = 0; y < 3; y++) {

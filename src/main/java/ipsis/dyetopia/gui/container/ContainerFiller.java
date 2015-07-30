@@ -23,7 +23,7 @@ public class ContainerFiller extends Container implements IGuiFluidSyncHandler {
 
         this.filler = filler;
 
-        this.addSlotToContainer(new SlotAcceptValid(this.filler, this.filler.INPUT_SLOT, GuiLayout.Filler.INPUT_SLOT_X, GuiLayout.Filler.INPUT_SLOT_Y));
+        this.addSlotToContainer(new SlotAcceptValid(this.filler, TileEntityFiller.INPUT_SLOT, GuiLayout.Filler.INPUT_SLOT_X, GuiLayout.Filler.INPUT_SLOT_Y));
 
         /* Player inventory */
         for (int y = 0; y < 3; y++) {
