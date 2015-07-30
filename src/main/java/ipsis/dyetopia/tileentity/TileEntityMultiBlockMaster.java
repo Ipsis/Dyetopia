@@ -19,6 +19,15 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import java.util.List;
+
+/**
+ * TODO
+ *
+ * This is limited to a 3x3 multiblock
+ * I need to revisit this AGAIN :(
+ */
+
 public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBase implements IInventory {
 
     private int tickCount;
@@ -95,33 +104,29 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
         if (pattern == null)
             return;
 
-        for (int slice = 0; slice < pattern.getSlices(); slice++) {
-            for (int row = 0 ; row < pattern.getRows(); row++) {
-                for (int col = 0; col < pattern.getCols(); col++) {
+        /* Set position as the center */
+        BlockPosition center = new BlockPosition(this.xCoord, this.yCoord, this.zCoord, getPatternOrientation());
+        center.moveForwards(1);
 
-                    BlockPosition p = new BlockPosition(
-                            this.xCoord, this.yCoord, this.zCoord,
-                            getPatternOrientation());
-                    p.y += (slice - 1);
-                    p.moveForwards(row);
-
-                    if (col == 0)
-                        p.moveLeft(1);
-                    else if (col == 2)
-                        p.moveRight(1);
-
-                    Block b = WorldHelper.getBlockChunkLoaded(this.worldObj, p.x, p.y, p.z);
-                    if (b instanceof BlockDYTMultiBlock) {
-                        TileEntity te = this.worldObj.getTileEntity(p.x, p.y, p.z);
-                        if (te instanceof TileEntityMultiBlockBase) {
-                            if (doForm)
-                                ((TileEntityMultiBlockBase)te).setMaster(this);
-                            else
-                                ((TileEntityMultiBlockBase)te).setMaster(null);
-                            this.worldObj.markBlockForUpdate(p.x, p.y, p.z);
-                        }
-                    }
+        List<BlockPosition> structList = WorldHelper.getSurroundingBlockPositions(center.x, center.y, center.z, 1);
+        for (BlockPosition pos : structList) {
+            Block b = WorldHelper.getBlockChunkLoaded(this.worldObj, pos.x, pos.y, pos.z);
+            if (b instanceof BlockDYTMultiBlock) {
+                TileEntity te = this.worldObj.getTileEntity(pos.x, pos.y, pos.z);
+                if (te instanceof TileEntityMultiBlockBase) {
+                    ((TileEntityMultiBlockBase) te).setMaster(doForm ? this : null);
+                    this.worldObj.markBlockForUpdate(pos.x, pos.y, pos.z);
                 }
+            }
+        }
+
+        List<BlockPosition> nbrList = WorldHelper.getSurroundingBlockPositions(center.x, center.y, center.z, 2);
+        nbrList.removeAll(structList);
+
+        for (BlockPosition pos : nbrList) {
+            Block b = WorldHelper.getBlockChunkLoaded(this.worldObj, pos.x, pos.y, pos.z);
+            if (b != null && this.worldObj != null) {
+                this.worldObj.notifyBlockOfNeighborChange(pos.x, pos.y, pos.z, getBlockType());
             }
         }
     }
@@ -140,11 +145,11 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
         this.tickCount++;
 
         if ((this.tickCount % CHECK_VALID_TICKS) == 0) {
-            boolean isNowValid = validateStructure();
-            if (this.structureValid != isNowValid) {
-                updateStructure(isNowValid);
-                this.structureValid = isNowValid;
-                this.onStructureValidChanged(isNowValid);
+            boolean valid = validateStructure();
+            if (this.structureValid != valid) {
+                this.structureValid = valid;
+                updateStructure(valid);
+                this.onStructureValidChanged(valid);
             }
         }
     }
@@ -154,8 +159,8 @@ public abstract class TileEntityMultiBlockMaster extends TileEntityMultiBlockBas
     @Override
     public void breakStructure() {
         if (this.structureValid) {
-            updateStructure(false);
             this.structureValid = false;
+            updateStructure(false);
         }
     }
 
