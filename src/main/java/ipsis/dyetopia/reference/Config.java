@@ -34,7 +34,7 @@ public class Config {
         public static final String DYEGUN_TANK_CAPACITY = "dyeGunTankCapacity";
     }
 
-    public static enum SupportedMods {
+    public enum SupportedMods {
 
         APPLIED_ENERGISTICS("ae2"),
         BIBLIOCRAFT("bibliocraft"),
@@ -52,7 +52,7 @@ public class Config {
         EXTRA_UTILS("xutils");
 
         private String filename;
-        private SupportedMods(String filename) { this.filename = filename; }
+        SupportedMods(String filename) { this.filename = filename; }
 
         public String getFilename() { return this.filename; }
     }

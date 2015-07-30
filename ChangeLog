@@ -1,6 +1,27 @@
 Dyetopia ChangeLog
 ==========================
 
+1.7.10-1.1.0
+
+Features
+* Move to Forge 10.13.4.1448
+
+Build Environment
+* CoFHLib-[1.7.10]1.0.3-175
+
+Fixes
+* XXXXXX - Fix dye tree space check where x and y were swapped
+* XXXXXX - Change non-master multiblocks to be non-ticking
+* XXXXXX - Check chunk is loaded before accessing blocks in the multiblocks
+* XXXXXX - Fix the Railcraft mappings
+* XXXXXX - No longer need to shift-click to place multiblocks against each other
+* XXXXXX - TE ducts now reconnect on load or struture form - dont know when I broke this :(
+
+Features
+
+* Add colored block of coal from Extra Utilities
+* Add hex plating from Chisel 2
+
 1.7.10-1.1.0B5
 The hugs and cookies release.
 [context - JadedCat: Mod devs, I will give hugs and cookies to mods that work with the new fluid stuff]

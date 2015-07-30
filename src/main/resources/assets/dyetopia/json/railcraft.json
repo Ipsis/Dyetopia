@@ -10,27 +10,19 @@
 		{
 		  "refname": "Strengthened Glass",
 		  "assoc": true,
-		  "blockname": "Railcraft:tile.railcraft.glass",
+		  "blockname": "Railcraft:glass",
 		  "vanilla": { }
 		},
 		{
 		  "refname": "Metal Platform",
 		  "assoc": true,
-		  "origin": {
-			"name": "Railcraft:tile.railcraft.post",
-			"meta": 6
-		  },
-		  "blockname": "Railcraft:tile.railcraft.post.metal.platform",
+		  "blockname": "Railcraft:post.metal.platform",
 		  "simple": { }
 		},
 		{
 		  "refname": "Metal Post",
 		  "assoc": true,
-		  "origin": {
-			"name": "Railcraft:tile.railcraft.post",
-			"meta": 2
-		  },
-		  "blockname": "Railcraft:tile.railcraft.post.metal",
+		  "blockname": "Railcraft:post.metal",
 		  "simple": { }
 		}
 	  ]

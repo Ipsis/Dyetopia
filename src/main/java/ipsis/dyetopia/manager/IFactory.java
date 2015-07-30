@@ -2,17 +2,17 @@ package ipsis.dyetopia.manager;
 
 public interface IFactory {
 
-        public boolean isOutputValid(IFactoryRecipe recipe);
-        public boolean isEnergyAvailable(int amount);
+        boolean isOutputValid(IFactoryRecipe recipe);
+        boolean isEnergyAvailable(int amount);
 
-        public void consumeInputs(IFactoryRecipe recipe);
-        public void createOutputs(IFactoryRecipe recipe);
+        void consumeInputs(IFactoryRecipe recipe);
+        void createOutputs(IFactoryRecipe recipe);
 
-        public void consumeEnergy(int amount);
+        void consumeEnergy(int amount);
 
-        public int getEnergyTick();
+        int getEnergyTick();
 
-        public IFactoryRecipe getRecipe();
+        IFactoryRecipe getRecipe();
 
-        public void updateRunning(boolean running);
+        void updateRunning(boolean running);
 }

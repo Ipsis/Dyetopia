@@ -2,22 +2,16 @@ package ipsis.dyetopia.plugins.nei;
 
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
-import cofh.lib.inventory.ComparableItemStackSafe;
 import cofh.lib.util.helpers.StringHelper;
-import ipsis.dyetopia.gui.GuiSqueezer;
 import ipsis.dyetopia.gui.GuiStamper;
 import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.init.ModItems;
-import ipsis.dyetopia.manager.SqueezerManager;
 import ipsis.dyetopia.manager.StamperManager;
 import ipsis.dyetopia.reference.GuiLayout;
 import ipsis.dyetopia.reference.Lang;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class NEIStamperRecipeHandler extends TemplateRecipeHandlerBase {
 

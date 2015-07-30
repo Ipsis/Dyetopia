@@ -33,9 +33,9 @@ public class ProgressBar {
         return id;
     }
 
-    public static enum ID_TYPE {
+    public enum ID_TYPE {
         ID_GENERIC,
         ID_ENERGY
-    };
+    }
 
 }

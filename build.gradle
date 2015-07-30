@@ -29,7 +29,7 @@ repositories {
 
     ivy { // The repo from which to get CoFHLib
         name "CoFHLib"
-        artifactPattern "http://addons-origin.cursecdn.com/files/2234/425/[module]-[revision].[ext]"
+        artifactPattern "http://addons-origin.cursecdn.com/files/2246/918/[module]-[revision].[ext]"
     }
 }
 

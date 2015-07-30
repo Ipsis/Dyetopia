@@ -1,7 +1,6 @@
 package ipsis.dyetopia.util;
 
 import cofh.lib.inventory.ComparableItemStack;
-import cofh.lib.inventory.ComparableItemStackSafe;
 import cofh.lib.util.helpers.ItemHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -26,19 +25,12 @@ public class ComparableItemStackBlockSafe extends ComparableItemStack {
     public static int getOreID(ItemStack stack) {
 
         int id = ItemHelper.oreProxy.getOreID(stack);
-
-        if (!safeOreType(ItemHelper.oreProxy.getOreName(id))) {
-            return -1;
-        }
-        return id;
+        return safeOreType(ItemHelper.oreProxy.getOreName(id)) ? id : -1;
     }
 
     public static int getOreID(String oreName) {
 
-        if (!safeOreType(oreName)) {
-            return -1;
-        }
-        return ItemHelper.oreProxy.getOreID(oreName);
+        return safeOreType(oreName) ? ItemHelper.oreProxy.getOreID(oreName) : -1;
     }
 
     public ComparableItemStackBlockSafe(ItemStack stack) {

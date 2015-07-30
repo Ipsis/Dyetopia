@@ -3,7 +3,6 @@ package ipsis.dyetopia.block.plantlife;
 import ipsis.dyetopia.creative.CreativeTab;
 import ipsis.dyetopia.reference.Reference;
 import net.minecraft.block.BlockLog;
-import net.minecraft.block.BlockWood;
 
 public abstract class BlockLogDYT extends BlockLog {
 

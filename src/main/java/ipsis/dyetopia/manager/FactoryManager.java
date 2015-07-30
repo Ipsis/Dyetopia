@@ -2,8 +2,6 @@ package ipsis.dyetopia.manager;
 
 import ipsis.dyetopia.gui.container.ProgressBar;
 import ipsis.dyetopia.reference.Nbt;
-import ipsis.dyetopia.reference.Reference;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.nbt.NBTTagCompound;
@@ -152,7 +150,6 @@ public class FactoryManager {
         for (Object crafter : crafters) {
 
             ICrafting icrafting = (ICrafting) crafter;
-            EntityPlayerMP player = (EntityPlayerMP) crafter;
 
             if (this.lastConsumedEnergy != this.consumedEnergy) {
                 int progId = ProgressBar.createIDEnergy(ProgressBar.ID_ENERGY_CONSUMED);

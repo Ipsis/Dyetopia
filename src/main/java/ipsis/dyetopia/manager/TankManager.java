@@ -1,10 +1,7 @@
 package ipsis.dyetopia.manager;
 
 import cofh.lib.util.helpers.FluidHelper;
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
-import ipsis.dyetopia.gui.container.ProgressBar;
- import ipsis.dyetopia.network.PacketHandler;
- import ipsis.dyetopia.network.message.MessageGuiFixedProgressBar;
+import ipsis.dyetopia.network.PacketHandler;
 import ipsis.dyetopia.network.message.MessageGuiFluidSync;
 import ipsis.dyetopia.reference.Nbt;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -41,17 +38,17 @@ public class TankManager {
          public String toString() {
 
              StringBuilder sb = new StringBuilder();
-             sb.append("Tank: " + id + " " + tank + " ");
+             sb.append("Tank: ").append(id).append(" ").append(tank).append(" ");
 
              sb.append("Drain: ");
              for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS)
-             if (canDrain(d)) sb.append(d + " ");
+             if (canDrain(d)) sb.append(d).append(" ");
              sb.append(" Fill: ");
              for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS)
-                 if (canFill(d)) sb.append(d + " ");
+                 if (canFill(d)) sb.append(d).append(" ");
 
              if (!fluidWhitelist.isEmpty())
-                 sb.append("Whitelist: " + fluidWhitelist);
+                 sb.append("Whitelist: ").append(fluidWhitelist);
 
              return sb.toString();
          }
@@ -349,7 +346,7 @@ public class TankManager {
          int x = 0;
          for (TankConfig t : tanks.values()) {
 
-             if (t.canDrain(from) == true || t.canFill(from) == true) {
+             if (t.canDrain(from) || t.canFill(from)) {
                  info[x] = t.tank.getInfo();
                  x++;
              }
@@ -432,7 +429,6 @@ public class TankManager {
 
          for (Object crafter : crafters) {
              ICrafting icrafting = (ICrafting)crafter;
-             EntityPlayerMP player = (EntityPlayerMP)crafter;
              boolean updateClient = false;
 
              /* Empty -> Empty */
@@ -467,19 +463,19 @@ public class TankManager {
          if (cfg != null)
              cfg.tank.setFluid(fluidStack);
      }
-;
-     @Override
+
+    @Override
      public String toString() {
 
          StringBuilder sb = new StringBuilder();
-         sb.append(tanks.size() + " tanks ");
+         sb.append(tanks.size()).append(" tanks ");
 
          Iterator it = tanks.entrySet().iterator();
          while (it.hasNext()) {
              Map.Entry pairs = (Map.Entry)it.next();
 
              TankConfig cfg = (TankConfig)pairs.getValue();
-             sb.append(cfg + " ");
+             sb.append(cfg).append(" ");
          }
 
          return sb.toString();

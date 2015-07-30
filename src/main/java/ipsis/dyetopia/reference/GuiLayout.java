@@ -1,8 +1,5 @@
 package ipsis.dyetopia.reference;
 
-import ipsis.dyetopia.gui.element.ElementFluidTankDYT;
-import ipsis.dyetopia.util.TankType;
-
 /**
  * These values are shared between the container the gui and NEI.
  * So let us define them once!

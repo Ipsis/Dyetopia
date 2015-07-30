@@ -5,11 +5,8 @@ import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.init.ModBlocks;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import ipsis.dyetopia.util.IconRegistry;
-import net.minecraft.item.ItemTool;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
-
-import java.util.HashMap;
 
 public class ClientProxy extends CommonProxy {
 

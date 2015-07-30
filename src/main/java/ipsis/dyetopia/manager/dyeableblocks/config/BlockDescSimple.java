@@ -1,6 +1,5 @@
 package ipsis.dyetopia.manager.dyeableblocks.config;
 
-import ipsis.dyetopia.handler.DyeFileHandler;
 import ipsis.dyetopia.util.DyeHelper;
 
 public class BlockDescSimple extends BlockDescBase {

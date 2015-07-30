@@ -71,22 +71,27 @@ public abstract class BlockDYTMultiBlock extends BlockDYT implements ITileEntity
                     }
                 }
             }
+            else
+            {
+                /* So we can place a block without shift clicking! */
+                return false;
+            }
         }
         
         return true;
     }
 
     @Override
-         public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+    public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
 
-             if (!world.isRemote) {
-                 TileEntity te = world.getTileEntity(x, y, z);
-                 if (te instanceof TileEntityMultiBlockBase) {
-                     ((TileEntityMultiBlockBase)te).breakStructure();
-                 }
-             }
+        if (!world.isRemote) {
+            TileEntity te = world.getTileEntity(x, y, z);
+            if (te instanceof TileEntityMultiBlockBase) {
+                ((TileEntityMultiBlockBase)te).breakStructure();
+            }
+        }
 
-             super.breakBlock(world, x, y, z, block, meta);
-         }
+        super.breakBlock(world, x, y, z, block, meta);
+    }
 
 }

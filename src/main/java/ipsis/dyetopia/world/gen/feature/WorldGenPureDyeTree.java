@@ -6,7 +6,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.Random;
@@ -24,7 +23,7 @@ public class WorldGenPureDyeTree extends WorldGenAbstractTree {
     @Override
     public boolean generate(World world, Random rand, int x, int y, int z) {
 
-        int numLogs = rand.nextInt(3) + this.minTreeHeight;
+        int numLogs = rand.nextInt(3) + minTreeHeight;
 
         /* Do we have space for the soil and roots */
         if (y < 2)
@@ -35,7 +34,7 @@ public class WorldGenPureDyeTree extends WorldGenAbstractTree {
             return false;
 
         Block soilBlock = world.getBlock(x, y - 1, z);
-        if (!soilBlock.canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable) ModBlocks.blockSaplingDye))
+        if (!soilBlock.canSustainPlant(world, x, y, z, ForgeDirection.UP, ModBlocks.blockSaplingDye))
             return false;
 
         /**

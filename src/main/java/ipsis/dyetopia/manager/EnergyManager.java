@@ -2,7 +2,6 @@ package ipsis.dyetopia.manager;
 
 import cofh.api.energy.EnergyStorage;
 import ipsis.dyetopia.gui.container.ProgressBar;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,7 +17,7 @@ public class EnergyManager {
 
     private EnergyStorage energyStorage;
 
-    private EnergyManager() { };
+    private EnergyManager() { }
 
     public EnergyManager(int capacity) {
 
@@ -87,8 +86,6 @@ public class EnergyManager {
         for (Object crafter : crafters) {
 
             ICrafting icrafting = (ICrafting) crafter;
-            EntityPlayerMP player = (EntityPlayerMP) crafter;
-
             icrafting.sendProgressBarUpdate(container, progId, energyStorage.getEnergyStored());
         }
 

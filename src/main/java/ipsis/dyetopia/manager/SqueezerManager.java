@@ -1,12 +1,9 @@
 package ipsis.dyetopia.manager;
 
 import cofh.lib.inventory.ComparableItemStackSafe;
-import cofh.lib.util.helpers.ItemHelper;
 import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.init.ModItems;
-import ipsis.dyetopia.reference.Config;
 import ipsis.dyetopia.reference.Settings;
-import ipsis.dyetopia.util.ComparableItemStackBlockSafe;
 import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -114,8 +111,7 @@ public class SqueezerManager {
         if (in == null)
             return null;
 
-        SqueezerRecipe r = recipes.get(new ComparableItemStackSafe(in));
-        return r;
+        return recipes.get(new ComparableItemStackSafe(in));
     }
 
     public static void refreshMap() {

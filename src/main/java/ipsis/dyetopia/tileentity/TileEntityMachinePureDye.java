@@ -2,7 +2,6 @@ package ipsis.dyetopia.tileentity;
 
 import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.manager.TankManager;
-import ipsis.dyetopia.util.LogHelper;
 import ipsis.dyetopia.util.TankType;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;

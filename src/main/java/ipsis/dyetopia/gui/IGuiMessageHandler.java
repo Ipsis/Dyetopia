@@ -7,5 +7,5 @@ import ipsis.dyetopia.network.message.MessageGuiWidget;
  */
 public interface IGuiMessageHandler {
 
-    public void handleGuiWidget(MessageGuiWidget message);
+    void handleGuiWidget(MessageGuiWidget message);
 }

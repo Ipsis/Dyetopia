@@ -28,8 +28,8 @@ public class ContainerStamper extends Container implements IGuiMessageHandler, I
 
         this.stamper = stamper;
 
-        this.addSlotToContainer(new SlotAcceptValid(this.stamper, this.stamper.INPUT_SLOT, GuiLayout.Stamper.INPUT_SLOT_X, GuiLayout.Stamper.INPUT_SLOT_Y));
-        this.addSlotToContainer(new SlotAcceptValid(this.stamper, this.stamper.OUTPUT_SLOT, GuiLayout.Stamper.OUTPUT_SLOT_X, GuiLayout.Stamper.OUTPUT_SLOT_Y));
+        this.addSlotToContainer(new SlotAcceptValid(this.stamper, TileEntityStamper.INPUT_SLOT, GuiLayout.Stamper.INPUT_SLOT_X, GuiLayout.Stamper.INPUT_SLOT_Y));
+        this.addSlotToContainer(new SlotAcceptValid(this.stamper, TileEntityStamper.OUTPUT_SLOT, GuiLayout.Stamper.OUTPUT_SLOT_X, GuiLayout.Stamper.OUTPUT_SLOT_Y));
 
         /* Player inventory */
         for (int y = 0; y < 3; y++) {

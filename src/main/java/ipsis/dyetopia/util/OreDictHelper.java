@@ -1,13 +1,9 @@
 package ipsis.dyetopia.util;
 
 import com.google.common.primitives.Ints;
-import ipsis.dyetopia.init.ModBlocks;
-import ipsis.dyetopia.init.ModItems;
-import ipsis.dyetopia.reference.Names;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 

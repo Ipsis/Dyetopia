@@ -7,7 +7,6 @@ import ipsis.dyetopia.manager.TankManager;
 import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.util.TankType;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fluids.FluidTank;
 import org.lwjgl.opengl.GL11;
 
@@ -36,7 +35,10 @@ public class TabTanks extends TabBase {
         else
             this.setTexture(Textures.RESOURCE_PREFIX + Textures.Gui.TAB_RIGHT, 256, 256);
 
-        this.tankNames = names.clone();
+        if (names != null)
+            this.tankNames = names.clone();
+        else
+            this.tankNames = new TankType[0];
     }
 
     @Override
@@ -74,9 +76,7 @@ public class TabTanks extends TabBase {
     @Override
     public void addTooltip(List<String> list) {
 
-        if (!isFullyOpened()) {
+        if (!isFullyOpened())
             list.add(getTitle());
-            return;
-        }
     }
 }

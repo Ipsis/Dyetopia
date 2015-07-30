@@ -1,11 +1,8 @@
 package ipsis.dyetopia.block.plantlife;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ipsis.dyetopia.creative.CreativeTab;
 import ipsis.dyetopia.reference.Reference;
 import net.minecraft.block.BlockSapling;
-import net.minecraft.client.renderer.texture.IIconRegister;
 
 public abstract class BlockSaplingDYT extends BlockSapling {
 

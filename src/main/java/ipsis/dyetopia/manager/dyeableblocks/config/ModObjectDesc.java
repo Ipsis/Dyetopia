@@ -1,6 +1,5 @@
 package ipsis.dyetopia.manager.dyeableblocks.config;
 
-import cpw.mods.fml.common.Mod;
 import ipsis.dyetopia.util.DyeHelper;
 
 public class ModObjectDesc {

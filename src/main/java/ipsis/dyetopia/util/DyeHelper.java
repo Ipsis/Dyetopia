@@ -3,7 +3,6 @@ package ipsis.dyetopia.util;
 import cofh.lib.util.helpers.ColorHelper;
 import ipsis.dyetopia.init.ModItems;
 import ipsis.dyetopia.reference.Reference;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
@@ -27,7 +26,7 @@ public class DyeHelper {
             "lightgray", "cyan", "purple", "blue", "brown", "green", "red", "black"
     };
 
-    public static enum DyeType {
+    public enum DyeType {
 
         WHITE(      15,  DYE_OREDICT_NAME[0],     ColorHelper.DYE_WHITE,          0,      0,      0,        LCM),
         ORANGE(     14,  DYE_OREDICT_NAME[1],     ColorHelper.DYE_ORANGE,     LCM/2,  LCM/2,      0,          0),
@@ -68,7 +67,7 @@ public class DyeHelper {
         private int blue;
         private int white;
 
-        private DyeType(int dmg, String oreDictName, int code, int red, int yellow, int blue, int white) {
+        DyeType(int dmg, String oreDictName, int code, int red, int yellow, int blue, int white) {
             this.dmg = dmg;
             this.oreDictName = oreDictName;
             this.colorCode = code;

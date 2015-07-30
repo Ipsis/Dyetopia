@@ -1,7 +1,6 @@
 package ipsis.dyetopia.plugins.waila;
 
 
-import cofh.api.energy.EnergyStorage;
 import cofh.lib.util.helpers.StringHelper;
 import ipsis.dyetopia.manager.TankManager;
 import ipsis.dyetopia.reference.Lang;
@@ -15,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidTank;
 
@@ -54,19 +52,14 @@ public class DYTWailaProvider implements IWailaDataProvider{
             return currenttip;
 
         if (accessor.getTileEntity() instanceof TileEntitySqueezer) {
-            TileEntitySqueezer te = (TileEntitySqueezer)accessor.getTileEntity();
             currenttip = handleTileEntitySqueezer((TileEntitySqueezer)accessor.getTileEntity(), currenttip);
         } else if (accessor.getTileEntity() instanceof TileEntityMixer) {
-            TileEntityMixer te = (TileEntityMixer)accessor.getTileEntity();
             currenttip = handleTileEntityMixer((TileEntityMixer) accessor.getTileEntity(), currenttip);
         } else if (accessor.getTileEntity() instanceof TileEntityPainter) {
-            TileEntityPainter te = (TileEntityPainter)accessor.getTileEntity();
             currenttip = handleTileEntityPainter((TileEntityPainter) accessor.getTileEntity(), currenttip);
         }  else if (accessor.getTileEntity() instanceof TileEntityStamper) {
-            TileEntityStamper te = (TileEntityStamper)accessor.getTileEntity();
             currenttip = handleTileEntityStamper((TileEntityStamper) accessor.getTileEntity(), currenttip);
         }  else if (accessor.getTileEntity() instanceof TileEntityFiller) {
-            TileEntityFiller te = (TileEntityFiller)accessor.getTileEntity();
             currenttip = handleTileEntityFiller((TileEntityFiller) accessor.getTileEntity(), currenttip);
         } else if (accessor.getTileEntity() instanceof TileEntityMultiBlockBase) {
 

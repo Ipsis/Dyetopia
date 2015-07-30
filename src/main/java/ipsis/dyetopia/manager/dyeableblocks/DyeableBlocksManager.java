@@ -1,6 +1,5 @@
 package ipsis.dyetopia.manager.dyeableblocks;
 
-import ipsis.dyetopia.handler.DyeFileHandler;
 import ipsis.dyetopia.manager.IFactoryRecipe;
 import ipsis.dyetopia.manager.dyeableblocks.config.*;
 import ipsis.dyetopia.reference.Settings;
@@ -8,8 +7,6 @@ import ipsis.dyetopia.util.ComparableItemStackBlockSafe;
 import ipsis.dyetopia.util.DyeHelper;
 import ipsis.dyetopia.util.LogHelper;
 import ipsis.dyetopia.util.RegistryHelper;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
@@ -98,7 +95,7 @@ public class DyeableBlocksManager {
             recipe.setValidForBlock(validForBlock);
             rmap.put(key, recipe);
         } else {
-            LogHelper.warn("addEntry: DUPLICATE MAPPING");
+            LogHelper.warn("addEntry: Duplicate : " + source + " (" + dye + " " + output + ")");
         }
     }
 
@@ -241,6 +238,10 @@ public class DyeableBlocksManager {
                     addOrigin(source, result);
                 }
             }
+            else
+            {
+                LogHelper.info("processFull: origin source does not exist - " + desc.getOrigin().getName());
+            }
         }
 
         if (desc.isAssociative()) {
@@ -252,8 +253,10 @@ public class DyeableBlocksManager {
                     continue;
 
                 ItemStack source = RegistryHelper.getItemStackFromRegistryAttr(sourceDesc.getName(), sourceDesc.getAttr());
-                if (source == null)
+                if (source == null) {
+                    LogHelper.info("processFull: assoc source does not exist - " + sourceDesc.getName());
                     continue;
+                }
 
                 for (DyeHelper.DyeType d2 : DyeHelper.DyeType.VALID_DYES) {
                     if (d == d2)
@@ -264,8 +267,10 @@ public class DyeableBlocksManager {
                         continue;
 
                     ItemStack result = RegistryHelper.getItemStackFromRegistryAttr(resultDesc.getName(), resultDesc.getAttr());
-                    if (result == null)
+                    if (result == null) {
+                        LogHelper.info("processFull: assoc result does not exist - " + resultDesc.getName());
                         continue;
+                    }
 
                     addEntry(new ItemStack(source.getItem(), 1, sourceDesc.getAttr()), d2, result, desc.validForBlock);
 
@@ -290,6 +295,9 @@ public class DyeableBlocksManager {
                     addEntry(source, d, new ItemStack(result.getItem(), 1, meta), desc.validForBlock);
                     addOrigin(source, new ItemStack(result.getItem(), 1, meta));
                 }
+            }
+            {
+                LogHelper.info("processAttrMap: origin source does not exist - " + source);
             }
         }
 
@@ -325,6 +333,10 @@ public class DyeableBlocksManager {
                     addEntry(source, d, new ItemStack(result.getItem(), 1, meta), desc.validForBlock);
                     addOrigin(source, new ItemStack(result.getItem(), 1, meta));
                 }
+            }
+            else
+            {
+                LogHelper.info("processSimple: origin source does not exist - " + desc.getOrigin().getName());
             }
         }
 
