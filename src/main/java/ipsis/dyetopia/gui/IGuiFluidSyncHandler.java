@@ -4,5 +4,5 @@ import ipsis.dyetopia.network.message.MessageGuiFluidSync;
 
 public interface IGuiFluidSyncHandler {
 
-    public void handleGuiFluidSync(MessageGuiFluidSync message);
+    void handleGuiFluidSync(MessageGuiFluidSync message);
 }

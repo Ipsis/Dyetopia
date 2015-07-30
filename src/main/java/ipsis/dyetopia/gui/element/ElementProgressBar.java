@@ -8,7 +8,7 @@ import ipsis.dyetopia.util.LogHelper;
 /** Our standard progress bar */
 public class ElementProgressBar extends ElementDualScaled {
 
-    public static enum ProgressType {
+    public enum ProgressType {
 
         BOTTOM_TO_TOP,
         LEFT_TO_RIGHT,

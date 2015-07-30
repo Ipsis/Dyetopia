@@ -122,7 +122,7 @@ public class ItemDyeBeans extends ItemDYT {
         super.addInformation(itemStack, player, info, showAdvanced);
 
         if (itemStack == null)
-            return;;
+            return;
 
         int meta = itemStack.getItemDamage();
         if (meta >= 0 && meta < Names.Items.DYE_BEANS_TYPES.length)
