@@ -48,66 +48,90 @@ public class TileEntityValve extends TileEntityMultiBlockBase implements IFluidH
       * IFluidHandler
       * This just passes through to the master block (if it exists)
       */
+     private ITankHandler getTankMaster() {
+
+         TileEntityMultiBlockMaster m = this.getMasterTE();
+         if (m != null && m instanceof ITankHandler)
+             return (ITankHandler)m;
+
+         return null;
+     }
+
+
      @Override
      public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
 
-         TileEntityMultiBlockMaster m = this.getMasterTE();
-         if (m != null && m instanceof ITankHandler && getTankFromColor() != null)
-             return ((ITankHandler)m).fill(getTankFromColor(), from, resource, doFill);
+         int v = 0;
+         if (getTankFromColor() != null) {
+             ITankHandler hdlr = getTankMaster();
+             if (hdlr != null)
+                 v =  hdlr.fill(getTankFromColor(), from, resource, doFill);
+         }
 
-         return 0;
+         return v;
      }
 
      @Override
      public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
 
-         TileEntityMultiBlockMaster m = this.getMasterTE();
-         if (m != null && m instanceof ITankHandler && getTankFromColor() != null)
-             return ((ITankHandler)m).drain(getTankFromColor(), from, resource, doDrain);
+         FluidStack f = null;
+         if (getTankFromColor() != null) {
+             ITankHandler hdlr = getTankMaster();
+             if (hdlr != null)
+                 f = hdlr.drain(getTankFromColor(), from, resource, doDrain);
+         }
 
-         return null;
+         return f;
      }
 
      @Override
      public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
 
-         TileEntityMultiBlockMaster m = this.getMasterTE();
-         if (m != null && m instanceof ITankHandler && getTankFromColor() != null)
-             return ((ITankHandler) m).drain(getTankFromColor(), from, maxDrain, doDrain);
+         FluidStack f = null;
+         if (getTankFromColor() != null) {
+             ITankHandler hdlr = getTankMaster();
+             if (hdlr != null)
+                 f = hdlr.drain(getTankFromColor(), from, maxDrain, doDrain);
+         }
 
-         return null;
+         return f;
      }
 
      @Override
      public boolean canFill(ForgeDirection from, Fluid fluid) {
 
-         TileEntityMultiBlockMaster m = this.getMasterTE();
-         if (m != null && m instanceof ITankHandler && getTankFromColor() != null)
-             return ((ITankHandler)m).canFill(getTankFromColor(), from, fluid);
+         boolean f = false;
+         if (getTankFromColor() != null) {
+             ITankHandler hdlr = getTankMaster();
+             if (hdlr != null)
+                 f = hdlr.canFill(getTankFromColor(), from, fluid);
+         }
 
-         return false;
+         return f;
      }
 
      @Override
      public boolean canDrain(ForgeDirection from, Fluid fluid) {
 
-         TileEntityMultiBlockMaster m = this.getMasterTE();
-         if (m != null && m instanceof ITankHandler && getTankFromColor() != null)
-             return ((ITankHandler)m).canDrain(getTankFromColor(), from, fluid);
+         boolean f = false;
+         if (getTankFromColor() != null) {
+             ITankHandler hdlr = getTankMaster();
+             if (hdlr != null)
+                 f = hdlr.canDrain(getTankFromColor(), from, fluid);
+         }
 
-         return false;
+         return f;
      }
 
      @Override
      public FluidTankInfo[] getTankInfo(ForgeDirection from) {
 
-         TileEntityMultiBlockMaster m = this.getMasterTE();
-         if (m != null && m instanceof ITankHandler) {
-             FluidTankInfo[] t = ((ITankHandler) m).getTankInfo(from);
-             return t;
-         }
+         FluidTankInfo[] tinfo = null;
+         ITankHandler hdlr = getTankMaster();
+         if (hdlr != null)
+             tinfo = hdlr.getTankInfo(from);
 
-         return null;
+         return tinfo;
      }
 
      /**

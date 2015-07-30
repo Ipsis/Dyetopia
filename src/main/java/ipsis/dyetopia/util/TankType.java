@@ -12,7 +12,7 @@ public enum TankType {
 
     private String name;
     private String localisation;
-    private TankType(String name, String localisation) {
+    TankType(String name, String localisation) {
         this.name = name;
         this.localisation = localisation;
     }

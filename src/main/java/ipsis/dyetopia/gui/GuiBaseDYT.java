@@ -3,9 +3,7 @@ package ipsis.dyetopia.gui;
 
 import cofh.lib.gui.GuiBase;
 import cofh.lib.util.helpers.StringHelper;
-import ipsis.dyetopia.proxy.ClientProxy;
 import ipsis.dyetopia.util.IconRegistry;
-import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.inventory.Container;

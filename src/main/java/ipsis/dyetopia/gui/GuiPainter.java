@@ -1,13 +1,11 @@
 package ipsis.dyetopia.gui;
 
-import cofh.lib.gui.GuiBase;
 import cofh.lib.gui.element.*;
 import cofh.lib.util.helpers.StringHelper;
 import ipsis.dyetopia.gui.container.ContainerPainter;
 import ipsis.dyetopia.gui.element.*;
 import ipsis.dyetopia.reference.GuiLayout;
 import ipsis.dyetopia.reference.Lang;
-import ipsis.dyetopia.reference.Reference;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntityPainter;
 import ipsis.dyetopia.util.DyeHelper;

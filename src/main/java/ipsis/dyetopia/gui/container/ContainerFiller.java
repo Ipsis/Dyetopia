@@ -8,7 +8,6 @@ import ipsis.dyetopia.gui.IGuiFluidSyncHandler;
 import ipsis.dyetopia.network.message.MessageGuiFluidSync;
 import ipsis.dyetopia.reference.GuiLayout;
 import ipsis.dyetopia.tileentity.TileEntityFiller;
-import ipsis.dyetopia.util.LogHelper;
 import ipsis.dyetopia.util.TankType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -24,7 +23,7 @@ public class ContainerFiller extends Container implements IGuiFluidSyncHandler {
 
         this.filler = filler;
 
-        this.addSlotToContainer(new SlotAcceptValid(this.filler, this.filler.INPUT_SLOT, GuiLayout.Filler.INPUT_SLOT_X, GuiLayout.Filler.INPUT_SLOT_Y));
+        this.addSlotToContainer(new SlotAcceptValid(this.filler, TileEntityFiller.INPUT_SLOT, GuiLayout.Filler.INPUT_SLOT_X, GuiLayout.Filler.INPUT_SLOT_Y));
 
         /* Player inventory */
         for (int y = 0; y < 3; y++) {

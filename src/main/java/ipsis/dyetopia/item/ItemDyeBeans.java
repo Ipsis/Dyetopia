@@ -13,7 +13,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -123,7 +122,7 @@ public class ItemDyeBeans extends ItemDYT {
         super.addInformation(itemStack, player, info, showAdvanced);
 
         if (itemStack == null)
-            return;;
+            return;
 
         int meta = itemStack.getItemDamage();
         if (meta >= 0 && meta < Names.Items.DYE_BEANS_TYPES.length)

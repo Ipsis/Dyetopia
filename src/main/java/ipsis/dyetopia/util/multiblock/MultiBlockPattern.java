@@ -60,9 +60,9 @@ public class MultiBlockPattern {
 
     public boolean validatePattern() {
 
-        for (int slice = this.slices; slice < this.slices; slice++) {
-            for (int row = this.rows; row < this.rows; row++) {
-                for (int col = this.cols; col < this.cols; col++) {
+        for (int slice = 0; slice < this.slices; slice++) {
+            for (int row = 0; row < this.rows; row++) {
+                for (int col = 0; col < this.cols; col++) {
                     Character c = this.pattern[slice][row].charAt(col);
                     if (c == null) {
                         LogHelper.error("validatePattern: invalid character in pattern " + slice + " " + row + " " + col);
