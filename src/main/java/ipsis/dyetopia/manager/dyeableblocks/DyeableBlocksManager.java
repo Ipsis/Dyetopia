@@ -240,7 +240,7 @@ public class DyeableBlocksManager {
             }
             else
             {
-                LogHelper.info("processFull: origin source does not exist - " + source);
+                LogHelper.info("processFull: origin source does not exist - " + desc.getOrigin().getName());
             }
         }
 
@@ -254,7 +254,7 @@ public class DyeableBlocksManager {
 
                 ItemStack source = RegistryHelper.getItemStackFromRegistryAttr(sourceDesc.getName(), sourceDesc.getAttr());
                 if (source == null) {
-                    LogHelper.info("processFull: assoc source does not exist - " + source);
+                    LogHelper.info("processFull: assoc source does not exist - " + sourceDesc.getName());
                     continue;
                 }
 
@@ -268,7 +268,7 @@ public class DyeableBlocksManager {
 
                     ItemStack result = RegistryHelper.getItemStackFromRegistryAttr(resultDesc.getName(), resultDesc.getAttr());
                     if (result == null) {
-                        LogHelper.info("processFull: assoc result does not exist - " + source);
+                        LogHelper.info("processFull: assoc result does not exist - " + resultDesc.getName());
                         continue;
                     }
 
@@ -336,7 +336,7 @@ public class DyeableBlocksManager {
             }
             else
             {
-                LogHelper.info("processSimple: origin source does not exist - " + source);
+                LogHelper.info("processSimple: origin source does not exist - " + desc.getOrigin().getName());
             }
         }
 

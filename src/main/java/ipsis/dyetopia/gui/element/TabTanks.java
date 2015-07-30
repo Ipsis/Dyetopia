@@ -35,7 +35,10 @@ public class TabTanks extends TabBase {
         else
             this.setTexture(Textures.RESOURCE_PREFIX + Textures.Gui.TAB_RIGHT, 256, 256);
 
-        this.tankNames = names.clone();
+        if (names != null)
+            this.tankNames = names.clone();
+        else
+            this.tankNames = new TankType[0];
     }
 
     @Override
