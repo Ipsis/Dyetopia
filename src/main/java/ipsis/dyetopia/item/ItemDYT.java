@@ -2,7 +2,6 @@ package ipsis.dyetopia.item;
 
 import cofh.lib.util.helpers.StringHelper;
 import ipsis.dyetopia.creative.CreativeTab;
-import ipsis.dyetopia.reference.Lang;
 import ipsis.dyetopia.reference.Reference;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

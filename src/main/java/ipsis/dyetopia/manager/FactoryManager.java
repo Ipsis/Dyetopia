@@ -2,7 +2,6 @@ package ipsis.dyetopia.manager;
 
 import ipsis.dyetopia.gui.container.ProgressBar;
 import ipsis.dyetopia.reference.Nbt;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.nbt.NBTTagCompound;

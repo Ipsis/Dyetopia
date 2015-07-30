@@ -8,7 +8,6 @@ import ipsis.dyetopia.gui.IGuiFluidSyncHandler;
 import ipsis.dyetopia.network.message.MessageGuiFluidSync;
 import ipsis.dyetopia.reference.GuiLayout;
 import ipsis.dyetopia.tileentity.TileEntityFiller;
-import ipsis.dyetopia.util.LogHelper;
 import ipsis.dyetopia.util.TankType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;

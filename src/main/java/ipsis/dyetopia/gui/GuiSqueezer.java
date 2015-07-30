@@ -1,16 +1,11 @@
 package ipsis.dyetopia.gui;
 
-import cofh.lib.gui.GuiBase;
-import cofh.lib.gui.element.ElementDualScaled;
-import cofh.lib.gui.element.ElementEnergyStored;
-import cofh.lib.gui.element.ElementFluidTank;
 import cofh.lib.gui.element.TabBase;
 import cofh.lib.util.helpers.StringHelper;
 import ipsis.dyetopia.gui.container.ContainerSqueezer;
 import ipsis.dyetopia.gui.element.*;
 import ipsis.dyetopia.reference.GuiLayout;
 import ipsis.dyetopia.reference.Lang;
-import ipsis.dyetopia.reference.Reference;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntitySqueezer;
 import ipsis.dyetopia.util.TankType;

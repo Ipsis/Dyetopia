@@ -2,7 +2,6 @@ package ipsis.dyetopia.manager;
 
 import cofh.api.energy.EnergyStorage;
 import ipsis.dyetopia.gui.container.ProgressBar;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.nbt.NBTTagCompound;

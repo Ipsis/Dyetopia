@@ -3,7 +3,6 @@ package ipsis.dyetopia.util;
 import cofh.lib.util.helpers.ColorHelper;
 import ipsis.dyetopia.init.ModItems;
 import ipsis.dyetopia.reference.Reference;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
