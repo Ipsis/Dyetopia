@@ -158,7 +158,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
     }
 
     /* IEnergyHandler */
-    private IEnergyHandler getEnergy() {
+    private IEnergyHandler getEnergyMaster() {
 
         TileEntityMultiBlockMaster m = this.getMasterTE();
         if (m != null && m instanceof IEnergyHandler)
@@ -169,7 +169,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
 
     public int receiveEnergy(ForgeDirection forgeDirection, int i, boolean b) {
 
-        IEnergyHandler te = getEnergy();
+        IEnergyHandler te = getEnergyMaster();
         if (te != null)
             return te.receiveEnergy(forgeDirection, i, b);
 
@@ -178,7 +178,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
 
     public int extractEnergy(ForgeDirection forgeDirection, int i, boolean b) {
 
-        IEnergyHandler te = getEnergy();
+        IEnergyHandler te = getEnergyMaster();
         if (te != null)
             return te.extractEnergy(forgeDirection, i, b);
 
@@ -187,7 +187,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
 
     public int getEnergyStored(ForgeDirection forgeDirection) {
 
-        IEnergyHandler te = getEnergy();
+        IEnergyHandler te = getEnergyMaster();
         if (te != null)
             return te.getEnergyStored(forgeDirection);
 
@@ -196,7 +196,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
 
     public int getMaxEnergyStored(ForgeDirection forgeDirection) {
 
-        IEnergyHandler te = getEnergy();
+        IEnergyHandler te = getEnergyMaster();
         if (te != null)
             return te.getMaxEnergyStored(forgeDirection);
 
@@ -205,8 +205,8 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
 
     @Override
     public boolean canConnectEnergy(ForgeDirection forgeDirection) {
-
-        IEnergyHandler te = getEnergy();
+        
+        IEnergyHandler te = getEnergyMaster();
         if (te != null)
             return te.canConnectEnergy(forgeDirection);
 
@@ -214,7 +214,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
     }
 
     /* ISidedInventory */
-    private IInventory getInv() {
+    private IInventory getInvMaster() {
 
         if (!this.hasMaster())
             return null;
@@ -226,7 +226,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
         return null;
     }
 
-    private ISidedInventory getSidedInv() {
+    private ISidedInventory getSidedInvMaster() {
 
         if (!this.hasMaster())
             return null;
@@ -241,7 +241,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
     @Override
     public void closeInventory() {
 
-        IInventory te = getInv();
+        IInventory te = getInvMaster();
         if (te != null)
             te.closeInventory();
     }
@@ -249,7 +249,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
     @Override
     public ItemStack decrStackSize(int slot, int count) {
 
-        IInventory te = getInv();
+        IInventory te = getInvMaster();
         if (te != null)
             return te.decrStackSize(slot, count);
 
@@ -259,7 +259,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
     @Override
     public String getInventoryName() {
 
-        IInventory te = getInv();
+        IInventory te = getInvMaster();
         if (te != null)
             return te.getInventoryName();
 
@@ -269,7 +269,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
     @Override
     public int getInventoryStackLimit() {
 
-        IInventory te = getInv();
+        IInventory te = getInvMaster();
         if (te != null)
             return te.getInventoryStackLimit();
 
@@ -279,7 +279,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
     @Override
     public int getSizeInventory() {
 
-        IInventory te = getInv();
+        IInventory te = getInvMaster();
         if (te != null)
             return te.getSizeInventory();
 
@@ -289,7 +289,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
     @Override
     public ItemStack getStackInSlot(int slot) {
 
-        IInventory te = getInv();
+        IInventory te = getInvMaster();
         if (te != null)
             return te.getStackInSlot(slot);
 
@@ -299,7 +299,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
     @Override
     public ItemStack getStackInSlotOnClosing(int slot) {
 
-        IInventory te = getInv();
+        IInventory te = getInvMaster();
         if (te != null)
             return te.getStackInSlotOnClosing(slot);
 
@@ -309,7 +309,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
     @Override
     public boolean hasCustomInventoryName() {
 
-        IInventory te = getInv();
+        IInventory te = getInvMaster();
         if (te != null)
             return te.hasCustomInventoryName();
 
@@ -319,7 +319,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
 
-        IInventory te = getInv();
+        IInventory te = getInvMaster();
         if (te != null)
             return te.isItemValidForSlot(slot, stack);
 
@@ -329,7 +329,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
     @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
 
-        IInventory te = getInv();
+        IInventory te = getInvMaster();
         if (te != null)
             return te.isUseableByPlayer(player);
 
@@ -339,7 +339,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
     @Override
     public void openInventory() {
 
-        IInventory te = getInv();
+        IInventory te = getInvMaster();
         if (te != null)
             te.openInventory();
     }
@@ -347,7 +347,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
     @Override
     public void setInventorySlotContents(int slot, ItemStack stack) {
 
-        IInventory te = getInv();
+        IInventory te = getInvMaster();
         if (te != null)
             te.setInventorySlotContents(slot, stack);
     }
@@ -357,7 +357,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
 
-        ISidedInventory te = getSidedInv();
+        ISidedInventory te = getSidedInvMaster();
         if (te != null)
             return te.getAccessibleSlotsFromSide(side);
 
@@ -367,7 +367,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
     @Override
     public boolean canInsertItem(int slot, ItemStack itemStack, int side) {
 
-        ISidedInventory te = getSidedInv();
+        ISidedInventory te = getSidedInvMaster();
         if (te != null)
             return te.canInsertItem(slot, itemStack, side);
 
@@ -377,7 +377,7 @@ public abstract class TileEntityMultiBlockBase extends TileEntityDYT implements 
     @Override
     public boolean canExtractItem(int slot, ItemStack itemStack, int side) {
 
-        ISidedInventory te = getSidedInv();
+        ISidedInventory te = getSidedInvMaster();
         if (te != null)
             return te.canExtractItem(slot, itemStack, side);
 
