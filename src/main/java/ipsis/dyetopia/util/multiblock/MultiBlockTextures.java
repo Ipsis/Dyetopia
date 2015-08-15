@@ -5,32 +5,22 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ipsis.dyetopia.reference.Names;
 import ipsis.dyetopia.reference.Textures;
+import ipsis.dyetopia.tileentity.TileEntityMixer;
 import ipsis.dyetopia.tileentity.TileEntityMultiBlockMaster;
+import ipsis.dyetopia.tileentity.TileEntitySqueezer;
 import ipsis.dyetopia.util.IconRegistry;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import javax.swing.*;
-
 @SideOnly(Side.CLIENT)
 public class MultiBlockTextures {
-
-    public enum MultiBlockType {
-        CASING,
-        VALVE,
-        SQUEEZER,
-        MIXER;
-    }
 
     public static void registerIcons(TextureMap map) {
 
         String s = Textures.RESOURCE_PREFIX + "machines/multiblock/";
 
         IconRegistry.addIcon("Wall", map.registerIcon(s + "wall"));
-        IconRegistry.addIcon("Mixer", map.registerIcon(s + "mixer"));
-        IconRegistry.addIcon("Squeezer", map.registerIcon(s + "squeezer"));
 
         IconRegistry.addIcon("TopLeft", map.registerIcon(s + "topLeft"));
         IconRegistry.addIcon("TopCenter", map.registerIcon(s + "topCenter"));
@@ -46,8 +36,17 @@ public class MultiBlockTextures {
 
         IconRegistry.addIcon("ValveTopLeft", map.registerIcon(s + "valveTopLeft"));
         IconRegistry.addIcon("ValveTopRight", map.registerIcon(s + "valveTopRight"));
+        IconRegistry.addIcon("ValveCenter", map.registerIcon(s + "valveCenter"));
         IconRegistry.addIcon("ValveBottomLeft", map.registerIcon(s + "valveBottomLeft"));
         IconRegistry.addIcon("ValveBottomRight", map.registerIcon(s + "valveBottomRight"));
+
+        /* Formed */
+        IconRegistry.addIcon("Mixer", map.registerIcon(s + "mixer"));
+        IconRegistry.addIcon("Squeezer", map.registerIcon(s + "squeezer"));
+
+        /* Unformed */
+        IconRegistry.addIcon("MixerUnformed", map.registerIcon(s + "mixer"));
+        IconRegistry.addIcon("SqueezerUnformed", map.registerIcon(s + "squeezer"));
     }
 
     /**
@@ -67,8 +66,12 @@ public class MultiBlockTextures {
 
         if (side == master.getDirectionFacing().ordinal()) {
             /* front - only center is special */
-            if (info.isMidY() && info.isCenter())
-                return IconRegistry.getIcon("Squeezer");
+            if (info.isMiddle() && info.isCenter()) {
+                if (master instanceof TileEntityMixer)
+                    return IconRegistry.getIcon("Mixer");
+                else if (master instanceof TileEntitySqueezer)
+                    return IconRegistry.getIcon("Squeezer");
+            }
         } else if (side == master.getDirectionFacing().getOpposite().ordinal()) {
             /* rear - all special */
             if (info.isTop() && info.isLeft())
@@ -83,12 +86,16 @@ public class MultiBlockTextures {
                 return IconRegistry.getIcon("BottomCenter");
             else if (info.isBottom() && info.isRight())
                 return IconRegistry.getIcon("ValveBottomRight");
-            else if (info.isMidY() && info.isLeft())
+            else if (info.isMiddle() && info.isLeft())
                 return IconRegistry.getIcon("MiddleLeft");
-            else if (info.isMidY() && info.isRight())
+            else if (info.isMiddle() && info.isRight())
                 return IconRegistry.getIcon("MiddleRight");
-            else if (info.isMidY() && info.isCenter())
-                return IconRegistry.getIcon("Center");
+            else if (info.isMiddle() && info.isCenter()) {
+                if (master instanceof TileEntityMixer)
+                    return IconRegistry.getIcon("ValveCenter");
+                else if (master instanceof TileEntitySqueezer)
+                    return IconRegistry.getIcon("Center");
+            }
         }
 
         if (info.isTop() && info.isLeft())
@@ -103,24 +110,22 @@ public class MultiBlockTextures {
             return IconRegistry.getIcon("BottomCenter");
         else if (info.isBottom() && info.isRight())
             return IconRegistry.getIcon("BottomRight");
-        else if (info.isMidY() && info.isLeft())
+        else if (info.isMiddle() && info.isLeft())
             return IconRegistry.getIcon("MiddleLeft");
-        else if (info.isMidY() && info.isRight())
+        else if (info.isMiddle() && info.isRight())
             return IconRegistry.getIcon("MiddleRight");
-        else if (info.isMidY() && info.isCenter())
+        else if (info.isMiddle() && info.isCenter())
             return IconRegistry.getIcon("Center");
 
         return null;
     }
 
     private static class BlockInfo {
-        boolean midX, midY, midZ;
-        boolean top, bottom;
+        private boolean midX, midY, midZ;
+        boolean top, bottom, middle;
         boolean left, right;
 
-        public boolean isMidX() { return midX; }
-        public boolean isMidY() { return midY; }
-        public boolean isMidZ() { return midZ; }
+        public boolean isMiddle() { return middle; }
         public boolean isTop() { return top; }
         public boolean isBottom() { return bottom; }
         public boolean isLeft() { return left; }
@@ -130,22 +135,30 @@ public class MultiBlockTextures {
 
         private BlockInfo() {}
         public BlockInfo(int masterX, int masterY, int masterZ, int x, int y, int z, ForgeDirection facing) {
+
             midX = (masterX == x) ? true : false;
             midY = (masterY == y) ? true : false;
             midZ = (masterZ == z) ? true : false;
 
-            top = (masterY + 1 == y) ? true : false;
-            bottom = (masterY - 1 == y) ? true : false;
+            if (facing == ForgeDirection.UP || facing == ForgeDirection.DOWN) {
+                top = (masterZ - 1 == z) ? true : false;
+                bottom = (masterZ + 1 == z) ? true : false;
+                middle = midZ;
+            } else {
+                top = (masterY + 1 == y) ? true : false;
+                bottom = (masterY - 1 == y) ? true : false;
+                middle = midY;
+            }
 
             /**
              * facing == what face are we looking at
              *
-             * EAST  : left = -z, right = +z
-             * WEST  : left = +z, right = -z
-             * SOUTH : left = +x, right = -x
-             * NORTH : left = -x, right = +x
-             * UP    : ????
-             * DOWN  : ???
+             * EAST  : left = -z, right = +z, top/bottom = y
+             * WEST  : left = +z, right = -z, top/bottom = y
+             * SOUTH : left = +x, right = -x, top/bottom = y
+             * NORTH : left = -x, right = +x, top/bottom = y
+             * UP    : left = -x, right = +x, top/bottom = z
+             * DOWN  : left = -x, right = +x, top/bottom = z
              */
 
             if (facing == ForgeDirection.EAST) {
@@ -157,12 +170,9 @@ public class MultiBlockTextures {
             } else if (facing == ForgeDirection.SOUTH) {
                 left = (x > masterX) ? true : false;
                 right = (x < masterX) ? true : false;
-            } else if (facing == ForgeDirection.NORTH) {
+            } else if (facing == ForgeDirection.NORTH || facing == ForgeDirection.UP || facing == ForgeDirection.DOWN) {
                 left = (x < masterX) ? true : false;
                 right = (x > masterX) ? true : false;
-            } else {
-                left = false;
-                right = false;
             }
         }
     }
