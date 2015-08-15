@@ -5,6 +5,7 @@ import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.init.ModBlocks;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import ipsis.dyetopia.util.IconRegistry;
+import ipsis.dyetopia.util.multiblock.MultiBlockTextures;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -26,7 +27,9 @@ public class ClientProxy extends CommonProxy {
     @SubscribeEvent
     public void registerIcons(TextureStitchEvent.Pre event) {
 
-        if (event.map.getTextureType() == 1) {
+        if (event.map.getTextureType() == 0) {
+            MultiBlockTextures.registerIcons(event.map);
+        } else if (event.map.getTextureType() == 1) {
             /* Register our gui icons */
             IconRegistry.addIcon("Icon_Energy", event.map.registerIcon("dyetopia:icons/Icon_Energy"));
             IconRegistry.addIcon("Icon_Info", event.map.registerIcon("dyetopia:icons/Icon_Info"));
