@@ -3,6 +3,7 @@ package ipsis.dyetopia.util.multiblock;
 import cofh.lib.util.position.BlockPosition;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ipsis.dyetopia.block.*;
 import ipsis.dyetopia.reference.Names;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntityMixer;
@@ -43,10 +44,12 @@ public class MultiBlockTextures {
         /* Formed */
         IconRegistry.addIcon("Mixer", map.registerIcon(s + "mixer"));
         IconRegistry.addIcon("Squeezer", map.registerIcon(s + "squeezer"));
+        IconRegistry.addIcon("MixerActive", map.registerIcon(s + "mixerActive"));
+        IconRegistry.addIcon("SqueezerActive", map.registerIcon(s + "squeezerActive"));
 
         /* Unformed */
-        IconRegistry.addIcon("MixerUnformed", map.registerIcon(s + "mixer"));
-        IconRegistry.addIcon("SqueezerUnformed", map.registerIcon(s + "squeezer"));
+        IconRegistry.addIcon("MixerUnformed", map.registerIcon(s + "mixerUnformed"));
+        IconRegistry.addIcon("SqueezerUnformed", map.registerIcon(s + "squeezerUnformed"));
     }
 
     /**
@@ -54,10 +57,23 @@ public class MultiBlockTextures {
      * But we want to lookup the texture based on the players facing direction.
      * Master is not centered
      */
-    public static IIcon getIcon(TileEntityMultiBlockMaster master, int x, int y, int z, int side) {
+    public static IIcon getIcon(BlockDYTMultiBlock b, TileEntityMultiBlockMaster master, int x, int y, int z, int side) {
 
-        if (master == null || !master.isStructureValid())
-            return IconRegistry.getIcon("Wall");
+        if (b == null)
+            return null;
+
+        if (master == null || !master.isStructureValid()) {
+            if (b instanceof BlockCasing)
+                return IconRegistry.getIcon("Wall");
+            else if (b instanceof BlockValve)
+                return IconRegistry.getIcon("ValveCenter");
+            else if (b instanceof BlockMixer)
+                return (side == ForgeDirection.SOUTH.ordinal()) ? IconRegistry.getIcon("Mixer") : IconRegistry.getIcon("Wall");
+            else if (b instanceof BlockSqueezer)
+                return (side == ForgeDirection.SOUTH.ordinal()) ? IconRegistry.getIcon("Squeezer") : IconRegistry.getIcon("Wall");
+            else
+                return null;
+        }
 
         /* Make the master centralised */
         BlockPosition p = new BlockPosition(master.xCoord, master.yCoord, master.zCoord, master.getDirectionFacing());
@@ -67,10 +83,17 @@ public class MultiBlockTextures {
         if (side == master.getDirectionFacing().ordinal()) {
             /* front - only center is special */
             if (info.isMiddle() && info.isCenter()) {
-                if (master instanceof TileEntityMixer)
-                    return IconRegistry.getIcon("Mixer");
-                else if (master instanceof TileEntitySqueezer)
-                    return IconRegistry.getIcon("Squeezer");
+                if (master instanceof TileEntityMixer) {
+                    if (master.getStatus())
+                        return IconRegistry.getIcon("MixerActive");
+                    else
+                        return IconRegistry.getIcon("Mixer");
+                } else if (master instanceof TileEntitySqueezer) {
+                    if (master.getStatus())
+                        return IconRegistry.getIcon("SqueezerActive");
+                    else
+                        return IconRegistry.getIcon("Squeezer");
+                }
             }
         } else if (side == master.getDirectionFacing().getOpposite().ordinal()) {
             /* rear - all special */

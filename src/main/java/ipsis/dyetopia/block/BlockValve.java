@@ -7,12 +7,15 @@ import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntityValve;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ipsis.dyetopia.util.IconRegistry;
+import ipsis.dyetopia.util.multiblock.MultiBlockTextures;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.List;
 
@@ -24,26 +27,10 @@ public class BlockValve extends BlockDYTMultiBlock implements ITileEntityProvide
     }
 
     @SideOnly(Side.CLIENT)
-    IIcon[] formedIcons;
-
     @Override
-    @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister iconRegister)
-    {
-        formedIcons = new IIcon[6];
+    public IIcon getIcon(int side, int metadata) {
 
-        /* unformed icon */
-        blockIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_VALVE + ".Unformed");
-
-        /* formed but uncolored */
-        formedIcons[0] = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_VALVE + ".Formed");
-
-        /* formed and colored */
-        formedIcons[1] = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_VALVE + ".Red.Formed");
-        formedIcons[2] = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_VALVE + ".Yellow.Formed");
-        formedIcons[3] = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_VALVE + ".Blue.Formed");
-        formedIcons[4] = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_VALVE + ".White.Formed");
-        formedIcons[5] = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_VALVE + ".Pure.Formed");
+        return IconRegistry.getIcon("ValveCenter");
     }
 
     @SideOnly(Side.CLIENT)
@@ -51,30 +38,11 @@ public class BlockValve extends BlockDYTMultiBlock implements ITileEntityProvide
     public IIcon getIcon(IBlockAccess iblockaccess, int x, int y, int z, int side) {
 
         TileEntity te = iblockaccess.getTileEntity(x, y, z);
-        if (te != null && te instanceof TileEntityValve) {
-            if (((TileEntityValve)te).hasMaster()) {
+        if (te != null && te instanceof TileEntityValve)
+            return MultiBlockTextures.getIcon(this, ((TileEntityValve) te).getMasterTE(), x, y, z, side);
 
-                switch (((TileEntityValve)te).getColor()) {
-                    case NONE:
-                        return formedIcons[0];
-                    case RED:
-                        return formedIcons[1];
-                    case YELLOW:
-                        return formedIcons[2];
-                    case BLUE:
-                        return formedIcons[3];
-                    case WHITE:
-                        return formedIcons[4];
-                    case PURE:
-                        return formedIcons[5];
-                    default:
-                        return formedIcons[0];
-                }
-            }
-        }
+        return IconRegistry.getIcon("ValveCenter");
 
-		/* Assume everything else is the same icon */
-        return blockIcon;
     }
 
     @Override
