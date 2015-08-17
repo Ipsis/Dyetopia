@@ -36,10 +36,23 @@ public class MultiBlockTextures {
         IconRegistry.addIcon("BottomRight", map.registerIcon(s + "bottomRight"));
 
         IconRegistry.addIcon("ValveTopLeft", map.registerIcon(s + "valveTopLeft"));
+        IconRegistry.addIcon("ValveTopLeftYellow", map.registerIcon(s + "valveTopLeftYellow"));
+        IconRegistry.addIcon("ValveTopLeftRed", map.registerIcon(s + "valveTopLeftRed"));
+
         IconRegistry.addIcon("ValveTopRight", map.registerIcon(s + "valveTopRight"));
+        IconRegistry.addIcon("ValveTopRightRed", map.registerIcon(s + "valveTopRightRed"));
+        IconRegistry.addIcon("ValveTopRightYellow", map.registerIcon(s + "valveTopRightYellow"));
+
         IconRegistry.addIcon("ValveCenter", map.registerIcon(s + "valveCenter"));
+        IconRegistry.addIcon("ValveCenterPure", map.registerIcon(s + "valveCenterPure"));
+
         IconRegistry.addIcon("ValveBottomLeft", map.registerIcon(s + "valveBottomLeft"));
+        IconRegistry.addIcon("ValveBottomLeftWhite", map.registerIcon(s + "valveBottomLeftWhite"));
+        IconRegistry.addIcon("ValveBottomLeftBlue", map.registerIcon(s + "valveBottomLeftBlue"));
+
         IconRegistry.addIcon("ValveBottomRight", map.registerIcon(s + "valveBottomRight"));
+        IconRegistry.addIcon("ValveBottomRightBlue", map.registerIcon(s + "valveBottomRightBlue"));
+        IconRegistry.addIcon("ValveBottomRightWhite", map.registerIcon(s + "valveBottomRightWhite"));
 
         /* Formed */
         IconRegistry.addIcon("Mixer", map.registerIcon(s + "mixer"));
@@ -98,24 +111,24 @@ public class MultiBlockTextures {
         } else if (side == master.getDirectionFacing().getOpposite().ordinal()) {
             /* rear - all special */
             if (info.isTop() && info.isLeft())
-                return IconRegistry.getIcon("ValveTopLeft");
+                return (master instanceof TileEntitySqueezer) ? IconRegistry.getIcon("ValveTopLeftYellow") : IconRegistry.getIcon("ValveTopLeftRed");
             else if (info.isTop() && info.isCenter())
                 return IconRegistry.getIcon("TopCenter");
             else if (info.isTop() && info.isRight())
-                return IconRegistry.getIcon("ValveTopRight");
+                return (master instanceof TileEntitySqueezer) ? IconRegistry.getIcon("ValveTopRightRed") : IconRegistry.getIcon("ValveTopRightYellow");
             else if (info.isBottom() && info.isLeft())
-                return IconRegistry.getIcon("ValveBottomLeft");
+                return (master instanceof TileEntitySqueezer) ? IconRegistry.getIcon("ValveBottomLeftWhite") : IconRegistry.getIcon("ValveBottomLeftBlue");
             else if (info.isBottom() && info.isCenter())
                 return IconRegistry.getIcon("BottomCenter");
             else if (info.isBottom() && info.isRight())
-                return IconRegistry.getIcon("ValveBottomRight");
+                return (master instanceof TileEntitySqueezer) ? IconRegistry.getIcon("ValveBottomRightBlue") : IconRegistry.getIcon("ValveBottomRightWhite");
             else if (info.isMiddle() && info.isLeft())
                 return IconRegistry.getIcon("MiddleLeft");
             else if (info.isMiddle() && info.isRight())
                 return IconRegistry.getIcon("MiddleRight");
             else if (info.isMiddle() && info.isCenter()) {
                 if (master instanceof TileEntityMixer)
-                    return IconRegistry.getIcon("ValveCenter");
+                    return IconRegistry.getIcon("ValveCenterPure");
                 else if (master instanceof TileEntitySqueezer)
                     return IconRegistry.getIcon("Center");
             }
