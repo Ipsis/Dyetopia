@@ -7,7 +7,11 @@ import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntityMixer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ipsis.dyetopia.tileentity.TileEntityMultiBlockBase;
+import ipsis.dyetopia.tileentity.TileEntityMultiBlockMaster;
+import ipsis.dyetopia.util.IconRegistry;
 import ipsis.dyetopia.util.TooltipHelper;
+import ipsis.dyetopia.util.multiblock.MultiBlockTextures;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
@@ -31,26 +35,6 @@ public class BlockMixer extends BlockDYTMultiBlock implements ITileEntityProvide
     }
 
     @SideOnly(Side.CLIENT)
-    IIcon frontIconInactive;
-    @SideOnly(Side.CLIENT)
-    IIcon frontIconActive;
-    @SideOnly(Side.CLIENT)
-    IIcon casingFormedIcon;
-    @SideOnly(Side.CLIENT)
-    IIcon casingUnformedIcon;
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister iconRegister)
-    {
-        blockIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_MIXER + ".Unformed");
-        frontIconInactive = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_MIXER + ".Formed");
-        frontIconActive = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_MIXER + ".Formed.Active");
-        casingFormedIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_CASING + ".Formed");
-        casingUnformedIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_CASING + ".Unformed");
-    }
-
-    @SideOnly(Side.CLIENT)
     @Override
     public IIcon getIcon(int side, int metadata) {
 
@@ -59,9 +43,9 @@ public class BlockMixer extends BlockDYTMultiBlock implements ITileEntityProvide
          * Is is oriented as facing south
          */
         if (side == ForgeDirection.SOUTH.ordinal())
-            return blockIcon;
+            return IconRegistry.getIcon("MixerUnformed");
 
-        return casingUnformedIcon;
+        return IconRegistry.getIcon("Wall");
     }
 
     @SideOnly(Side.CLIENT)
@@ -69,24 +53,19 @@ public class BlockMixer extends BlockDYTMultiBlock implements ITileEntityProvide
     public IIcon getIcon(IBlockAccess iblockaccess, int x, int y, int z, int side) {
 
         TileEntity te = iblockaccess.getTileEntity(x, y, z);
-        if (te != null && te instanceof TileEntityMixer) {
-
-            TileEntityMixer mte = (TileEntityMixer) te;
-            if (side == mte.getDirectionFacing().ordinal()) {
-                if (mte.isStructureValid()) {
-                    if (mte.getStatus())
-                        return frontIconActive;
-                    else
-                        return frontIconInactive;
-                } else {
-                    return blockIcon;
-                }
+        if (te != null && te instanceof TileEntityMultiBlockMaster) {
+            TileEntityMultiBlockMaster mte = (TileEntityMultiBlockMaster) te;
+            if (mte.isStructureValid()) {
+                return MultiBlockTextures.getIcon(this, mte, x, y, z, side);
             } else {
-                return casingUnformedIcon;
+                if (side == mte.getDirectionFacing().ordinal())
+                    return IconRegistry.getIcon("MixerUnformed");
+                else
+                    return IconRegistry.getIcon("Wall");
             }
         }
 
-        return casingUnformedIcon;
+        return IconRegistry.getIcon("Wall");
     }
 
 

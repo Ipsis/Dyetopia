@@ -29,30 +29,13 @@ public class BlockController extends BlockDYTMultiBlock implements ITileEntityPr
         return new TileEntityController();
     }
 
-    @SideOnly(Side.CLIENT)
-    private IIcon formedIcon;
 
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister)
     {
-        formedIcon = iconRegister.registerIcon(
-                Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_CONTROLLER + ".Formed");
         blockIcon = iconRegister.registerIcon(
-                Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_CONTROLLER + ".Unformed");
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public IIcon getIcon(IBlockAccess iblockaccess, int x, int y, int z, int side) {
-
-        TileEntity te = iblockaccess.getTileEntity(x, y, z);
-        if (te != null && te instanceof TileEntityMultiBlockBase) {
-            if (((TileEntityMultiBlockBase)te).hasMaster())
-                return formedIcon;
-        }
-
-        return blockIcon;
+                Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_CONTROLLER);
     }
 
     @Override

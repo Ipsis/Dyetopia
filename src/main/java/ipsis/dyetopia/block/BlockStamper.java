@@ -28,7 +28,7 @@ public class BlockStamper extends BlockDYTMachine implements ITooltipInfo {
 
         frontIconActive = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_STAMPER + ".Active");
         frontIconInactive = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_STAMPER);
-        blockIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_CASING + ".Unformed");
+        blockIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/multiblock/Wall");
     }
 
     @Override
