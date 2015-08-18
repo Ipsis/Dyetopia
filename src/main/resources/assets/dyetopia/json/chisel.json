@@ -256,6 +256,18 @@
           "assoc": true,
           "blockname": "chisel:hexPlating",
           "simple": { }
+        },
+        {
+          "refname": "Large Hex Plating",
+          "assoc": true,
+          "blockname": "chisel:hexLargePlating",
+          "simple": { }
+        },
+        {
+          "refname": "Futura",
+          "assoc": true,
+          "blockname": "chisel:futuraCircuit",
+          "simple": { }
         }
       ]
     }

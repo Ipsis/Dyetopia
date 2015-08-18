@@ -1,6 +1,11 @@
 Dyetopia ChangeLog
 ==========================
 
+1.7.10-X.X.X
+
+Features
+* Added chisel Large Hex Plating and Futura blocks
+
 1.7.10-1.1.0
 
 Features
@@ -18,7 +23,6 @@ Fixes
 * XXXXXX - TE ducts now reconnect on load or struture form - dont know when I broke this :(
 
 Features
-
 * Add colored block of coal from Extra Utilities
 * Add hex plating from Chisel 2
 
@@ -40,7 +44,6 @@ Fixes
 * XXXXXX - Add a tank tab icon
 
 Features
-
 * Add support for AE2, Bilbiocraft, Buildcraft, Harvestcraft, OpenBlocks, ProjectRed, Thaumcraft
 * Moved to Forge 10.13.2.1291
 * Changed DyeGun handling to allow more block types
@@ -59,7 +62,6 @@ Fixes
 * XXXXXX - Fix phantom block placement when right clicking multiblock, with block in hand
 
 Features
-
 * Support shift-click in/out of machines
 
 1.7.10-1.1.0B2
@@ -71,7 +73,6 @@ Fixes
 1.7.10-1.1.0B1
 
 Features
-
 * Added json configuration of dyeable blocks
 ** Vanilla and modded files provided by the mod
 ** Custom config file supported (dyetopia_custommaps.json)
