@@ -38,7 +38,6 @@ public class ForgeColorManager {
         if (b == null)
             return false;
 
-        LogHelper.info("isValid " + b.getUnlocalizedName());
         return validBlocks.contains(b);
     }
 }
