@@ -6,6 +6,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.init.ModItems;
+import ipsis.dyetopia.manager.ForgeColorManager;
 import ipsis.dyetopia.manager.dyeableblocks.DyeableBlocksManager;
 import ipsis.dyetopia.reference.*;
 import ipsis.dyetopia.util.BlockSwapper;
@@ -254,11 +255,13 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
         Block b = world.getBlock(x, y, z);
         if (!b.isAir(world, x, y, z)) {
 
-            DyeHelper.DyeType dyetype = ((ItemDyeGun)itemStack.getItem()).getColor(itemStack);
-            int color = BlockColored.func_150032_b(dyetype.getDmg());
-            if (b.recolourBlock(world, x, y, z, ForgeDirection.getOrientation(side), color)) {
-                LogHelper.info("onItemUseFirst: coloured using forge");
-                return true;
+            if (ForgeColorManager.getInstance().isValid(b)) {
+                DyeHelper.DyeType dyetype = ((ItemDyeGun) itemStack.getItem()).getColor(itemStack);
+                int color = BlockColored.func_150032_b(dyetype.getDmg());
+                if (b.recolourBlock(world, x, y, z, ForgeDirection.getOrientation(side), color)) {
+                    LogHelper.info("onItemUseFirst: coloured using forge");
+                    return true;
+                }
             }
 
             int meta = world.getBlockMetadata(x, y, z);
