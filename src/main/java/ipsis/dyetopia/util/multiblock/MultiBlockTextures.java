@@ -4,11 +4,12 @@ import cofh.lib.util.position.BlockPosition;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ipsis.dyetopia.block.*;
-import ipsis.dyetopia.reference.Names;
+import ipsis.dyetopia.manager.MultiBlockPatternManager;
 import ipsis.dyetopia.reference.Textures;
 import ipsis.dyetopia.tileentity.TileEntityMixer;
 import ipsis.dyetopia.tileentity.TileEntityMultiBlockMaster;
 import ipsis.dyetopia.tileentity.TileEntitySqueezer;
+import ipsis.dyetopia.util.BlockLocation;
 import ipsis.dyetopia.util.IconRegistry;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
@@ -17,52 +18,93 @@ import net.minecraftforge.common.util.ForgeDirection;
 @SideOnly(Side.CLIENT)
 public class MultiBlockTextures {
 
-    public static void registerIcons(TextureMap map) {
+    private static void registerIcon(TextureMap map, String key, String texture) {
 
         String s = Textures.RESOURCE_PREFIX + "machines/multiblock/";
+        IconRegistry.addIcon(key, map.registerIcon(s + texture));
+    }
 
-        IconRegistry.addIcon("Wall", map.registerIcon(s + "wall"));
+    public static void registerIcons(TextureMap map) {
 
-        IconRegistry.addIcon("TopLeft", map.registerIcon(s + "topLeft"));
-        IconRegistry.addIcon("TopCenter", map.registerIcon(s + "topCenter"));
-        IconRegistry.addIcon("TopRight", map.registerIcon(s + "topRight"));
+        registerIcon(map, "Wall", "wall");
 
-        IconRegistry.addIcon("MiddleLeft", map.registerIcon(s + "middleLeft"));
-        IconRegistry.addIcon("Center", map.registerIcon(s + "center"));
-        IconRegistry.addIcon("MiddleRight", map.registerIcon(s + "middleRight"));
+        registerIcon(map, "TopLeft", "topLeft");
+        registerIcon(map, "TopCenter", "topCenter");
+        registerIcon(map, "TopRight", "topRight");
+        registerIcon(map, "MiddleLeft", "middleLeft");
+        registerIcon(map, "Center", "center");
+        registerIcon(map, "MiddleRight", "middleRight");
+        registerIcon(map, "BottomLeft", "bottomLeft");
+        registerIcon(map, "BottomCenter", "bottomCenter");
+        registerIcon(map, "BottomRight", "bottomRight");
 
-        IconRegistry.addIcon("BottomLeft", map.registerIcon(s + "bottomLeft"));
-        IconRegistry.addIcon("BottomCenter", map.registerIcon(s + "bottomCenter"));
-        IconRegistry.addIcon("BottomRight", map.registerIcon(s + "bottomRight"));
+        registerIcon(map, "ValveTopLeft", "valveTopLeft");
+        registerIcon(map, "ValveTopLeftYellow", "valveTopLeftYellow");
+        registerIcon(map, "ValveTopLeftRed", "valveTopLeftRed");
 
-        IconRegistry.addIcon("ValveTopLeft", map.registerIcon(s + "valveTopLeft"));
-        IconRegistry.addIcon("ValveTopLeftYellow", map.registerIcon(s + "valveTopLeftYellow"));
-        IconRegistry.addIcon("ValveTopLeftRed", map.registerIcon(s + "valveTopLeftRed"));
+        registerIcon(map, "ValveTopRight", "valveTopRight");
+        registerIcon(map, "ValveTopRightRed", "valveTopRightRed");
+        registerIcon(map, "ValveTopRightYellow", "valveTopRightYellow");
 
-        IconRegistry.addIcon("ValveTopRight", map.registerIcon(s + "valveTopRight"));
-        IconRegistry.addIcon("ValveTopRightRed", map.registerIcon(s + "valveTopRightRed"));
-        IconRegistry.addIcon("ValveTopRightYellow", map.registerIcon(s + "valveTopRightYellow"));
+        registerIcon(map, "ValveBottomLeft", "valveBottomLeft");
+        registerIcon(map, "ValveBottomLeftWhite", "valveBottomLeftWhite");
+        registerIcon(map, "ValveBottomLeftBlue", "valveBottomLeftBlue");
 
-        IconRegistry.addIcon("ValveCenter", map.registerIcon(s + "valveCenter"));
-        IconRegistry.addIcon("ValveCenterPure", map.registerIcon(s + "valveCenterPure"));
+        registerIcon(map, "ValveBottomRight", "valveBottomRight");
+        registerIcon(map, "ValveBottomRightBlue", "valveBottomRightBlue");
+        registerIcon(map, "ValveBottomRightWhite", "valveBottomRightWhite");
 
-        IconRegistry.addIcon("ValveBottomLeft", map.registerIcon(s + "valveBottomLeft"));
-        IconRegistry.addIcon("ValveBottomLeftWhite", map.registerIcon(s + "valveBottomLeftWhite"));
-        IconRegistry.addIcon("ValveBottomLeftBlue", map.registerIcon(s + "valveBottomLeftBlue"));
-
-        IconRegistry.addIcon("ValveBottomRight", map.registerIcon(s + "valveBottomRight"));
-        IconRegistry.addIcon("ValveBottomRightBlue", map.registerIcon(s + "valveBottomRightBlue"));
-        IconRegistry.addIcon("ValveBottomRightWhite", map.registerIcon(s + "valveBottomRightWhite"));
+        registerIcon(map, "ValveCenter", "valveCenter");
+        registerIcon(map, "ValveCenterPure", "valveCenterPure");
 
         /* Formed */
-        IconRegistry.addIcon("Mixer", map.registerIcon(s + "mixer"));
-        IconRegistry.addIcon("Squeezer", map.registerIcon(s + "squeezer"));
-        IconRegistry.addIcon("MixerActive", map.registerIcon(s + "mixerActive"));
-        IconRegistry.addIcon("SqueezerActive", map.registerIcon(s + "squeezerActive"));
+        registerIcon(map, "Mixer", "mixer");
+        registerIcon(map, "Squeezer", "squeezer");
+        registerIcon(map, "MixerActive", "mixerActive");
+        registerIcon(map, "SqueezerActive", "squeezerActive");
 
         /* Unformed */
-        IconRegistry.addIcon("MixerUnformed", map.registerIcon(s + "mixerUnformed"));
-        IconRegistry.addIcon("SqueezerUnformed", map.registerIcon(s + "squeezerUnformed"));
+        registerIcon(map, "MixerUnformed", "mixerUnformed");
+        registerIcon(map, "SqueezerUnformed", "squeezerUnformed");
+    }
+
+    private static String SQUEEZER_TEXTURES[][] = {
+            { "TopLeft", "TopCenter", "TopRight", "MiddleLeft", "Squeezer", "MiddleRight", "BottomLeft", "BottomCenter", "BottomRight" },
+            { "ValveTopLeftYellow", "TopCenter", "ValveTopRightRed", "MiddleLeft", "Center", "MiddleRight", "ValveBottomLeftWhite", "BottomCenter", "ValveBottomRightBlue" },
+            { "TopLeft", "TopCenter", "TopRight", "MiddleLeft", "Center", "MiddleRight", "BottomLeft", "BottomCenter", "BottomRight" }
+    };
+
+    private static String MIXER_TEXTURES[][] = {
+            { "TopLeft", "TopCenter", "TopRight", "MiddleLeft", "Mixer", "MiddleRight", "BottomLeft", "BottomCenter", "BottomRight" },
+            { "ValveTopLeftRed", "TopCenter", "ValveTopRightYellow", "MiddleLeft", "ValveCenterPure", "MiddleRight", "ValveBottomRightBlue", "BottomCenter", "ValveBottomRightWhite" },
+            { "TopLeft", "TopCenter", "TopRight", "MiddleLeft", "Center", "MiddleRight", "BottomLeft", "BottomCenter", "BottomRight" }
+    };
+
+    /* Side 0 = front, 1 = rear, 2 = other */
+    private static IIcon getFormedIcon(TileEntityMultiBlockMaster master, BlockLocation.MBLocation p, int side) {
+
+        MultiBlockPatternManager.Type type;
+        if (master instanceof TileEntitySqueezer)
+            type = MultiBlockPatternManager.Type.SQUEEZER;
+        else if (master instanceof TileEntityMixer)
+            type = MultiBlockPatternManager.Type.MIXER;
+        else
+            return null;
+
+        String iconName;
+        if (side == 0 && p == BlockLocation.MBLocation.CENTER) {
+            if (type == MultiBlockPatternManager.Type.SQUEEZER)
+                iconName = (master.getStatus() ? "SqueezerActive" : "Squeezer");
+            else
+                iconName = (master.getStatus() ? "MixerActive" : "Mixer");
+        } else {
+            if (type == MultiBlockPatternManager.Type.SQUEEZER)
+                iconName = SQUEEZER_TEXTURES[side][p.ordinal()];
+            else
+                iconName = MIXER_TEXTURES[side][p.ordinal()];
+        }
+
+        return IconRegistry.getIcon(iconName);
     }
 
     /**
@@ -91,126 +133,17 @@ public class MultiBlockTextures {
         /* Make the master centralised */
         BlockPosition p = new BlockPosition(master.xCoord, master.yCoord, master.zCoord, master.getDirectionFacing());
         p.moveBackwards(1);
-        BlockInfo info = new BlockInfo(p.x, p.y, p.z, x, y, z, ForgeDirection.getOrientation(side).getOpposite());
+        BlockLocation info = new BlockLocation(p.x, p.y, p.z, x, y, z, ForgeDirection.getOrientation(side).getOpposite());
 
-        if (side == master.getDirectionFacing().ordinal()) {
-            /* front - only center is special */
-            if (info.isMiddle() && info.isCenter()) {
-                if (master instanceof TileEntityMixer) {
-                    if (master.getStatus())
-                        return IconRegistry.getIcon("MixerActive");
-                    else
-                        return IconRegistry.getIcon("Mixer");
-                } else if (master instanceof TileEntitySqueezer) {
-                    if (master.getStatus())
-                        return IconRegistry.getIcon("SqueezerActive");
-                    else
-                        return IconRegistry.getIcon("Squeezer");
-                }
-            }
-        } else if (side == master.getDirectionFacing().getOpposite().ordinal()) {
-            /* rear - all special */
-            if (info.isTop() && info.isLeft())
-                return (master instanceof TileEntitySqueezer) ? IconRegistry.getIcon("ValveTopLeftYellow") : IconRegistry.getIcon("ValveTopLeftRed");
-            else if (info.isTop() && info.isCenter())
-                return IconRegistry.getIcon("TopCenter");
-            else if (info.isTop() && info.isRight())
-                return (master instanceof TileEntitySqueezer) ? IconRegistry.getIcon("ValveTopRightRed") : IconRegistry.getIcon("ValveTopRightYellow");
-            else if (info.isBottom() && info.isLeft())
-                return (master instanceof TileEntitySqueezer) ? IconRegistry.getIcon("ValveBottomLeftWhite") : IconRegistry.getIcon("ValveBottomLeftBlue");
-            else if (info.isBottom() && info.isCenter())
-                return IconRegistry.getIcon("BottomCenter");
-            else if (info.isBottom() && info.isRight())
-                return (master instanceof TileEntitySqueezer) ? IconRegistry.getIcon("ValveBottomRightBlue") : IconRegistry.getIcon("ValveBottomRightWhite");
-            else if (info.isMiddle() && info.isLeft())
-                return IconRegistry.getIcon("MiddleLeft");
-            else if (info.isMiddle() && info.isRight())
-                return IconRegistry.getIcon("MiddleRight");
-            else if (info.isMiddle() && info.isCenter()) {
-                if (master instanceof TileEntityMixer)
-                    return IconRegistry.getIcon("ValveCenterPure");
-                else if (master instanceof TileEntitySqueezer)
-                    return IconRegistry.getIcon("Center");
-            }
-        }
+        int facing;
+        if (side == master.getDirectionFacing().ordinal())
+            facing = 0; /* front */
+        else if (side == master.getDirectionFacing().getOpposite().ordinal())
+            facing = 1; /* back */
+        else
+            facing = 2;
 
-        if (info.isTop() && info.isLeft())
-            return IconRegistry.getIcon("TopLeft");
-        else if (info.isTop() && info.isCenter())
-            return IconRegistry.getIcon("TopCenter");
-        else if (info.isTop() && info.isRight())
-            return IconRegistry.getIcon("TopRight");
-        else if (info.isBottom() && info.isLeft())
-            return IconRegistry.getIcon("BottomLeft");
-        else if (info.isBottom() && info.isCenter())
-            return IconRegistry.getIcon("BottomCenter");
-        else if (info.isBottom() && info.isRight())
-            return IconRegistry.getIcon("BottomRight");
-        else if (info.isMiddle() && info.isLeft())
-            return IconRegistry.getIcon("MiddleLeft");
-        else if (info.isMiddle() && info.isRight())
-            return IconRegistry.getIcon("MiddleRight");
-        else if (info.isMiddle() && info.isCenter())
-            return IconRegistry.getIcon("Center");
-
-        return null;
-    }
-
-    private static class BlockInfo {
-        private boolean midX, midY, midZ;
-        boolean top, bottom, middle;
-        boolean left, right;
-
-        public boolean isMiddle() { return middle; }
-        public boolean isTop() { return top; }
-        public boolean isBottom() { return bottom; }
-        public boolean isLeft() { return left; }
-        public boolean isRight() { return right; }
-        public boolean isCenter() { return !left && !right; }
-
-
-        private BlockInfo() {}
-        public BlockInfo(int masterX, int masterY, int masterZ, int x, int y, int z, ForgeDirection facing) {
-
-            midX = (masterX == x) ? true : false;
-            midY = (masterY == y) ? true : false;
-            midZ = (masterZ == z) ? true : false;
-
-            if (facing == ForgeDirection.UP || facing == ForgeDirection.DOWN) {
-                top = (masterZ - 1 == z) ? true : false;
-                bottom = (masterZ + 1 == z) ? true : false;
-                middle = midZ;
-            } else {
-                top = (masterY + 1 == y) ? true : false;
-                bottom = (masterY - 1 == y) ? true : false;
-                middle = midY;
-            }
-
-            /**
-             * facing == what face are we looking at
-             *
-             * EAST  : left = -z, right = +z, top/bottom = y
-             * WEST  : left = +z, right = -z, top/bottom = y
-             * SOUTH : left = +x, right = -x, top/bottom = y
-             * NORTH : left = -x, right = +x, top/bottom = y
-             * UP    : left = -x, right = +x, top/bottom = z
-             * DOWN  : left = -x, right = +x, top/bottom = z
-             */
-
-            if (facing == ForgeDirection.EAST) {
-                left = (z < masterZ) ? true : false;
-                right = (z > masterZ) ? true : false;
-            } else if (facing == ForgeDirection.WEST) {
-                left = (z > masterZ) ? true : false;
-                right = (z < masterZ) ? true : false;
-            } else if (facing == ForgeDirection.SOUTH) {
-                left = (x > masterX) ? true : false;
-                right = (x < masterX) ? true : false;
-            } else if (facing == ForgeDirection.NORTH || facing == ForgeDirection.UP || facing == ForgeDirection.DOWN) {
-                left = (x < masterX) ? true : false;
-                right = (x > masterX) ? true : false;
-            }
-        }
+        return getFormedIcon(master, info.getLocation(), facing);
     }
 
 }
