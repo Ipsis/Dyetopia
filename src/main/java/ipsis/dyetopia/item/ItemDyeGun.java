@@ -6,10 +6,12 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.init.ModItems;
+import ipsis.dyetopia.manager.ForgeColorManager;
 import ipsis.dyetopia.manager.dyeableblocks.DyeableBlocksManager;
 import ipsis.dyetopia.reference.*;
 import ipsis.dyetopia.util.BlockSwapper;
 import ipsis.dyetopia.util.DyeHelper;
+import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockColored;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -24,6 +26,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.List;
@@ -251,6 +254,15 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
 
         Block b = world.getBlock(x, y, z);
         if (!b.isAir(world, x, y, z)) {
+
+            if (ForgeColorManager.getInstance().isValid(b)) {
+                DyeHelper.DyeType dyetype = ((ItemDyeGun) itemStack.getItem()).getColor(itemStack);
+                int color = BlockColored.func_150032_b(dyetype.getDmg());
+                if (b.recolourBlock(world, x, y, z, ForgeDirection.getOrientation(side), color)) {
+                    LogHelper.info("onItemUseFirst: coloured using forge");
+                    return true;
+                }
+            }
 
             int meta = world.getBlockMetadata(x, y, z);
 
