@@ -79,7 +79,7 @@ public class Dyetopia {
         ModBlocks.postInit();
         DYTWorldGen.postInit();
         DyeableBlocksManager.postInit();
-        ForgeColorManager.getInstance().addModItems();
+        ForgeColorManager.getInstance().addBlacklistedModBlocks();
     }
 
     @Mod.EventHandler
