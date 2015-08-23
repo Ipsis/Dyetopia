@@ -255,11 +255,10 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
         Block b = world.getBlock(x, y, z);
         if (!b.isAir(world, x, y, z)) {
 
-            if (ForgeColorManager.getInstance().isValid(b)) {
+            if (!ForgeColorManager.getInstance().isBlacklisted(b)) {
                 DyeHelper.DyeType dyetype = ((ItemDyeGun) itemStack.getItem()).getColor(itemStack);
                 int color = BlockColored.func_150032_b(dyetype.getDmg());
                 if (b.recolourBlock(world, x, y, z, ForgeDirection.getOrientation(side), color)) {
-                    LogHelper.info("onItemUseFirst: coloured using forge");
                     return true;
                 }
             }
