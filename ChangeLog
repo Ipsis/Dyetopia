@@ -7,6 +7,9 @@ Features
 * Use Forge recolourBlock by default for in-world items. This means you can now color AE cables!
 * Added chisel Large Hex Plating and Futura blocks
 
+Fixes
+* BGZ014 - Fix Mixer recipe configuration (thanks Bfrydl)
+
 1.7.10-1.1.0
 
 Features
