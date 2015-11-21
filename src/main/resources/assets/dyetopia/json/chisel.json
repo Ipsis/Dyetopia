@@ -246,28 +246,16 @@
           "vanilla": { }
         },
         {
-          "refname": "Antiblock",
+          "refname": "Beacon",
           "assoc": true,
-          "blockname": "chisel:antiBlock",
+          "blockname": "chisel:beacon",
           "simple": { }
         },
         {
-          "refname": "Hex Plating",
+          "refname": "Stained Glass",
           "assoc": true,
-          "blockname": "chisel:hexPlating",
-          "simple": { }
-        },
-        {
-          "refname": "Large Hex Plating",
-          "assoc": true,
-          "blockname": "chisel:hexLargePlating",
-          "simple": { }
-        },
-        {
-          "refname": "Futura",
-          "assoc": true,
-          "blockname": "chisel:futuraCircuit",
-          "simple": { }
+          "blockname": "chisel:stained_glass_forestry",
+          "vanilla": { }
         }
       ]
     }
