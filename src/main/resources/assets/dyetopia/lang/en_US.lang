@@ -199,3 +199,4 @@ config.dyetopia:machines.recipe.mixer.amount.white=How much white dye is needed 
 # Messages
 message.dyetopia:noRecolor=Cannot recolor %s.
 message.dyetopia:painterOnly=Cannot recolor in world, use the Painter.
+message.dyetopia:notEnoughDye=Not enough dye to recolor.

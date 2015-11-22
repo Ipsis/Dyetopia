@@ -256,10 +256,20 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
         if (!b.isAir(world, x, y, z)) {
 
             if (!ForgeColorManager.getInstance().isBlacklisted(b)) {
-                DyeHelper.DyeType dyetype = ((ItemDyeGun) itemStack.getItem()).getColor(itemStack);
-                int color = BlockColored.func_150032_b(dyetype.getDmg());
-                if (b.recolourBlock(world, x, y, z, ForgeDirection.getOrientation(side), color)) {
-                    return true;
+                /**
+                 * If we are using the Forge recolorBlock routine then we cannot lookup a dye
+                 * cost. Therefore we use a default value
+                 */
+                int vanillaPure = DyeHelper.getLCM();
+                if (canShootGun(player, itemStack, vanillaPure)) {
+                    DyeHelper.DyeType dyetype = ((ItemDyeGun) itemStack.getItem()).getColor(itemStack);
+                    int color = BlockColored.func_150032_b(dyetype.getDmg());
+                    if (b.recolourBlock(world, x, y, z, ForgeDirection.getOrientation(side), color)) {
+                        shootGun(player, itemStack, vanillaPure);
+                        return true;
+                    }
+                } else {
+                    player.addChatComponentMessage(new ChatComponentText(StringHelper.localize(Lang.Messages.NOT_ENOUGH_DYE)));
                 }
             }
 
@@ -294,6 +304,8 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
                     if (BlockSwapper.swap(player, world, x, y, z, r.getOutput())) {
                         shootGun(player, itemStack, r.getPureAmount());
                     }
+                } else {
+                    player.addChatComponentMessage(new ChatComponentText(StringHelper.localize(Lang.Messages.NOT_ENOUGH_DYE)));
                 }
             }
         }

@@ -104,6 +104,7 @@ public class Lang {
 
         public static final String NO_RECOLOR = TAG_MESSAGE + "noRecolor";
         public static final String PAINTER_ONLY = TAG_MESSAGE + "painterOnly";
+        public static final String NOT_ENOUGH_DYE = TAG_MESSAGE + "notEnoughDye";
     }
 
 }
