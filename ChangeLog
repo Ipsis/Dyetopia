@@ -2,21 +2,30 @@ Dyetopia ChangeLog
 ==========================
 
 1.7.10-X.X.X
+------------
 
 Features
 * Use Forge recolourBlock by default for in-world items. This means you can now color AE cables!
-* Added chisel Large Hex Plating and Futura blocks
+* Update to support latest versions of mods ie. any new blocks
+* New multiblock texture handling .. you might not like the new textures
 
 Fixes
 * BGZ014 - Fix Mixer recipe configuration (thanks Bfrydl)
 
+Build Environment
+* CoFHLib [1.7.10]1.0.1-156 -> [1.7.10]1.0.3-175
+* CCL 1.7.10-1.1.1.106 -> 1.7.10-1.1.3.136
+* CCC 1.7.10-1.0.4.29 -> 1.7.10-1.0.6.43
+* NEI 1.7.10-1.0.3.73 -> 1.7.10-1.0.4.105
+* Waila 1.5.6a_1.7.10 -> 1.5.10_1.7.10
+
 1.7.10-1.1.0
+------------
 
 Features
-* Move to Forge 10.13.4.1448
+* Forge 10.13.3.1378 -> 10.13.4.1448
 
 Build Environment
-* CoFHLib-[1.7.10]1.0.3-175
 
 Fixes
 * XXXXXX - Fix dye tree space check where x and y were swapped
@@ -31,6 +40,7 @@ Features
 * Add hex plating from Chisel 2
 
 1.7.10-1.1.0B5
+--------------
 The hugs and cookies release.
 [context - JadedCat: Mod devs, I will give hugs and cookies to mods that work with the new fluid stuff]
 
@@ -39,9 +49,10 @@ Features
 * Fixup all the Fluid changes and add a new Gui fluid sync
 
 Build Environment
-* CoFHLib-[1.7.10]1.0.1-156
+* CoFHLib [1.7.10]1.0.0RC7-127 -> [1.7.10-1.0.1-156
 
 1.7.10-1.1.0B4
+--------------
 
 Fixes
 * XXXXXX - Only add elements to GUIs once!
@@ -60,6 +71,7 @@ Build Environment
 * Waila 1.5.6a_1.7.10
 
 1.7.10-1.1.0B3
+--------------
 
 Fixes
 * BZ0009 - Add dependency information to mcmod.info to catch missing CoFHLib
@@ -69,12 +81,14 @@ Features
 * Support shift-click in/out of machines
 
 1.7.10-1.1.0B2
+--------------
 
 Fixes
 * BGZ012 - Dye gun now has the correct name when crafted.
 * BGZ013 - Tanks save their NBT again.
 
 1.7.10-1.1.0B1
+--------------
 
 Features
 * Added json configuration of dyeable blocks
@@ -103,6 +117,7 @@ Build Environment
 * Waila 1.5.6a_1.7.10
 
 1.7.10-1.0.0B2
+--------------
 
 Fixes
 * BGZ001 - Fixed Crash on breaking a dye heart. Now gives 1-3 dye beans.
@@ -110,5 +125,6 @@ Fixes
 * BGZ003 - Fixed Painter is not creating the correct output block colors.
 
 1.7.10-1.0.0B1
+--------------
 
 * Initial release
