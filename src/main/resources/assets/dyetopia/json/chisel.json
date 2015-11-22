@@ -256,6 +256,12 @@
           "assoc": true,
           "blockname": "chisel:stained_glass_forestry",
           "vanilla": { }
+        },
+        {
+          "refname": "VoidStone Runic",
+          "assoc": true,
+          "blockname": "chisel:voidstoneRunic",
+          "vanilla": { }
         }
       ]
     }
