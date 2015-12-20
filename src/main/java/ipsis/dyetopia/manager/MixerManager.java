@@ -55,7 +55,7 @@ public class MixerManager {
         }
 
         public int getPureAmount() {
-            return this.white.amount;
+            return this.pure.amount;
         }
 
         public FluidStack getRedFluidStack() {

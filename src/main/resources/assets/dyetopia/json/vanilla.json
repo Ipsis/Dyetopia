@@ -38,12 +38,6 @@
             "blockname": "minecraft:stained_glass_pane"
           },
           {
-            "refname": "Vanilla Wool",
-            "assoc": true,
-            "vanilla": {},
-            "blockname": "minecraft:wool"
-          },
-          {
             "refname": "Vanilla Carpet",
             "assoc": true,
             "vanilla": {},

@@ -29,8 +29,8 @@ public abstract class BlockDYTMultiBlock extends BlockDYT implements ITileEntity
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister)
     {
-        blockIcon = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
-        formedIcon = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName() + "_formed")));
+        /* All handled by MultiBlockTexture event code */
+        return;
     }
 
     @SideOnly(Side.CLIENT)

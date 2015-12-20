@@ -6,10 +6,12 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ipsis.dyetopia.init.ModFluids;
 import ipsis.dyetopia.init.ModItems;
+import ipsis.dyetopia.manager.ForgeColorManager;
 import ipsis.dyetopia.manager.dyeableblocks.DyeableBlocksManager;
 import ipsis.dyetopia.reference.*;
 import ipsis.dyetopia.util.BlockSwapper;
 import ipsis.dyetopia.util.DyeHelper;
+import ipsis.dyetopia.util.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockColored;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -24,6 +26,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.List;
@@ -252,6 +255,24 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
         Block b = world.getBlock(x, y, z);
         if (!b.isAir(world, x, y, z)) {
 
+            if (!ForgeColorManager.getInstance().isBlacklisted(b)) {
+                /**
+                 * If we are using the Forge recolorBlock routine then we cannot lookup a dye
+                 * cost. Therefore we use a default value
+                 */
+                int vanillaPure = DyeHelper.getLCM();
+                if (canShootGun(player, itemStack, vanillaPure)) {
+                    DyeHelper.DyeType dyetype = ((ItemDyeGun) itemStack.getItem()).getColor(itemStack);
+                    int color = BlockColored.func_150032_b(dyetype.getDmg());
+                    if (b.recolourBlock(world, x, y, z, ForgeDirection.getOrientation(side), color)) {
+                        shootGun(player, itemStack, vanillaPure);
+                        return true;
+                    }
+                } else {
+                    player.addChatComponentMessage(new ChatComponentText(StringHelper.localize(Lang.Messages.NOT_ENOUGH_DYE)));
+                }
+            }
+
             int meta = world.getBlockMetadata(x, y, z);
 
             /**
@@ -283,6 +304,8 @@ public class ItemDyeGun extends ItemFluidContainerDYT {
                     if (BlockSwapper.swap(player, world, x, y, z, r.getOutput())) {
                         shootGun(player, itemStack, r.getPureAmount());
                     }
+                } else {
+                    player.addChatComponentMessage(new ChatComponentText(StringHelper.localize(Lang.Messages.NOT_ENOUGH_DYE)));
                 }
             }
         }
