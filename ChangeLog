@@ -1,6 +1,14 @@
 Dyetopia ChangeLog
 ==========================
 
+1.7.10-1.2.1
+------------
+
+Fixes
+* XXXXXX - Fix Painter, Stamper and Filler texture names. They had uppercase, where the texture was lowercase.
+           This works in dev, as the files are loaded from the caseless Windows filesystem. They fail
+           to load inside a case-sensitive jar file.
+
 1.7.10-1.2.0
 ------------
 

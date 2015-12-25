@@ -28,7 +28,7 @@ public class BlockPainter extends BlockDYTMachine implements ITooltipInfo {
 
         frontIconActive = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_PAINTER + ".Active");
         frontIconInactive = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/" + Names.Blocks.BLOCK_MACHINE_PAINTER);
-        blockIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/multiblock/Wall");
+        blockIcon = iconRegister.registerIcon(Textures.RESOURCE_PREFIX + "machines/multiblock/wall");
     }
 
     @Override
